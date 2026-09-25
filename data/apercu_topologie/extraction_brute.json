@@ -1,0 +1,17 @@
+[
+  {
+    "identifiant": "18.1",
+    "enonce": "Montrer que C \\ {0} est dense dans C.",
+    "corrige": "On a naturellement C∗⊂C donc C∗⊂C = C.\nMaintenant, 1\nn −−−−−→\nn→+∞0 et\nÅ 1\nn\nã\nn∈N∗∈C∗N, donc 0 ∈C∗, donc C ⊂C∗.\nAinsi C∗= C, c’est-à-dire que C∗est dense dans C, d’après le cours."
+  },
+  {
+    "identifiant": "18.2",
+    "enonce": "Montrer que E = \bx + iy ∈C / x, y ∈R, x2 + y2 ≤3, x3 + y3 −3xy ≥0\t est un compact de C.",
+    "corrige": "Soit (xn +iyn) ∈EN, telle que, ∀n ∈N, x2\nn ≤3, y2\nn ≤3, donc (xn +iyn) est bornée en module. D’après Bolzano-\nWeierstrass, il existe ϕ : N −→N telle que xϕ(n)+iyϕ(n) −−−−−→\nn→+∞x+iy ∈E, qui est une certaine valeur d’adhérence\nde la suite.\n∀n ∈N, x2\nϕ(n) + y2\nϕ(n) ≤3 donc par continuité de ϕ, x2 + y2 ≤3, on a la même chose pour l’autre inégalité. Et\ndonc\nlim\nn→+∞xϕ(n) + iyϕ(n) ∈E, donc E est compact puisque toute suite de E admet au moins une valeur d’adhérence\ndans E.\nAlternativement, on aurait pu montrer que E était fermé et borné."
+  },
+  {
+    "identifiant": "18.3",
+    "enonce": "Montrer que U = {(x, y, z) ∈R3 / ln(x2 + y2 + 1) sin(z) < ex+z et x + y −z > 1} est un ouvert de R3.",
+    "corrige": "On a U = U1∩U2 où U1 = {(x, y, z) ∈R3 / ln(x2+y2+1) sin(z) < ex+z} et U2 = {(x, y, z) ∈R3 / x+y−z > 1}.\nOn pose F1 = R3 \\ U1 et F2 = R3 \\ U2.\nSoit (an) ∈F N\n1 une suite convergente telle que an = (xn, yn, zn) −−−−−→\nn→+∞(x, y, z). Alors :\nln(x2\nn + y2\nn + 1) sin(zn) ≥exn+zn\nln(x2 + y2 + 1) sin(z) ≥ex+z\npar passage à la limite et continuité de ln et sin\nDonc (x, y, z) ∈F1 donc U1 est ouvert.\nDe même, on montre que F2 est fermé, donc que U2 est ouvert. U = U1 ∩U2, une intersection ﬁnie d’ouverts, on a\nbien que U est ouvert."
+  }
+]

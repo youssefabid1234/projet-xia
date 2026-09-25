@@ -1,0 +1,173 @@
+{
+  "pdf_sha256": "94e5be8ecdfcecf97bfec56b342140cfe3ccf276d21f26dbb82060225186813d",
+  "exercices": [
+    {
+      "identifiant": "2.1",
+      "enonce_brut": "Les aﬃrmations suivantes sont-elles vraies ou fausses ?\n1. Une fonction périodique est bornée.\n2. Le produit de deux fonctions impaires est une fonction paire.\n3. La dérivée d’une fonction impaire est paire.\n4. Une primitive d’une fonction paire est impaire.\n5. Le produit de deux fonctions croissantes est une fonction croissante.",
+      "corrige_brut": "1. Vrai : En supposant que f est T-périodique et continue sur [0, T], alors d’après le théorème des valeurs inter-\nmédiaires, f est bornée, et atteint ses bornes : ∃m, M ∈[a, b], ∀x ∈[a, b], f(m) ≤f(x) ≤f(M).\nDonc f|[0,T ] est bornée et f([0, T]) = f(R), donc f est bien bornée sur R.\n2. Vrai : Soit f, g impaires de D dans R. Alors ∀x ∈D, −x ∈D ⇒(fg)(−x) = f(−x)g(−x) = f(x)g(x), ce qui\nprouve que fg est paire.\n3. Vrai Soit f : D −→R impaire et dérivable.\nDonc ∀x ∈D, f(−x) = −f(x), en dérivant, ∀x ∈D, −f ′(−x) = −f ′(x) ⇔f ′(−x) = f ′(x). Donc f ′ est paire.\n4. Faux : x 7−→x2 est paire mais admet x3\n3 + k, k ∈R∗, qui n’est pas impaire à cause de la constante.\n5. Faux : avec f(x) = −1 et g(x) = x, f et g sont toutes deux croissantes, mais fg(x) = −x est décroissante.\nLa propriété est cependant vraie si on rajoute l’hypothèse de positivité en plus de celle de croissance.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.2",
+      "enonce_brut": "Soit a un réel strictement positif diﬀérent de 1.\nRésoudre l’inéquation loga2 x > loga3(2 −3x)",
+      "corrige_brut": "Le domaine de déﬁnition de cette inéquation est x ∈\nò\n0, 2\n3\nï\n. Cas 1 : a > 1\nloga2 x > loga3(2 −3x) ⇔ln x\nln a2 > ln(2 −3x)\nln a3\n⇔ln x\n2\n> ln 2 −3x\n3\n⇔3 ln x > 2 ln(2 −3x)\n⇔x3 > (2 −3x)2\n⇔x3 −9x2 + 12x −4 > 0\n1 est racine évidente, donc (x −1)(x2 −8x + 4) > 0 et x −1 < 0 pour x ∈\nò\n0, 2\n3\nï\n.\nOn recherche donc quand x2 −8x + 4 < 0.\nx1 = 8 ±\n√\n48\n2\n= 4 ± 2\n√\n3 et 4 −2\n√\n3 ∈\nò\n0, 2\n3\nï\n.\nDonc x ∈]4 −2\n√\n3, 2\n3[⇔x2 −8x + 4 < 0, et donc (E) ⇔x ∈]4 −2\n√\n3, 2\n3[.\nCas 2 : si 0 < a < 1, le log change de signe et on adapte.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.3",
+      "enonce_brut": "Démontrer que ∀t ∈R∗\n+, arctan t >\nt\n1 + t2",
+      "corrige_brut": "Si t > 0, on a\narctan t =\nZ t\n0\ndx\n1 + x2\n=\nZ t\n0\ndx\n1 + x2 ≥\nZ t\n0\ndx\n1 + t2 =\nt\n1 + t2\nSupposons que arctan t =\nt\n1 + t2 , alors\nR t\n0\ndx\n1 + x2 =\nR t\n0\ndx\n1 + t2 , donc\nR t\n0\nÅ\n1\n1 + x2 −\n1\n1 + t2\nã\ndx = 0 or x 7→\n1\n1 + x2 −\n1\n1 + t2 est continue et positive donc ∀x ∈[0, t],\n1\n1 + x2 −\n1\n1 + t2 = 0 ce qui est évidemment faux.\nOn pouvait aussi faire la diﬀérence et étudier la fonction.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.4",
+      "enonce_brut": "Calculer A =\nZ\nπ\n3\n0\ntan x\np\n1 + tan2 x dx et\nZ π\n0\nsin t\n1 + cos2 t dt",
+      "corrige_brut": "",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": true
+    },
+    {
+      "identifiant": "2.5",
+      "enonce_brut": "Calculer\nZ\ncos4 t sin2 t dt",
+      "corrige_brut": "On rappelle les formules de linéarisation :\ncos2 t = 1 + cos 2t\n2\nsin2 t = 1 −cos 2t\n2\nZ\ncos4 t sin2 t dt =\nZ Å1 + cos 2t\n2\nã2 Å1 −cos 2t\n2\nã\ndt\n= 1\n8\nZ\n(1 + cos 2t)2(1 −cos 2t) dt\n= 1\n8\nZ\n(1 + cos 2t)(1 −cos2 2t) dt\n= 1\n16\nZ\n(1 + cos 2t)(1 −cos 4t) dt\n= 1\n16\nïZ\ndt −\nZ\ncos 4t dt +\nZ\ncos 2t(1 −cos 4t) dt\nò\n= 1\n16\nï\nt −sin 4t\n4\n+ sin 2t\n2\n−\nZ\ncos 2t cos 4t dt\nò\n= 1\n16\nï\nt −sin 4t\n4\n+ sin 2t\n2\n−sin 2t\n4\n−sin 6t\n12\nò\n= t\n16 −sin 2t\n64\n−sin 4t\n64\n−sin 6t\n192",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.6",
+      "enonce_brut": "Calculer I =\nZ 2\n0\n√\nex dx, J =\nZ\nπ2\n16\nπ2\n36\ndx\n√x cos2 √x, K =\nZ\nπ\n3\nπ\n6\ndx\ntan x et L =\nZ 1\n0\neex +x dx.",
+      "corrige_brut": "",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": true
+    },
+    {
+      "identifiant": "2.7",
+      "enonce_brut": "Calculer les primitives des fonctions suivantes :\nf(x) =\np√x + 1\n√x\n,\ng(x) =\ncos x\n√2 + sin x,\nh(x) = ln2 x\nx\ni(x) =\n1\nx ln x ln(ln x),\nj(x) =\n1\nx + √x,\nk(x) = tanh x\nℓ(x) =\nx3\n1 + x2 ,\nm(x) =\n1\n√x + √x −1,\nn(x) = tan2 x,\np(x) = (1 + tan x)2",
+      "corrige_brut": "−m(x) =\n1\n√x + √x −1 =\n√x −√x −1\n(√x + √x −1)(√x −√x −1) = √x −√x −1\nM(x) = 2\n3(x3/2 −(x −1)3/2)\n−p(x) = (1 + tan x)2 = (1 + tan2 x) + 2 tan x\nP(x) = tan x −ln | cos x|.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.8",
+      "enonce_brut": "Déterminer les applications continues f de [a, b] dans R vériﬁant\nZ b\na\nf(t) dt = (b −a) sup\nt∈[a,b]\n|f(t)|",
+      "corrige_brut": "",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": true
+    },
+    {
+      "identifiant": "2.9",
+      "enonce_brut": "Étude de la fonction f(t) = t2 −2t −1\nt\ne−1/t.",
+      "corrige_brut": "f(t) = t2 −2t −1\nt\ne−1/t, Df = R∗\nf ′(t) = (2t −2)t −(t2 −2t −1)\nt2\ne−1/t + 1\nt2 e−1/t t2 −2t −1\nt\n= e−1/t\nt3\n(t3 + t2 −t −1)\n= e−1/t\nt3\n(t −1)(t2 + 2t + 1)\n= e−1/t\nt3\n(t −1)(t + 1)2\ne−1/t −−−−→\nt→+∞±∞± e0 = 1\nt\u00032 \u00001 −2\nt −1\nt2\n\u0001\n\u0003t\n−−−−→\nt→+∞±∞± ∞.\nDonc f(t) −−−−→\nt→+∞±∞± ∞.\nLimite en 0+ : −1\nt\n−−−−→\nt→+∞0+−∞⇒e−1/t −−−−→\nt→+∞0+0\nt2 −2t−1 −−−−→\nt→+∞0+ −1 donc t2 −2t −1\nt\n−−−−→\nt→+∞0+ −−−−→\nt→+∞\n0+−∞.\nD’après les croissances comparées, −x ex −−−−−→\nx→+∞−∞0, donc −1\nt e−1/t −−−−→\nt→+∞0+0 et f(t) = −1\nt e−1/t +t2 −2t\nt\ne−1/t −−−−→\nt→+∞\n0+0 + 0 = 0.\nLimite en 0−: De la même manière, on montre que f(t) −−−−→\nt→+∞0−+∞.\nx\nf ′(x)\nf(x)\n−∞\n−1\n0\n1\n+∞\n+\n0\n+\n−\n0\n+\n−∞\n−∞\n+∞\n0\n−2 e−1\n−2 e−1\n+∞\n+∞\nÉtude des branches inﬁnies :\nf(t)\nt\n= t2 −2t −1\nt2\ne−1/t −−−−→\nt→+∞1.\nf(t) −t = t2 −2t −1\nt\ne−1/t −t =\nÅ\n−2 −1\nt\nã\ne−1/t +t(e−1/t −1) =\nÅ\n−2 −1\nt\nã\ne−1/t +e−1/t −e0\n−1\nt −0 .\nDonc ex −1\nx\n−−−−−→\nx→+∞01, donc t(e−1/t −1) −−−−→\nt→+∞+∞−1, donc f(t) −t −−−−→\nt→+∞+∞−3, on a donc une asymptote\noblique d’équation y = x −3, en +∞(également en −∞, à vériﬁer)\n−4\n−3\n−2\n−1\n1\n2\n3\n4\n5\n−7\n−6\n−5\n−4\n−3\n−2\n−1\n1\n2\n3\n4\ny = x −3\ny = f(x)",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.10",
+      "enonce_brut": "Déterminer les fonctions continues sur R telles que\n∀x ∈R, ∀a ∈R∗\n+, f(x) = 1\n2a\nZ x+a\nx−a\nf(t) dt",
+      "corrige_brut": "f(x) = 1\n2a\nZ x+a\nx−a\nf(t) dt = 1\n2a(F(x + a) −F(x −a)) où F est une primitive de f. F est C 1, donc f est C 1.\nOn a df(x)\ndx\n= 1\n2a(f(x + a) −f(x −a)).\nOn a également 2af(x) = F(x + a) −F(x −a) donc d(2af(x))\nda\n= 2f(x) = f(x + a) + f(x −a).. En dérivant de\nnouveau par rapport à a : 0 = f ′(x + a) −f ′(x −a)., donc ∀x ∈R, ∀a ∈R∗\n+, f ′(x + a) = f ′(x −a).\nSi α, β ∈R, α < β, il existe x ∈R et a > 0 tel que α = x −a et β = x + a, on a analytiquement x = α + β\n2\net\na = β −α\n2\n:\nα\nβ\nα+β\n2\nβ −α\n2\nβ −α\n2\nDonc f ′ est constante. Il existe ainsi c ∈R tel que ∀x ∈R, f ′(x) = c, de plus, f(x) = f(0) +\nR x\n0 f ′(t) dt = cx + f(0).\nLa réciproque est évidente.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.11",
+      "enonce_brut": "Calculer I =\nZ 1\n−2\nx\nx2 + 4x + 13 dx.\nIndications : On pourra commencer par calculer\nZ 1\n−2\n1\nx2 + 4x + 13 dx en utilisant que x2 + 4x + 13 = (x + 2)2 + 9.",
+      "corrige_brut": "Posons J =\nZ 1\n−2\ndx\nx2 + 4x + 13+ =\nZ 1\n−2\ndx\n(x + 2)2 + 9 =\nï1\n3 arctan\nÅx + 2\n3\nãò\n= 1\n3 arctan 1 = π\n12.\nDe plus, ln′((x + 2)2 + 9) =\n2(x + 2)\n(x + 2)2 + 9 =\n2x\n(x + 2)2 + 9 +\n4\n(x + 2)2 + 9 = 2I + 4J.\nDonc ﬁnalement I = 1\n2\nZ 1\n−2\nln′((x + 2)2 + 9) dx −2J",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.12",
+      "enonce_brut": "Déterminer les applications f, de N dans N, strictement croissantes telles que f(2) = 2, et, pour tout p, q ∈\nN, f(pq) = f(p)f(q).",
+      "corrige_brut": "Supposons f solution.\nf(0) = f(0)2 ⇒f(0) ∈{0, 1}.\nf(1)2 = f(1), or f(1) > f(0 donc f(0) = 0 et f(1) = 1.\nMontrons par récurrence forte, que ∀n ≥2, f(n) = n.\nInitialisation : immédiate d’après précédent.\nHérédité : Pour tout k ≥n −1, on a f(k) = k.\n• Si n est pair, n\n2 ∈N, or n\n2 ∈J0, n −1K, donc f\n\u0010n\n2\n\u0011\n= n\n2 et donc f\n\u0010\n2 × n\n2\n\u0011\n= f(2)f\n\u0010n\n2\n\u0011\n= n.\n• Si n est impair, alors n + 1\n2\n∈N donc n + 1\n2\n∈J0, n −1K, donc f\nÅn + 1\n2\nã\n= n + 1\n2\net f\nÅ\n2 × n + 1\n2\nã\n= f(2) ×\nf\nÅn + 1\n2\nã\n= n+1, or f est strictement croissante, donc f(n −1) < f(n) < f(n + 1) donc n−1 < f(n) < n+1,\nor f(n) ∈N, donc f(n) = n.\nAinsi d’après le principe de récurrence, ∀n ∈N, f(n) = n.\nRéciproquement, la fonction identité convient.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.13",
+      "enonce_brut": "Soient a, b, c trois nombres réels positifs ou nuls. Démontrer que l’un au moins des trois nombres réels 4b(1 −\nc), 4c(1 −a) et 4a(1 −b) est inférieur ou égal à 1.",
+      "corrige_brut": "Posons P = ((4b(1 −c))(4c(1 −a))(4a(1 −b)), et vériﬁons que P > 1, or P = (4b(1 −b))(4c(1 −c))(4a(1 −a)) =\ng(a)g(b)g(c) avec g(x) = 4x(1 −x)\nOn a g′(x) = 4(1 −2x).\nx\ng′(x)\ng(x)\n0\n1\n2\n+∞\n+\n0\n−\n0\n1\n−∞\n−∞\n1\n0\nDonc si a, b, c ∈[0, 1], 0 ≤g(a), g(b), g(c) ≤1 et donc 0 ≤p ≤1 ce qui est absurde.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.14",
+      "enonce_brut": "Lemme de Gronwall :\nSoit f : R+ −→R+ continue, telle qu’il existe k ∈R+ pour lequel\n∀x ∈R∗\n+, f(x) ≤k\nZ x\n0\nf(t) dt\nMontrer que f est nulle.",
+      "corrige_brut": "Supposons f solution :\n∀x ∈R+, f(x) ≥k\nR x\n0 f(t) dt ≜kF(x).\nAinsi, ∀x ∈R+, 0 ≤[kF(x) −F ′(x)] e−kx = −d\ndx\n\u0000F(x) e−kx\u0001, donc x 7−→F(x) e−kx est décroissante sur R+, donc\nF(x) e−kx ≤F(0) = 0, or F(x) =\nR x\n0 f(t) dt ≥0, donc F(x) = 0 donc f = F ′ = 0.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.15",
+      "enonce_brut": "Soit f une application de [0, +∞[ dans R, de classe C 1, telle que f(0) = 0 et telle que f ′(x) ∈[0, 1] pour tout\nx ≥0.\nMontrer que\nZ x\n0\nf 3(t) dt ≤\nÅZ x\n0\nf(t) dt\nã2\n.",
+      "corrige_brut": "∀x ∈R+, f(x) ≥0, soit pour tout x ∈R+, g(x) =\nÅZ x\n0\nf(t) dt\nã2\n−\nR x\n0 f 3(t) dt.\ng′(x) = 2f(x)\nZ x\n0\nf(t) dt −f (x) = f(x)\nÅ\n2\nZ x\n0\nf(t) dt −f 2(x)\nã\n.\nSoit h(x) = f(x) \u00002\nR x\n0 f(t) dt −f 2(x)\u0001.\nh′(x) = 2f(x) −2f ′(x)f(x) = 2f(x)(1 −f ′(x)) ≥0.\nDonc h est croissante, et h(0) = 0, donc h(x) ≥h(0) = 0, ainsi g′(x) ≥0, donc g est croissante et g(x) ≥g(0) = 0,\ndonc ∀x ∈R+, g(x) ≥0, CQFD.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.16",
+      "enonce_brut": "Soit n ∈N. Calculer\nZ e\n1\ntn ln t dt.",
+      "corrige_brut": "Z e\n1\ntn ln t dt\nIP P\n=\nï tn+1\nn + 1 ln t\nòe\n1\n−\nZ e\n1\ntn\nn + 1 dt = en+1\nn + 1 −\nï\ntn+1\n(n + 1)2\nòe\n1\n= (n + 2) en+1 −1\n(n + 1)2",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.17",
+      "enonce_brut": "Calculer les primitives des fonctions suivantes :\nf(x) = (x2 −1) e2x,\ng(x) = x3 e−x2,\nh(x) = ln2 x",
+      "corrige_brut": "•\nZ\nln2 x dx = (x ln x −x) ln x −\nZ x ln x −x\nx\ndx\n= (x ln x −x) ln x −\nZ\nln x −1 dx\n= (x ln x −x) ln x −x ln x + x\n= x ln x(ln x −2) + 2x",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.18",
+      "enonce_brut": "Calculer\nZ\ncos4 t sin3 t dt.",
+      "corrige_brut": "Posons x = cos t, fonction de classe C 1, on a dx = −sin t dt.\nZ\nsin3 t cos4 t dt =\nZ\n−x4(1 −x2) dx = cos7 t\n7\n−cos5 t\n5\n+ k ∈R.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.19",
+      "enonce_brut": "On souhaite calculer I =\nZ\n2π\n3\nπ\n3\nx\nsin x dx.\n1. Transformer I en posant d’abord u = x\n2 puis t = tan u.\n2. Soit α > 0. En posant x = 1\nt , calculer\nZ α\n1\nα\nln t\n1 + t2 dt.\n3. Achever le calcul de I.",
+      "corrige_brut": "1.\nI =\nZ\n2π\n3\nπ\n3\nx\nsin x dx\n=\nZ\nπ\n3\nπ\n6\n2u\nsin 2u2 du\nu = arctan t (C 1)\n= 4\nZ √\n3\n√\n3\n3\narctan t\nsin(2 arctan t) ×\n1\n1 + t2 dt\nPosons tan θ = t, sin 2θ = 2 sin θ cos θ et sin θ = cos θ tan θ. On a donc sin 2θ =\n2t\n1 + t2 .\nDonc I = 2\nZ √\n3\n√\n3\n3\narctan t\nt\ndt.\n2. J =\nZ α\n1\nα\nln t\n1 + t2 dt =\nZ 1/α\nα\n−ln x\n1 + \u0000 1\nx\n\u00012 × −1\nx2 dx = −\nZ α\n1/α\nln t\n1 + t2 dt = −J : donc J = 0.\n3.\nI = 2 [ln(t) arctan(t)]\n√\n3\n√\n3\n3 −2\nZ √\n3\n√\n3\n3\nln t\n1 + t2 dt\n|\n{z\n}\n= 0\n= 2\nh\nln\n√\n3π\n2 + 2 ln\n√\n3π\n6\ni\n= π\n2 ln 3",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.20",
+      "enonce_brut": "Pour tout n ∈N, on pose In =\nZ 1\n0\nxn tan x dx.\nCalculer les limites de (In)n∈N et de (nIn)n∈N lorsque n tend vers +∞.",
+      "corrige_brut": "tan est croissante sur [0, 1], donc ∀x ∈[0, 1], 0 = tan 0 ≤tan x ≤tan 1\n0 ≤In ≤\nR 1\n0 xn tan 1 dx =\nï xn+1\nn + 1 tan 1\nò1\n0\n= tan 1\nn + 1 −−−−−→\nn→+∞0, donc par le principe des gendarmes, In −−−−−→\nn→+∞0.\nnIn = n\nZ 1\n0\nxn tan x dx\nIP P\n=\nïnxn+1\nn + 1 tan x\nò1\n0\n−\nZ 1\n0\nnxn + 1\nn + 1 (1 + tan2 x) dx\n=\nn\nn + 1 tan 1 −\nZ 1\n0\nnxn + 1\nn + 1 (1 + tan2 x) dx\nOn a 0 ≤1+tan2x ≤1+tan2 1 donc 0 ≤\nR 1\n0\nnxn + 1\nn + 1 (1 + tan2 x) dx ≤\nR 1\n0\nnxn+1\nn + 1 (1 + tan2 1) dx =\nn\n(n + 1)(n + 2)(1 + tan2 x) −−−\nn→\nDonc\nlim\nn→+∞nIn =\nlim\nn→+∞\nn\nn + 1 tan 1 = tan 1.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.21",
+      "enonce_brut": "Calculer\nZ p\n1 +\n√\n1 −t2\n√\n1 −t2\ndt.",
+      "corrige_brut": "L’intégrale est déﬁnie pour 1 −t2 > 0 i.e. t ∈] −1, 1[. On pose t = sin u ou u = arcsin t, (changement de variable\nC 1), et on a dt cos u du.\nI =\nZ »\n1 +\np\n1 −sin2 u\np\n1 −sin2 u\ncos u du =\nZ p\n1 + | cos u|\n| cos u|\ncos u du =\nZ √1 + cos u\n\u0018\u0018\u0018\ncos u\n\u0018\u0018\u0018\ncos u du\ncar cos u = cos(arcsin(t)) ≥0.\nI =\nZ √\n1 + cos u du or 1 + cos u = 2 cos2 u\n2\n=\nZ …\n2 cos2 u\n2 du\n=\n√\n2\nZ\ncos u\n2 du (car u\n2 ∈\nh−π\n4 , π\n4\ni\n)\n= 2\n√\n2 sin u\n2 = 2\n√\n2 sin arcsin t\n2\n+ k ∈R\nOr sin arcsin t = t = 2 cos arcsin t\n2\nsin arcsin t\n2\net cos(arcsin t) =\n√\n1 −t2 = 2 cos2\nÅarcsin t\n2\nã\n−1, donc cos arcsin t\n2\n=\n1 +\n√\n1 −t2\n2\n, et d’où sin\nÅarcsin t\n2\nã\n= t\n2\n√\n2\np\n1 +\n√\n1 −t2 .\nAinsi I =\n2t\np\n1 +\n√\n1 −t2 + k ∈R.\nOn pouvait alternativement poser x =\n√\n1 −t2.",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.22",
+      "enonce_brut": "En posant u = π −t, calculer I =\nZ π\n0\nt sin t\n1 + cos2 t dt.\nEn posant u = π\n2 −t, calculer J = lim\nx→π\n2\nÅZ x\n0\ndt\n1 + tan2018 t\nã\n.\nEn posant u =\n√\nt2 + t + 1 −t, calculer K =\nZ 1\n0\ndt\n√\nt2 + t + 1\n.",
+      "corrige_brut": "1. En posant u = π−t, on a du = −dt. I =\nZ 0\nπ\n−(π −u) sin(π −u)\n1 + cos2(π −u)\ndu =\nZ π\n0\n(π −u) sin u\n1 + cos2 u\ndu =\nZ π\n0\nπ sin u\n1 + cos2 u du−\nZ π\n0\nu sin u\n1 + cos2 u du.\nD’où\n2I =\nZ π\n0\nπ sin u\n1 + cos2 u du\nI = π\n2\nZ π\n0\nsin u\n1 + cos2 u du\n= π\n2 [−arctan(cos u)]π\n0\n= π\n2 × π\n2 = π2\n4\n2. Il faut d’abord eﬀectuer un prolongement par continuité en π\n2 :\nf : [0, π\n2 ] −→R\nt 7−→\n®\n1\n1+tann t\nsi t̸ = π\n2\n0\nsi t = π\n2\nDonc f est continue sur\nh\n0, π\n2\ni\n.\nOn pose u = π\n2 −t, et on a J =\nZ 0\nπ\n2\nf\n\u0010π\n2 −u\n\u0011\n× −du.\nSi u ∈\nh\n0, π\n2\nh\n,\nf\n\u0010π\n2 −u\n\u0011\n=\n1\n1 + tann π\n2 −u\n=\n1\n1 +\n1\ntann u\n=\ntann u\ntann u + 1\n= tann u + 1 −1\ntann u + 1\n= 1 −\n1\n1 + tann u\n= 1 −f(u)\nDoncJ =\nR π\n2\n0 (1 −f(u)) du = π\n2 −J, donc J = π\n4 .\n3. Posons u =\n√\nt2 + t + 1 −t, qui est bien C 1 sur les intervalles considérés.\nOn a du\ndt =\n2t + 1\n2\n√\nt2 + t + 1\n−1 = 2t + 1 −2(u + t)\n2(u + t)\n=\n1 −2u\n2(u + t), donc\n1\n√\nt2 + t + 1\n=\n1\nu + t =\n1\nu + t × u′\nu′ =\n1\nu + t\n2(u + t)\n1 −2u × u′ =\n2\n1 −2uu′.\nK =\nZ 1\n0\ndt\n√\nt2 + t + 1\n=\nZ √\n3−1\n1\n2(u + t)\n(u + t)(1 −2u) du\n=\nZ √\n3−1\n1\n2\n1 −2u du\n= [−ln |1 −2u|]\n√\n3−1\n1\n= −ln |1 −2\n√\n3 + 2| + ln 1\n= −ln(2\n√\n3 −3)",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.23",
+      "enonce_brut": "On pose I =\nZ\nπ\n2\n0\ncos x\n√1 + cos x sin x dx et J =\nZ\nπ\n2\n0\nsin x\n√1 + cos x sin x dx.\nMontrer que I = J puis calculer I.",
+      "corrige_brut": "I =\nZ\nπ\n2\n0\ncos x\n√1 + cos x sin x dx\nu = π\n2 −x; du = −dx\n=\nZ 0\nπ\n2\ncos \u0000 π\n2 −x\u0001\n»\n1 + cos \u0000 π\n2 −x\u0001 sin \u0000 π\n2 −x\u0001 −du\n=\nZ\nπ\n2\n0\nsin u\n√1 + sin u cos u du = J\nI + J = 2I =\nZ\nπ\n2\n0\ncos x + sin x\n√1 + cos x sin x dx\n=\nZ\nπ\n2\n0\n√\n2 cos \u0000x −π\n4\n\u0001\n»\n1 + 1\n2 sin 2\ndx\nu = x −x\n4 ; du = dx\n=\n√\n2\nZ\nπ\n4\n−π\n4\ncos u\n»\n1 + 1\n2 sin \u00002u + π\n2\n\u0001 du\n=\n√\n2\nZ\nπ\n4\n−π\n4\ncos u\n√1 + cos 2u du\ncos 2u\n2\n= 1\n2 −sin2 u\n=\n√\n2\nZ\nπ\n4\n−π\n4\ncos u\n»\n3\n2 −sin2 u\ndu\nv = sin u; dv = cos u du\n= 2\n√\n2\nZ √\n2/2\n0\n1\n…\u0010» √\n3\n2\n\u00112\n−v2\ndv\n= 2\n√\n2\n\narcsin\nÑ\nv\n»\n3\n2\né\n\n√\n2/2\n0\n= 2\n√\n2 arcsin\nÅ 1\n√\n3\nã\nI =\n√\n2 arcsin\nÅ 1\n√\n3\nã",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "2.24",
+      "enonce_brut": "Calculer\nZ\nP(x) eax+b dx, où P(X) ∈C[X] et a, b ∈R.",
+      "corrige_brut": "",
+      "transcription_relue": true,
+      "corrige_vide_dans_source": true
+    }
+  ]
+}

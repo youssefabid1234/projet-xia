@@ -1,0 +1,113 @@
+{
+  "pdf_sha256": "94e5be8ecdfcecf97bfec56b342140cfe3ccf276d21f26dbb82060225186813d",
+  "exercices": {
+    "2.1": {
+      "enonce": "Les affirmations suivantes sont-elles vraies ou fausses ?\n1. Une fonction périodique est bornée.\n2. Le produit de deux fonctions impaires est une fonction paire.\n3. La dérivée d’une fonction impaire est paire.\n4. Une primitive d’une fonction paire est impaire.\n5. Le produit de deux fonctions croissantes est une fonction croissante.",
+      "corrige": "1. Vrai : En supposant que $f$ est $T$-périodique et continue sur $[0,T]$, alors d’après le théorème des valeurs intermédiaires, $f$ est bornée, et atteint ses bornes : $\\exists m,M\\in[a,b],\\ \\forall x\\in[a,b],\\ f(m)\\leq f(x)\\leq f(M)$.\nDonc $f|_{[0,T]}$ est bornée et $f([0,T])=f(\\mathbb R)$, donc $f$ est bien bornée sur $\\mathbb R$.\n2. Vrai : Soit $f,g$ impaires de $D$ dans $\\mathbb R$. Alors $\\forall x\\in D,\\ -x\\in D\\Rightarrow(fg)(-x)=f(-x)g(-x)=f(x)g(x)$, ce qui prouve que $fg$ est paire.\n3. Vrai Soit $f:D\\longrightarrow\\mathbb R$ impaire et dérivable.\nDonc $\\forall x\\in D,\\ f(-x)=-f(x)$, en dérivant, $\\forall x\\in D,\\ -f'(-x)=-f'(x)\\Leftrightarrow f'(-x)=f'(x)$. Donc $f'$ est paire.\n4. Faux : $x\\longmapsto x^2$ est paire mais admet $\\frac{x^3}{3}+k,\\ k\\in\\mathbb R^*$, qui n’est pas impaire à cause de la constante.\n5. Faux : avec $f(x)=-1$ et $g(x)=x$, $f$ et $g$ sont toutes deux croissantes, mais $fg(x)=-x$ est décroissante.\nLa propriété est cependant vraie si on rajoute l’hypothèse de positivité en plus de celle de croissance."
+    },
+    "2.2": {
+      "enonce": "Soit $a$ un réel strictement positif différent de $1$.\nRésoudre l’inéquation $\\log_{a^2}x>\\log_{a^3}(2-3x)$",
+      "corrige": "Le domaine de définition de cette inéquation est $x\\in]0,\\frac23[$. Cas 1 : $a>1$\n$$\\begin{aligned}\n\\log_{a^2}x>\\log_{a^3}(2-3x)&\\Leftrightarrow\\frac{\\ln x}{\\ln a^2}>\\frac{\\ln(2-3x)}{\\ln a^3}\\\\\n&\\Leftrightarrow\\frac{\\ln x}{2}>\\frac{\\ln 2-3x}{3}\\\\\n&\\Leftrightarrow3\\ln x>2\\ln(2-3x)\\\\\n&\\Leftrightarrow x^3>(2-3x)^2\\\\\n&\\Leftrightarrow x^3-9x^2+12x-4>0\n\\end{aligned}$$\n$1$ est racine évidente, donc $(x-1)(x^2-8x+4)>0$ et $x-1<0$ pour $x\\in]0,\\frac23[$.\nOn recherche donc quand $x^2-8x+4<0$.\n$x_1=\\frac{8\\pm\\sqrt{48}}2=4\\pm2\\sqrt3$ et $4-2\\sqrt3\\in]0,\\frac23[$.\nDonc $x\\in]4-2\\sqrt3,\\frac23[\\Leftrightarrow x^2-8x+4<0$, et donc $(E)\\Leftrightarrow x\\in]4-2\\sqrt3,\\frac23[$.\nCas 2 : si $0<a<1$, le log change de signe et on adapte."
+    },
+    "2.3": {
+      "enonce": "Démontrer que $\\forall t\\in\\mathbb R_+^*,\\ \\arctan t>\\frac{t}{1+t^2}$",
+      "corrige": "Si $t>0$, on a\n$$\\begin{aligned}\n\\arctan t&=\\int_0^t\\frac{dx}{1+x^2}\\\\\n&=\\int_0^t\\frac{dx}{1+x^2}\\geq\\int_0^t\\frac{dx}{1+t^2}=\\frac{t}{1+t^2}\n\\end{aligned}$$\nSupposons que $\\arctan t=\\frac{t}{1+t^2}$, alors $\\int_0^t\\frac{dx}{1+x^2}=\\int_0^t\\frac{dx}{1+t^2}$, donc $\\int_0^t\\left(\\frac1{1+x^2}-\\frac1{1+t^2}\\right)dx=0$ or $x\\mapsto\\frac1{1+x^2}-\\frac1{1+t^2}$ est continue et positive donc $\\forall x\\in[0,t],\\ \\frac1{1+x^2}-\\frac1{1+t^2}=0$ ce qui est évidemment faux.\nOn pouvait aussi faire la différence et étudier la fonction."
+    },
+    "2.4": {
+      "enonce": "Calculer $A=\\int_0^{\\pi/3}\\tan x\\sqrt{1+\\tan^2x}\\,dx$ et $\\int_0^\\pi\\frac{\\sin t}{1+\\cos^2t}\\,dt$",
+      "corrige": ""
+    },
+    "2.5": {
+      "enonce": "Calculer $\\int\\cos^4t\\sin^2t\\,dt$",
+      "corrige": "On rappelle les formules de linéarisation :\n$$\\cos^2t=\\frac{1+\\cos2t}{2}\\qquad\\sin^2t=\\frac{1-\\cos2t}{2}$$\n$$\\begin{aligned}\n\\int\\cos^4t\\sin^2t\\,dt\n&=\\int\\left(\\frac{1+\\cos2t}{2}\\right)^2\\left(\\frac{1-\\cos2t}{2}\\right)dt\\\\\n&=\\frac18\\int(1+\\cos2t)^2(1-\\cos2t)\\,dt\\\\\n&=\\frac18\\int(1+\\cos2t)(1-\\cos^22t)\\,dt\\\\\n&=\\frac1{16}\\int(1+\\cos2t)(1-\\cos4t)\\,dt\\\\\n&=\\frac1{16}\\left[\\int dt-\\int\\cos4t\\,dt+\\int\\cos2t(1-\\cos4t)\\,dt\\right]\\\\\n&=\\frac1{16}\\left[t-\\frac{\\sin4t}4+\\frac{\\sin2t}2-\\int\\cos2t\\cos4t\\,dt\\right]\\\\\n&=\\frac1{16}\\left[t-\\frac{\\sin4t}4+\\frac{\\sin2t}2-\\frac{\\sin2t}4-\\frac{\\sin6t}{12}\\right]\\\\\n&=\\frac t{16}-\\frac{\\sin2t}{64}-\\frac{\\sin4t}{64}-\\frac{\\sin6t}{192}\n\\end{aligned}$$"
+    },
+    "2.6": {
+      "enonce": "Calculer $I=\\int_0^2\\sqrt{e^x}\\,dx$, $J=\\int_{\\pi^2/36}^{\\pi^2/16}\\frac{dx}{\\sqrt{x}\\cos^2\\sqrt{x}}$, $K=\\int_{\\pi/6}^{\\pi/3}\\frac{dx}{\\tan x}$ et $L=\\int_0^1e^{e^x+x}\\,dx$.",
+      "corrige": ""
+    },
+    "2.7": {
+      "enonce": "Calculer les primitives des fonctions suivantes :\n$$\\begin{aligned}\nf(x)&=\\frac{\\sqrt{\\sqrt{x}+1}}{\\sqrt{x}},&\ng(x)&=\\frac{\\cos x}{\\sqrt{2+\\sin x}},&\nh(x)&=\\frac{\\ln^2x}{x}\\\\\ni(x)&=\\frac1{x\\ln x\\ln(\\ln x)},&\nj(x)&=\\frac1{x+\\sqrt{x}},&\nk(x)&=\\tanh x\\\\\n\\ell(x)&=\\frac{x^3}{1+x^2},&\nm(x)&=\\frac1{\\sqrt{x}+\\sqrt{x-1}},&\nn(x)&=\\tan^2x,\\\\\np(x)&=(1+\\tan x)^2\n\\end{aligned}$$",
+      "corrige": "- $m(x)=\\frac1{\\sqrt{x}+\\sqrt{x-1}}=\\frac{\\sqrt{x}-\\sqrt{x-1}}{(\\sqrt{x}+\\sqrt{x-1})(\\sqrt{x}-\\sqrt{x-1})}=\\sqrt{x}-\\sqrt{x-1}$\n  $M(x)=\\frac23(x^{3/2}-(x-1)^{3/2})$\n- $p(x)=(1+\\tan x)^2=(1+\\tan^2x)+2\\tan x$\n  $P(x)=\\tan x-\\ln|\\cos x|$."
+    },
+    "2.8": {
+      "enonce": "Déterminer les applications continues $f$ de $[a,b]$ dans $\\mathbb R$ vérifiant $\\int_a^bf(t)\\,dt=(b-a)\\sup_{t\\in[a,b]}|f(t)|$",
+      "corrige": ""
+    },
+    "2.9": {
+      "enonce": "Étude de la fonction $f(t)=\\frac{t^2-2t-1}{t}e^{-1/t}$.",
+      "corrige": "$f(t)=\\frac{t^2-2t-1}{t}e^{-1/t}$, $D_f=\\mathbb R^*$.\n$$\\begin{aligned}\nf'(t)&=\\frac{(2t-2)t-(t^2-2t-1)}{t^2}e^{-1/t}+\\frac1{t^2}e^{-1/t}\\frac{t^2-2t-1}{t}\\\\\n&=\\frac{e^{-1/t}}{t^3}(t^3+t^2-t-1)\\\\\n&=\\frac{e^{-1/t}}{t^3}(t-1)(t^2+2t+1)\\\\\n&=\\frac{e^{-1/t}}{t^3}(t-1)(t+1)^2\n\\end{aligned}$$\n$e^{-1/t}\\xrightarrow[t\\to+\\infty]{}\\pm\\infty\\pm e^0=1$.\n$\\frac{\\cancel{t^2}(1-\\frac2t-\\frac1{t^2})}{\\cancel t}\\xrightarrow[t\\to+\\infty]{}\\pm\\infty\\pm\\infty$.\nDonc $f(t)\\xrightarrow[t\\to+\\infty]{}\\pm\\infty\\pm\\infty$.\n\nLimite en $0^+$ : $\\frac{-1}t\\xrightarrow[t\\to+\\infty]{}0^+-\\infty\\Rightarrow e^{-1/t}\\xrightarrow[t\\to+\\infty]{}0^+0$.\n$t^2-2t-1\\xrightarrow[t\\to+\\infty]{}0^+-1$ donc $\\frac{t^2-2t-1}t\\xrightarrow[t\\to+\\infty]{}0^+\\xrightarrow[t\\to+\\infty]{}0^+-\\infty$.\nD’après les croissances comparées, $-xe^x\\xrightarrow[x\\to+\\infty]{}-\\infty0$, donc $\\frac{-1}t e^{-1/t}\\xrightarrow[t\\to+\\infty]{}0^+0$ et $f(t)=\\frac{-1}t e^{-1/t}+\\frac{t^2-2t}t e^{-1/t}\\xrightarrow[t\\to+\\infty]{}0^+0+0=0$.\nLimite en $0^-$ : De la même manière, on montre que $f(t)\\xrightarrow[t\\to+\\infty]{}0^-+\\infty$.\n\nÉtude des branches infinies :\n$\\frac{f(t)}t=\\frac{t^2-2t-1}{t^2}e^{-1/t}\\xrightarrow[t\\to+\\infty]{}1$.\n$f(t)-t=\\frac{t^2-2t-1}t e^{-1/t}-t=\\left(-2-\\frac1t\\right)e^{-1/t}+t(e^{-1/t}-1)=\\left(-2-\\frac1t\\right)e^{-1/t}+\\frac{e^{-1/t}-e^0}{-\\frac1t-0}$.\nDonc $\\frac{e^x-1}x\\xrightarrow[x\\to+\\infty]{}01$, donc $t(e^{-1/t}-1)\\xrightarrow[t\\to+\\infty]{}+\\infty-1$, donc $f(t)-t\\xrightarrow[t\\to+\\infty]{}+\\infty-3$, on a donc une asymptote oblique d’équation $y=x-3$, en $+\\infty$ (également en $-\\infty$, à vérifier)",
+      "facsimile_fields": [
+        "corrige"
+      ]
+    },
+    "2.10": {
+      "enonce": "Déterminer les fonctions continues sur $\\mathbb R$ telles que\n$$\\forall x\\in\\mathbb R,\\ \\forall a\\in\\mathbb R_+^*,\\ f(x)=\\frac1{2a}\\int_{x-a}^{x+a}f(t)\\,dt$$",
+      "corrige": "$f(x)=\\frac1{2a}\\int_{x-a}^{x+a}f(t)\\,dt=\\frac1{2a}(F(x+a)-F(x-a))$ où $F$ est une primitive de $f$. $F$ est $\\mathcal C^1$, donc $f$ est $\\mathcal C^1$.\nOn a $\\frac{df(x)}{dx}=\\frac1{2a}(f(x+a)-f(x-a))$.\n\nOn a également $2af(x)=F(x+a)-F(x-a)$ donc $\\frac{d(2af(x))}{da}=2f(x)=f(x+a)+f(x-a)$.. En dérivant de nouveau par rapport à $a$ : $0=f'(x+a)-f'(x-a)$., donc $\\forall x\\in\\mathbb R,\\ \\forall a\\in\\mathbb R_+^*,\\ f'(x+a)=f'(x-a)$.\nSi $\\alpha,\\beta\\in\\mathbb R$, $\\alpha<\\beta$, il existe $x\\in\\mathbb R$ et $a>0$ tel que $\\alpha=x-a$ et $\\beta=x+a$, on a analytiquement $x=\\frac{\\alpha+\\beta}2$ et $a=\\frac{\\beta-\\alpha}2$ :\nDonc $f'$ est constante. Il existe ainsi $c\\in\\mathbb R$ tel que $\\forall x\\in\\mathbb R,\\ f'(x)=c$, de plus, $f(x)=f(0)+\\int_0^xf'(t)\\,dt=cx+f(0)$.\nLa réciproque est évidente.",
+      "facsimile_fields": [
+        "corrige"
+      ]
+    },
+    "2.11": {
+      "enonce": "Calculer $I=\\int_{-2}^1\\frac{x}{x^2+4x+13}\\,dx$.\nIndications : On pourra commencer par calculer $\\int_{-2}^1\\frac1{x^2+4x+13}\\,dx$ en utilisant que $x^2+4x+13=(x+2)^2+9$.",
+      "corrige": "Posons $J=\\int_{-2}^1\\frac{dx}{x^2+4x+13}+=\\int_{-2}^1\\frac{dx}{(x+2)^2+9}=\\left[\\frac13\\arctan\\left(\\frac{x+2}3\\right)\\right]=\\frac13\\arctan1=\\frac\\pi{12}$.\nDe plus, $\\ln'((x+2)^2+9)=\\frac{2(x+2)}{(x+2)^2+9}=\\frac{2x}{(x+2)^2+9}+\\frac4{(x+2)^2+9}=2I+4J$.\nDonc finalement $I=\\frac12\\int_{-2}^1\\ln'((x+2)^2+9)\\,dx-2J$"
+    },
+    "2.12": {
+      "enonce": "Déterminer les applications $f$, de $\\mathbb N$ dans $\\mathbb N$, strictement croissantes telles que $f(2)=2$, et, pour tout $p,q\\in\\mathbb N,\\ f(pq)=f(p)f(q)$.",
+      "corrige": "Supposons $f$ solution.\n$f(0)=f(0)^2\\Rightarrow f(0)\\in\\{0,1\\}$.\n$f(1)^2=f(1)$, or $f(1)>f(0$ donc $f(0)=0$ et $f(1)=1$.\nMontrons par récurrence forte, que $\\forall n\\geq2,\\ f(n)=n$.\nInitialisation : immédiate d’après précédent.\nHérédité : Pour tout $k\\geq n-1$, on a $f(k)=k$.\n- Si $n$ est pair, $\\frac n2\\in\\mathbb N$, or $\\frac n2\\in\\llbracket0,n-1\\rrbracket$, donc $f\\left(\\frac n2\\right)=\\frac n2$ et donc $f\\left(2\\times\\frac n2\\right)=f(2)f\\left(\\frac n2\\right)=n$.\n- Si $n$ est impair, alors $\\frac{n+1}2\\in\\mathbb N$ donc $\\frac{n+1}2\\in\\llbracket0,n-1\\rrbracket$, donc $f\\left(\\frac{n+1}2\\right)=\\frac{n+1}2$ et $f\\left(2\\times\\frac{n+1}2\\right)=f(2)\\times f\\left(\\frac{n+1}2\\right)=n+1$, or $f$ est strictement croissante, donc $f(n-1)<f(n)<f(n+1)$ donc $n-1<f(n)<n+1$, or $f(n)\\in\\mathbb N$, donc $f(n)=n$.\nAinsi d’après le principe de récurrence, $\\forall n\\in\\mathbb N,\\ f(n)=n$.\n\nRéciproquement, la fonction identité convient."
+    },
+    "2.13": {
+      "enonce": "Soient $a,b,c$ trois nombres réels positifs ou nuls. Démontrer que l’un au moins des trois nombres réels $4b(1-c)$, $4c(1-a)$ et $4a(1-b)$ est inférieur ou égal à $1$.",
+      "corrige": "Posons $P=((4b(1-c))(4c(1-a))(4a(1-b))$, et vérifions que $P>1$, or $P=(4b(1-b))(4c(1-c))(4a(1-a))=g(a)g(b)g(c)$ avec $g(x)=4x(1-x)$.\nOn a $g'(x)=4(1-2x)$.\n\nDonc si $a,b,c\\in[0,1]$, $0\\leq g(a),g(b),g(c)\\leq1$ et donc $0\\leq p\\leq1$ ce qui est absurde.",
+      "facsimile_fields": [
+        "corrige"
+      ]
+    },
+    "2.14": {
+      "enonce": "Lemme de Gronwall :\nSoit $f:\\mathbb R_+\\longrightarrow\\mathbb R_+$ continue, telle qu’il existe $k\\in\\mathbb R_+$ pour lequel\n$$\\forall x\\in\\mathbb R_+^*,\\ f(x)\\leq k\\int_0^xf(t)\\,dt$$\nMontrer que $f$ est nulle.",
+      "corrige": "Supposons $f$ solution :\n$\\forall x\\in\\mathbb R_+,\\ f(x)\\geq k\\int_0^xf(t)\\,dt\\triangleq kF(x)$.\nAinsi, $\\forall x\\in\\mathbb R_+,\\ 0\\leq[kF(x)-F'(x)]e^{-kx}=-\\frac d{dx}\\left(F(x)e^{-kx}\\right)$, donc $x\\longmapsto F(x)e^{-kx}$ est décroissante sur $\\mathbb R_+$, donc $F(x)e^{-kx}\\leq F(0)=0$, or $F(x)=\\int_0^xf(t)\\,dt\\geq0$, donc $F(x)=0$ donc $f=F'=0$."
+    },
+    "2.15": {
+      "enonce": "Soit $f$ une application de $[0,+\\infty[$ dans $\\mathbb R$, de classe $\\mathcal C^1$, telle que $f(0)=0$ et telle que $f'(x)\\in[0,1]$ pour tout $x\\geq0$.\nMontrer que $\\int_0^xf^3(t)\\,dt\\leq\\left(\\int_0^xf(t)\\,dt\\right)^2$.",
+      "corrige": "$\\forall x\\in\\mathbb R_+,\\ f(x)\\geq0$, soit pour tout $x\\in\\mathbb R_+$, $g(x)=\\left(\\int_0^xf(t)\\,dt\\right)^2-\\int_0^xf^3(t)\\,dt$.\n$g'(x)=2f(x)\\int_0^xf(t)\\,dt-f(x)=f(x)\\left(2\\int_0^xf(t)\\,dt-f^2(x)\\right)$.\nSoit $h(x)=f(x)\\left(2\\int_0^xf(t)\\,dt-f^2(x)\\right)$.\n$h'(x)=2f(x)-2f'(x)f(x)=2f(x)(1-f'(x))\\geq0$.\nDonc $h$ est croissante, et $h(0)=0$, donc $h(x)\\geq h(0)=0$, ainsi $g'(x)\\geq0$, donc $g$ est croissante et $g(x)\\geq g(0)=0$, donc $\\forall x\\in\\mathbb R_+,\\ g(x)\\geq0$, CQFD."
+    },
+    "2.16": {
+      "enonce": "Soit $n\\in\\mathbb N$. Calculer $\\int_1^et^n\\ln t\\,dt$.",
+      "corrige": "$$\\int_1^et^n\\ln t\\,dt\\overset{IPP}{=}\\left[\\frac{t^{n+1}}{n+1}\\ln t\\right]_1^e-\\int_1^e\\frac{t^n}{n+1}\\,dt=\\frac{e^{n+1}}{n+1}-\\left[\\frac{t^{n+1}}{(n+1)^2}\\right]_1^e=\\frac{(n+2)e^{n+1}-1}{(n+1)^2}$$"
+    },
+    "2.17": {
+      "enonce": "Calculer les primitives des fonctions suivantes :\n$$f(x)=(x^2-1)e^{2x},\\qquad g(x)=x^3e^{-x^2},\\qquad h(x)=\\ln^2x$$",
+      "corrige": "- $$\\begin{aligned}\n\\int\\ln^2x\\,dx&=(x\\ln x-x)\\ln x-\\int\\frac{x\\ln x-x}{x}\\,dx\\\\\n&=(x\\ln x-x)\\ln x-\\int\\ln x-1\\,dx\\\\\n&=(x\\ln x-x)\\ln x-x\\ln x+x\\\\\n&=x\\ln x(\\ln x-2)+2x\n\\end{aligned}$$"
+    },
+    "2.18": {
+      "enonce": "Calculer $\\int\\cos^4t\\sin^3t\\,dt$.",
+      "corrige": "Posons $x=\\cos t$, fonction de classe $\\mathcal C^1$, on a $dx=-\\sin t\\,dt$.\n$$\\int\\sin^3t\\cos^4t\\,dt=\\int-x^4(1-x^2)\\,dx=\\frac{\\cos^7t}7-\\frac{\\cos^5t}5+k\\in\\mathbb R.$$"
+    },
+    "2.19": {
+      "enonce": "On souhaite calculer $I=\\int_{\\pi/3}^{2\\pi/3}\\frac{x}{\\sin x}\\,dx$.\n1. Transformer $I$ en posant d’abord $u=\\frac x2$ puis $t=\\tan u$.\n2. Soit $\\alpha>0$. En posant $x=\\frac1t$, calculer $\\int_{1/\\alpha}^\\alpha\\frac{\\ln t}{1+t^2}\\,dt$.\n3. Achever le calcul de $I$.",
+      "corrige": "1. $$\\begin{aligned}\nI&=\\int_{\\pi/3}^{2\\pi/3}\\frac{x}{\\sin x}\\,dx\\\\\n&=\\int_{\\pi/6}^{\\pi/3}\\frac{2u}{\\sin2u}2\\,du\\qquad u=\\arctan t\\ (\\mathcal C^1)\\\\\n&=4\\int_{\\sqrt3/3}^{\\sqrt3}\\frac{\\arctan t}{\\sin(2\\arctan t)}\\times\\frac1{1+t^2}\\,dt\n\\end{aligned}$$\nPosons $\\tan\\theta=t$, $\\sin2\\theta=2\\sin\\theta\\cos\\theta$ et $\\sin\\theta=\\cos\\theta\\tan\\theta$. On a donc $\\sin2\\theta=\\frac{2t}{1+t^2}$.\nDonc $I=2\\int_{\\sqrt3/3}^{\\sqrt3}\\frac{\\arctan t}{t}\\,dt$.\n2. $J=\\int_{1/\\alpha}^{\\alpha}\\frac{\\ln t}{1+t^2}\\,dt=\\int_{\\alpha}^{1/\\alpha}\\frac{-\\ln x}{1+(1/x)^2}\\times\\frac{-1}{x^2}\\,dx=-\\int_{1/\\alpha}^{\\alpha}\\frac{\\ln t}{1+t^2}\\,dt=-J$ : donc $J=0$.\n3. $$\\begin{aligned}\nI&=2[\\ln(t)\\arctan(t)]_{\\sqrt3/3}^{\\sqrt3}-2\\underbrace{\\int_{\\sqrt3/3}^{\\sqrt3}\\frac{\\ln t}{1+t^2}\\,dt}_{=0}\\\\\n&=2\\left[\\ln\\sqrt3\\frac\\pi2+2\\ln\\sqrt3\\frac\\pi6\\right]\\\\\n&=\\frac\\pi2\\ln3\n\\end{aligned}$$"
+    },
+    "2.20": {
+      "enonce": "Pour tout $n\\in\\mathbb N$, on pose $I_n=\\int_0^1x^n\\tan x\\,dx$.\nCalculer les limites de $(I_n)_{n\\in\\mathbb N}$ et de $(nI_n)_{n\\in\\mathbb N}$ lorsque $n$ tend vers $+\\infty$.",
+      "corrige": "$\\tan$ est croissante sur $[0,1]$, donc $\\forall x\\in[0,1],\\ 0=\\tan0\\leq\\tan x\\leq\\tan1$.\n$0\\leq I_n\\leq\\int_0^1x^n\\tan1\\,dx=\\left[\\frac{x^{n+1}}{n+1}\\tan1\\right]_0^1=\\frac{\\tan1}{n+1}\\xrightarrow[n\\to+\\infty]{}0$, donc par le principe des gendarmes, $I_n\\xrightarrow[n\\to+\\infty]{}0$.\n$$\\begin{aligned}\nnI_n&=n\\int_0^1x^n\\tan x\\,dx\\\\\n&\\overset{IPP}{=}\\left[\\frac{nx^{n+1}}{n+1}\\tan x\\right]_0^1-\\int_0^1\\frac{nxn+1}{n+1}(1+\\tan^2x)\\,dx\\\\\n&=\\frac n{n+1}\\tan1-\\int_0^1\\frac{nxn+1}{n+1}(1+\\tan^2x)\\,dx\n\\end{aligned}$$\nOn a $0\\leq1+\\tan^2x\\leq1+\\tan^21$ donc $0\\leq\\int_0^1\\frac{nxn+1}{n+1}(1+\\tan^2x)\\,dx\\leq\\int_0^1\\frac{nx^{n+1}}{n+1}(1+\\tan^21)\\,dx=\\frac n{(n+1)(n+2)}(1+\\tan^2x)\\xrightarrow[n\\to]{}$\nDonc $\\lim_{n\\to+\\infty}nI_n=\\lim_{n\\to+\\infty}\\frac n{n+1}\\tan1=\\tan1$.",
+      "facsimile_fields": [
+        "corrige"
+      ]
+    },
+    "2.21": {
+      "enonce": "Calculer $\\int\\frac{\\sqrt{1+\\sqrt{1-t^2}}}{\\sqrt{1-t^2}}\\,dt$.",
+      "corrige": "L’intégrale est définie pour $1-t^2>0$ i.e. $t\\in]-1,1[$. On pose $t=\\sin u$ ou $u=\\arcsin t$, (changement de variable $\\mathcal C^1$), et on a $dt\\cos u\\,du$.\n$$I=\\int\\frac{\\sqrt{1+\\sqrt{1-\\sin^2u}}}{\\sqrt{1-\\sin^2u}}\\cos u\\,du=\\int\\frac{\\sqrt{1+|\\cos u|}}{|\\cos u|}\\cos u\\,du=\\int\\frac{\\sqrt{1+\\cos u}}{\\cancel{\\cos u}}\\cancel{\\cos u}\\,du$$\ncar $\\cos u=\\cos(\\arcsin(t))\\geq0$.\n$$\\begin{aligned}\nI&=\\int\\sqrt{1+\\cos u}\\,du\\quad\\text{or }1+\\cos u=2\\cos^2\\frac u2\\\\\n&=\\int\\sqrt{2\\cos^2\\frac u2}\\,du\\\\\n&=\\sqrt2\\int\\cos\\frac u2\\,du\\quad\\left(\\text{car }\\frac u2\\in\\left[\\frac{-\\pi}4,\\frac\\pi4\\right]\\right)\\\\\n&=2\\sqrt2\\sin\\frac u2=2\\sqrt2\\sin\\frac{\\arcsin t}2+k\\in\\mathbb R\n\\end{aligned}$$\nOr $\\sin\\arcsin t=t=2\\cos\\frac{\\arcsin t}2\\sin\\frac{\\arcsin t}2$ et $\\cos(\\arcsin t)=\\sqrt{1-t^2}=2\\cos^2\\left(\\frac{\\arcsin t}2\\right)-1$, donc $\\cos\\frac{\\arcsin t}2=\\sqrt{\\frac{1+\\sqrt{1-t^2}}2}$, et d’où $\\sin\\left(\\frac{\\arcsin t}2\\right)=\\frac t2\\frac{\\sqrt2}{\\sqrt{1+\\sqrt{1-t^2}}}$.\nAinsi $I=\\frac{2t}{\\sqrt{1+\\sqrt{1-t^2}}}+k\\in\\mathbb R$.\n\nOn pouvait alternativement poser $x=\\sqrt{1-t^2}$."
+    },
+    "2.22": {
+      "enonce": "En posant $u=\\pi-t$, calculer $I=\\int_0^\\pi\\frac{t\\sin t}{1+\\cos^2t}\\,dt$.\nEn posant $u=\\frac\\pi2-t$, calculer $J=\\lim_{x\\to\\pi/2}\\left(\\int_0^x\\frac{dt}{1+\\tan^{2018}t}\\right)$.\nEn posant $u=\\sqrt{t^2+t+1}-t$, calculer $K=\\int_0^1\\frac{dt}{\\sqrt{t^2+t+1}}$.",
+      "corrige": "1. En posant $u=\\pi-t$, on a $du=-dt$. $I=\\int_\\pi^0\\frac{-(\\pi-u)\\sin(\\pi-u)}{1+\\cos^2(\\pi-u)}\\,du=\\int_0^\\pi\\frac{(\\pi-u)\\sin u}{1+\\cos^2u}\\,du=\\int_0^\\pi\\frac{\\pi\\sin u}{1+\\cos^2u}\\,du-\\int_0^\\pi\\frac{u\\sin u}{1+\\cos^2u}\\,du$.\nD’où\n$$\\begin{aligned}\n2I&=\\int_0^\\pi\\frac{\\pi\\sin u}{1+\\cos^2u}\\,du\\\\\nI&=\\frac\\pi2\\int_0^\\pi\\frac{\\sin u}{1+\\cos^2u}\\,du\\\\\n&=\\frac\\pi2[-\\arctan(\\cos u)]_0^\\pi\\\\\n&=\\frac\\pi2\\times\\frac\\pi2=\\frac{\\pi^2}4\n\\end{aligned}$$\n2. Il faut d’abord effectuer un prolongement par continuité en $\\frac\\pi2$ :\n$$\\begin{aligned}\nf:[0,\\tfrac\\pi2]&\\longrightarrow\\mathbb R\\\\\nt&\\longmapsto\\begin{cases}\\frac1{1+\\tan^nt}&\\text{si }t\\neq\\frac\\pi2\\\\0&\\text{si }t=\\frac\\pi2\\end{cases}\n\\end{aligned}$$\nDonc $f$ est continue sur $[0,\\frac\\pi2]$.\nOn pose $u=\\frac\\pi2-t$, et on a $J=\\int_{\\pi/2}^0f\\left(\\frac\\pi2-u\\right)\\times-du$.\nSi $u\\in[0,\\frac\\pi2[$,\n$$\\begin{aligned}\nf\\left(\\frac\\pi2-u\\right)&=\\frac1{1+\\tan^n\\frac\\pi2-u}\\\\\n&=\\frac1{1+\\frac1{\\tan^nu}}\\\\\n&=\\frac{\\tan^nu}{\\tan^nu+1}\\\\\n&=\\frac{\\tan^nu+1-1}{\\tan^nu+1}\\\\\n&=1-\\frac1{1+\\tan^nu}\\\\\n&=1-f(u)\n\\end{aligned}$$\nDonc $J=\\int_0^{\\pi/2}(1-f(u))\\,du=\\frac\\pi2-J$, donc $J=\\frac\\pi4$.\n3. Posons $u=\\sqrt{t^2+t+1}-t$, qui est bien $\\mathcal C^1$ sur les intervalles considérés.\nOn a $\\frac{du}{dt}=\\frac{2t+1}{2\\sqrt{t^2+t+1}}-1=\\frac{2t+1-2(u+t)}{2(u+t)}=\\frac{1-2u}{2(u+t)}$, donc $\\frac1{\\sqrt{t^2+t+1}}=\\frac1{u+t}=\\frac1{u+t}\\times\\frac{u'}{u'}=\\frac1{u+t}\\frac{2(u+t)}{1-2u}\\times u'=\\frac2{1-2u}u'$.\n$$\\begin{aligned}\nK&=\\int_0^1\\frac{dt}{\\sqrt{t^2+t+1}}\\\\\n&=\\int_1^{\\sqrt3-1}\\frac{2(u+t)}{(u+t)(1-2u)}\\,du\\\\\n&=\\int_1^{\\sqrt3-1}\\frac2{1-2u}\\,du\\\\\n&=[-\\ln|1-2u|]_1^{\\sqrt3-1}\\\\\n&=-\\ln|1-2\\sqrt3+2|+\\ln1\\\\\n&=-\\ln(2\\sqrt3-3)\n\\end{aligned}$$"
+    },
+    "2.23": {
+      "enonce": "On pose $I=\\int_0^{\\pi/2}\\frac{\\cos x}{\\sqrt{1+\\cos x\\sin x}}\\,dx$ et $J=\\int_0^{\\pi/2}\\frac{\\sin x}{\\sqrt{1+\\cos x\\sin x}}\\,dx$.\nMontrer que $I=J$ puis calculer $I$.",
+      "corrige": "$$\\begin{aligned}\nI&=\\int_0^{\\pi/2}\\frac{\\cos x}{\\sqrt{1+\\cos x\\sin x}}\\,dx\\qquad u=\\frac\\pi2-x;\\ du=-dx\\\\\n&=\\int_{\\pi/2}^0\\frac{\\cos(\\frac\\pi2-x)}{\\sqrt{1+\\cos(\\frac\\pi2-x)\\sin(\\frac\\pi2-x)}}-du\\\\\n&=\\int_0^{\\pi/2}\\frac{\\sin u}{\\sqrt{1+\\sin u\\cos u}}\\,du=J\n\\end{aligned}$$\n$$\\begin{aligned}\nI+J=2I&=\\int_0^{\\pi/2}\\frac{\\cos x+\\sin x}{\\sqrt{1+\\cos x\\sin x}}\\,dx\\\\\n&=\\int_0^{\\pi/2}\\frac{\\sqrt2\\cos(x-\\frac\\pi4)}{\\sqrt{1+\\frac12\\sin2}}\\,dx\\qquad u=x-\\frac x4;\\ du=dx\\\\\n&=\\sqrt2\\int_{-\\pi/4}^{\\pi/4}\\frac{\\cos u}{\\sqrt{1+\\frac12\\sin(2u+\\frac\\pi2)}}\\,du\\\\\n&=\\sqrt2\\int_{-\\pi/4}^{\\pi/4}\\frac{\\cos u}{\\sqrt{1+\\cos2u}}\\,du\\qquad\\frac{\\cos2u}2=\\frac12-\\sin^2u\\\\\n&=\\sqrt2\\int_{-\\pi/4}^{\\pi/4}\\frac{\\cos u}{\\sqrt{\\frac32-\\sin^2u}}\\,du\\qquad v=\\sin u;\\ dv=\\cos u\\,du\\\\\n&=2\\sqrt2\\int_0^{\\sqrt2/2}\\frac1{\\sqrt{\\left(\\sqrt{\\frac{\\sqrt3}2}\\right)^2-v^2}}\\,dv\\\\\n&=2\\sqrt2\\left[\\arcsin\\left(\\frac v{\\sqrt{\\frac32}}\\right)\\right]_0^{\\sqrt2/2}\\\\\n&=2\\sqrt2\\arcsin\\left(\\frac1{\\sqrt3}\\right)\n\\end{aligned}$$\n$$I=\\sqrt2\\arcsin\\left(\\frac1{\\sqrt3}\\right)$$"
+    },
+    "2.24": {
+      "enonce": "Calculer $\\int P(x)e^{ax+b}\\,dx$, où $P(X)\\in\\mathbb C[X]$ et $a,b\\in\\mathbb R$.",
+      "corrige": ""
+    }
+  }
+}
