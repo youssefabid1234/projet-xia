@@ -12,9 +12,11 @@
 </head>
 <body>
 <main>
+  {% include "compte.html" %}
   <header><p class="eyebrow">MATHÉMATIQUES · PRÉPA SCIENTIFIQUE</p>
     <h1>Un exercice à la fois.</h1>
     <p class="muted">Développez votre raisonnement, puis faites le point avec votre tuteur.</p>
+    <a href="{{ url_for('chat') }}">Discuter avec le tuteur →</a>
   </header>
   <section class="card" aria-label="Votre progression">
     <form method="get" class="chapter-form">

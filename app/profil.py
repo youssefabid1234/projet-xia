@@ -100,15 +100,18 @@ def charger_exercices(chemin=CHEMIN_EXERCICES):
     return donnees
 
 
-def choisir_exercice(profil, chapitre, exercices):
+def choisir_exercice(profil, chapitre, exercices, exercices_presentes=()):
     """Retourne l'exercice non vu dont la difficulte colle le mieux au niveau."""
     candidats = [
         ex for ex in exercices
         if ex.get("chapitre") == chapitre
         and ex.get("id") not in profil.exercices_vus
+        and ex.get("id") not in exercices_presentes
     ]
     if not candidats:
         return None
 
     cible = profil.niveau(chapitre)
-    return min(candidats, key=lambda ex: abs(ex["difficulte"] - cible))
+    return min(candidats, key=lambda ex: (
+        abs(ex["difficulte"] - cible), ex["difficulte"] < cible,
+    ))

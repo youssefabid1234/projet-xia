@@ -1,0 +1,5 @@
+<form method="post" action="{{ url_for('auth.deconnexion') }}" class="account-bar">
+  <span>Connecté : {{ session.utilisateur }}</span>
+  <input type="hidden" name="csrf" value="{{ session.csrf }}">
+  <button type="submit" class="secondary">Se déconnecter</button>
+</form>

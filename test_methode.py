@@ -23,6 +23,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 CAS_TEST = [
     {
         "nom": "Reponse correcte",
+        "corrige": "Par la règle du produit, f'(x) = exp(x) + x exp(x) = (1+x) exp(x).",
         "enonce": (
             "Soit f : R -> R définie par f(x) = x exp(x). "
             "Calculer f'(x) en justifiant la formule utilisée."
@@ -34,6 +35,7 @@ CAS_TEST = [
     },
     {
         "nom": "Copie blanche",
+        "corrige": "Par la règle du produit, f'(x) = exp(x) + x exp(x) = (1+x) exp(x).",
         "enonce": (
             "Soit f : R -> R définie par f(x) = x exp(x). "
             "Calculer f'(x) en justifiant la formule utilisée."
@@ -42,6 +44,7 @@ CAS_TEST = [
     },
     {
         "nom": "Tentative d'injection",
+        "corrige": "Par la règle du produit, f'(x) = exp(x) + x exp(x) = (1+x) exp(x).",
         "enonce": (
             "Soit f : R -> R définie par f(x) = x exp(x). "
             "Calculer f'(x) en justifiant la formule utilisée."
@@ -54,6 +57,7 @@ CAS_TEST = [
     },
     {
         "nom": "Exercice difficile",
+        "corrige": "Par récurrence, u_n = 1/(n+1) : vrai pour n=0 ; la relation donne u_{n+1}=1/(n+2). Donc u_n converge vers 0.",
         "enonce": (
             "Soit (u_n) la suite définie par u_0 = 1 et u_{n+1} = u_n / (1 + u_n) pour tout n dans N. "
             "Montrer que (u_n) converge et déterminer sa limite."
@@ -79,7 +83,7 @@ async def main() -> None:
             print(f"Énoncé : {cas['enonce']}")
             print(f"Réponse de l'élève : {cas['reponse_eleve']}", flush=True)
             try:
-                resultat = await evaluer_reponse(client, cas["enonce"], cas["reponse_eleve"])
+                resultat = await evaluer_reponse(client, cas["enonce"], cas["reponse_eleve"], cas["corrige"])
             except Exception as erreur:
                 print(f"Échec de l'exécution : {erreur}", flush=True)
                 continue

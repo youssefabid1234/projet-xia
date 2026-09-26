@@ -16,17 +16,21 @@ class WebTests(unittest.TestCase):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)
         root = Path(self.directory.name)
-        self.profile = root / "profil.json"
+        self.profile = root / "profils" / "test.json"
         exercises = root / "exercices.json"
         exercises.write_text(json.dumps([
             {"id": "a", "chapitre": "Analyse", "difficulte": 1,
              "enonce": "Calculer $1+1$. <script>alert(1)</script>", "corrige": "SECRET_CORRIGE"},
-            {"id": "b", "chapitre": "Analyse", "difficulte": 2, "enonce": "Calculer $2+2$."},
+            {"id": "b", "chapitre": "Analyse", "difficulte": 3, "enonce": "Calculer $2+2$."},
         ]), encoding="utf-8")
         self.app = create_app({"TESTING": True, "SECRET_KEY": "test",
-                               "PROFIL_PATH": self.profile, "EXERCICES_PATH": exercises})
+                               "PROFILS_DIR": root / "profils", "UTILISATEURS_PATH": root / "utilisateurs.json", "EXERCICES_PATH": exercises})
         self.client = self.app.test_client()
-        self.client.get("/")
+        self.client.get("/inscription")
+        with self.client.session_transaction() as session:
+            csrf = session["csrf"]
+        self.client.post("/inscription", data={"csrf": csrf, "identifiant": "test", "mot_de_passe": "secret"})
+        self.client.get("/classique")
         with self.client.session_transaction() as session:
             self.csrf = session["csrf"]
         key = patch.dict(os.environ, {"PIPELEX_API_KEY": "test-only"})
@@ -36,10 +40,10 @@ class WebTests(unittest.TestCase):
     def submit(self, **values):
         data = {"csrf": self.csrf, "chapitre": "Analyse", "exercice_id": "a", "reponse": "2"}
         data.update(values)
-        return self.client.post("/", data=data)
+        return self.client.post("/classique", data=data)
 
     def test_page_escapes_content_and_hides_solution(self):
-        response = self.client.get("/")
+        response = self.client.get("/classique")
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"&lt;script&gt;", response.data)
         self.assertNotIn(b"SECRET_CORRIGE", response.data)
@@ -54,11 +58,11 @@ class WebTests(unittest.TestCase):
         response = self.submit()
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"1,8", response.data)
-        correct.assert_awaited_once_with("Calculer $1+1$. <script>alert(1)</script>", "2")
+        correct.assert_awaited_once_with("Calculer $1+1$. <script>alert(1)</script>", "2", "SECRET_CORRIGE")
         self.assertAlmostEqual(Profil.charger(self.profile).niveau("Analyse"), 1.8)
         self.assertEqual(self.submit().status_code, 409)
         self.assertEqual(correct.await_count, 1)
-        self.assertIn(b"Exercice b", self.client.get("/").data)
+        self.assertIn(b"Exercice b", self.client.get("/classique").data)
 
     @patch("app.web.corriger", new_callable=AsyncMock)
     def test_failure_preserves_answer_and_profile(self, correct):
@@ -67,7 +71,7 @@ class WebTests(unittest.TestCase):
             response = self.submit(reponse="Mon raisonnement")
         self.assertEqual(response.status_code, 502)
         self.assertIn(b"Mon raisonnement", response.data)
-        self.assertFalse(self.profile.exists())
+        self.assertEqual(Profil.charger(self.profile).historique, [])
 
     @patch("app.web.corriger", new_callable=AsyncMock)
     def test_invalid_requests_never_call_pipelex(self, correct):
@@ -81,7 +85,7 @@ class WebTests(unittest.TestCase):
         profil = Profil("test")
         profil.exercices_vus = ["a", "b"]
         profil.sauvegarder(self.profile)
-        response = self.client.get("/")
+        response = self.client.get("/classique")
         self.assertIn("Chapitre terminé".encode(), response.data)
         self.assertNotIn(b"<textarea", response.data)
 
@@ -93,7 +97,7 @@ class WebTests(unittest.TestCase):
         with self.assertLogs(self.app.logger, level="ERROR"):
             response = self.submit()
         self.assertEqual(response.status_code, 502)
-        self.assertFalse(self.profile.exists())
+        self.assertEqual(Profil.charger(self.profile).historique, [])
         self.assertEqual(client.start_and_wait.call_args.kwargs["pipe_code"],
                          "evaluation_maths_prepa.evaluer_reponse")
 

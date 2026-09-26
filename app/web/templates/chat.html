@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dialogue avec le tuteur · Mathématiques</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body>
+<main>
+  {% include "compte.html" %}
+  <header>
+    <p class="eyebrow">MATHÉMATIQUES · PRÉPA SCIENTIFIQUE</p>
+    <h1>Cherchons ensemble.</h1>
+    <p class="muted">Un exercice, vos idées, puis un petit coup de pouce si nécessaire.</p>
+    <a href="{{ url_for('index') }}">Ouvrir l’ancienne interface</a>
+  </header>
+  <section class="card" aria-label="Discussion avec le tuteur" role="log">
+    <article class="chat-message assistant">
+      <h2>Tuteur</h2>
+      <p>Bonjour ! Quel chapitre souhaitez-vous travailler ? Je peux vous proposer un exercice adapté, ou faire le point sur votre niveau.</p>
+      {% if chapitres %}<p class="muted">Chapitres disponibles : {{ chapitres|join(', ') }}.</p>
+      {% else %}<p class="muted">La banque d’exercices est vide pour le moment.</p>{% endif %}
+    </article>
+    {% for item in messages %}
+    <article class="chat-message {{ item.role }}" {% if loop.last %}id="last-message" tabindex="-1"{% endif %}>
+      <h2>{{ 'Vous' if item.role == 'user' else 'Tuteur' }}</h2>
+      <div class="math prose">{{ item.content }}</div>
+    </article>
+    {% endfor %}
+  </section>
+  <p id="math-warning" class="muted" hidden>Le rendu des formules est indisponible. Le texte reste lisible.</p>
+  {% if erreur %}<p class="error" role="alert">{{ erreur }}</p>{% endif %}
+  <section class="card">
+    <form method="post" id="chat-form">
+      <input type="hidden" name="csrf" value="{{ session.csrf }}">
+      <input type="hidden" name="tour" value="{{ session.tour }}">
+      <label for="message">Votre message</label>
+      <p class="muted hint" id="chat-hint">Partagez une piste, posez une question ou soumettez votre raisonnement. Formules : $…$.</p>
+      <textarea id="message" name="message" rows="4" maxlength="12000" required aria-describedby="chat-hint" placeholder="Je voudrais travailler un exercice…">{{ message }}</textarea>
+      <button type="submit" id="send-message">Envoyer</button>
+      <span id="chat-pending" role="status" hidden>Le tuteur réfléchit…</span>
+    </form>
+    <form method="post" id="correction-form">
+      <input type="hidden" name="csrf" value="{{ session.csrf }}">
+      <input type="hidden" name="tour" value="{{ session.tour }}">
+      <input type="hidden" name="action" value="corriger">
+      <p class="muted hint">La correction porte sur votre dernier message envoyé pour l’exercice actif.</p>
+      <button type="submit" id="correct-message" {% if not peut_corriger %}disabled{% endif %}>Corriger ma réponse</button>
+      <span id="correction-pending" role="status" hidden>Correction en cours…</span>
+    </form>
+  </section>
+  <form method="post">
+    <input type="hidden" name="csrf" value="{{ session.csrf }}">
+    <input type="hidden" name="tour" value="{{ session.tour }}">
+    <button type="submit" name="action" value="nouvelle" class="secondary">Nouvelle discussion</button>
+    <p class="muted hint">Votre progression est conservée. La discussion reste disponible jusqu’au redémarrage du serveur.</p>
+  </form>
+  <footer>Un espace pour apprendre, à votre rythme.</footer>
+</main>
+</body>
+</html>

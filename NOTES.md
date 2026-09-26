@@ -10,12 +10,12 @@ Ce fichier explique l’objectif général et l’organisation des dossiers. Il 
 
 ### methods/evaluation_maths_prepa/main.mthds — Les instructions de correction
 
-C’est le cœur pédagogique du projet. Il contient les instructions de correction destinées à l’intelligence artificielle. Il reçoit deux textes : l’énoncé de l’exercice et la réponse de l’élève.
+C’est le cœur pédagogique du projet. Il contient les instructions de correction destinées à l’intelligence artificielle. Il reçoit trois textes : l’énoncé, la réponse de l’élève et le corrigé vérifié du catalogue.
 
-La correction se déroule en deux étapes :
-
-1. **Préparer une référence de correction**, uniquement à partir de l’énoncé, sans regarder la réponse de l’élève. Elle précise les résultats attendus, les justifications nécessaires, les points à vérifier et les éventuelles ambiguïtés.
-2. **Examiner la réponse de l’élève**, en la confrontant à l’énoncé et à cette référence. Les consignes demandent d’accepter les méthodes alternatives et de reconnaître les situations où une conclusion fiable est impossible. La référence elle-même peut être remise en question si elle contient une erreur.
+La correction compare directement la réponse de l’élève au corrigé du catalogue,
+sans reconstruire de référence. Elle accepte les méthodes alternatives valides.
+Si l’énoncé ou le corrigé ne permet pas une comparaison fiable, notamment à cause
+d’une formule mal extraite, elle doit retourner un verdict indéterminable.
 
 Le résultat comprend trois éléments :
 
@@ -62,9 +62,8 @@ Ce document décrit les fichiers du projet et leurs liens en français simple. I
 ```text
 Programme d’essai : test_methode.py
   → lit les instructions de main.mthds
-  → transmet l’exercice et la réponse à Pipelex
-      → préparation de la référence de correction
-      → évaluation de la réponse de l’élève
+  → transmet l’exercice, le corrigé et la réponse à Pipelex
+      → comparaison de la réponse de l’élève au corrigé fourni
   → affiche le verdict et l’explication
 ```
 

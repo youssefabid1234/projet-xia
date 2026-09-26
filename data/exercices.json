@@ -514,5 +514,635 @@
       }
     },
     "difficulte": 4
+  },
+  {
+    "identifiant": "17.1",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Calculer\n+∞\nX\nn=0\n1\n(2n + 1)2 .",
+    "corrige": "Soit N ∈N,\n2N+1\nX\nk=1\n1\nk2 =\nN\nX\n1=k\n1\n(2k)2 +\nN\nX\nk=k\n1\n(2k + 1)2 .\nDonc\nN\nX\nk=0\n1\n(2k + 1)2 =\n2N+1\nX\nk=1\n1\nk2 −1\n4\nN\nX\nk=1\n1\nk2 −−−−−→\nN→+∞\n3\n4\nπ2\n6 = π2\n8 .\nD’où\n+∞\nX\nk=0\n1\n(2k + 1)2 = π2\n8 .",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 48,
+        "imprimee": 42
+      },
+      "corrige": {
+        "pdf": 191,
+        "imprimee": 185
+      }
+    },
+    "difficulte": 1
+  },
+  {
+    "identifiant": "17.2",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Nature de la série\nX\nchn\nch(2n).",
+    "corrige": "un =\nch n\nch 2n =\nen + e−n\ne2n + e−2n ∼en\ne2n =\n1\nen =\nÅ1\ne\nãn\n. Donc\nX\nun converge car\nX 1\nen converge géométriquement\n(e−1 ≤1).",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 48,
+        "imprimee": 42
+      },
+      "corrige": {
+        "pdf": 191,
+        "imprimee": 185
+      }
+    },
+    "difficulte": 1
+  },
+  {
+    "identifiant": "17.3",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit\nX\nun,\nX\nvn et\nX\nwn trois séries de réels telles que, pour tout n ∈N, un ≤vn ≤wn. Montrer si\nX\nun et\nX\nwn convergent, alors\nX\nvn est aussi convergente.",
+    "corrige": "X\nun et\nX\nwn étant convergente, on a également que\nX\nwn −un ∈S(R+) converge ;\nDe plus, ∀n ∈N, 0 ≤vn −un ≤wn −un, donc\nX\nvn −un converge car c’est une série à termes positifs, majorée par\nune série convergente.\nDonc\nX\n(vn −un) + un =\nX\nvn converge comme somme de séries convergentes.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 48,
+        "imprimee": 42
+      },
+      "corrige": {
+        "pdf": 191,
+        "imprimee": 185
+      }
+    },
+    "difficulte": 1
+  },
+  {
+    "identifiant": "17.4",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Nature de\nX\nun où u0 ∈R et un+1 =\n1\nn + 1e−un.",
+    "corrige": "Par récurrence, on montre que ∀n ∈N, un ≥0, donc\nX\nun ∈S(R+).\nPour n ≥1, e−un ≤1, donc 0 ≤\n1\nn + 1 e−un ≤\n1\nn + 1 −−−−−→\nn→+∞0 et (n + 1)un+1 = e−un −−−−−→\nn→+∞1 donc e−un ∼1, donc\nun ∼1\nn, il est donc clair que\nX\nun diverge, car\nX 1\nn diverge.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 48,
+        "imprimee": 42
+      },
+      "corrige": {
+        "pdf": 191,
+        "imprimee": 185
+      }
+    },
+    "difficulte": 2
+  },
+  {
+    "identifiant": "17.5",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit (un) une suite de réels positifs telle que\nX\nun converge. Déterminer la nature de\nX √u2nun",
+    "corrige": "X\nu2n est convergente car\nn\nX\nk=0\nu2k ≤\n2n\nX\nk=0\nuk, donc\nX √u2nun ∈S(R+) et les sommes partielles sont majorées\nd’après l’inégalité de Cauchy-Schwartz :\nn\nX\nk=0\n√u2kuk ≤\nÃ\nn\nX\nk=0\nu2k\nÃ\nn\nX\nk=0\nuk\n≤\nÃ\nn\nX\nk=0\nuk\nÃ\n2n\nX\nk=0\nuk\n≤\nÃ\n+∞\nX\nk=0\nuk\nÃ\n+∞\nX\nk=0\nuk\nDonc la série\nX √u2nun est convergente.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 48,
+        "imprimee": 42
+      },
+      "corrige": {
+        "pdf": 191,
+        "imprimee": 185
+      }
+    },
+    "difficulte": 2
+  },
+  {
+    "identifiant": "17.6",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Grâce à une comparaison entre série et intégrale, déterminer un équivalent de\nn\nX\nk=2\nln k. En déduire, la nature de la\nsérie de terme général un =\nn\nX\nk=2\nln k\n!−1",
+    "corrige": "Soit n ≥2, soit k ∈J2, nK, soit t ∈[k −1, k], la fonction ln étant croissante sur R+ :\nln t ≤ln k ≤ln t + 1\nZ k\nk−1\nln t dt ≤ln k ≤\nZ k\nk−1\nln t + 1 dt\nn\nX\nk=2\nZ k\nk−1\nln t dt ≤\nn\nX\nk=2\nln k ≤\nn\nX\nk=2\nZ k\nk−1\nln t + 1 dt\nZ n\n1\nln t dt ≤\nn\nX\nk=2\nln k ≤\nZ n+1\n2\nln t dt\n[t ln t −t]n\n1 ≤\nn\nX\nk=2\nln k ≤[t ln t −t]n+1\n2\nn ln n −n + 1 ≤\nn\nX\nk=2\nln k ≤(n + 1) ln(n + 1) −(n + 1) −2 ln 2 + 2\n1 −\n1\nln n +\n1\nn ln n ≤\nn\nX\nk=2\nln k ×\n1\nn ln n ≤(n + 1) ln(n + 1) −(n + 1) −2 ln 2 + 2\nn ln n\nD’après le principe des gendarmes, les deux quantités tendent vers 1, et donc\nn\nX\nk=2\nln k ∼n ln n.\nDonc un =\nn\nX\nk=2\n!−1\n∼\n1\nn ln n et un ≥0.\nD’après le cours,\nN\nX\nn=2\n1\nn ln n\n!\net\nÅR N\n2\ndt\nt ln t\nã\nont la même nature. Or\nR N\n2\ndt\nt ln t = [ln t]N\n2 −−−−−→\nN→+∞+∞.\nDonc\nX\nun diverge.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 48,
+        "imprimee": 42
+      },
+      "corrige": {
+        "pdf": [
+          191,
+          192
+        ],
+        "imprimee": [
+          185,
+          186
+        ]
+      }
+    },
+    "difficulte": 2
+  },
+  {
+    "identifiant": "17.7",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Nature de la série\nX\nan où an =\nZ\n1\nn\n0\n√xdx\n3√\n1 + x2 .",
+    "corrige": "un =\nZ\n1\nn\n0\n√x dx\n3√\n1 + x2 ≤\nZ\n1\nn\n0\n…\n1\nn ×\ndx\n3√\n1 + x2\n≤\nZ\n1\nn\n0\n…\n1\nn dx\n≤1\nn ×\n1\n√n =\n1\nn3/2\nOn reconnaît une série de Riemann, avec α > 1, donc les deux termes généraux étant positifs,\nX\nan converge.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 48,
+        "imprimee": 42
+      },
+      "corrige": {
+        "pdf": 192,
+        "imprimee": 186
+      }
+    },
+    "difficulte": 2
+  },
+  {
+    "identifiant": "17.8",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soient\nX\nun,\nX\nvn et\nX\nwn 3 séries convergentes à termes positifs. Montrer que les séries\nX\n3√unvnwn et\nX √unvn + unwn + vnwn sont convergentes.",
+    "corrige": "3√\nabc ≤a + b + c\n3\n: par inégalité arithmético-géométrique, donc\nX\n3√unvnwn converge.\nÅa + b + c\n3\nã2\n= 1\n9\n\u0000a2 + b2 + c2 + 2(ab + bc + ac)\u0001\n= 1\n9\nÅ1\n2(a2 + b2) + 1\n2(a2 + c2) + 1\n2(b2 + c2) + 2(ab + ac + bc)\nã\n≥1\n9(ab + ac + bc + 2(ab + ac + bc))\n≥1\n3(ab + ac + bc)\nDonc a + b + c\n3\n≥\n…\nab + ac + bc\n3\n, de plus,\n3√\nabc ≤\n3√\nn3 où n = max(a, b, c) et n ≤a + b + c.\nDonc\n√\nab + ac + bc ≤\n√\n3n3 =\n√\n3n ≤\n√\n3(a + b + c), donc la série en\nX √unvn + unwn + vnwn est convergente.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 48,
+        "imprimee": 42
+      },
+      "corrige": {
+        "pdf": 192,
+        "imprimee": 186
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.9",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit (εn)n∈N une suite de réels de ]0, 1[, telle que εn −−−−−→\nn→+∞0. Pour tout n ∈N∗, on pose pn =\nn\nY\ni=1\n(1 −εi).\nMontrer que (pn −−−−−→\nn→+∞0) ⇔\nÄX\nεn diverge\nä\n.",
+    "corrige": "ln pn =\nn\nX\nk=1\nln(1 −εk) et ln(1 −εk) ∼−εk.\npn −−−−−→\nn→+∞0 ⇔ln pn −−−−−→\nn→+∞−∞\n⇔\nn\nX\nk=1\nln(1 −εk) −−−−−→\nn→+∞−∞\n⇔\nX\nεk diverge.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 48,
+        "imprimee": 42
+      },
+      "corrige": {
+        "pdf": [
+          192,
+          193
+        ],
+        "imprimee": [
+          186,
+          187
+        ]
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.10",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Nature de\nX\nn≥1\nan où an =\nÅ\n1 +\n1\n√n\nã−n",
+    "corrige": "an =\nÅ\n1 +\n1\n√n\nã−n\n= exp\nÅ\n−n ln\nÅ\n1 +\n1\n√n\nãã\n= exp\nÅ\n−n\nÅ 1\n√n + o\nÅ 1\n√n\nããã\n= e−√n+o(√n)\nPuis n2an = e2 ln n−√n+o(√n), or ln n = o(√n), donc n2an = e−√n+o(√n) −−−−−→\nn→+∞0, donc an = o\nÅ 1\nn2\nã\net\nX 1\nn2 (série\nde Riemann), donc\nX\nan converge également.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": 193,
+        "imprimee": 187
+      }
+    },
+    "difficulte": 2
+  },
+  {
+    "identifiant": "17.11",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit a, b, c ∈C. Étudier la série\nX\nun, où un = a√n + b√n + 1 + c√n + 2.",
+    "corrige": "un = a√n + b\n√\nn + 1 + c\n√\nn + 2\n= √n\nÇ\na + b\n…\n1 + 1\nn + c\n…\n1 + 2\nn\nå\n= √na + √n\nÅ\nb\nÅ\n1 + 1\n2n + O\nÅ 1\nn2\nãã\n+ c\nÅ\n1 + 1\nn + O\nÅ 1\nn2\nããã\n= √n(a + b + c) + 1\nn\nÅ b\n2 + c\nã\n+ O\nÅ 1\nn3/2\nã\n|\n{z\n}\nCV\nSi a + b + c̸ = 0, alors un −−−−−→\nn→+∞±∞donc la série est grossièrement divergente.\nSi a + b + c = 0 et b\n2 + c̸ = 0, alors la série diverge, car la série harmonique diverge.\nDonc\nX\na√n + b\n√\nn + 1 + c\n√\nn + 2 converge ⇔\n®\na + b + c = 0\nb = −2c",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": 193,
+        "imprimee": 187
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.12",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit (un) une suite de réels positifs. On pose vn =\nun\n1 + un\n. Montrer que les séries\nX\nun et\nX\nvn sont de même\nnature.",
+    "corrige": "∀n ∈N, vn =\nun\n1 + un\n≤un car un ≥0, donc\nX\nun converge ⇒\nX\nvn converge, car\nX\nvn ∈S(R+).\nX\nvn converge donc vn −−−−−→\nn→+∞\n0, donc à partir d’un certain rang, vn ≤1\n2, or un =\nvn\n1 −vn\net donc à partir\nd’un certain rang, 1 −vn ≥1\n2 donc un ≤2vn, or\nX\nvn converge, donc\nX\nun converge car c’est une série à termes\npositifs.\nDonc un −−−−−→\nn→+∞0, donc vn =\nun\nun + 1 ∼un\n1 = un.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": 193,
+        "imprimee": 187
+      }
+    },
+    "difficulte": 2
+  },
+  {
+    "identifiant": "17.13",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Règle de Cauchy\n1. Soit\nX\nan ∈S(C) telle que\nnp\n|an| −−−−−→\nn→+∞ℓ∈R+ ∪{+∞}.\n−Si ℓ< 1, montrer que\nX\nan est absolument convergente.\n−Si ℓ> 1 ou si ℓ= 1+, montrer que\nX\nan diverge grossièrement.\n−Lorsque ℓ= 1, montrer qu’on ne peut pas conclure.\n2. En déduire la nature des séries\nX Å n + 1\n2n + 5\nãn\net\nX nln n\nlnn n.",
+    "corrige": "1. 1er cas : ℓ∈R+., donc ∀ε > 0, ∃N1 ∈N, ∀k ≥N1,\nkp\n|ak| −ℓ\n≤ε, donc ∀k ≥N1, ℓ−ε ≤\nkp\n|ak| ≤ℓ+ ε.\nPour ℓ< 1, on choisit ε tel que ℓ+ ε < 1, (en prenant ε = 1 −ℓ\n2\n) et donc 0 ≤\nkp\n|ak| ≤1 −ℓ\n2\net ainsi\n0 ≤|ak| ≤\nÅ1 −ℓ\n2\nãk\n. Or\nX Å1 −ℓ\n2\nãk\nconverge, donc\nX\n|ak| converge aussi, donc\nX\nak est absolument\nconvergente.\nSi ℓ> 1, à partir d’un certain rang, 1 ≤|ak| d’après le lemme des tunnels, donc\nX\nan est grossièrement diver-\ngente.\nAvec, an = 1\nnα = eα ln n,\nn√an = eα ln n\nn −−−−−→\nn→+∞1, pourtant\nX 1\nnα converge ou diverge selon α.\n2.\nn + 1\n2n + 5 −−−−−→\nn→+∞\n1\n2 < 1, donc\nX Å n + 1\n2n + 5\nãn\nconverge.\nan = nln n\nlnn n =\n\u0000eln n\u0001ln n\n(eln ln n)n = eln2 n−n ln ln n .\nn√an = e\n1\nn ln2 n−ln ln n −−−−−→\nn→+∞0 < 1 donc\nX\nan converge, car ln2 n\nn\n−−−−−→\nn→+∞0 et ln ln n −−−−−→\nn→+∞+∞.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": [
+          193,
+          194
+        ],
+        "imprimee": [
+          187,
+          188
+        ]
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.14",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "α désigne un réel strictement positif. Pour tout n ∈N, on note an = (nα)n\nn\nX\nk=0\n(k!)\n.\nDéterminer la nature de la série\nX\nan.",
+    "corrige": "n! ≤\nn\nX\nk=0\nk! ≤n! + (n −1)! + (n −1)(n −2)! = n! + o(n!) (par principe des gendarmes).\nOn montre donc que\nn\nX\nk=0\nk! ∼n!.\nan ∼(nα)n\nn!\n∼\n(nα)n\n√\n2πnnn e−n\n= (α e)n\n√\n2πn = bn\nSi α > 1\ne, alors la série diverge grossièrement.\nSi α = 1\ne, bn =\n1\n√\n2πn diverge.\nSi α < e−1, bn = o((α e)n) qui converge.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": 194,
+        "imprimee": 188
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.15",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit (an) une suite décroissante de réels positifs. On suppose que la série\nX\nan converge. Montrer que nan −−−−−→\nn→+∞\n0.",
+    "corrige": "Soit q ∈N,\nq\nX\nk=⌊q\n2 ⌋\nak ≥\n\u0010\nq −\njq\n2\nk\n+ 1\n\u0011\naq car (an) est décroissante\n≥\n\u0010q\n2 + 1\n\u0011\naq ≥q\n2aq ≥0\nSupposons que\nX\nan converge, donc :\nq\nX\nk=⌊q\n2 ⌋\nak =\nq\nX\nk=0\nak −\n⌊q\n2 ⌋−1\nX\nk=0\nak −−−−−→\nq→+∞\n+∞\nX\nk=0\nak −\n+∞\nX\nk=0\nak = 0\nDONC q\n2aq −−−−−→\nq→+∞0.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": 194,
+        "imprimee": 188
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.16",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit (un) une suite réelle décroissante qui tend vers 0.\nMontrer que les séries\nX\nun et\nX\n2nu2n ont la même nature. En déduire la nature de\nX\nn≥2\n1\nn(ln n)β , où β ∈R.",
+    "corrige": "On pose SN =\nN\nX\nn=0\n2nu2n et TN =\nN\nX\nn=0\nun.\nOn a pour 2n−1 + 1 ≤i ≤2n, ui ≥u2n.\nSN =\nN\nX\nn=0\nu2n2n = 2\nN\nX\nn=0\n2n−1u2n\n= 2\nN\nX\nn=1\n2n−1\nX\nk=2n−1\nu2k\n≤2\nN\nX\nn=1\n2n−1\nX\nk=2n−1\nuk\n= 2\n2N−1\nX\ni=1\nui = 2T2N−1\nT2N−1 =\n2N−1\nX\ni=1\nui =\nN\nX\nn=1\n2n−1\nX\ni=2n−1\nui\n≤\nN\nX\nn=1\n2n−1\nX\nk=2n−1\n2n−1u2n−1\n=\nN\nX\nn=1\n2n−1u2n−1\n= SN−1\nOn a donc\nSN\n2\n≤T2N−1 ≤SN−1\nSi SN converge, SN−1 est majorée, donc T2N−1 est majorée, or Ti ≤T2i−1 (car T est à termes positifs), donc Ti est\nmajorée, d’où la convergence.\nSi TN est convergente, alors TN est majorée, donc SN également, donc elle converge (car elles sont à termes po-\nsitifs).\nPosons un =\n1\nn lnβ n\n, alors, 2nu2n =\n2n\n2n lnβ(2n)\n=\n1\nnβ lnβ 2\n, or\nX 1\nnβ converge si et seulement si β > 1 (série\nde Riemann), donc\nX\nun converge si et seulement si β > 1.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": [
+          194,
+          195
+        ],
+        "imprimee": [
+          188,
+          189
+        ]
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.17",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Déterminer la nature de\nX\nan où an =\nZ\nπ\n2\n0\ndx\n1 + n2 tan2(x)",
+    "corrige": "Posons In,ϕ =\nZ ϕ\n0\ndx\n1 + n2 tan2 x =\nZ tan ϕ=A\n0\ndu\n(1 + n2u2)(1 + u2).\nOn pose le changement de variable tan x = u (C 1), donc du = dx(1 + tan2 x) donc dx =\ndu\n1 + u2 .\nPar décomposition en éléments simples on obtient :\nn2\nn2 −1 ×\n1\n1 + n2u2 −\n1\nn2 −1 ×\n1\n1 + u2 =\n1\n(1 + n2u2)(1 + u2)\nIn,ϕ =\nn2\nn2 −1\nZ A\n0\ndu\n1 + n2u2 −\n1\nn2 −1\nZ A\n0\ndu\n1 + u2\n=\nn2\nn2 −1\nïarctan nu\nn\nòA\n0\n−\n1\nn2 −1 [arctan u]A\n0\n=\nn2\nn2 −1\narctan nA\nn\n−\n1\nn2 −1 arctan A\n−−−−−→\nA→+∞\nn\nn2 −1\nπ\n2 −\n1\nn2 −1\nπ\n2\n−−−−−→\nϕ→+∞\n(n −1)\n(n2 −1)\nπ\n2 =\nπ\n2(n + 1)\nDonc an diverge car\nX 1\nn diverge.\nOn pouvait alternativement deviner que la série divergeait et essayer de le prouver.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": [
+          195,
+          196
+        ],
+        "imprimee": [
+          189,
+          190
+        ]
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.18",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soient a ∈R∗\n+ et α ∈R. Nature de\nX\nan où an =\nnα\n(1 + a)(1 + a2) . . . (1 + an).",
+    "corrige": "Si a ≥1, an ≤nα\n2n , or n2an ≤nα+2\n2n\n−−−−−→\nn→+∞0 d’après les croissances comparées, donc\nX\nan converge, d’après le\ncritère de Riemann.\nSupposons maintenant que a < 1, on pose bn = (1 + a) . . . (1 + an).\nOn a ln bn =\nn\nX\nk=1\nln(1+ak) et on a ln(1+ak) ∼ak car ak −−−−−→\nk→+∞0 or\nX\nak converge, donc\nX\nln(1+ak) converge, donc\nln bn −−−−−→\nn→+∞S ∈R, donc bn = eln bn −−−−−→\nn→+∞eS > 0, donc an ∼nα\neS qui diverge grossièrement (série de Riemann).",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": 196,
+        "imprimee": 190
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.19",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit (un) une suite décroissante de réels strictement positifs. On suppose qu’il existe k ∈N avec k ≥2 et n0 ∈N∗\ntels que, pour tout n ≥n0, kukn ≥un. Montrer que\nX\nun est divergente.",
+    "corrige": "Il existe k ≥2, n0 ∈N tels que ∀n ≥n0, kkn ≥un.\nOn a donc knuknn0 ≥un0.\nSn =\nkNn0−1\nX\nn=n0\nun =\nN−1\nX\ni=0\nki+1n0−1\nX\nj=kin0\nuj ≥\nN−1\nX\ni=0\nki+1n0−1\nX\nk=kin0\nuki+1n0 =\nN−1\nX\ni=0\nki(k −1)n0uki+1n0 car (un) est strictement décrois-\nsante.\nOn fait de la sommation par paquets, le premier commençant à n0, le deuxième à kn0, le troisième à k2n0... qu’on\nmajore par le premier terme, car (un) est décroissante.\nSN ≥\nN−1\nX\ni=0\nki(k −1)n0uki+1n0 = n0\nk −1\nk\nN−1\nX\ni=0\nki+1uki+1n0\n≥n0(k −1)\nk\nN−1\nX\ni=0\nun0\n= n0(k −1)\nk\nun0 × N −−−−−→\nN→+∞+∞",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": 196,
+        "imprimee": 190
+      }
+    },
+    "difficulte": 4
+  },
+  {
+    "identifiant": "17.20",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit (an)n≥1 une suite de complexes telle que\nX an\nn\nest absolument convergente. On suppose que pour tout\nk ∈N∗,\n+∞\nX\nn=1\nan\nnk = 0.\nQue peut-on dire de la suite (an)n≥1 ?",
+    "corrige": "On a donc an\nn −−−−−→\nn→+∞0 et donc n2 \f\f\fan\nn3\n=\nan\nn\n−−−−−→\nn→+∞0, donc d’après le critère de Riemann,\nX an\nn3 est abso-\nlument convergente. De plus, ∀k ≥3,\nan\nnk\n= o\n\u0010\f\f\fan\nn3\n\u0011\n.\nH : (an) non identiquement nulle.\nOn pose alors i0 = min{i ∈N \\ ai̸ = 0}, et pour k ≥3,\nSk =\n+∞\nX\nn=i0+1\nan\nÄ\nn\ni0\näk\nSk+1 =\n+∞\nX\nn=i0+1\nan\nÄ\nn\ni0\näk+1\n≤\n+∞\nX\nn=i0+1\nan\nÄ\nn\ni0\näk Ä\ni0+1\ni0\nä\nDonc Sk+1 ≤\ni0\ni0 + 1Sk, donc on montre par récurrence que 0 ≤Sn ≤S3\nÅ\ni0\n1 + i0\nãn−3\n−−−−−→\nn→+∞0, donc Sn −−−−−→\nn→+∞0\nDonc il existe k ∈N tel que Sk ≤|ai0|\n+∞\nX\nn=1\nan\nnk\n=\n+∞\nX\nn=i0+1\nan\nnk\n≥\nai0\nik\n0\n−\n+∞\nX\nn=i0+1\nan\nnk\n=\nai0\nik\n0\n−\n+∞\nX\nn=i0+1\nSk\nik\n0\n> 0\ncar |Sk| < |ai0|\nDonc\n+∞\nX\nn=1\nan\nnk\n̸ = 0 ce qui est absurde, donc ∀n ∈N, an = 0.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 49,
+        "imprimee": 43
+      },
+      "corrige": {
+        "pdf": 196,
+        "imprimee": 190
+      }
+    },
+    "difficulte": 4
+  },
+  {
+    "identifiant": "17.21",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Règle de Duhamel\nSoit\nX\nan une série à termes strictement positifs.\n1. On suppose qu’il existe α ∈R tel que an+1\nan\n= 1 −α\nn + o\nÅ 1\nn\nã\n.\nSi α > 1, montrer que\nX\nan converge et si α < 1, montrer que\nX\nan diverge.\n2. Déterminer la nature de la série\nX\nan, où an =\n2 × 4 × · · · × (2n −2) × (2n)\n3 × 5 × · · · × (2n −1) × (2n + 1).",
+    "corrige": "α > 1, soit β ∈]1, α[, et posons ∀n ∈N∗, bn = 1\nnβ\nbn+1\nbn\n=\nÅ\nn\nn + 1\nãβ\n=\nÇ\n1\n1 + 1\nn\nåβ\n= 1 −β\nn + o\nÅ 1\nn\nã\nDonc an+1\nan\n−bn+1\nbn\n= β −α\nn\n+ o\nÅ 1\nn\nã\n∼β −α\nn\ncar β < α.\nDonc il existe N ∈N, tel que\n∀n ≥N, an+1\nan\n−bn+1\nbn\n≤0\nDonc an = O(bn), or\nX\nbn =\nX 1\nnβ avec β > 1, donc elle converge. Donc\nX\nan converge.\nPour α < 1, on applique le même raisonnement avec β = 1, et on a bn = O(an), et donc\nX\nan diverge car\nX\nbn\ndiverge.\nan+1\nan\n= 2n + 2\n2n + 3 = 1 −\n1\n2n + 3\n= 1 −1\n2n ·\n1\n1 +\n3\n2n\n= 1 −1\n2n (1 + o(1))\n= 1 −1\n2n + o\nÅ 1\nn\nã\nDonc α = 1\n2 donc\nX\nan diverge.\nIl existe une autre version de la règle de Duhamel, aussi classique :\nSi l’on suppose qu’il existe α, β > 1 tels que an+1\nan\n= 1 −α\nn + O\nÅ 1\nnβ\nã\n, alors il existe k ∈R∗\n+ tel que an ∼k\nnα .\nDémo à rédiger...",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 50,
+        "imprimee": 44
+      },
+      "corrige": {
+        "pdf": [
+          196,
+          197
+        ],
+        "imprimee": [
+          190,
+          191
+        ]
+      }
+    },
+    "difficulte": 4
+  },
+  {
+    "identifiant": "17.22",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit ϕ : N∗−→N∗une application injective. Montrer que la série\nX ϕ(n)\nn2\ndiverge.",
+    "corrige": "SN =\n2N\nX\nn=N+1\nϕ(n)\nn2\n≥\n1\n4N 2\n2N\nX\nn=N+1\nϕ(n).\nϕ(N + 1), . . . , ϕ(2N) sont N entiers distincts, car ϕ est injective, donc\n2N\nX\nn=N+1\nϕ(n) ≥\nN\nX\nk=1\nk = N(N + 1)\n2\n.\nDonc SN ≥\n1\n4N 2 · N(N + 1)\n2\n≥N + 1\n8N\n≥1\n8̸ = 0, et SN est la diﬀérence de deux sommes partielles, donc en tendant\nvers +∞, on devrait avoir SN −−−−−→\nN→+∞0, ce qui n’est pas le cas, donc\nX ϕ(n)\nn2\ndiverge.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 50,
+        "imprimee": 44
+      },
+      "corrige": {
+        "pdf": 197,
+        "imprimee": 191
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.23",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Soit (un) une suite décroissante de réels qui tend vers 0.\nMontrer que\nX\nun et\nX\nn(un −un+1) ont la même nature.\nLorsqu’elles sont déﬁnies, comparer les sommes de ces deux séries.",
+    "corrige": "un ∈R+ et n(un −un+1) ≥0 car (un) est décroissante.\nTn =\nn\nX\nk=1\nk(uk −uk+1) =\nn\nX\nk=1\nkuk −\nn+1\nX\nk=1\n(k −1)uk\n= u1 −(n + 1)un+1 +\nn+1\nX\nk=2\nuk\n=\nn\nX\nk=1\nuk −nun+1 = Sn −nun+1\nH :\nX\nun converge, on note S =\nlim\nn→+∞Sn\nTn = Sn −nun+1 ≤Sn ≤S\nTn est majorée et croissante, donc\nX\nn(un −un+1) converge.\nH :\nX\nn(un −un+1) =\nX\nvn converge.\n∀k ≥1, uk −uk+1 = vk\nk .\nN\nX\nk=n\nuk −uk+1 =\nN\nX\nk=n\nvk\nk = un −uN+1.\n∀n ≥1, un = uN+1 +\nN\nX\nk=n\nvk\nk =\n+∞\nX\nk=n\nvk\nk\n0 ≤nun+1 ≤un = n\n+∞\nX\nk=n\nvk\nk\n≤n\n+∞\nX\nk=n\nvk\nn\n=\n+∞\nX\nk=n\nvk −−−−−→\nn→+∞0\nDonc nun+1 −−−−−→\nn→+∞0 et Tn = Sn −nun+1. Donc\n+∞\nX\nk=1\nvk = T = S.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 50,
+        "imprimee": 44
+      },
+      "corrige": {
+        "pdf": [
+          197,
+          198
+        ],
+        "imprimee": [
+          191,
+          192
+        ]
+      }
+    },
+    "difficulte": 4
+  },
+  {
+    "identifiant": "17.24",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Déterminer les natures des séries\nX\n(−1)n 2n\n3\n√n et\nX\n(−1)n 2ln n\n3\n√n .",
+    "corrige": "an = 2n\n3\n√n = en ln 2−√n ln 3 −−−−−→\nn→+∞+∞donc\nX (−2)n\n3\n√n\ndiverge grossièrement.\nan = 2ln n\n3\n√n\nn2an = n22ln n\n3\n√n\n= e2 ln n+ln n ln 2−√n ln 3 −−−−−→\nn→+∞0, donc d’après le critère de Riemann, la série\nX\n(−1)nan\nconverge absolument.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 50,
+        "imprimee": 44
+      },
+      "corrige": {
+        "pdf": 198,
+        "imprimee": 192
+      }
+    },
+    "difficulte": 0
+  },
+  {
+    "identifiant": "17.25",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Déterminer la nature de la série\nX\n(−1)nan, où an =\nZ\n4\nπ\n2\nπ\nsin 1\nt\nn + tdt.",
+    "corrige": "0 ≤|an| =\nZ\n4\nπ\n2\nπ\nsin 1\nt\nn + t dt\n≤\nZ\n4\nπ\n2\nπ\nsin 1\nt\n|n + t| dt\n≤\nZ\n4\nπ\n2\nπ\ndt\nn + t\n= [ln n + t]\n4\nπ\n2\nπ\n= ln\nÅ\nn + 4\nπ\nã\n−ln n + 2\nπ\n= ln n + ln\nÅ\n1 + 4\nπn\nã\n−ln n −ln\nÅ\n1 + 2\nπn\nã\n= 4\nπn −2\nπn + O\nÅ 1\nn2\nã\n= 2\nπn + O\nÅ 1\nn2\nã\n−−−−−→\nn→+∞0\nOn montre de plus que (an) est décroissante, (à t ﬁxé), et le théorème spécial des séries alternées permet de conclure.\nOn peut également mettre en évidence le fait que\nX\nan est seulement semi-convergente :\nan ≥\nZ\n4\nπ\n2\nπ\n√\n2\n2(n + t) dt =\n√\n2\n2\nÅ 2\nπn + O\nÅ 1\nn2\nãã",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 50,
+        "imprimee": 44
+      },
+      "corrige": {
+        "pdf": 198,
+        "imprimee": 192
+      }
+    },
+    "difficulte": 1
+  },
+  {
+    "identifiant": "17.26",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Calculer\n+∞\nX\nn=2\nln\nÅ\n1 + (−1)n\nn\nã\n.",
+    "corrige": "ln\nÅ\n1 + (−1)n\nn\nã\n=\n0\n(−1)n\nn\n+ O\nÅ 1\nn2\nã\ndonc la série converge car 1\nn −−−−−→\nn→+∞\n0 en décroissant, donc elle vériﬁe le\ncritère spécial des séries alternées.\nSoit N ∈N,\n2N\nX\nn=2\nln\nÅ\n1 + (−1)n\nn\nã\n=\nN\nX\nn=2\nln\nÅ\n1 + 1\n2n\nã\n+ ln\nÅ\n1 −\n1\n2n + 1\nã\n−ln\nÅ\n1 −\n1\n2N + 1\nã\n=\nN\nX\nn=2\nï\nln\nÅ2n + 1\n2n\nã\n+ ln\nÅ\n2n\n2n + 1\nãò\n−ln\nÅ\n1 −\n1\n2N + 1\nã\n= −ln\nÅ\n1 −\n1\n2N + 1\nã\n−−−−−→\nN→+∞0",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 50,
+        "imprimee": 44
+      },
+      "corrige": {
+        "pdf": [
+          198,
+          199
+        ],
+        "imprimee": [
+          192,
+          193
+        ]
+      }
+    },
+    "difficulte": 2
+  },
+  {
+    "identifiant": "17.27",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Nature de la série\nX\nan, où an =\n(−1)n\nn −ln n.",
+    "corrige": "an =\n(−1)n\nn −ln n =\n(−1)n\nn \u00001 −ln n\nn\n\u0001 = (−1)n\nn\nÅ\n1 + ln n\nn\n+ o\nÅln n\nn\nãã\n= (−1)n\nn\n+ (−1)n ln n\nn2\n+ o\nÅ(−1)n ln n\nn2\nã\n.\nChacun de ses termes tend vers 0 en décroissant (en module), donc d’après le théorème spécial des séries alternées, la\nsérie\nX\nan converge.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 50,
+        "imprimee": 44
+      },
+      "corrige": {
+        "pdf": 199,
+        "imprimee": 193
+      }
+    },
+    "difficulte": 2
+  },
+  {
+    "identifiant": "17.28",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "On considère une suite récurrente telle que u0 ∈\ni\n0, π\n2\nh\net telle que, pour tout n ∈N, un+1 = un cos un.\nÉtudier la suite (un) , puis les séries de terme général (−1)nun et ln(cos un).\nDéterminer la nature de la série\nX\nun.",
+    "corrige": "un+1 = un cos(un), si un ∈\ni\n0, π\n2\nh\n, 0 ≤cos un ≤1 donc un+1 ∈\ni\n0, π\n2\nh\n. Par récurrence, on en déduit que\n∀n ∈N, un ∈\ni\n0, π\n2\nh\nDonc un+1 = un cos un ≤un donc (un) est décroissante et minorée, donc un −−−−−→\nn→+∞ℓ∈R. La limite vériﬁe en outre\nℓ= ℓcos ℓdonc ℓ= 0 ou 1 = cos ℓdonc ℓ= 0.\nDonc\nX\n(−1)nun converge d’après le théorème spécial des séries alternées.\nln cos un = ln un+1\nun\n= ln un+1 −ln un.\nDonc\nN\nX\nn=0\nln cos un =\nN\nX\nn=0\nln un+1 −ln un\n= ln uN+1 −ln u0\n−−−−−→\nn→+∞−∞(car un −−−−−→\nn→+∞0)\nDe plus, ln cos un = ln\nÅ\n1 −u2\nn\n2 + o(u2\nn)\nã\n= −u2\nn\n2\n+ o(u2\nn) ∼−u2\nn\n2\ndonc\nX\nu2\nn diverge.\nA partir d’un certain rang, on aura |un| ≥u2\nn, car un −−−−−→\nn→+∞0, donc à partir d’un certain rang, un ≤1.\nDonc\nX\nun diverge car\nX\nu2\nn diverge.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 50,
+        "imprimee": 44
+      },
+      "corrige": {
+        "pdf": 199,
+        "imprimee": 193
+      }
+    },
+    "difficulte": 3
+  },
+  {
+    "identifiant": "17.29",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Pour tout n ∈N∗, on note : hn =\nn\nX\nk=1\n1\nk et un = hn −ln n.\n1. Trouver un equivalent de un+1 −un.\n2. Déterminer la nature de la série\nX\n(un+1 −un) puis en deduire la convergence de la suite (un) . On notera γ la\nlimite de la suite (un) .\n3. Montrer que hn = ln n + γ + o(1) .\n4. Montrer qu’il existe α et β tels que\n2n\nX\nk=1\n(−1)k\nk\n= αh2n + βhn.\n5. En déduire que\n+∞\nX\nk=1\n(−1)k\nk\n= −ln 2.\nSoit σ ∈R. On note (wn) la suite déﬁnie par : wk = σ\nk lorsque 4 divise k et wk = 1\nk sinon. De plus, on note\nSn =\nn\nX\nk=1\nwk.\n6. Montrer que (Sn) converge si et seulement si σ = −3.\n7. Étudier la nature et calculer la somme de la série\nX\nwk.\n8. Question bonus : Soit (σn)n∈N ∈CN, T-périodique. Donner une condition nécessaire et suﬃsante pour que\nX\nn≥1\nσn\nn soit semi-convergente.",
+    "corrige": "1. à 5. : fait en cours\n6.\nS4n =\n4n\nX\nk=1\nuk =\n4n\nX\nk=1\n4̸|k\n1\nk +\n4n\nX\nk=1\n4|k\nσ\n4 et σ = 1 −(1 −σ)\n=\n4n\nX\nk=1\n1\nk −\n4n\nX\nk=1\n4|k\n1 −σ\n4\n=\n4n\nX\nk=1\n1\nk −1\n4\nn\nX\nk=1\n1\nn + σ\n4\nn\nX\nk=1\n1\nk\n= ln(4n) + γ + o(1) −ln n + γ + o(1)\n4\n+ σ\n4 (ln n + γ + o(1))\n= 3 + σ\n4\nln n + ln 4 + o(1) + 3 + σ\n4\nγ\nSi σ̸ = 3, S4n −−−−−→\nn→+∞±∞. Donc S4n converge ⇔σ = −3. Alors S4n −−−−−→\nn→+∞2 ln 2.\n7. S4n+1 = S4n +\n1\n4n + 1, donc S4n et S4n+1 convergent vers la même limite. De même pour S4n+2 et S4n+3, donc\nd’après le cours Sn −−−−−→\nn→+∞2 ln 2.\n|wk| ≥1\nk donc\nX\nwk est simplement semi-convergente.\n8. CNS :\nT\nX\ni=1\nσi = 0.\nH :\nT\nX\ni=1\nσi = 0. Soit N ∈N, on a la division euclidienne de N par T : N = Tq + r, 0 ≤r < T.\nSN =\nN\nX\nn=1\nσn =\nq−1\nX\nk=0\n(k+1)T\nX\nn=kT +1\nσn +\nT q+r\nX\nn=qT +1\nσn\n=\nq−1\nX\nk=0\nT\nX\nn=1\nσn\n| {z }\nσn T-périodique\n+\nr\nX\nn=1\nσn\n=\nr\nX\nn=1\nσn\nDonc\n( N\nX\nn=1\nσn \\ N ∈N∗\n)\nest ﬁni, donc il est borné. De plus, 1\nn −−−−−→\nn→+∞\n0 en décroissant, donc d’après le\nthéorème d’Abel,\nX σn\nn converge :\nn\nX\nk=1\nσk\nk =\nn\nX\nk=1\nSk −Sk−1\nk\n=\nn\nX\nk=1\nSk\nk −\nn−1\nX\nk=0\nSk\nk + 1\n=\nn\nX\nk=1\nSk\nÅ1\nk −\n1\nk + 1\nã\n+\nSn\nn + 1\n1=\nn\nX\nk=1\nSk\n1\nk(k + 1) +\nSn\nn + 1\nOn a vu que SN = qST + Sr avec q =\nõN\nT\nû\net r =\nßN\nT\n™\nT.\nSN =\nõN\nT\nû\nST +\nr\nX\nn=1\nσn où r ∈{1, . . . , T −1}.\n1er cas : ST = 0 .\nAlors (SN)N∈N∗est bornée.\nSn\nn + 1 −−−−−→\nn→+∞\n0\nSk\nk(k + 1)\n∼\nSk\nk2\n= O\nÅ 1\nk2\nã\nor\nX 1\nk2 est convergente donc\nP\nSk\nk(k + 1) est absolument convergente et P σk\nk converge.\n2e cas : ST̸ = 0.\nSN = N\nT ST et donc\nSn\nn + 1 −−−−−→\nn→+∞\nST\nT\net\nSk\nk(k + 1) ∼ST\nkT car ST̸ = 0, donc\nSk\nk(k + 1)\n∼\nST\nkT\n∼1\nk or P 1\nk\ndiverge, donc\nX\nSk\nk(k + 1) diverge, donc d’après 1 ,\nX σk\nk diverge.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": [
+          50,
+          51
+        ],
+        "imprimee": [
+          44,
+          45
+        ]
+      },
+      "corrige": {
+        "pdf": [
+          199,
+          200
+        ],
+        "imprimee": [
+          193,
+          194
+        ]
+      }
+    },
+    "difficulte": 4
+  },
+  {
+    "identifiant": "17.30",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "1. Déterminer la nature de la série de terme général un =\n+∞\nX\nk=0\n(−1)k\nn + 1 + k .\n2. Déterminer la nature de la série de terme général vn = (−1)nun.",
+    "corrige": "1\nn + 1 + k −−−−−→\nk→+∞0 en décroissant, quantité bien déﬁnie, donc d’après le théorème spécial des séries alternées, la\nsérie converge.\nun =\n+∞\nX\nk=0\n(−1)k\nn + 1 + k =\n+∞\nX\nk=n+1\n(−1)k−n−1\nk\nun+1 −un = −(−1)n+1\n+∞\nX\nk=n+1\n(−1)k\nk\n+\n+∞\nX\nk=n+2\n(−1)k\nk\n!\n= −(−1)n+1\n+∞\nX\nk=n+1\n(−1)k\nÅ1\nk −\n1\nk + 1\nã\n= (−1)n\n+∞\nX\nk=n+1\n(−1)k\nk(k + 1)\nOn a bien\n1\nk(k + 1) −−−−−→\nk→+∞0 en décroissant, donc le théorème spécial des séries alternées s’applique. Et\n+∞\nX\nk=n+1\n(−1)k\nk(k + 1)\nest du signe de son premier terme.\nDonc un+1 −un ≤0 et\n+∞\nX\nk=n+1\n(−1)k\nk(k + 1)\n≤\n1\n(n + 1)(n + 2), et |un+1 −un| ≤\n1\n(n + 1)(n + 2) = o\nÅ 1\nn\nã\nun+1 + un = (−1)n+1\n+∞\nX\nk=n+1\n(−1)k\nk\n−\n+∞\nX\nk=n+2\n(−1)k\nk\n!\n= (−1)n+1 × (−1)n+1\nn + 1\n=\n1\nn + 1 ∼1\nn\nPar suite :\nun = 1\n2 ((un + un+1) + (un −un+1))\n= 1\n2n + o\nÅ 1\nn\nã\n+ o\nÅ 1\nn\nã\n∼1\n2n\nDonc\nX\nun diverge.\nCependant, un −−−−−→\nn→+∞0 en décroissant, donc d’après le théorème spécial des séries alternées,\nX\n(−1)nun converge.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 51,
+        "imprimee": 45
+      },
+      "corrige": {
+        "pdf": [
+          200,
+          201
+        ],
+        "imprimee": [
+          194,
+          195
+        ]
+      }
+    },
+    "difficulte": 5
+  },
+  {
+    "identifiant": "17.31",
+    "chapitre": "17 — Série de réels ou de complexes",
+    "enonce": "Sommation par paquets.\nSoient\nX\nxn ∈S(C) et ϕ : N −→N une application strictement croissante.\nOn pose y0 =\nϕ(0)\nX\nk=0\nxk et, pour tout n ∈N∗, yn =\nϕ(n)\nX\nk=ϕ(n−1)+1\nxk.\nAinsi, yn constitue un « paquet » de ϕ(n) −ϕ(n −1) termes consécutifs de\nX\nxk, en convenant que ϕ(−1) = −1.\n1. Montrer que si\nX\nxn converge, alors\nX\nyn converge également. Montrer que la réciproque est fausse.\n2. Montrer que la réciproque est vraie lorsque\nX\nxk est à termes positifs.\n3. Montrer que la réciproque est vraie lorsque (xn) tend vers 0 et que la suite (ϕ(n) −ϕ(n −1)) est majorée.\n4. Montrer que la réciproque est vraie lorsqu’à l’intérieur de chaque paquet (pour k ∈[ϕ(n −1) + 1, ϕ(n)]), tous\nles xk sont réels et de même signe.",
+    "corrige": "On pose y0 =\nϕ(0)\nX\nk=0\nxk et ∀n ∈N∗, yn =\nϕ(n)\nX\nk=ϕ(n−1)+1\nxk.\n1. H\nX\nxn converge.\nn\nX\nk=0\nyk =\nn\nX\nk=0\nϕ(k)\nX\ni=ϕ(k−1)+1\nxk =\nϕ(n)\nX\nk=0\nxk qui converge (suite extraite de la série en\nX\nxn).\nRéciproque : ∀n ∈N, un = (−1)n, on a bien\nn\nX\nk=0\n(u2k + u2k+1) qui converge, mais\nX\nuk diverge grossière-\nment.\n2. H\nX\nyk converge.\nSoit n ∈N, il existe alors N ∈N, ϕ(N) + 1 ≤n ≤ϕ(N + 1)\nn\nX\nk=0\nxk =\nϕ(N)\nX\nk=0\nxk +\nn\nX\nk=ϕ(N)+1\nxk ≤\nϕ(N)\nX\nk=0\nxk +\nϕ(N+1)\nX\nk=ϕ(N)+1\nxk (on majore par la paquet suivant)\n≤\nN+1\nX\nk=0\nyk\nréunion des paquets\n≤\n+∞\nX\nk=0\nyk\n(yk ≥0)\nDonc la série\nX\nxk converge, car elle est majorée et à termes positifs.\n3. H : xn −−−−−→\nn→+∞0 et M = maxn∈N ϕ(n) −ϕ(n −1). On pose ℓ=\n+∞\nX\nk=0\nyk.\nSoit ε > 0, il existe N ∈N, ∀n ≥N, |xn| <\nε\n2(M + 1) et il existe N ′ ∈N, ∀n ≥N ′,\nϕ(n)\nX\nk=0\nxk −ℓ\n≤ε\n2.\nOn pose n0 = max(N, ϕ(max(N, N ′))) = ϕ(max(N, N ′)).\nSoit n ≥n0, donc il existe n1 ∈N tel que ϕ(n1) + 1 ≤n ≤ϕ(n1 + 1), donc 1 ≤1 −ϕ(n1) ≤M\nSn =\nn\nX\nk=0\nxk −ℓ\n=\nϕ(n1)\nX\nk=0\nxk +\nn\nX\nk=ϕ(n1)+1\nxk −ℓ\n≤\nϕ(n1)\nX\nk=0\nxk −ℓ\n+\nn\nX\nk=ϕ(n1)+1\n|xk| (inégalité triangulaire)\n≤\n*\nz}|{\nε\n2\n+\nn\nX\nk=ϕ(n1)+1\n|\n{z\n}\n∗∗\nε\nM + 1\n* : car ϕ(n1) ≥n > ϕ(N ′) donc n1 + 1 > N ′ donc n1 ≥N ′ (par stricte croissance de ϕ).\n** : car ϕ(n1 + 1) ≥n > ϕ(max(N, N ′)) donc n1 ≥max(N, N ′), donc ϕ(n1) + 1 ≥ϕ(N) ≥N\nDonc Sn ≤ε\n2 + (M + 1)ε\n2(M + 1) = ε. Donc la réciproque est vériﬁée et\nX\nxk converge.\n4. H : ℓ=\n+∞\nX\nk=0\nyk.\n∀n ∈N, ∃kn ∈N, ϕ(kn) + 1 ≤n ≤ϕ(kn + 1).\nn\nX\nk=0\nxk −ℓ\n=\nϕ(kn)\nX\nk=0\nxk +\nn\nX\nk=ϕ(kn)+1\nxk −ℓ\n≤\nkn\nX\nk=0\nyk −ℓ\n+\nn\nX\nk=ϕ(kn)+1\n|xk|\n≤\nkn\nX\nk=0\nyk −ℓ\n+\nϕ(kn+1)\nX\nk=ϕ(kn)+1\n|xk|\nD’après H :\nϕ(kn+1)\nX\nk=ϕ(kn)+1\n|xk| =\nϕ(kn+1)\nX\nk=ϕ(kn)+1\nxk\n= |ykn+1|.\nDonc\nn\nX\nk=0\nxk −ℓ\n≤\nkn\nX\nk=0\nyk −ℓ\n+ |ykn+1| −−−−−→\nn→+∞0 car\nX\nyk converge et kn −−−−−→\nn→+∞+∞(sinon :\nkn = max {k ∈N \\ ϕ(k) + 1 ≤n} = max An. On a An ⊂An+1 donc kn ≤kn+1 donc (kn) est croissante.\nSi kn ne tend pas vers l’inﬁni, alors elle est majorée : ∃M ∈N, ∀n ∈N, kn ≤M, alors ∀n ∈N, n ≤ϕ(kn + 1) ≤\nϕ(M + 1) .",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 51,
+        "imprimee": 45
+      },
+      "corrige": {
+        "pdf": [
+          201,
+          202
+        ],
+        "imprimee": [
+          195,
+          196
+        ]
+      }
+    },
+    "difficulte": 5
   }
 ]

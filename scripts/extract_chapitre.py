@@ -22,6 +22,8 @@ ROOT = Path(__file__).resolve().parents[1]
 STAR_FONT_SHA256 = "bc40e37bf565e88bf27f2627fed71dd7704f2e27305489bdba6d1739c6316c18"
 TITLE = re.compile(r"^(?:Solution de l[’']exercice|Exercice) (\d+\.\d+)$")
 SUBHEADINGS = {
+    "Séries de réels positifs",
+    "Séries alternées",
     "Sans changement de variable ou intégration par parties",
     "Avec changement de variable ou intégration par parties",
 }

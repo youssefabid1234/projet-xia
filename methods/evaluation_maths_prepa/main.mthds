@@ -19,14 +19,9 @@ refines = "Text"
 description = "Réponse textuelle de l'élève, avec son raisonnement s'il est fourni ; peut être vide."
 refines = "Text"
 
-[concept.Reference]
-description = "Référence mathématique construite uniquement à partir de l'énoncé pour guider la correction."
-
-[concept.Reference.structure]
-est_exploitable = { type = "boolean", description = "Vrai si une référence suffisamment fiable a pu être établie à partir de l'énoncé.", required = true }
-attendus = "Résultats et justifications attendus pour chaque question, avec un argument de vérification concis."
-points_de_vigilance = "Hypothèses des théorèmes, domaines de définition, cas limites et équivalences à vérifier."
-limites = "Ambiguïtés, informations manquantes ou difficultés empêchant de conclure ; chaîne vide sinon."
+[concept.Corrige]
+description = "Corrigé vérifié de l'exercice fourni par le catalogue ; référence de l'évaluation."
+refines = "Text"
 
 [concept.Evaluation]
 description = "Diagnostic global de la réponse et retour pédagogique court, sans note chiffrée."
@@ -37,50 +32,25 @@ type_erreur = { choices = ["aucune", "calcul", "raisonnement", "concept", "hypot
 explication = "Retour en français de une à trois phrases, au maximum 80 mots : point précis valide ou problématique et piste de correction ; pas de corrigé intégral."
 
 [pipe.evaluer_reponse]
-type = "PipeSequence"
-description = "Établir une référence indépendante de la réponse, puis produire une évaluation structurée."
-inputs = { enonce = "Enonce", reponse_eleve = "Reponse" }
-output = "Evaluation"
-steps = [
-    { pipe = "etablir_reference", result = "reference" },
-    { pipe = "diagnostiquer_reponse", result = "evaluation" },
-]
-
-[pipe.etablir_reference]
 type = "PipeLLM"
-description = "Identifier et vérifier les attendus de l'exercice sans consulter la réponse de l'élève."
-inputs = { enonce = "Enonce" }
-output = "Reference"
-prompt = """
-Établis une référence de correction concise à partir de cet énoncé :
-@enonce
-
-Détermine les résultats attendus et les justifications nécessaires pour chaque question.
-Vérifie les calculs, les hypothèses des théorèmes, les quantificateurs, les domaines,
-les implications et les cas limites pertinents. Accepte qu'il existe plusieurs méthodes.
-N'invente aucune hypothèse manquante. Si l'énoncé est vide, incohérent, ambigu au point
-de changer la réponse, dépend d'un document absent, ou si tu ne peux pas établir
-une référence fiable, mets est_exploitable à false et explique la limite.
-Sinon mets est_exploitable à true et limites à une chaîne vide.
-Fournis les conclusions et arguments de vérification utiles au correcteur, sans longue démonstration.
-"""
-
-[pipe.diagnostiquer_reponse]
-type = "PipeLLM"
-description = "Vérifier la réponse, identifier l'erreur principale et formuler un retour court."
-inputs = { enonce = "Enonce", reponse_eleve = "Reponse", reference = "Reference" }
+description = "Comparer la réponse au corrigé vérifié du catalogue et formuler un retour court."
+inputs = { enonce = "Enonce", reponse_eleve = "Reponse", corrige = "Corrige" }
 output = "Evaluation"
 prompt = """
 Évalue la réponse de l'élève à l'exercice suivant.
 @enonce
 @reponse_eleve
-@reference
+@corrige
 
-La référence est une aide susceptible de contenir une erreur, pas une autorité absolue.
-Confronte-la à l'énoncé et à la réponse. Vérifie les équivalences mathématiques et
-les méthodes alternatives ; ne pénalise pas une différence de présentation.
-Si la référence n'est pas exploitable ou qu'un désaccord ne peut pas être résolu
-avec fiabilité, utilise indeterminable et non_determinable en précisant la limite.
+Le corrigé fourni vient du catalogue vérifié : utilise-le comme référence pour
+les résultats et justifications attendus. Ne reconstruis pas une solution de
+référence à partir de l'énoncé et ne remplace pas le corrigé par ta propre solution.
+Compare la réponse de l'élève au corrigé en acceptant les équivalences mathématiques
+et les méthodes alternatives valides ; ne pénalise pas une différence de présentation.
+Si l'énoncé ou le corrigé est absent, illisible, ambigu, incomplet pour la question
+évaluée, ou présente une contradiction empêchant une comparaison fiable, utilise
+indeterminable et non_determinable en précisant la limite. Ne devine pas les
+fractions ou symboles perdus lors de l'extraction du PDF.
 
 Sinon applique les règles suivantes :
 - correcte : tous les résultats et justifications demandés sont satisfaits ; type_erreur = aucune.

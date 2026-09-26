@@ -1,0 +1,738 @@
+{
+  "date_utc": "2026-09-26T13:06:39.082034+00:00",
+  "index_sha256": "9b480e2ee49b84edf02600ff34aebcab47719413de09f2ebed5206fcf7733046",
+  "modele_agent": "gpt-4.1-mini",
+  "tests": [
+    {
+      "question": "qu'est-ce qu'une serie geometrique",
+      "recherche_directe": {
+        "question": "qu'est-ce qu'une serie geometrique",
+        "chapitre": "16 — Séries numériques",
+        "information": "Passages classés par proximité ; vérifier leur pertinence. Les formules non relues peuvent être dégradées par l'extraction PDF.",
+        "passages": [
+          {
+            "identifiant": "16.1.9",
+            "titre": "Théorème 16.1.9 (Séries géométriques)",
+            "type": "théorème",
+            "section": "I.1 — Définitions",
+            "contexte": "",
+            "texte": "Soit $a\\in\\mathbb C$. La série $\\sum a^n$ converge si et seulement si $|a|<1$ ; dans ce cas,\n\n$$\\sum_{n=0}^{+\\infty}a^n=\\frac{1}{1-a}.$$\n\nL’exemple suivant est également d’une grande importance (peut-être encore plus que les séries géométriques). Nous nous contentons de l’indiquer en exemple pour le moment : nous énoncerons un théorème plus général un peu plus tard.",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                141
+              ],
+              "imprimee": [
+                139
+              ]
+            },
+            "transcription_relue": true,
+            "score": 0.799357,
+            "similarite_cosinus": 0.56002,
+            "score_lexical": 0.957349
+          },
+          {
+            "identifiant": "16.2.14",
+            "titre": "Théorème 16.2.14 (Nature des séries géométriques)",
+            "type": "théorème",
+            "section": "II.5 — Séries de référence",
+            "contexte": "Pour pouvoir utiliser efficacement les théorèmes de comparaison, il faut disposer d’un certain nombre\nde séries de référence, dont on connaît bien le comportement, et auxquelles nous pourrons comparer les\nautres séries. Nous avons déjà vu les séries géométriques :",
+            "texte": "Soit z ∈C. La série P zn converge si et seulement si |z| < 1. La convergence est alors absolue, tandis\nque la divergence est grossière.",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                146
+              ],
+              "imprimee": [
+                144
+              ]
+            },
+            "transcription_relue": false,
+            "score": 0.797812,
+            "similarite_cosinus": 0.547812,
+            "score_lexical": 1.0
+          },
+          {
+            "identifiant": "16.2.22",
+            "titre": "Théorème 16.2.22 (Règle de d’Alembert)",
+            "type": "théorème",
+            "section": "II.7 — Comparaison avec une série géométrique",
+            "contexte": "",
+            "texte": "Soit P un une série à termes quelconques. On suppose que\n\u0010\f\f\f un+1\nun\n\u0011\nadmet une limite l. Alors :\n1. Si 0 ⩽l< 1, alors P un converge absolument.\n2. Si l> 1, alors P un diverge grossièrement.\n3. Si l= 1, on ne peut pas conclure par cette méthode.\n⊳Éléments de preuve.\n1. À partir d’un certain rang, on peut majorer (un) par une série géométrique de raison l′ ∈]l, 1[\n2. De même dans l’autre sens, ou plus simplement, (un) est strictement croissante à partir d’un\ncertain rang donc grossièrement divergente.\n3. Chercher des exemples variés parmi les séries de référence.\n⊲",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                147
+              ],
+              "imprimee": [
+                145
+              ]
+            },
+            "transcription_relue": false,
+            "score": 0.701832,
+            "similarite_cosinus": 0.568867,
+            "score_lexical": 0.53186
+          },
+          {
+            "identifiant": "16.6.1",
+            "titre": "Théorème 16.6.1 (Formule du binôme négatif)",
+            "type": "théorème",
+            "section": "VI — Dérivée des séries géométriques",
+            "contexte": "On justifie dans ce paragraphe que la série géométrique peut être dérivée terme à terme de la variable\ncomplexe z, en dérivant le monôme zn de la même manière que pour les réels. Sachant exprimer (et\ndériver comme dans R) la somme géométrique, ce résultat s’exprime ainsi :",
+            "texte": "Pour tout p ∈N, pour tout nombre complexe tel que |z| < 1, la série ci-dessous est absolument\nconvergente, et\n+∞\nX\nn=p\nn(n −1) . . . (n −p + 1)zn−p =\np!\n(1 −z)p+1\nCette formule peut se réécrire\n1\n(1 −z)p+1 =\n+∞\nX\nn=p\n\u0012n\np\n\u0013\nzn−p =\n+∞\nX\nn=0\n\u0012n + p\np\n\u0013\nzn.\n⊳Éléments de preuve.\nRécurrence sur p, en multipliant à chaque étape par la série géométrique, à l’aide d’un produit de\nCauchy.\n⊲\nLe cas réel se montre aussi par Taylor avec reste intégral, et s’adapte de façon plus générale au dévelop-\npement de (1 + x)α.",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                157
+              ],
+              "imprimee": [
+                155
+              ]
+            },
+            "transcription_relue": false,
+            "score": 0.628691,
+            "similarite_cosinus": 0.491001,
+            "score_lexical": 0.550757
+          },
+          {
+            "identifiant": "16.1.1",
+            "titre": "Définition 16.1.1 (Série)",
+            "type": "définition",
+            "section": "I.1 — Définitions",
+            "contexte": "16\nSéries numériques\nSi sur une grandeur d, on prend la moitié, puis la moitié de la moitié puis encore la moitié\ndu reste, et ainsi de suite sans limitation de divisions, la grandeur obtenue en additionnant\nune moitié de chaque division successive (division appelée dichotomie) ne pourra jamais être\négale exactement à la distance d. Avant d’arriver à son but, un mobile doit arriver à la moitié\nde son parcours. Mais auparavant, il doit arriver à la moitié de la moitié... Le mobile doit\nparcourir une quantité infinie d’unités d’espace. Il n’arrivera donc jamais à son but.\n(Aristote, paradoxe de la dichotomie, dérivé du paradoxe de Zénon d’Élée)\nLes séries divergentes sont une invention du diable, et c’est une honte de les utiliser dans la\nmoindre démonstration\n(Niels Abel)\nQu’est-ce qu’une série ? Répondre à cette question pose un certain nombre de problèmes. Intuitivement,\nainsi que nous l’avons vu, une série est un objet collectant les différentes sommes des premiers termes\nd’une suite. Autrement dit, il s’agit d’un point de vue sur les suites, différent du point de vue usuel,\npuisqu’il s’agit ici de considérer les suites au travers de leurs sommes partielles. Mais comment définir de\nfaçon spécifique un objet qui existe déjà, et dont on veut simplement modifier le point de vue ?\nDéfinir une série comme un objet P un de sommes de termes (un) nécessite de s’être donné une suite (un),\net de considérer les sommes partielles Sn associées à cette suite. Ainsi, une définition correcte d’une série\nserait de la définir comme un couple ((un), (Sn)) de deux suites, la seconde correspondant à la somme\npartielle de la première. De la sorte, on définit la suite (un) (un est le terme général de la série) ainsi que\nle point de vue (le fait que l’on considère les sommes partielles). Certains auteurs se contentent de définir\nune série comme la suite des sommes partielles d’une suite (un)n∈N, mais cette définition sous-entend la\ndonnée initiale d’une suite (un) et ne diffère donc par réellement de la définition formelle sous forme d’un\ncouple. Même si cette définition est formellement moins rigoureuse, c’est celle-ci que nous retiendrons,\nafin de ne pas trop mystifier un objet somme toute assez simple à appréhender.",
+            "texte": "(i) Soit $(u_n)_{n\\in\\mathbb N}$ une suite de réels ou complexes. La série de terme général $u_n$, notée $\\sum_{n\\geq 0} u_n$, ou plus simplement $\\sum u_n$, est, avec l’abus mentionné dans l’introduction du chapitre, la suite $(S_n)_{n\\in\\mathbb N}$ des sommes partielles de la suite $(u_n)$, à savoir :\n\n$$S_n=\\sum_{k=0}^{n}u_k.$$\n\n(ii) $S_n$ est appelé somme partielle (d’ordre $n$) de la série $\\sum u_n$, et $u_n$ est appelé terme général de la série $\\sum u_n$.",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                139,
+                140
+              ],
+              "imprimee": [
+                137,
+                138
+              ]
+            },
+            "transcription_relue": true,
+            "score": 0.564733,
+            "similarite_cosinus": 0.52163,
+            "score_lexical": 0.172413
+          }
+        ]
+      },
+      "appels_agent": [
+        {
+          "arguments": "{\"question\":\"definition serie geometrique\"}",
+          "call_id": "call_BbyOXZRSTJSpDRNKtc1CbF87",
+          "name": "chercher_dans_cours",
+          "type": "function_call",
+          "id": "fc_0c0f30fd024d81b5016ab7c3600d0087d19d4e2d1bad584f46",
+          "status": "completed"
+        }
+      ],
+      "resultats_agent": [
+        {
+          "question": "definition serie geometrique",
+          "chapitre": "16 — Séries numériques",
+          "information": "Passages classés par proximité ; vérifier leur pertinence. Les formules non relues peuvent être dégradées par l'extraction PDF.",
+          "passages": [
+            {
+              "identifiant": "16.2.14",
+              "titre": "Théorème 16.2.14 (Nature des séries géométriques)",
+              "type": "théorème",
+              "section": "II.5 — Séries de référence",
+              "contexte": "Pour pouvoir utiliser efficacement les théorèmes de comparaison, il faut disposer d’un certain nombre\nde séries de référence, dont on connaît bien le comportement, et auxquelles nous pourrons comparer les\nautres séries. Nous avons déjà vu les séries géométriques :",
+              "texte": "Soit z ∈C. La série P zn converge si et seulement si |z| < 1. La convergence est alors absolue, tandis\nque la divergence est grossière.",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  146
+                ],
+                "imprimee": [
+                  144
+                ]
+              },
+              "transcription_relue": false,
+              "score": 0.776773,
+              "similarite_cosinus": 0.526773,
+              "score_lexical": 1.0
+            },
+            {
+              "identifiant": "16.1.9",
+              "titre": "Théorème 16.1.9 (Séries géométriques)",
+              "type": "théorème",
+              "section": "I.1 — Définitions",
+              "contexte": "",
+              "texte": "Soit $a\\in\\mathbb C$. La série $\\sum a^n$ converge si et seulement si $|a|<1$ ; dans ce cas,\n\n$$\\sum_{n=0}^{+\\infty}a^n=\\frac{1}{1-a}.$$\n\nL’exemple suivant est également d’une grande importance (peut-être encore plus que les séries géométriques). Nous nous contentons de l’indiquer en exemple pour le moment : nous énoncerons un théorème plus général un peu plus tard.",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  141
+                ],
+                "imprimee": [
+                  139
+                ]
+              },
+              "transcription_relue": true,
+              "score": 0.769582,
+              "similarite_cosinus": 0.530245,
+              "score_lexical": 0.957349
+            },
+            {
+              "identifiant": "16.2.22",
+              "titre": "Théorème 16.2.22 (Règle de d’Alembert)",
+              "type": "théorème",
+              "section": "II.7 — Comparaison avec une série géométrique",
+              "contexte": "",
+              "texte": "Soit P un une série à termes quelconques. On suppose que\n\u0010\f\f\f un+1\nun\n\u0011\nadmet une limite l. Alors :\n1. Si 0 ⩽l< 1, alors P un converge absolument.\n2. Si l> 1, alors P un diverge grossièrement.\n3. Si l= 1, on ne peut pas conclure par cette méthode.\n⊳Éléments de preuve.\n1. À partir d’un certain rang, on peut majorer (un) par une série géométrique de raison l′ ∈]l, 1[\n2. De même dans l’autre sens, ou plus simplement, (un) est strictement croissante à partir d’un\ncertain rang donc grossièrement divergente.\n3. Chercher des exemples variés parmi les séries de référence.\n⊲",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  147
+                ],
+                "imprimee": [
+                  145
+                ]
+              },
+              "transcription_relue": false,
+              "score": 0.676673,
+              "similarite_cosinus": 0.543708,
+              "score_lexical": 0.53186
+            },
+            {
+              "identifiant": "16.2.7",
+              "titre": "Définition 16.2.7 (Série semi-convergente)",
+              "type": "définition",
+              "section": "II.2 — Convergence absolue et semi-convergence",
+              "contexte": "",
+              "texte": "Si P un est convergente sans être absolument convergente, on dit que la série est semi-convergente.\nAinsi, par exemple, la série harmonique alternée P (−1)n\nn\nest semi-convergente.",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  144
+                ],
+                "imprimee": [
+                  142
+                ]
+              },
+              "transcription_relue": false,
+              "score": 0.634287,
+              "similarite_cosinus": 0.474302,
+              "score_lexical": 0.63994
+            },
+            {
+              "identifiant": "16.1.1",
+              "titre": "Définition 16.1.1 (Série)",
+              "type": "définition",
+              "section": "I.1 — Définitions",
+              "contexte": "16\nSéries numériques\nSi sur une grandeur d, on prend la moitié, puis la moitié de la moitié puis encore la moitié\ndu reste, et ainsi de suite sans limitation de divisions, la grandeur obtenue en additionnant\nune moitié de chaque division successive (division appelée dichotomie) ne pourra jamais être\négale exactement à la distance d. Avant d’arriver à son but, un mobile doit arriver à la moitié\nde son parcours. Mais auparavant, il doit arriver à la moitié de la moitié... Le mobile doit\nparcourir une quantité infinie d’unités d’espace. Il n’arrivera donc jamais à son but.\n(Aristote, paradoxe de la dichotomie, dérivé du paradoxe de Zénon d’Élée)\nLes séries divergentes sont une invention du diable, et c’est une honte de les utiliser dans la\nmoindre démonstration\n(Niels Abel)\nQu’est-ce qu’une série ? Répondre à cette question pose un certain nombre de problèmes. Intuitivement,\nainsi que nous l’avons vu, une série est un objet collectant les différentes sommes des premiers termes\nd’une suite. Autrement dit, il s’agit d’un point de vue sur les suites, différent du point de vue usuel,\npuisqu’il s’agit ici de considérer les suites au travers de leurs sommes partielles. Mais comment définir de\nfaçon spécifique un objet qui existe déjà, et dont on veut simplement modifier le point de vue ?\nDéfinir une série comme un objet P un de sommes de termes (un) nécessite de s’être donné une suite (un),\net de considérer les sommes partielles Sn associées à cette suite. Ainsi, une définition correcte d’une série\nserait de la définir comme un couple ((un), (Sn)) de deux suites, la seconde correspondant à la somme\npartielle de la première. De la sorte, on définit la suite (un) (un est le terme général de la série) ainsi que\nle point de vue (le fait que l’on considère les sommes partielles). Certains auteurs se contentent de définir\nune série comme la suite des sommes partielles d’une suite (un)n∈N, mais cette définition sous-entend la\ndonnée initiale d’une suite (un) et ne diffère donc par réellement de la définition formelle sous forme d’un\ncouple. Même si cette définition est formellement moins rigoureuse, c’est celle-ci que nous retiendrons,\nafin de ne pas trop mystifier un objet somme toute assez simple à appréhender.",
+              "texte": "(i) Soit $(u_n)_{n\\in\\mathbb N}$ une suite de réels ou complexes. La série de terme général $u_n$, notée $\\sum_{n\\geq 0} u_n$, ou plus simplement $\\sum u_n$, est, avec l’abus mentionné dans l’introduction du chapitre, la suite $(S_n)_{n\\in\\mathbb N}$ des sommes partielles de la suite $(u_n)$, à savoir :\n\n$$S_n=\\sum_{k=0}^{n}u_k.$$\n\n(ii) $S_n$ est appelé somme partielle (d’ordre $n$) de la série $\\sum u_n$, et $u_n$ est appelé terme général de la série $\\sum u_n$.",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  139,
+                  140
+                ],
+                "imprimee": [
+                  137,
+                  138
+                ]
+              },
+              "transcription_relue": true,
+              "score": 0.631297,
+              "similarite_cosinus": 0.492184,
+              "score_lexical": 0.556451
+            }
+          ]
+        }
+      ],
+      "reponse_agent": "Une série géométrique est une série dont le terme général est de la forme $a^n$, avec $a \\in \\mathbb{C}$. \n\nPlus précisément, la série $\\sum_{n=0}^{+\\infty} a^n$ converge si et seulement si $|a| < 1$. Dans ce cas, la convergence est absolue et on a la somme totale donnée par la formule :\n\n$$\\sum_{n=0}^{+\\infty} a^n = \\frac{1}{1 - a}.$$\n\nSinon, si $|a| \\geq 1$, la série diverge (Théorème 16.1.9, page PDF 141).\n\nVeux-tu un exemple ou une explication plus détaillée ?",
+      "reussi": true
+    },
+    {
+      "question": "comment montrer qu'une serie diverge",
+      "recherche_directe": {
+        "question": "comment montrer qu'une serie diverge",
+        "chapitre": "16 — Séries numériques",
+        "information": "Passages classés par proximité ; vérifier leur pertinence. Les formules non relues peuvent être dégradées par l'extraction PDF.",
+        "passages": [
+          {
+            "identifiant": "16.1.7",
+            "titre": "Avertissement 16.1.7",
+            "type": "avertissement",
+            "section": "I.1 — Définitions",
+            "contexte": "",
+            "texte": "Toute série divergente ne diverge pas vers $+\\infty$ ou $-\\infty$ !",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                141
+              ],
+              "imprimee": [
+                139
+              ]
+            },
+            "transcription_relue": true,
+            "score": 0.817599,
+            "similarite_cosinus": 0.567599,
+            "score_lexical": 1.0
+          },
+          {
+            "identifiant": "16.2.11",
+            "titre": "Exemple 16.2.11",
+            "type": "exemple",
+            "section": "II.3 — D’autres théorèmes de comparaison",
+            "contexte": "",
+            "texte": "Contre-exemple dans le cas de séries à termes quelconques :\nX (−1)n\n√\nn\nconverge et\nX\n(−1)n\n√\nn + (−1)n\ndiverge. Pourtant : (−1)n\n√\nn\n∼\n+∞\n(−1)n\n√\nn + (−1)n .",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                145
+              ],
+              "imprimee": [
+                143
+              ]
+            },
+            "transcription_relue": false,
+            "score": 0.761675,
+            "similarite_cosinus": 0.521002,
+            "score_lexical": 0.962693
+          },
+          {
+            "identifiant": "16.2.2",
+            "titre": "Théorème 16.2.2 (Théorème de comparaison des séries à termes positifs, TCSTP)",
+            "type": "théorème",
+            "section": "II.1 — Comparaisons entre séries à termes positifs",
+            "contexte": "",
+            "texte": "Soit P un et P vn deux séries à termes positifs telles qu’il existe N ∈N tel que pour tout n ⩾N,\n0 ⩽un ⩽vn. Alors :\n1. si P vn converge, P un converge aussi ;\n2. si P un diverge, P vn diverge aussi.\nDe plus, si la divergence est grossière pour P un, elle l’est aussi pour P vn.\n⊳Éléments de preuve.\nLa propriété précédente auquelle on ajoute l’information de majoration apportée par la convergence\nde P vn.\n⊲\nLe deuxième point (si on omet le cas de divergence grossière) n’est évidemment rien de plus que la\ncontraposée du premier.\nIl faut bien comprendre qu’une série P un est la somme de plein de un : si les un (positifs) sont suffisam-\nment petits la somme ne grossit pas trop vite et converge ; si les un ne deviennent pas assez vite petits,\nen revanche, la somme grossit trop vite et diverge.\nAinsi, une inégalité du type 0 ⩽un ⩽vn permet de contrôler la taille des éléments que l’on somme.\nSi P vn converge, cela signifie que les vn restent assez petits, donc les un aussi. Inversement, si P un\ndiverge, cela signifie que les un ne deviennent pas petits assez vite, donc les vn non plus !",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                143
+              ],
+              "imprimee": [
+                141
+              ]
+            },
+            "transcription_relue": false,
+            "score": 0.760126,
+            "similarite_cosinus": 0.562066,
+            "score_lexical": 0.792239
+          },
+          {
+            "identifiant": "16.1.13",
+            "titre": "Définition 16.1.13 (Divergence grossière)",
+            "type": "définition",
+            "section": "I.2 — Propriétés liées à la convergence",
+            "contexte": "",
+            "texte": "Si (un)n∈N ne tend pas vers 0, on dit que P un diverge grossièrement.",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                142
+              ],
+              "imprimee": [
+                140
+              ]
+            },
+            "transcription_relue": false,
+            "score": 0.74165,
+            "similarite_cosinus": 0.552491,
+            "score_lexical": 0.756636
+          },
+          {
+            "identifiant": "16.2.22",
+            "titre": "Théorème 16.2.22 (Règle de d’Alembert)",
+            "type": "théorème",
+            "section": "II.7 — Comparaison avec une série géométrique",
+            "contexte": "",
+            "texte": "Soit P un une série à termes quelconques. On suppose que\n\u0010\f\f\f un+1\nun\n\u0011\nadmet une limite l. Alors :\n1. Si 0 ⩽l< 1, alors P un converge absolument.\n2. Si l> 1, alors P un diverge grossièrement.\n3. Si l= 1, on ne peut pas conclure par cette méthode.\n⊳Éléments de preuve.\n1. À partir d’un certain rang, on peut majorer (un) par une série géométrique de raison l′ ∈]l, 1[\n2. De même dans l’autre sens, ou plus simplement, (un) est strictement croissante à partir d’un\ncertain rang donc grossièrement divergente.\n3. Chercher des exemples variés parmi les séries de référence.\n⊲",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                147
+              ],
+              "imprimee": [
+                145
+              ]
+            },
+            "transcription_relue": false,
+            "score": 0.722841,
+            "similarite_cosinus": 0.570028,
+            "score_lexical": 0.611255
+          }
+        ]
+      },
+      "appels_agent": [
+        {
+          "arguments": "{\"question\":\"comment montrer qu'une série diverge\"}",
+          "call_id": "call_INq7h6MUlz4WYTm3kQkwp2Oc",
+          "name": "chercher_dans_cours",
+          "type": "function_call",
+          "id": "fc_0c3df4e36e52114a016ab7c363c89887d1997352edd26c85f9",
+          "status": "completed"
+        }
+      ],
+      "resultats_agent": [
+        {
+          "question": "comment montrer qu'une série diverge",
+          "chapitre": "16 — Séries numériques",
+          "information": "Passages classés par proximité ; vérifier leur pertinence. Les formules non relues peuvent être dégradées par l'extraction PDF.",
+          "passages": [
+            {
+              "identifiant": "16.1.7",
+              "titre": "Avertissement 16.1.7",
+              "type": "avertissement",
+              "section": "I.1 — Définitions",
+              "contexte": "",
+              "texte": "Toute série divergente ne diverge pas vers $+\\infty$ ou $-\\infty$ !",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  141
+                ],
+                "imprimee": [
+                  139
+                ]
+              },
+              "transcription_relue": true,
+              "score": 0.840598,
+              "similarite_cosinus": 0.590598,
+              "score_lexical": 1.0
+            },
+            {
+              "identifiant": "16.2.11",
+              "titre": "Exemple 16.2.11",
+              "type": "exemple",
+              "section": "II.3 — D’autres théorèmes de comparaison",
+              "contexte": "",
+              "texte": "Contre-exemple dans le cas de séries à termes quelconques :\nX (−1)n\n√\nn\nconverge et\nX\n(−1)n\n√\nn + (−1)n\ndiverge. Pourtant : (−1)n\n√\nn\n∼\n+∞\n(−1)n\n√\nn + (−1)n .",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  145
+                ],
+                "imprimee": [
+                  143
+                ]
+              },
+              "transcription_relue": false,
+              "score": 0.787515,
+              "similarite_cosinus": 0.546841,
+              "score_lexical": 0.962693
+            },
+            {
+              "identifiant": "16.2.2",
+              "titre": "Théorème 16.2.2 (Théorème de comparaison des séries à termes positifs, TCSTP)",
+              "type": "théorème",
+              "section": "II.1 — Comparaisons entre séries à termes positifs",
+              "contexte": "",
+              "texte": "Soit P un et P vn deux séries à termes positifs telles qu’il existe N ∈N tel que pour tout n ⩾N,\n0 ⩽un ⩽vn. Alors :\n1. si P vn converge, P un converge aussi ;\n2. si P un diverge, P vn diverge aussi.\nDe plus, si la divergence est grossière pour P un, elle l’est aussi pour P vn.\n⊳Éléments de preuve.\nLa propriété précédente auquelle on ajoute l’information de majoration apportée par la convergence\nde P vn.\n⊲\nLe deuxième point (si on omet le cas de divergence grossière) n’est évidemment rien de plus que la\ncontraposée du premier.\nIl faut bien comprendre qu’une série P un est la somme de plein de un : si les un (positifs) sont suffisam-\nment petits la somme ne grossit pas trop vite et converge ; si les un ne deviennent pas assez vite petits,\nen revanche, la somme grossit trop vite et diverge.\nAinsi, une inégalité du type 0 ⩽un ⩽vn permet de contrôler la taille des éléments que l’on somme.\nSi P vn converge, cela signifie que les vn restent assez petits, donc les un aussi. Inversement, si P un\ndiverge, cela signifie que les un ne deviennent pas petits assez vite, donc les vn non plus !",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  143
+                ],
+                "imprimee": [
+                  141
+                ]
+              },
+              "transcription_relue": false,
+              "score": 0.783271,
+              "similarite_cosinus": 0.585211,
+              "score_lexical": 0.792239
+            },
+            {
+              "identifiant": "16.1.13",
+              "titre": "Définition 16.1.13 (Divergence grossière)",
+              "type": "définition",
+              "section": "I.2 — Propriétés liées à la convergence",
+              "contexte": "",
+              "texte": "Si (un)n∈N ne tend pas vers 0, on dit que P un diverge grossièrement.",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  142
+                ],
+                "imprimee": [
+                  140
+                ]
+              },
+              "transcription_relue": false,
+              "score": 0.765806,
+              "similarite_cosinus": 0.576647,
+              "score_lexical": 0.756636
+            },
+            {
+              "identifiant": "16.2.22",
+              "titre": "Théorème 16.2.22 (Règle de d’Alembert)",
+              "type": "théorème",
+              "section": "II.7 — Comparaison avec une série géométrique",
+              "contexte": "",
+              "texte": "Soit P un une série à termes quelconques. On suppose que\n\u0010\f\f\f un+1\nun\n\u0011\nadmet une limite l. Alors :\n1. Si 0 ⩽l< 1, alors P un converge absolument.\n2. Si l> 1, alors P un diverge grossièrement.\n3. Si l= 1, on ne peut pas conclure par cette méthode.\n⊳Éléments de preuve.\n1. À partir d’un certain rang, on peut majorer (un) par une série géométrique de raison l′ ∈]l, 1[\n2. De même dans l’autre sens, ou plus simplement, (un) est strictement croissante à partir d’un\ncertain rang donc grossièrement divergente.\n3. Chercher des exemples variés parmi les séries de référence.\n⊲",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  147
+                ],
+                "imprimee": [
+                  145
+                ]
+              },
+              "transcription_relue": false,
+              "score": 0.749288,
+              "similarite_cosinus": 0.596475,
+              "score_lexical": 0.611255
+            }
+          ]
+        }
+      ],
+      "reponse_agent": "Pour montrer qu'une série diverge, voici quelques méthodes clés :\n\n1. Vérifier la limite du terme général : si le terme général \\(u_n\\) ne tend pas vers 0, alors la série diverge grossièrement (Définition 16.1.13).\n\n2. Utiliser la règle de d’Alembert : si la limite du rapport \\(\\frac{u_{n+1}}{u_n}\\) existe et est supérieure à 1, la série diverge grossièrement (Théorème 16.2.22).\n\n3. Par comparaison : si une série à termes positifs \\( \\sum u_n \\) est minorée par une série divergente \\( \\sum v_n \\) avec \\(0 \\leq v_n \\leq u_n\\) (Théorème 16.2.2).\n\nNote importante : une série divergente ne diverge pas forcément vers \\(+\\infty\\) ou \\(-\\infty\\) (Avertissement 16.1.7).\n\nVeux-tu un exemple ou un détail sur une de ces méthodes ?",
+      "reussi": true
+    },
+    {
+      "question": "definition du reste d'une serie",
+      "recherche_directe": {
+        "question": "definition du reste d'une serie",
+        "chapitre": "16 — Séries numériques",
+        "information": "Passages classés par proximité ; vérifier leur pertinence. Les formules non relues peuvent être dégradées par l'extraction PDF.",
+        "passages": [
+          {
+            "identifiant": "16.1.5",
+            "titre": "Définition 16.1.5 (Convergence d’une série)",
+            "type": "définition",
+            "section": "I.1 — Définitions",
+            "contexte": "",
+            "texte": "(i) On dit que la série $\\sum u_n$ de terme général $u_n$ converge si la suite $(S_n)_{n\\in\\mathbb N}$ de ses sommes partielles admet une limite finie. On note alors\n\n$$\\sum_{n=0}^{+\\infty}u_n=\\lim_{n\\to+\\infty}S_n.$$\n\nCette quantité est appelée somme de la série de terme général $u_n$.\n\n(ii) Une série non convergente est dite divergente.\n\n(iii) Soit $\\sum_{n\\in\\mathbb N}u_n$ une série convergente, et soit $n\\in\\mathbb N$. Le $n$-ième reste de la série est :\n\n$$r_n=\\sum_{k=n+1}^{+\\infty}u_k=\\sum_{k=0}^{+\\infty}u_k-S_n.$$\n\n(iv) La nature de la série $\\sum u_n$ est le fait d’être convergente ou divergente.",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                140
+              ],
+              "imprimee": [
+                138
+              ]
+            },
+            "transcription_relue": true,
+            "score": 0.792183,
+            "similarite_cosinus": 0.542183,
+            "score_lexical": 1.0
+          },
+          {
+            "identifiant": "16.1.1",
+            "titre": "Définition 16.1.1 (Série)",
+            "type": "définition",
+            "section": "I.1 — Définitions",
+            "contexte": "16\nSéries numériques\nSi sur une grandeur d, on prend la moitié, puis la moitié de la moitié puis encore la moitié\ndu reste, et ainsi de suite sans limitation de divisions, la grandeur obtenue en additionnant\nune moitié de chaque division successive (division appelée dichotomie) ne pourra jamais être\négale exactement à la distance d. Avant d’arriver à son but, un mobile doit arriver à la moitié\nde son parcours. Mais auparavant, il doit arriver à la moitié de la moitié... Le mobile doit\nparcourir une quantité infinie d’unités d’espace. Il n’arrivera donc jamais à son but.\n(Aristote, paradoxe de la dichotomie, dérivé du paradoxe de Zénon d’Élée)\nLes séries divergentes sont une invention du diable, et c’est une honte de les utiliser dans la\nmoindre démonstration\n(Niels Abel)\nQu’est-ce qu’une série ? Répondre à cette question pose un certain nombre de problèmes. Intuitivement,\nainsi que nous l’avons vu, une série est un objet collectant les différentes sommes des premiers termes\nd’une suite. Autrement dit, il s’agit d’un point de vue sur les suites, différent du point de vue usuel,\npuisqu’il s’agit ici de considérer les suites au travers de leurs sommes partielles. Mais comment définir de\nfaçon spécifique un objet qui existe déjà, et dont on veut simplement modifier le point de vue ?\nDéfinir une série comme un objet P un de sommes de termes (un) nécessite de s’être donné une suite (un),\net de considérer les sommes partielles Sn associées à cette suite. Ainsi, une définition correcte d’une série\nserait de la définir comme un couple ((un), (Sn)) de deux suites, la seconde correspondant à la somme\npartielle de la première. De la sorte, on définit la suite (un) (un est le terme général de la série) ainsi que\nle point de vue (le fait que l’on considère les sommes partielles). Certains auteurs se contentent de définir\nune série comme la suite des sommes partielles d’une suite (un)n∈N, mais cette définition sous-entend la\ndonnée initiale d’une suite (un) et ne diffère donc par réellement de la définition formelle sous forme d’un\ncouple. Même si cette définition est formellement moins rigoureuse, c’est celle-ci que nous retiendrons,\nafin de ne pas trop mystifier un objet somme toute assez simple à appréhender.",
+            "texte": "(i) Soit $(u_n)_{n\\in\\mathbb N}$ une suite de réels ou complexes. La série de terme général $u_n$, notée $\\sum_{n\\geq 0} u_n$, ou plus simplement $\\sum u_n$, est, avec l’abus mentionné dans l’introduction du chapitre, la suite $(S_n)_{n\\in\\mathbb N}$ des sommes partielles de la suite $(u_n)$, à savoir :\n\n$$S_n=\\sum_{k=0}^{n}u_k.$$\n\n(ii) $S_n$ est appelé somme partielle (d’ordre $n$) de la série $\\sum u_n$, et $u_n$ est appelé terme général de la série $\\sum u_n$.",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                139,
+                140
+              ],
+              "imprimee": [
+                137,
+                138
+              ]
+            },
+            "transcription_relue": true,
+            "score": 0.769687,
+            "similarite_cosinus": 0.594702,
+            "score_lexical": 0.699944
+          },
+          {
+            "identifiant": "16.2.16",
+            "titre": "Définition 16.2.16 (Série de Riemann)",
+            "type": "définition",
+            "section": "II.5 — Séries de référence",
+            "contexte": "",
+            "texte": "La série de Riemann de paramètre α ∈R est la série\nX\nn⩾1\n1\nnα .\nDu théorème de comparaison entre séries et intégrales, on déduit :",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                146
+              ],
+              "imprimee": [
+                144
+              ]
+            },
+            "transcription_relue": false,
+            "score": 0.746113,
+            "similarite_cosinus": 0.526716,
+            "score_lexical": 0.877588
+          },
+          {
+            "identifiant": "16.3.2",
+            "titre": "Théorème 16.3.2 (Théorème spécial de convergence des séries alternées, TSCSA)",
+            "type": "théorème",
+            "section": "III.1 — Séries alternées",
+            "contexte": "",
+            "texte": "1. Toute série alternée est convergente\n2. Ses sommes partielles sont du signe du premier terme.\n3. Ses restes sont du signe de leur premier terme et majorés en valeur absolue par ce premier\nterme.\n⊳Éléments de preuve.\nRappel rapide : (S2n) et (S2n+1) sont deux suites adjacentes. La monotonie de S2n et S2n+1 permet\nd’obtenir également les deux propriétés sur les sommes partielles et les restes.\n⊲",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                148
+              ],
+              "imprimee": [
+                146
+              ]
+            },
+            "transcription_relue": false,
+            "score": 0.730215,
+            "similarite_cosinus": 0.523772,
+            "score_lexical": 0.825775
+          },
+          {
+            "identifiant": "16.2.3",
+            "titre": "Définition 16.2.3 (Convergence absolue)",
+            "type": "définition",
+            "section": "II.2 — Convergence absolue et semi-convergence",
+            "contexte": "Avant de voir d’autres théorèmes de comparaison découlant directement du théorème ci-dessus, voyons\nune conséquence importance de ce théorème, permettant souvent de ramener l’étude de séries à termes\nquelconques à des études de séries à termes positifs. Ceci est particulièrement intéressant du fait que\npour les séries à termes positifs, on dispose d’outils d’étude assez efficaces, en particulier les théorèmes\nde comparaison.",
+            "texte": "On dit que P un converge absolument si la série P |un| est convergente.\nComme l’indique bien la terminologie, nous avons :",
+            "page_source": {
+              "fichier": "data/cours/analyse.pdf",
+              "pdf": [
+                143
+              ],
+              "imprimee": [
+                141
+              ]
+            },
+            "transcription_relue": false,
+            "score": 0.716343,
+            "similarite_cosinus": 0.525121,
+            "score_lexical": 0.764888
+          }
+        ]
+      },
+      "appels_agent": [
+        {
+          "arguments": "{\"question\":\"définition du reste d'une série\"}",
+          "call_id": "call_YhvB51ZIFDh26X1c4KmadrNC",
+          "name": "chercher_dans_cours",
+          "type": "function_call",
+          "id": "fc_0fbc2610f568849e016ab7c367457087d1a45513d339b92ba1",
+          "status": "completed"
+        }
+      ],
+      "resultats_agent": [
+        {
+          "question": "définition du reste d'une série",
+          "chapitre": "16 — Séries numériques",
+          "information": "Passages classés par proximité ; vérifier leur pertinence. Les formules non relues peuvent être dégradées par l'extraction PDF.",
+          "passages": [
+            {
+              "identifiant": "16.1.5",
+              "titre": "Définition 16.1.5 (Convergence d’une série)",
+              "type": "définition",
+              "section": "I.1 — Définitions",
+              "contexte": "",
+              "texte": "(i) On dit que la série $\\sum u_n$ de terme général $u_n$ converge si la suite $(S_n)_{n\\in\\mathbb N}$ de ses sommes partielles admet une limite finie. On note alors\n\n$$\\sum_{n=0}^{+\\infty}u_n=\\lim_{n\\to+\\infty}S_n.$$\n\nCette quantité est appelée somme de la série de terme général $u_n$.\n\n(ii) Une série non convergente est dite divergente.\n\n(iii) Soit $\\sum_{n\\in\\mathbb N}u_n$ une série convergente, et soit $n\\in\\mathbb N$. Le $n$-ième reste de la série est :\n\n$$r_n=\\sum_{k=n+1}^{+\\infty}u_k=\\sum_{k=0}^{+\\infty}u_k-S_n.$$\n\n(iv) La nature de la série $\\sum u_n$ est le fait d’être convergente ou divergente.",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  140
+                ],
+                "imprimee": [
+                  138
+                ]
+              },
+              "transcription_relue": true,
+              "score": 0.822453,
+              "similarite_cosinus": 0.572453,
+              "score_lexical": 1.0
+            },
+            {
+              "identifiant": "16.1.1",
+              "titre": "Définition 16.1.1 (Série)",
+              "type": "définition",
+              "section": "I.1 — Définitions",
+              "contexte": "16\nSéries numériques\nSi sur une grandeur d, on prend la moitié, puis la moitié de la moitié puis encore la moitié\ndu reste, et ainsi de suite sans limitation de divisions, la grandeur obtenue en additionnant\nune moitié de chaque division successive (division appelée dichotomie) ne pourra jamais être\négale exactement à la distance d. Avant d’arriver à son but, un mobile doit arriver à la moitié\nde son parcours. Mais auparavant, il doit arriver à la moitié de la moitié... Le mobile doit\nparcourir une quantité infinie d’unités d’espace. Il n’arrivera donc jamais à son but.\n(Aristote, paradoxe de la dichotomie, dérivé du paradoxe de Zénon d’Élée)\nLes séries divergentes sont une invention du diable, et c’est une honte de les utiliser dans la\nmoindre démonstration\n(Niels Abel)\nQu’est-ce qu’une série ? Répondre à cette question pose un certain nombre de problèmes. Intuitivement,\nainsi que nous l’avons vu, une série est un objet collectant les différentes sommes des premiers termes\nd’une suite. Autrement dit, il s’agit d’un point de vue sur les suites, différent du point de vue usuel,\npuisqu’il s’agit ici de considérer les suites au travers de leurs sommes partielles. Mais comment définir de\nfaçon spécifique un objet qui existe déjà, et dont on veut simplement modifier le point de vue ?\nDéfinir une série comme un objet P un de sommes de termes (un) nécessite de s’être donné une suite (un),\net de considérer les sommes partielles Sn associées à cette suite. Ainsi, une définition correcte d’une série\nserait de la définir comme un couple ((un), (Sn)) de deux suites, la seconde correspondant à la somme\npartielle de la première. De la sorte, on définit la suite (un) (un est le terme général de la série) ainsi que\nle point de vue (le fait que l’on considère les sommes partielles). Certains auteurs se contentent de définir\nune série comme la suite des sommes partielles d’une suite (un)n∈N, mais cette définition sous-entend la\ndonnée initiale d’une suite (un) et ne diffère donc par réellement de la définition formelle sous forme d’un\ncouple. Même si cette définition est formellement moins rigoureuse, c’est celle-ci que nous retiendrons,\nafin de ne pas trop mystifier un objet somme toute assez simple à appréhender.",
+              "texte": "(i) Soit $(u_n)_{n\\in\\mathbb N}$ une suite de réels ou complexes. La série de terme général $u_n$, notée $\\sum_{n\\geq 0} u_n$, ou plus simplement $\\sum u_n$, est, avec l’abus mentionné dans l’introduction du chapitre, la suite $(S_n)_{n\\in\\mathbb N}$ des sommes partielles de la suite $(u_n)$, à savoir :\n\n$$S_n=\\sum_{k=0}^{n}u_k.$$\n\n(ii) $S_n$ est appelé somme partielle (d’ordre $n$) de la série $\\sum u_n$, et $u_n$ est appelé terme général de la série $\\sum u_n$.",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  139,
+                  140
+                ],
+                "imprimee": [
+                  137,
+                  138
+                ]
+              },
+              "transcription_relue": true,
+              "score": 0.794113,
+              "similarite_cosinus": 0.619127,
+              "score_lexical": 0.699944
+            },
+            {
+              "identifiant": "16.3.2",
+              "titre": "Théorème 16.3.2 (Théorème spécial de convergence des séries alternées, TSCSA)",
+              "type": "théorème",
+              "section": "III.1 — Séries alternées",
+              "contexte": "",
+              "texte": "1. Toute série alternée est convergente\n2. Ses sommes partielles sont du signe du premier terme.\n3. Ses restes sont du signe de leur premier terme et majorés en valeur absolue par ce premier\nterme.\n⊳Éléments de preuve.\nRappel rapide : (S2n) et (S2n+1) sont deux suites adjacentes. La monotonie de S2n et S2n+1 permet\nd’obtenir également les deux propriétés sur les sommes partielles et les restes.\n⊲",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  148
+                ],
+                "imprimee": [
+                  146
+                ]
+              },
+              "transcription_relue": false,
+              "score": 0.791193,
+              "similarite_cosinus": 0.584749,
+              "score_lexical": 0.825775
+            },
+            {
+              "identifiant": "16.2.16",
+              "titre": "Définition 16.2.16 (Série de Riemann)",
+              "type": "définition",
+              "section": "II.5 — Séries de référence",
+              "contexte": "",
+              "texte": "La série de Riemann de paramètre α ∈R est la série\nX\nn⩾1\n1\nnα .\nDu théorème de comparaison entre séries et intégrales, on déduit :",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  146
+                ],
+                "imprimee": [
+                  144
+                ]
+              },
+              "transcription_relue": false,
+              "score": 0.773076,
+              "similarite_cosinus": 0.553679,
+              "score_lexical": 0.877588
+            },
+            {
+              "identifiant": "16.1.2",
+              "titre": "Remarques 16.1.2",
+              "type": "remarque",
+              "section": "I.1 — Définitions",
+              "contexte": "",
+              "texte": "1. La donnée de la suite $(S_n)$ des sommes partielles de $\\sum u_n$ permet de retrouver le terme général $u_n$ de la série, puisque\n\n$$u_0=S_0\\quad\\text{et}\\quad\\forall n\\in\\mathbb N^*,\\quad u_n=S_n-S_{n-1}.$$\n\n2. La définition se généralise de façon évidente pour des séries dont le premier terme est $u_{n_0}$, $n_0\\in\\mathbb N$ (ou même $n_0\\in\\mathbb Z$).",
+              "page_source": {
+                "fichier": "data/cours/analyse.pdf",
+                "pdf": [
+                  140
+                ],
+                "imprimee": [
+                  138
+                ]
+              },
+              "transcription_relue": true,
+              "score": 0.767318,
+              "similarite_cosinus": 0.631564,
+              "score_lexical": 0.543017
+            }
+          ]
+        }
+      ],
+      "reponse_agent": "La définition du reste d'une série convergente $\\sum u_n$ est la suivante (Définition 16.1.5, page PDF 140) :\n\nSoit $S_n = \\sum_{k=0}^n u_k$ la somme partielle jusqu'au rang $n$. Le $n$-ième reste de la série est \n$$r_n = \\sum_{k=n+1}^{+\\infty} u_k = \\sum_{k=0}^{+\\infty} u_k - S_n.$$\n\nAinsi, le reste $r_n$ correspond à la somme des termes de la série à partir de l'indice $(n+1)$ jusqu'à l'infini, c'est-à-dire ce qu'il manque à la somme partielle pour atteindre la somme totale de la série.",
+      "reussi": true
+    }
+  ]
+}

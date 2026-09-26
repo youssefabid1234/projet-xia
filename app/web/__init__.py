@@ -1,15 +1,18 @@
-"""Interface locale, mono-élève : python -m app.web."""
+"""Interface locale avec comptes élèves : python -m app.web."""
 
 import asyncio
 import os
 import secrets
+from collections import OrderedDict
 from pathlib import Path
 from threading import Lock
 
-from flask import Flask, render_template, request, session
+from flask import Flask, g, redirect, render_template, request, session, url_for
 from pipelex_sdk.client import PipelexAPIClient
 
+from app.web.auth import auth
 from app.evaluation import evaluer_reponse
+from app.agent import Agent
 from app.profil import GAINS, Profil, charger_exercices, choisir_exercice
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -21,9 +24,9 @@ VERDICTS = {
 }
 
 
-async def corriger(enonce, reponse):
+async def corriger(enonce, reponse, corrige):
     async with PipelexAPIClient() as client:
-        resultat = await evaluer_reponse(client, enonce, reponse)
+        resultat = await evaluer_reponse(client, enonce, reponse, corrige)
     evaluation = resultat.main_stuff
     if (not isinstance(evaluation, dict)
             or evaluation.get("verdict") not in GAINS
@@ -37,25 +40,92 @@ def create_app(config=None):
     app = Flask(__name__)
     app.config.update(
         SECRET_KEY=os.environ.get("FLASK_SECRET_KEY") or secrets.token_hex(32),
-        PROFIL_PATH=ROOT / "data" / "profil.json",
+        UTILISATEURS_PATH=ROOT / "data" / "utilisateurs.json",
+        PROFILS_DIR=ROOT / "data" / "profils",
         EXERCICES_PATH=ROOT / "data" / "exercices.json",
         MAX_CONTENT_LENGTH=64 * 1024,
         SESSION_COOKIE_SAMESITE="Lax",
     )
     if config:
         app.config.update(config)
+    app.register_blueprint(auth)
     verrou = Lock()
+    conversations = OrderedDict()
 
     @app.route("/", methods=["GET", "POST"])
+    def chat():
+        session.setdefault("csrf", secrets.token_urlsafe(32))
+        session.setdefault("conversation", secrets.token_urlsafe(32))
+        erreur, statut = None, 200
+        message = request.form.get("message", "")
+        with verrou:
+            identifiant = (session["utilisateur"], session["conversation"])
+            if identifiant not in conversations:
+                conversations[identifiant] = {
+                    "agent": Agent(g.profil_path, charger_exercices(app.config["EXERCICES_PATH"])),
+                    "tour": secrets.token_urlsafe(24),
+                }
+                # L'application locale conserve au plus 100 conversations en mémoire.
+                if len(conversations) > 100:
+                    conversations.popitem(last=False)
+            conversations.move_to_end(identifiant)
+            etat = conversations[identifiant]
+            agent = etat["agent"]
+            session["tour"] = etat["tour"]
+            if request.method == "POST":
+                if not secrets.compare_digest(request.form.get("csrf", "").encode(), session["csrf"].encode()):
+                    erreur, statut = "La session a expiré. Rechargez la page.", 400
+                elif request.form.get("tour") != session["tour"]:
+                    erreur, statut = "La conversation a changé. Vérifiez les messages puis réessayez.", 409
+                elif request.form.get("action") == "nouvelle":
+                    conversations.pop(identifiant)
+                    session["conversation"] = secrets.token_urlsafe(32)
+                    return redirect(url_for("chat"))
+                elif request.form.get("action") == "corriger":
+                    if agent.derniere_reponse is None or not agent.exercice:
+                        erreur, statut = "Envoyez d'abord votre réponse à l'exercice actif.", 400
+                    elif not os.environ.get("PIPELEX_API_KEY", "").strip():
+                        erreur, statut = "La correction est indisponible : configurez PIPELEX_API_KEY sur le serveur.", 503
+                    else:
+                        try:
+                            asyncio.run(agent.corriger_derniere_reponse())
+                        except Exception:
+                            app.logger.exception("Échec de la correction du dernier message")
+                            erreur, statut = "La correction a échoué. Votre réponse est conservée ; réessayez.", 502
+                        else:
+                            etat["tour"] = secrets.token_urlsafe(24)
+                            session["tour"] = etat["tour"]
+                            return redirect(url_for("chat"))
+                elif not message.strip() or len(message) > 12000:
+                    erreur, statut = "Écrivez un message de 1 à 12 000 caractères.", 400
+                elif len(agent.messages) >= 120:
+                    erreur, statut = "Cette discussion est longue. Commencez une nouvelle discussion pour continuer.", 400
+                elif not os.environ.get("OPENAI_API_KEY", "").strip():
+                    erreur, statut = "Le chat est indisponible : configurez OPENAI_API_KEY sur le serveur.", 503
+                else:
+                    try:
+                        asyncio.run(agent.repondre(message))
+                    except Exception:
+                        app.logger.exception("Échec du dialogue avec le tuteur")
+                        erreur, statut = "Le tuteur est indisponible. Votre message est conservé ; réessayez.", 502
+                    else:
+                        etat["tour"] = secrets.token_urlsafe(24)
+                        session["tour"] = etat["tour"]
+                        return redirect(url_for("chat"))
+            return render_template("chat.html", messages=agent.messages, chapitres=agent.chapitres,
+                                   message=message, erreur=erreur,
+                                   peut_corriger=agent.exercice is not None and agent.derniere_reponse is not None), statut
+
+    @app.route("/classique", methods=["GET", "POST"])
     def index():
         exercices = charger_exercices(app.config["EXERCICES_PATH"])
         chapitres = list(dict.fromkeys(ex["chapitre"] for ex in exercices))
         chapitre = request.values.get("chapitre", chapitres[0] if chapitres else "")
         session.setdefault("csrf", secrets.token_urlsafe(32))
         erreur, evaluation, reponse, statut = None, None, "", 200
-        # Sérialise les corrections et la sauvegarde du profil local partagé.
+        # Sérialise les corrections et la sauvegarde du profil connecté.
         with verrou:
-            profil = Profil.charger(app.config["PROFIL_PATH"])
+            profil = Profil.charger(g.profil_path)
             exercice = choisir_exercice(profil, chapitre, exercices)
             if chapitre not in chapitres and chapitres:
                 erreur, statut = "Chapitre inconnu. Choisissez un chapitre de la liste.", 400
@@ -71,13 +141,13 @@ def create_app(config=None):
                     erreur, statut = "La correction est indisponible : configurez PIPELEX_API_KEY sur le serveur.", 503
                 else:
                     try:
-                        evaluation = asyncio.run(corriger(exercice["enonce"], reponse))
+                        evaluation = asyncio.run(corriger(exercice["enonce"], reponse, exercice.get("corrige", "")))
                         profil.enregistrer(exercice["id"], chapitre,
                                            evaluation["verdict"], evaluation["type_erreur"])
-                        profil.sauvegarder(app.config["PROFIL_PATH"])
+                        profil.sauvegarder(g.profil_path)
                     except Exception:
                         app.logger.exception("Échec de la correction ou de sa sauvegarde")
-                        profil = Profil.charger(app.config["PROFIL_PATH"])
+                        profil = Profil.charger(g.profil_path)
                         evaluation = None
                         erreur, statut = "La correction n’a pas pu être enregistrée. Votre réponse est conservée ; réessayez.", 502
             return render_template(

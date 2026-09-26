@@ -12,15 +12,15 @@ from pathlib import Path
 from pipelex_sdk.client import PipelexAPIClient
 
 if __package__:
+    from .evaluation import evaluer_reponse
     from .profil import GAINS, Profil, charger_exercices, choisir_exercice
 else:
+    from evaluation import evaluer_reponse
     from profil import GAINS, Profil, charger_exercices, choisir_exercice
 
 
 ROOT = Path(__file__).resolve().parent.parent
 CHEMIN_PROFIL = ROOT / "data" / "profil.json"
-BUNDLE_DIR = ROOT / "methods" / "evaluation_maths_prepa"
-PIPE_CODE = "evaluation_maths_prepa.evaluer_reponse"
 
 
 async def main() -> None:
@@ -34,11 +34,6 @@ async def main() -> None:
 
     if not os.environ.get("PIPELEX_API_KEY", "").strip():
         raise SystemExit("Veuillez définir la variable d'environnement PIPELEX_API_KEY.")
-
-    fichiers = sorted(BUNDLE_DIR.rglob("*.mthds"))
-    if not fichiers:
-        raise SystemExit(f"Aucun fichier .mthds trouvé dans {BUNDLE_DIR}.")
-    contenus = [fichier.read_text(encoding="utf-8") for fichier in fichiers]
 
     print(f"Bienvenue, {profil.nom} ! Tapez stop à tout moment pour quitter.")
     async with PipelexAPIClient() as client:
@@ -75,11 +70,8 @@ async def main() -> None:
 
             print("Évaluation en cours…", flush=True)
             try:
-                resultat = await client.start_and_wait(
-                    pipe_code=PIPE_CODE,
-                    mthds_contents=contenus,
-                    inputs={"enonce": exercice["enonce"], "reponse_eleve": reponse},
-                )
+                resultat = await evaluer_reponse(
+                    client, exercice["enonce"], reponse, exercice.get("corrige", ""))
                 evaluation = resultat.main_stuff
                 verdict = evaluation["verdict"]
                 type_erreur = evaluation["type_erreur"]
