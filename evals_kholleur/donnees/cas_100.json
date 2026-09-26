@@ -1,0 +1,2941 @@
+{
+  "version": 1,
+  "chapitre": "17 — Série de réels ou de complexes",
+  "description": "100 cas, chacun avec trois réactions à une relance de référence.",
+  "validation": "Structure vérifiée ; évaluation réelle du tuteur et relecture humaine distinctes.",
+  "criteres": [
+    "exactitude_mathematique",
+    "defi_cible_sans_verdict_initial",
+    "indice_proportionne",
+    "prise_en_compte_reaction",
+    "progression_sans_boucle",
+    "ton_et_clarte"
+  ],
+  "cas": [
+    {
+      "id": "K001",
+      "famille": "definitions",
+      "titre": "Définition reformulée",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Définir la convergence d'une série réelle.",
+      "reference": "La suite S_N=sum_{n=1}^N u_n converge vers un réel fini. u_n=S_n-S_{n-1} tend alors vers zéro.",
+      "reponse_initiale": "Les sommes des premiers termes se rapprochent d'un réel fini.",
+      "statut_initial": "correcte",
+      "relance_exemple": "Écrivez ces sommes S_N, puis exprimez u_N à l'aide de deux d'entre elles.",
+      "objectif_relance": "Accepter la définition en mots et faire préciser la notation, sans redemander mot pour mot la définition.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "S_N=sum_{n=1}^N u_n et u_N=S_N-S_{N-1}, donc u_N tend vers zéro.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "u_N=S_N, donc les deux ont la même limite.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas distinguer un terme et une somme partielle.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Accepter la définition en mots et faire préciser la notation, sans redemander mot pour mot la définition.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K002",
+      "famille": "definitions",
+      "titre": "Condition nécessaire prise pour suffisante",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "La condition u_n tend vers zéro suffit-elle à la convergence de sum u_n ?",
+      "reference": "Non : 1/n tend vers zéro mais la série harmonique diverge ; grouper de 2^k à 2^{k+1}-1 donne des blocs d'au moins 1/2.",
+      "reponse_initiale": "Oui, les termes deviennent négligeables.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Que donne votre argument avec u_n=1/n ? Examinez un bloc de 2^k termes.",
+      "objectif_relance": "Faire construire le contre-exemple harmonique ; ne pas annoncer seulement « faux ».",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Chaque bloc de 2^k à 2^{k+1}-1 vaut au moins 1/2 : la condition ne suffit pas.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Les termes tendent vers zéro, donc même les blocs tendent forcément vers zéro.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Combien de termes contient ce bloc ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire construire le contre-exemple harmonique ; ne pas annoncer seulement « faux ».",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K003",
+      "famille": "definitions",
+      "titre": "Divergence grossière",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1} n/(n+1).",
+      "reference": "Le terme général tend vers 1, donc ne tend pas vers zéro ; les sommes positives tendent vers +infini.",
+      "reponse_initiale": "Je vais calculer une primitive.",
+      "statut_initial": "hors_sujet",
+      "relance_exemple": "Quelle condition tout terme général d'une série convergente doit-il vérifier ici ?",
+      "objectif_relance": "Faire identifier le test nécessaire avant une méthode plus lourde.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "n/(n+1) tend vers 1, la condition nécessaire échoue.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Sa limite est finie, donc la série converge.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je confonds limite finie et limite nulle.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire identifier le test nécessaire avant une méthode plus lourde.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K004",
+      "famille": "definitions",
+      "titre": "Positivité et sommes bornées",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Justifier : une série à termes positifs converge si ses sommes partielles sont majorées.",
+      "reference": "Les sommes partielles sont croissantes par positivité, puis convergentes par croissance et majoration.",
+      "reponse_initiale": "Une suite bornée converge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quelle propriété supplémentaire des sommes partielles apporte la positivité ?",
+      "objectif_relance": "Distinguer monotonie des sommes partielles et monotonie du terme général.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elles sont croissantes, et une suite croissante majorée converge.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "La positivité rend toute suite monotone, y compris le terme général.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je vois que S_{N+1}-S_N=u_{N+1}, sans savoir conclure.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Distinguer monotonie des sommes partielles et monotonie du terme général.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K005",
+      "famille": "definitions",
+      "titre": "Sommes bornées avec signes variables",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Des sommes partielles bornées suffisent-elles à faire converger une série réelle ?",
+      "reference": "Non : sum_{n>=0}(-1)^n a des sommes partielles 1,0,1,0,..., bornées mais non convergentes.",
+      "reponse_initiale": "Oui, sinon elles partiraient à l'infini.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Calculez les quatre premières sommes de sum_{n>=0}(-1)^n.",
+      "objectif_relance": "Garder la convention n>=0 et distinguer convergence ordinaire d'une méthode de sommation.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elles valent 1,0,1,0 : bornées, mais deux sous-suites ont des limites différentes.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "La somme vaut 1/2, moyenne de 0 et 1.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas si l'indice commence à zéro ou à un.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Garder la convention n>=0 et distinguer convergence ordinaire d'une méthode de sommation.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K006",
+      "famille": "definitions",
+      "titre": "Un nombre fini de termes",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Changer les dix premiers termes d'une série change-t-il sa convergence ou sa somme ?",
+      "reference": "La nature est inchangée ; si la série converge, sa somme change de la somme finie des modifications.",
+      "reponse_initiale": "Cela ne change rien.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Et si j'ajoute 7 au premier terme seulement, que deviennent les sommes partielles ?",
+      "objectif_relance": "Faire préciser ce qui est invariant et ce qui ne l'est pas.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "À partir de ce terme elles sont augmentées de 7 : même nature, somme augmentée de 7.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "La somme reste identique puisque la limite dépend seulement des grands indices.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne vois pas la différence entre nature et valeur.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire préciser ce qui est invariant et ce qui ne l'est pas.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K007",
+      "famille": "definitions",
+      "titre": "Série et suite de termes",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si sum u_n converge vers 3, quelle est la limite de u_n ?",
+      "reference": "u_n tend vers zéro ; 3 est la limite des sommes partielles, pas celle des termes.",
+      "reponse_initiale": "u_n tend vers 3.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Exprimez u_n en fonction de S_n et S_{n-1}, dont vous connaissez les limites.",
+      "objectif_relance": "Exiger une identité exacte ; une conclusion correcte issue de u_n=S_n/n n'est pas une justification.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "u_n=S_n-S_{n-1} tend vers 3-3=0.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "u_n=S_n/n tend vers zéro car c'est la moyenne.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Pourquoi soustraire deux sommes ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Exiger une identité exacte ; une conclusion correcte issue de u_n=S_n/n n'est pas une justification.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K008",
+      "famille": "definitions",
+      "titre": "Restes et existence de la somme",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Définir R_N, reste d'une série convergente commençant à n=1.",
+      "reference": "R_N=S-S_N=sum_{n=N+1}^inf u_n ; R_N tend vers zéro. La somme S doit exister.",
+      "reponse_initiale": "R_N=sum_{n=N}^inf u_n.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Si S_N s'arrête au terme u_N, quel est le premier terme qui manque ?",
+      "objectif_relance": "Repérer la convention d'indexation sans pénaliser une autre convention explicitement définie.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le premier est u_{N+1}, donc R_N=S-S_N.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "On soustrait S_N mais on garde aussi u_N dans le reste.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je perds le décalage d'un indice.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Repérer la convention d'indexation sans pénaliser une autre convention explicitement définie.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K009",
+      "famille": "definitions",
+      "titre": "Critère de Cauchy : quantificateurs",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Énoncer le critère de Cauchy pour une série réelle.",
+      "reference": "Pour tout epsilon>0, il existe N tel que pour tout q>=p>=N, |sum_{n=p}^q u_n|<epsilon.",
+      "reponse_initiale": "Pour n assez grand, |u_n|<epsilon.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Le critère doit-il contrôler un seul terme ou toutes les sommes sur une tranche éloignée ?",
+      "objectif_relance": "Faire apparaître le contrôle uniforme des queues, pas seulement la condition nécessaire.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il contrôle uniformément toutes les tranches p à q, pour q>=p>=N.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Il suffit de contrôler les tranches de longueur un.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas où placer « pour tout q ».",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire apparaître le contrôle uniforme des queues, pas seulement la condition nécessaire.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K010",
+      "famille": "definitions",
+      "titre": "Convergence complexe",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Quand une série de nombres complexes converge-t-elle ?",
+      "reference": "Elle converge si et seulement si les séries des parties réelles et imaginaires convergent ; la convergence des modules est suffisante, pas nécessaire.",
+      "reponse_initiale": "Il faut que la série des modules converge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Une série réelle alternée convergente est aussi une série complexe : que deviennent ses modules ?",
+      "objectif_relance": "Faire distinguer convergence et convergence absolue dans C.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Pour (-1)^{n-1}/n, les modules donnent l'harmonique divergente ; il suffit de la convergence des deux composantes.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une série réelle n'est pas une série complexe.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne vois pas comment séparer les composantes.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer convergence et convergence absolue dans C.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K011",
+      "famille": "comparaisons",
+      "titre": "Majorant convergent",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1} 1/(n^2+n).",
+      "reference": "0<=1/(n^2+n)<=1/n^2, donc convergence par comparaison à Riemann p=2.",
+      "reponse_initiale": "Le terme est inférieur à 1/n^2, donc la série converge.",
+      "statut_initial": "correcte",
+      "relance_exemple": "Quelles hypothèses rendent cette comparaison suffisante ?",
+      "objectif_relance": "Challenger une réponse juste sur les hypothèses sans faire croire qu'elle est fausse.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Les termes sont positifs et la série majorante sum 1/n^2 converge.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une majoration par n'importe quelle série suffit.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je connais l'inégalité, pas le théorème exact.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Challenger une réponse juste sur les hypothèses sans faire croire qu'elle est fausse.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K012",
+      "famille": "comparaisons",
+      "titre": "Majorant divergent",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1} 1/n^2 à partir de 1/n^2<=1/n.",
+      "reference": "Cette majoration par une série divergente ne conclut pas ; la série converge par Riemann p=2.",
+      "reponse_initiale": "Elle diverge car elle est plus petite que l'harmonique.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Une quantité plus petite qu'une quantité non bornée doit-elle elle-même être non bornée ?",
+      "objectif_relance": "Faire corriger le sens logique d'une comparaison, pas uniquement mémoriser le résultat.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Non, cette comparaison ne décide rien ; ici Riemann avec p=2 donne convergence.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Oui : tout ce qui est sous l'infini est infini.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais plus dans quel sens comparer.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire corriger le sens logique d'une comparaison, pas uniquement mémoriser le résultat.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K013",
+      "famille": "comparaisons",
+      "titre": "Minorant divergent",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1} 1/sqrt(n).",
+      "reference": "Pour n>=1, 1/sqrt(n)>=1/n>=0 ; l'harmonique diverge donc la série diverge vers +infini.",
+      "reponse_initiale": "Elle diverge par comparaison.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Dans quel sens faut-il comparer à 1/n, et pourquoi ?",
+      "objectif_relance": "Faire écrire le bon sens de l'inégalité et son effet sur les sommes.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "1/sqrt(n)>=1/n ; ses sommes partielles dominent celles de l'harmonique.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "1/sqrt(n)<=1/n, donc divergence.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je confonds sqrt(n) et n dans les dénominateurs.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire écrire le bon sens de l'inégalité et son effet sur les sommes.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K014",
+      "famille": "comparaisons",
+      "titre": "Équivalent positif",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1} (3n+1)/(n^3+2).",
+      "reference": "Le terme positif est équivalent à 3/n^2, d'où convergence.",
+      "reponse_initiale": "C'est équivalent à 3/n^2, donc convergence.",
+      "statut_initial": "correcte",
+      "relance_exemple": "Transformez cet équivalent en un encadrement valable à partir d'un certain rang.",
+      "objectif_relance": "Vérifier que l'élève sait convertir un équivalent en comparaison de termes positifs.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le rapport tend vers 1 ; à partir d'un rang, le terme est entre 3/(2n^2) et 6/n^2.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Un équivalent signifie une égalité pour tout n.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas choisir les constantes de l'encadrement.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Vérifier que l'élève sait convertir un équivalent en comparaison de termes positifs.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K015",
+      "famille": "comparaisons",
+      "titre": "Équivalent de signe variable",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Un équivalent conserve-t-il toujours la nature d'une série de réels ?",
+      "reference": "Non : a_n=(-1)^n/sqrt(n), b_n=a_n+1/n ont un rapport tendant vers 1 ; sum a_n converge et sum b_n diverge vers +infini.",
+      "reponse_initiale": "Oui, deux termes équivalents donnent toujours la même nature.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Comparez a_n=(-1)^n/sqrt(n) et b_n=a_n+1/n : quel est leur rapport ?",
+      "objectif_relance": "Faire exhiber un contre-exemple complet, rapport et natures inclus.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "b_n/a_n=1+(-1)^n/sqrt(n) tend vers 1, mais l'ajout de l'harmonique fait diverger la seconde série.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le 1/n est plus petit donc sa somme ne peut rien changer.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas séparer les deux séries.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire exhiber un contre-exemple complet, rapport et natures inclus.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K016",
+      "famille": "comparaisons",
+      "titre": "Petit o insuffisant",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "La condition u_n=o(1/n) garantit-elle la convergence de sum u_n, avec u_n>=0 ?",
+      "reference": "Non : u_n=1/(n log n), n>=2, est o(1/n) et sa série diverge par comparaison intégrale.",
+      "reponse_initiale": "Oui, c'est plus petit que le seuil harmonique.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Essayez u_n=1/(n log n) : quel est son rapport à 1/n et quelle intégrale lui correspond ?",
+      "objectif_relance": "Faire distinguer seuil en puissance et petite amélioration logarithmique.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le rapport vaut 1/log n et tend vers zéro, mais l'intégrale a pour primitive log(log x), non bornée.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Tout petit o d'une série divergente est convergent.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne trouve pas la primitive de 1/(x log x).",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer seuil en puissance et petite amélioration logarithmique.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K017",
+      "famille": "comparaisons",
+      "titre": "Grand O sommable",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si u_n=O(1/n^2), que peut-on dire de sum u_n sans hypothèse de signe ?",
+      "reference": "Il existe C,N tels que |u_n|<=C/n^2 pour n>=N, donc convergence absolue.",
+      "reponse_initiale": "Il faut encore que u_n soit positif.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quelle valeur absolue est déjà contenue dans la définition du grand O ?",
+      "objectif_relance": "Utiliser la définition quantitative du grand O pour obtenir la convergence absolue.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "|u_n|<=C/n^2 à partir d'un rang ; la série des modules converge.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "O ne borne que u_n, jamais son module.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas développer la notation O.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Utiliser la définition quantitative du grand O pour obtenir la convergence absolue.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K018",
+      "famille": "comparaisons",
+      "titre": "Sinus et domination absolue",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1} sin(n)/n^2.",
+      "reference": "|sin n|/n^2<=1/n^2, donc convergence absolue ; aucun argument sur une alternance régulière n'est nécessaire.",
+      "reponse_initiale": "Elle converge car sin(n) alterne de signe à chaque entier.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Pouvez-vous conclure en majorant la valeur absolue, sans supposer une alternance régulière ?",
+      "objectif_relance": "Rectifier la justification même si la conclusion de convergence était juste.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Oui, le module est au plus 1/n^2, qui est sommable.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "sin(n) vaut toujours (-1)^n.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas quelle borne utiliser pour sin(n).",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Rectifier la justification même si la conclusion de convergence était juste.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K019",
+      "famille": "comparaisons",
+      "titre": "Somme de deux séries positives",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si a_n,b_n>=0 et sum(a_n+b_n) converge, que dire de sum a_n et sum b_n ?",
+      "reference": "0<=a_n,b_n<=a_n+b_n, donc les deux séries convergent ; sans positivité, la conclusion échoue.",
+      "reponse_initiale": "Les deux convergent.",
+      "statut_initial": "correcte",
+      "relance_exemple": "Quelle hypothèse empêche les deux termes de se compenser ?",
+      "objectif_relance": "Faire tester la nécessité de l'hypothèse par un contre-exemple simple.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "La positivité ; sans elle, a_n=1 et b_n=-1 donnent une somme nulle et deux séries divergentes.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Aucune, une somme convergente impose toujours la convergence de chaque morceau.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne vois pas ce que veut dire compensation.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire tester la nécessité de l'hypothèse par un contre-exemple simple.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K020",
+      "famille": "comparaisons",
+      "titre": "Positivité seulement à partir d'un rang",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Un théorème de comparaison reste-t-il utilisable si les premiers termes ont des signes différents ?",
+      "reference": "Oui, si les hypothèses tiennent à partir d'un rang : une somme finie n'affecte pas la nature.",
+      "reponse_initiale": "Non, il faut la positivité depuis le premier terme.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Séparez la somme en un début fini et une queue : laquelle décide de la convergence ?",
+      "objectif_relance": "Faire utiliser le caractère asymptotique des critères de convergence.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "La queue ; les premiers termes ne changent que la somme lorsqu'elle existe.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Un seul terme négatif rend toute comparaison impossible.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Comment écrire la séparation à l'indice N ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire utiliser le caractère asymptotique des critères de convergence.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K021",
+      "famille": "calculs_exacts",
+      "titre": "Géométrique et module",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour q réel, quand sum_{n>=0} q^n converge-t-elle ?",
+      "reference": "Exactement pour |q|<1, avec somme 1/(1-q). Pour |q|>=1, q^n ne tend pas vers zéro.",
+      "reponse_initiale": "Elle converge pour q<1.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Votre condition inclut q=-2 : que devient alors q^n ?",
+      "objectif_relance": "Faire retrouver la condition en module à partir d'un cas limite révélateur.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Son module croît ; il faut |q|<1 et non seulement q<1.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Un terme négatif ne peut pas empêcher la convergence.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas interpréter une puissance de -2.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire retrouver la condition en module à partir d'un cas limite révélateur.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K022",
+      "famille": "calculs_exacts",
+      "titre": "Indice initial géométrique",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Calculer sum_{n>=1} (1/2)^n.",
+      "reference": "La somme vaut (1/2)/(1-1/2)=1. Depuis n=0 elle vaudrait 2.",
+      "reponse_initiale": "La somme vaut 2.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Le terme correspondant à n=0 est-il présent dans l'énoncé ?",
+      "objectif_relance": "Faire vérifier l'indice de départ avant d'appliquer la formule mémorisée.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Non ; on retire 1 à la somme qui commence à zéro, donc on obtient 1.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Changer l'indice de départ ne change jamais la somme.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas écrire les trois premiers termes.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire vérifier l'indice de départ avant d'appliquer la formule mémorisée.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K023",
+      "famille": "calculs_exacts",
+      "titre": "Géométrique alternée",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Calculer sum_{n>=0} (-1/2)^n.",
+      "reference": "La raison est -1/2 de module inférieur à 1 ; somme 1/(1+1/2)=2/3.",
+      "reponse_initiale": "La somme vaut 2, car la raison a pour module 1/2.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Le module sert à décider la convergence ; quelle raison faut-il conserver dans la formule de la somme ?",
+      "objectif_relance": "Distinguer le rôle du module dans le critère et celui du signe dans le calcul.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "La raison -1/2, donc la somme est 2/3 ; 2 serait la somme des modules.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "On peut remplacer chaque terme par son module sans changer la somme.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je mélange somme et somme des valeurs absolues.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Distinguer le rôle du module dans le critère et celui du signe dans le calcul.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K024",
+      "famille": "calculs_exacts",
+      "titre": "Bord géométrique q=1",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Que vaut sum_{n>=0} q^n pour q=1 ?",
+      "reference": "Les sommes partielles valent N+1 et tendent vers +infini ; 1/(1-q) n'est pas une formule valable ici.",
+      "reponse_initiale": "La formule donne 1/0, donc la somme vaut l'infini.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Sans division par zéro, écrivez directement la somme des N+1 premiers termes.",
+      "objectif_relance": "Remplacer une manipulation indéfinie par un calcul de sommes finies.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "S_N=N+1, ce qui prouve sa divergence vers +infini.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "1/0 est un réel très grand.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas combien de termes il y a de zéro à N.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Remplacer une manipulation indéfinie par un calcul de sommes finies.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K025",
+      "famille": "calculs_exacts",
+      "titre": "Bord géométrique q=-1",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier les sommes partielles de sum_{n>=0}(-1)^n.",
+      "reference": "S_{2k}=1 et S_{2k+1}=0 ; la série ordinaire diverge.",
+      "reponse_initiale": "La formule géométrique infinie donne 1/2.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Comparez les sommes partielles d'indices pairs et impairs.",
+      "objectif_relance": "Faire vérifier le domaine de validité de la formule infinie.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elles valent respectivement 1 et 0, donc aucune limite commune n'existe.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une limite peut prendre alternativement deux valeurs.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "J'obtiens 0 ou 1 mais je ne sais pas conclure.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire vérifier le domaine de validité de la formule infinie.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K026",
+      "famille": "calculs_exacts",
+      "titre": "Télescopage simple",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Calculer sum_{n>=1} 1/(n(n+1)).",
+      "reference": "1/[n(n+1)]=1/n-1/(n+1) ; somme jusqu'à N : 1-1/(N+1), donc somme 1.",
+      "reponse_initiale": "Tout s'annule, la somme est zéro.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Écrivez les termes jusqu'à n=3 : quels termes de bord restent ?",
+      "objectif_relance": "Faire conserver les termes de bord dans un télescopage.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "La somme finie vaut 1-1/(N+1), donc la limite est 1.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le premier terme finit aussi par s'annuler à l'infini.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je n'arrive pas à décomposer la fraction.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire conserver les termes de bord dans un télescopage.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K027",
+      "famille": "calculs_exacts",
+      "titre": "Télescopage décalé",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Calculer sum_{n>=1} 1/(n(n+2)).",
+      "reference": "Le terme vaut (1/2)(1/n-1/(n+2)). S_N=(1/2)(1+1/2-1/(N+1)-1/(N+2)), limite 3/4.",
+      "reponse_initiale": "Comme pour n(n+1), la somme vaut 1.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quel coefficient rend exacte la différence 1/n-1/(n+2) ?",
+      "objectif_relance": "Faire adapter le télescopage au décalage de deux indices.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il faut 1/2, et deux termes initiaux restent : somme 3/4.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "La différence vaut 1/(n(n+2)) sans coefficient.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je perds les deux termes du bord final.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire adapter le télescopage au décalage de deux indices.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K028",
+      "famille": "calculs_exacts",
+      "titre": "Logarithme télescopique",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1} log(1+1/n).",
+      "reference": "log(1+1/n)=log(n+1)-log n ; S_N=log(N+1), donc divergence vers +infini.",
+      "reponse_initiale": "Elle converge puisque log(1+1/n) tend vers zéro.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Pouvez-vous écrire le logarithme comme une différence de deux logarithmes ?",
+      "objectif_relance": "Utiliser un calcul exact pour contester la fausse suffisance du terme nul.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "S_N=log(N+1) par télescopage, donc les sommes sont non bornées.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "log(N+1) tend vers zéro car ses accroissements tendent vers zéro.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne reconnais pas (n+1)/n.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Utiliser un calcul exact pour contester la fausse suffisance du terme nul.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K029",
+      "famille": "calculs_exacts",
+      "titre": "Télescopage et suite sans limite",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "La série sum_{n>=0}(v_{n+1}-v_n) converge-t-elle pour toute suite bornée v_n ?",
+      "reference": "S_N=v_{N+1}-v_0, donc convergence équivalente à celle de v_n. v_n=(-1)^n est un contre-exemple borné.",
+      "reponse_initiale": "Oui, les différences se compensent.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Que reste-t-il exactement dans la somme jusqu'à N, puis pour v_n=(-1)^n ?",
+      "objectif_relance": "Faire relier télescopage et existence d'une limite de la suite de bord.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il reste v_{N+1}-v_0, qui oscille dans cet exemple.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une différence télescopique a toujours une somme nulle.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas quel terme final subsiste.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire relier télescopage et existence d'une limite de la suite de bord.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K030",
+      "famille": "calculs_exacts",
+      "titre": "Poids n et géométrique",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Justifier la convergence de sum_{n>=1} n/2^n sans calculer sa somme.",
+      "reference": "Le rapport u_{n+1}/u_n=(n+1)/(2n) tend vers 1/2<1, donc convergence ; on peut aussi majorer finalement par une géométrique.",
+      "reponse_initiale": "Une exponentielle domine une puissance, donc c'est fini.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Transformez cette intuition en une majoration géométrique ou un rapport de termes consécutifs.",
+      "objectif_relance": "Faire convertir un slogan asymptotique en critère de convergence.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le rapport tend vers 1/2 et est finalement inférieur à 3/4, ce qui donne une majoration géométrique.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "u_n tend vers zéro, cela remplace la majoration.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Comment choisir une constante entre 1/2 et 1 ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire convertir un slogan asymptotique en critère de convergence.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K031",
+      "famille": "riemann_integrales",
+      "titre": "Seuil de Riemann",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour p réel, quand sum_{n>=1} 1/n^p converge-t-elle ?",
+      "reference": "Exactement pour p>1 ; pour p<=0 les termes ne tendent pas vers zéro, pour 0<p<=1 comparaison intégrale divergente.",
+      "reponse_initiale": "Pour p>=1.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Que donne précisément votre condition au point p=1 ?",
+      "objectif_relance": "Faire traiter le bord du domaine et le caractère strict de l'inégalité.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "On obtient l'harmonique divergente ; il faut p>1 strictement.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "L'harmonique converge lentement.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne me rappelle plus le cas p=1.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire traiter le bord du domaine et le caractère strict de l'inégalité.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K032",
+      "famille": "riemann_integrales",
+      "titre": "Primitive au cas p=1",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Comparer intégralement la série harmonique.",
+      "reference": "Pour 1/x positive décroissante, H_N>=int_1^{N+1} dx/x=log(N+1), donc divergence.",
+      "reponse_initiale": "J'utilise x^{1-p}/(1-p) avec p=1.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Votre expression est-elle définie pour p=1 ? Quelle fonction a pour dérivée 1/x ?",
+      "objectif_relance": "Repérer le cas exceptionnel plutôt que poursuivre une formule hors domaine.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il faut log x, et son intégrale jusqu'à N+1 n'est pas bornée.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "On remplace 1-p par zéro et on simplifie.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne connais pas la primitive de 1/x.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Repérer le cas exceptionnel plutôt que poursuivre une formule hors domaine.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K033",
+      "famille": "riemann_integrales",
+      "titre": "Bertrand logarithme au carré",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=2} 1/(n(log n)^2).",
+      "reference": "La fonction est positive décroissante sur [2,+infini[ ; son intégrale vaut une constante moins 1/log x, donc convergence.",
+      "reponse_initiale": "Elle diverge car il y a n au dénominateur.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Dans l'intégrale, que donne le changement de variable t=log x ?",
+      "objectif_relance": "Faire prendre en compte le facteur logarithmique au seuil harmonique.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "On obtient int dt/t^2, convergente à l'infini.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Un facteur logarithmique ne change jamais la nature d'une série.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas transformer dx/x.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire prendre en compte le facteur logarithmique au seuil harmonique.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K034",
+      "famille": "riemann_integrales",
+      "titre": "Bertrand logarithme simple",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=2} 1/(n log n).",
+      "reference": "Fonction positive décroissante ; primitive log(log x), non bornée, d'où divergence.",
+      "reponse_initiale": "Elle converge car elle est plus petite que 1/n.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Une majoration par l'harmonique décide-t-elle le résultat ? Essayez plutôt une primitive.",
+      "objectif_relance": "Combiner correction du sens de comparaison et outil intégral pertinent.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Non ; la primitive log(log x) diverge, donc la série aussi.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une série strictement plus petite que l'harmonique converge toujours.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je bloque sur le logarithme du logarithme.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Combiner correction du sens de comparaison et outil intégral pertinent.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K035",
+      "famille": "riemann_integrales",
+      "titre": "Paramètre logarithmique",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour a réel, étudier sum_{n>=2} 1/(n(log n)^a).",
+      "reference": "La fonction est finalement décroissante pour tout a fixé. t=log x donne int t^{-a}dt ; convergence exactement pour a>1.",
+      "reponse_initiale": "Elle converge dès que a>0.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Après t=log x, quel seuil de Riemann retrouvez-vous, y compris pour a=1 ?",
+      "objectif_relance": "Faire déterminer le domaine complet, pas seulement un signe du paramètre.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "L'intégrale de t^{-a} converge seulement pour a>1 ; a=1 diverge.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le simple fait que (log n)^a tende vers l'infini suffit.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne vois pas pourquoi le seuil vaut encore 1.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire déterminer le domaine complet, pas seulement un signe du paramètre.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K036",
+      "famille": "riemann_integrales",
+      "titre": "Logarithme sur carré",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=2} log(n)/n^2.",
+      "reference": "log n=o(sqrt n), donc le terme positif est finalement majoré par 1/n^{3/2}, sommable.",
+      "reponse_initiale": "Le logarithme tend vers l'infini, donc la série diverge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Comparez log n à sqrt n : que devient alors le quotient complet ?",
+      "objectif_relance": "Faire raisonner sur le quotient et choisir une marge de puissance sommable.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il est finalement inférieur à 1/n^{3/2}, donc la série converge.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Un numérateur non borné empêche toujours la convergence.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas quelle puissance choisir pour dominer le logarithme.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire raisonner sur le quotient et choisir une marge de puissance sommable.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K037",
+      "famille": "riemann_integrales",
+      "titre": "Reste p=2 encadré",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Encadrer R_N=sum_{n=N+1}^inf 1/n^2 par des intégrales.",
+      "reference": "Pour f décroissante, int_{N+1}^inf f<=R_N<=int_N^inf f, donc 1/(N+1)<=R_N<=1/N.",
+      "reponse_initiale": "R_N est égal à 1/N.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "L'aire des rectangles coïncide-t-elle exactement avec celle sous la courbe décroissante ?",
+      "objectif_relance": "Distinguer borne, équivalent et identité exacte.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Non ; les intégrales donnent 1/(N+1)<=R_N<=1/N, donc seulement R_N~1/N.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une équivalence est une égalité exacte.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas de quel côté placer les rectangles.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Distinguer borne, équivalent et identité exacte.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K038",
+      "famille": "riemann_integrales",
+      "titre": "Sommes harmoniques",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Montrer H_N~log N.",
+      "reference": "log(N+1)<=H_N<=1+log N ; division par log N pour N>=2 et encadrement donnent l'équivalent.",
+      "reponse_initiale": "H_N=log N.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Testez votre égalité pour N=1, puis remplacez-la par un encadrement intégral.",
+      "objectif_relance": "Faire contrôler un énoncé exact sur un petit cas puis établir la bonne asymptotique.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "H_1=1 et log 1=0 ; les bornes intégrales donnent un équivalent, pas l'égalité.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une erreur bornée doit être exactement nulle.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Comment les bornes donnent-elles un rapport qui tend vers 1 ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire contrôler un énoncé exact sur un petit cas puis établir la bonne asymptotique.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K039",
+      "famille": "riemann_integrales",
+      "titre": "Racine et logarithme",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=2} 1/(sqrt(n) log n).",
+      "reference": "log n<=n^{1/4} finalement, donc le terme est au moins n^{-3/4} ; divergence par comparaison positive.",
+      "reponse_initiale": "Le logarithme supplémentaire doit faire converger.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "En majorant log n par n^{1/4}, obtenez-vous un minorant utile du terme général ?",
+      "objectif_relance": "Faire utiliser correctement un minorant divergent malgré l'amélioration logarithmique.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Oui, 1/(sqrt(n)log n)>=1/n^{3/4} finalement, donc divergence.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Majorer le dénominateur donne une majoration du quotient.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je me trompe dans le sens en passant à l'inverse.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire utiliser correctement un minorant divergent malgré l'amélioration logarithmique.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K040",
+      "famille": "riemann_integrales",
+      "titre": "Terme à indice décalé",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1} 1/(n+10)^{3/2}.",
+      "reference": "C'est une queue de la série de Riemann p=3/2, ou un terme équivalent à n^{-3/2} : convergence.",
+      "reponse_initiale": "Je dois trouver un nouveau critère car ce n'est pas n^{3/2}.",
+      "statut_initial": "hors_sujet",
+      "relance_exemple": "Que devient la série après le changement d'indice k=n+10 ?",
+      "objectif_relance": "Faire reconnaître une structure inchangée par un décalage fini.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "C'est la queue à partir de k=11 d'une série de Riemann convergente.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Un changement d'indice permet aussi de modifier l'exposant.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Quel est le nouveau premier indice ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire reconnaître une structure inchangée par un décalage fini.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K041",
+      "famille": "alternance",
+      "titre": "Hypothèses du critère alterné",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Justifier la convergence de sum_{n>=1}(-1)^{n-1}/n.",
+      "reference": "Les amplitudes 1/n sont positives, décroissantes et tendent vers zéro : critère alterné. Pas de convergence absolue.",
+      "reponse_initiale": "Les signes alternent donc ça converge.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Quelles propriétés des amplitudes faut-il vérifier en plus des signes ?",
+      "objectif_relance": "Faire énoncer et vérifier les hypothèses plutôt que réciter le nom d'un critère.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "1/n décroît vers zéro, ce qui permet d'appliquer le critère alterné.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Les signes seuls suffisent, même pour (-1)^n.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne me souviens plus de l'hypothèse de monotonie.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire énoncer et vérifier les hypothèses plutôt que réciter le nom d'un critère.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K042",
+      "famille": "alternance",
+      "titre": "Absolue versus simple",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "La série sum_{n>=1}(-1)^{n-1}/n converge-t-elle absolument ?",
+      "reference": "Non : la série des modules est l'harmonique. La série signée converge par le critère alterné.",
+      "reponse_initiale": "Oui, puisqu'elle converge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quelle série obtenez-vous en prenant le module de chaque terme ?",
+      "objectif_relance": "Distinguer série des modules et module de la somme.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "L'harmonique divergente ; la convergence est seulement conditionnelle.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le module d'une somme est la somme des modules, donc cela ne change rien.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je prends le module avant ou après la somme ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Distinguer série des modules et module de la somme.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K043",
+      "famille": "alternance",
+      "titre": "Alternance et amplitude constante",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}(-1)^n.",
+      "reference": "Les amplitudes ne tendent pas vers zéro ; le terme général n'a pas pour limite zéro, donc divergence.",
+      "reponse_initiale": "Le critère alterné s'applique.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Que vaut ici l'amplitude et quelle limite exige le critère ?",
+      "objectif_relance": "Faire isoler l'hypothèse manquante malgré la monotonie large des amplitudes.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "L'amplitude vaut 1 et ne tend pas vers zéro ; le critère ne s'applique pas et la série diverge.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une amplitude constante est décroissante, donc toutes les hypothèses sont remplies.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas laquelle des hypothèses manque.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire isoler l'hypothèse manquante malgré la monotonie large des amplitudes.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K044",
+      "famille": "alternance",
+      "titre": "Alternée en racine",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}(-1)^{n-1}/sqrt(n), puis la série de ses modules.",
+      "reference": "Convergence par le critère alterné ; divergence de la série des modules par Riemann p=1/2.",
+      "reponse_initiale": "Riemann dit p<1, donc la série signée diverge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Le critère de Riemann porte ici sur la série signée ou sur les amplitudes positives ?",
+      "objectif_relance": "Faire choisir un critère tenant compte du signe.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Sur les amplitudes ; la série signée converge par alternance, sans convergence absolue.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Changer les signes ne peut jamais changer la convergence.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas quel critère choisir en premier.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire choisir un critère tenant compte du signe.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K045",
+      "famille": "alternance",
+      "titre": "Alternance avec dérive harmonique",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1} [(-1)^n/sqrt(n)+1/n].",
+      "reference": "La partie alternée converge ; la partie harmonique tend vers +infini ; les sommes totales tendent vers +infini.",
+      "reponse_initiale": "Le terme est équivalent à (-1)^n/sqrt(n), donc convergence.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Séparez les sommes partielles des deux morceaux : que devient chacun ?",
+      "objectif_relance": "Faire détecter une dérive non sommable cachée derrière une alternance dominante.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le premier a une limite finie, le second diverge vers +infini, donc la somme diverge.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le morceau 1/n est négligeable terme à terme, donc aussi après sommation.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas quand on peut sommer un équivalent.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire détecter une dérive non sommable cachée derrière une alternance dominante.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K046",
+      "famille": "alternance",
+      "titre": "Amplitudes non monotones",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Soit a_{2k}=1/(2k), a_{2k-1}=1/sqrt(2k-1). Étudier sum_{n>=1}(-1)^n a_n.",
+      "reference": "a_n>0 tend vers zéro mais n'est pas finalement décroissante. Les paires valent 1/(2k)-1/sqrt(2k-1)~ -1/sqrt(2k), d'où divergence vers -infini, y compris les sommes impaires.",
+      "reponse_initiale": "Alternance et limite nulle suffisent.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Regroupez les termes d'indices 2k-1 et 2k : quel signe et quel ordre obtenez-vous ?",
+      "objectif_relance": "Faire constater que la monotonie ne peut pas être supprimée du critère alterné.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Chaque paire est équivalente à -1/sqrt(2k) ; leurs sommes tendent vers -infini, et le terme restant tend vers zéro.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Tous les blocs de deux s'annulent dès que les signes alternent.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas écrire les amplitudes paires et impaires ensemble.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire constater que la monotonie ne peut pas être supprimée du critère alterné.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K047",
+      "famille": "alternance",
+      "titre": "Alternée logarithmique",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=2}(-1)^n/log n.",
+      "reference": "1/log n décroît vers zéro, donc convergence alternée. Pour n>=2, log n<=n, donc 1/log n>=1/n : pas de convergence absolue.",
+      "reponse_initiale": "Elle diverge parce que le logarithme est trop lent.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "La lenteur empêche-t-elle 1/log n de décroître vers zéro ?",
+      "objectif_relance": "Faire distinguer vitesse de décroissance et hypothèses réellement requises.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Non, le critère alterné s'applique ; les modules divergent par minoration par 1/n.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le critère alterné exige une décroissance au moins en 1/n.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas si 1/log n est décroissante.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer vitesse de décroissance et hypothèses réellement requises.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K048",
+      "famille": "alternance",
+      "titre": "Série absolument convergente",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}(-1)^n/n^2.",
+      "reference": "La série des modules est sum 1/n^2, convergente ; donc convergence absolue, plus forte que la convergence alternée.",
+      "reponse_initiale": "Elle converge par le critère alterné.",
+      "statut_initial": "correcte",
+      "relance_exemple": "Pouvez-vous obtenir une propriété plus forte en examinant ses modules ?",
+      "objectif_relance": "Faire approfondir une preuve valide sans la traiter comme une erreur.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Les modules forment une série de Riemann p=2, donc la convergence est absolue.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une série contenant des signes moins ne peut jamais converger absolument.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Que signifie une propriété plus forte ici ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire approfondir une preuve valide sans la traiter comme une erreur.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K049",
+      "famille": "alternance",
+      "titre": "Parties positives et négatives",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour une série réelle convergente non absolument, que dire des sommes des parties positives et négatives ?",
+      "reference": "Avec u_n^+=max(u_n,0), u_n^-=max(-u_n,0), leurs deux séries divergent vers +infini, sinon la convergence de sum u_n forcerait celle de l'autre et donc de sum |u_n|.",
+      "reponse_initiale": "On peut calculer séparément les deux sommes finies puis les soustraire.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Si l'une des deux séries positives avait une somme finie, que forcerait la convergence de leur différence ?",
+      "objectif_relance": "Faire éviter les soustractions de séries divergentes tout en justifiant la structure des signes.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "L'autre aurait aussi une somme finie, contradiction avec la non-convergence absolue.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "On peut toujours calculer +infini moins +infini.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas exprimer |u_n| avec u_n^+ et u_n^-.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire éviter les soustractions de séries divergentes tout en justifiant la structure des signes.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K050",
+      "famille": "alternance",
+      "titre": "Regroupement abusif",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Peut-on prouver la convergence de 1-1+1-1+... en regroupant (1-1)+(1-1)+... ?",
+      "reference": "Le regroupement ne contrôle qu'une sous-suite des sommes partielles. Les autres valent 1 ; divergence ordinaire.",
+      "reponse_initiale": "Oui, tous les blocs valent zéro.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Que se passe-t-il quand vous vous arrêtez juste avant de compléter un bloc ?",
+      "objectif_relance": "Faire contrôler toutes les sommes partielles et pas une seule sous-suite.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Les sommes impaires en nombre de termes valent 1 : une sous-suite convergente ne suffit pas.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "On a le droit de supprimer les sommes qui ne terminent pas un bloc.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je n'ai regardé que les sommes avec un nombre pair de termes.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire contrôler toutes les sommes partielles et pas une seule sous-suite.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K051",
+      "famille": "developpements",
+      "titre": "Logarithme corrigé",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}[log(1+1/n)-1/n].",
+      "reference": "log(1+x)-x=-x^2/2+O(x^3), donc terme ~-1/(2n^2) et convergence absolue.",
+      "reponse_initiale": "Les deux séries divergent, donc leur différence diverge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Développez le terme complet à l'ordre où le premier coefficient ne s'annule pas.",
+      "objectif_relance": "Faire traiter l'annulation dans le terme général avant toute séparation de séries divergentes.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le terme en 1/n s'annule et il reste -1/(2n^2)+O(1/n^3), sommable en module.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Infini moins infini vaut zéro.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "À quel ordre faut-il pousser le logarithme ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire traiter l'annulation dans le terme général avant toute séparation de séries divergentes.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K052",
+      "famille": "developpements",
+      "titre": "Exponentielle corrigée",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}[exp(1/n)-1-1/n].",
+      "reference": "exp x-1-x=x^2/2+O(x^3), donc terme ~1/(2n^2) positif : convergence.",
+      "reponse_initiale": "exp(1/n)~1 donc le terme est équivalent à -1/n.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Une équivalence peut-elle être soustraite après l'annulation du terme principal ?",
+      "objectif_relance": "Faire respecter les limites des opérations sur les équivalents.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il faut un DL d'ordre deux ; le reste vaut 1/(2n^2)+O(1/n^3).",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "On soustrait toujours les équivalents terme à terme.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Le premier ordre s'annule, je ne sais pas continuer.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire respecter les limites des opérations sur les équivalents.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K053",
+      "famille": "developpements",
+      "titre": "Sinus corrigé",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}[sin(1/n)-1/n].",
+      "reference": "sin x-x=-x^3/6+O(x^5), donc convergence absolue par comparaison à n^{-3}.",
+      "reponse_initiale": "sin(1/n)~1/n, donc le terme est nul.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Équivalent veut-il dire égal ? Quel est le premier terme non nul après x dans le DL du sinus ?",
+      "objectif_relance": "Faire distinguer une annulation asymptotique du terme dominant et une identité.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "C'est -x^3/6 ; ici on obtient un terme équivalent à -1/(6n^3).",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une différence de deux équivalents est toujours exactement nulle.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je connais seulement sin x~x.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer une annulation asymptotique du terme dominant et une identité.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K054",
+      "famille": "developpements",
+      "titre": "Cosinus et racine",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}[1-cos(1/sqrt(n))].",
+      "reference": "1-cos x~x^2/2, donc terme positif ~1/(2n) ; divergence vers +infini.",
+      "reponse_initiale": "Le cosinus est borné, donc la série converge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quel est l'ordre de 1-cos x près de zéro après substitution x=1/sqrt(n) ?",
+      "objectif_relance": "Faire suivre correctement la puissance lors de la composition d'un DL.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il est de l'ordre de 1/(2n), donc la série diverge par comparaison harmonique.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Un terme borné suffit à faire converger une série.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je confonds 1/n et 1/n^2 après la substitution.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire suivre correctement la puissance lors de la composition d'un DL.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K055",
+      "famille": "developpements",
+      "titre": "Racine moins racine",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}(sqrt(n+1)-sqrt(n)).",
+      "reference": "Le terme est 1/(sqrt(n+1)+sqrt n)~1/(2sqrt n) ; ou S_N=sqrt(N+1)-1. Divergence vers +infini.",
+      "reponse_initiale": "Les deux racines sont équivalentes donc leur différence tend vite vers zéro et la série converge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Pouvez-vous rationaliser le terme ou calculer directement la somme partielle ?",
+      "objectif_relance": "Faire exploiter une identité exacte et rejeter la soustraction d'équivalents.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "S_N=sqrt(N+1)-1, qui diverge ; le terme seul tend pourtant vers zéro.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "sqrt(n+1)-sqrt n est égal à sqrt(1)=1.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne vois pas le conjugué à multiplier.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire exploiter une identité exacte et rejeter la soustraction d'équivalents.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K056",
+      "famille": "developpements",
+      "titre": "Arctangente corrigée",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}[arctan(1/n)-1/n].",
+      "reference": "arctan x-x=-x^3/3+O(x^5), donc convergence absolue.",
+      "reponse_initiale": "C'est du même ordre que 1/n, donc divergence.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Que devient le terme linéaire lorsque vous soustrayez 1/n ?",
+      "objectif_relance": "Faire déterminer le premier terme non nul, éventuellement par intégration du DL de 1/(1+x^2).",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il disparaît ; le premier terme est -1/(3n^3), sommable en module.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le premier terme du DL reste 1/n malgré la soustraction.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je peux dériver arctan, mais je ne connais pas son DL.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire déterminer le premier terme non nul, éventuellement par intégration du DL de 1/(1+x^2).",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K057",
+      "famille": "developpements",
+      "titre": "Logarithme alterné au seuil",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=2} log(1+(-1)^n/sqrt(n)).",
+      "reference": "DL : (-1)^n/sqrt n-1/(2n)+O(n^{-3/2}). La première série converge, la troisième absolument, la dérive harmonique fait tendre les sommes vers -infini.",
+      "reponse_initiale": "Équivalent à une alternée convergente, donc convergence.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quel terme non alterné apparaît au deuxième ordre du logarithme ?",
+      "objectif_relance": "Faire isoler la dérive et justifier la sommabilité du reste.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "-1/(2n), dont la somme tend vers -infini ; le reste d'ordre n^{-3/2} est sommable.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le carré de (-1)^n alterne encore.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas contrôler le reste après le deuxième ordre.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire isoler la dérive et justifier la sommabilité du reste.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K058",
+      "famille": "developpements",
+      "titre": "Reste grand O non sommable",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si u_n=1/n+O(1/n^2), sum(u_n-1/n) converge-t-elle ?",
+      "reference": "Oui, |u_n-1/n|<=C/n^2 finalement, donc convergence absolue de la différence ; sum u_n diverge comme l'harmonique si u_n réel.",
+      "reponse_initiale": "Non, car sum u_n diverge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quelle majoration porte directement sur la différence demandée ?",
+      "objectif_relance": "Faire répondre sur l'objet demandé et utiliser le contrôle du reste.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Son module est majoré par C/n^2 ; c'est la différence qui converge absolument, pas sum u_n.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "O(1/n^2) signifie seulement que le terme tend vers zéro.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas passer du O à une inégalité.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire répondre sur l'objet demandé et utiliser le contrôle du reste.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K059",
+      "famille": "developpements",
+      "titre": "Petit o harmonique et compensation",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si u_n=1/n+o(1/n), la série sum(u_n-1/n) converge-t-elle nécessairement ?",
+      "reference": "Non : choisir u_n=1/n+1/(n log n) pour n>=2 ; la différence est o(1/n) mais de série divergente.",
+      "reponse_initiale": "Oui, l'erreur est négligeable.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Un reste 1/(n log n) satisfait-il votre hypothèse et est-il sommable ?",
+      "objectif_relance": "Faire distinguer négligeabilité locale et sommabilité globale.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il satisfait le petit o mais sa série diverge ; l'hypothèse ne suffit pas.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Tout petit o possède une série absolument convergente.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas tester un petit o par un quotient.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer négligeabilité locale et sommabilité globale.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K060",
+      "famille": "developpements",
+      "titre": "Différence exponentielle symétrique",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}[exp(1/sqrt(n))+exp(-1/sqrt(n))-2].",
+      "reference": "exp x+exp(-x)-2=x^2+O(x^4), donc terme positif ~1/n : divergence.",
+      "reponse_initiale": "Les deux exponentielles se compensent.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quels ordres s'annulent par symétrie, et quels ordres s'additionnent ?",
+      "objectif_relance": "Faire vérifier une annulation annoncée en conservant le premier ordre pair non nul.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Les ordres impairs s'annulent mais les termes quadratiques s'ajoutent : terme ~1/n.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "exp(x)+exp(-x)=2 pour tout x.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas additionner les deux DL.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire vérifier une annulation annoncée en conservant le premier ordre pair non nul.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K061",
+      "famille": "restes",
+      "titre": "Reste alterné : valeur absolue",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Majorer le reste après N termes de sum_{n>=1}(-1)^{n-1}/n.",
+      "reference": "|R_N|<=1/(N+1) ; le signe est celui du premier terme omis, (-1)^N.",
+      "reponse_initiale": "R_N<=1/N, cela suffit pour borner l'erreur.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Une borne supérieure sur un nombre négatif contrôle-t-elle sa distance à zéro ?",
+      "objectif_relance": "Faire formuler une borne d'erreur bilatérale avec le bon indice.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il faut |R_N|<=1/(N+1), avec le premier indice omis N+1.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Si R_N est négatif, l'erreur est forcément nulle.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas pourquoi mettre une valeur absolue.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire formuler une borne d'erreur bilatérale avec le bon indice.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K062",
+      "famille": "restes",
+      "titre": "Nombre de termes et précision",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Combien de termes suffisent pour une erreur <=0,001 dans l'harmonique alternée ?",
+      "reference": "Le critère |R_N|<=1/(N+1) donne N>=999 comme condition suffisante, sans prétendre à une minimalité exacte.",
+      "reponse_initiale": "Il faut exactement 1000 termes, c'est minimal.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Résolvez 1/(N+1)<=0,001. Cette borne prouve-t-elle une minimalité ?",
+      "objectif_relance": "Accepter 1000 comme suffisant mais faire corriger la revendication de minimalité.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "N>=999 suffit ; cette estimation seule ne prouve pas que 999 est le nombre minimal réel.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Toute majoration de l'erreur donne le nombre minimal exact.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas distinguer suffisant et minimal.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Accepter 1000 comme suffisant mais faire corriger la revendication de minimalité.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K063",
+      "famille": "restes",
+      "titre": "Signe du reste alterné",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour l'harmonique alternée commençant par +1, S_{2m} est-il au-dessus ou en dessous de la somme ?",
+      "reference": "Le premier terme omis a un signe positif, donc R_{2m}>=0 et S_{2m} est en dessous de la somme.",
+      "reponse_initiale": "Au-dessus puisque le dernier terme ajouté est négatif.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quel est le signe du premier terme qui manque après 2m termes ?",
+      "objectif_relance": "Faire utiliser le premier terme omis et non le dernier terme gardé.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Il est positif ; le reste est positif, donc S_{2m} sous-estime la somme.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le signe du reste est toujours celui du dernier terme ajouté.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je me perds dans (-1)^{n-1}.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire utiliser le premier terme omis et non le dernier terme gardé.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K064",
+      "famille": "restes",
+      "titre": "Reste géométrique exact",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Donner le reste après les termes n=0,...,N de sum (1/3)^n.",
+      "reference": "R_N=(1/3)^{N+1}/(1-1/3)=1/(2*3^N), strictement positif.",
+      "reponse_initiale": "R_N=(1/3)^N.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Le reste contient un seul terme ou toute une nouvelle série géométrique ?",
+      "objectif_relance": "Faire distinguer premier terme omis et somme de la queue.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Toute la queue, de premier terme 3^{-(N+1)} ; sa somme vaut 1/(2*3^N).",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Tous les termes suivants sont nuls puisqu'ils sont très petits.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas factoriser le premier terme de la queue.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer premier terme omis et somme de la queue.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K065",
+      "famille": "restes",
+      "titre": "Reste de Riemann général",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour p>1, établir un équivalent de R_N=sum_{n>N}1/n^p.",
+      "reference": "Comparaison intégrale : (N+1)^{1-p}/(p-1)<=R_N<=N^{1-p}/(p-1), donc R_N~N^{1-p}/(p-1).",
+      "reponse_initiale": "Le reste est équivalent au premier terme 1/N^p.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quelle intégrale compare la somme de toute la queue, et quelle puissance donne sa primitive ?",
+      "objectif_relance": "Faire retrouver la puissance et la constante correctes du reste.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "L'intégrale de N à l'infini vaut N^{1-p}/(p-1), et les deux bornes sont équivalentes.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "La somme de termes décroissants est toujours équivalente au premier.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas calculer la borne à l'infini de la primitive.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire retrouver la puissance et la constante correctes du reste.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K066",
+      "famille": "restes",
+      "titre": "Équivalent de restes positifs",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si a_n~b_n>0 et sum b_n converge, comparer les restes des deux séries.",
+      "reference": "Pour tout epsilon>0, (1-epsilon)b_n<=a_n<=(1+epsilon)b_n finalement ; sommer sur n>N donne R_N(a)~R_N(b).",
+      "reponse_initiale": "Les restes sont équivalents parce qu'on peut toujours sommer un équivalent.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Écrivez un encadrement qui reste valable pour tous les indices de la queue.",
+      "objectif_relance": "Faire justifier le passage aux restes par un contrôle uniforme sur la queue positive.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Pour N assez grand les inégalités relatives valent pour tout n>N ; on les somme et on laisse epsilon tendre vers zéro.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Cela marche aussi sans signe et sans convergence des queues.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Comment choisir un rang commun pour toute la queue ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire justifier le passage aux restes par un contrôle uniforme sur la queue positive.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K067",
+      "famille": "restes",
+      "titre": "Sommes divergentes équivalentes",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si a_n~b_n>0 et sum b_n diverge, comparer leurs sommes partielles.",
+      "reference": "Les sommes partielles sont équivalentes : encadrer les termes à partir d'un rang, puis les débuts finis sont négligeables devant les sommes divergentes.",
+      "reponse_initiale": "Les premiers termes empêchent d'obtenir un équivalent.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Que devient une constante fixe divisée par une somme positive qui tend vers +infini ?",
+      "objectif_relance": "Faire distinguer influence sur une somme finie et sur un équivalent divergent.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elle tend vers zéro ; les débuts finis disparaissent dans le rapport et l'encadrement donne l'équivalent.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Les premiers termes gardent toujours une proportion non nulle de la somme.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas isoler la partie finie.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer influence sur une somme finie et sur un équivalent divergent.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K068",
+      "famille": "restes",
+      "titre": "Erreur relative et absolue",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si S_N~log N, peut-on conclure S_N-log N tend vers zéro ?",
+      "reference": "Non : S_N=log N+1 donne un rapport tendant vers 1 mais une différence égale à 1 ; une erreur peut même être o(log N) et non bornée.",
+      "reponse_initiale": "Oui, c'est la définition de l'équivalence.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Testez S_N=log N+1 : que donnent le rapport et la différence ?",
+      "objectif_relance": "Faire identifier précisément la quantité contrôlée par un équivalent.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le rapport tend vers 1 et la différence vaut 1 ; seule l'erreur relative tend vers zéro.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Diviser par log N ne change pas une limite.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je confonds a_n~b_n et a_n-b_n tend vers zéro.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire identifier précisément la quantité contrôlée par un équivalent.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K069",
+      "famille": "restes",
+      "titre": "Calcul numérique et preuve",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Les 100000 premiers termes d'une série donnent des sommes proches : est-ce une preuve de convergence ?",
+      "reference": "Non : un calcul fini ne contrôle pas toute la queue. Il faut un critère ou une borne de reste ; l'harmonique peut paraître lente mais diverge.",
+      "reponse_initiale": "Oui, autant de termes garantissent la convergence.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quelle information mathématique votre calcul fournit-il sur tous les termes non calculés ?",
+      "objectif_relance": "Faire distinguer observation expérimentale et preuve, sans dévaloriser l'expérimentation.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Aucune borne générale ; il faut démontrer un contrôle de la queue ou appliquer un critère.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Un ordinateur qui ne voit pas de divergence prouve la convergence.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Comment obtenir une borne plutôt qu'un graphique ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer observation expérimentale et preuve, sans dévaloriser l'expérimentation.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K070",
+      "famille": "restes",
+      "titre": "Accélération par soustraction",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pourquoi soustraire 1/n à log(1+1/n) change-t-il radicalement la sommabilité ?",
+      "reference": "Le premier ordre harmonique s'annule ; la différence est -1/(2n^2)+O(n^{-3}), absolument sommable.",
+      "reponse_initiale": "Parce que la différence est plus petite.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Quelle taille précise de la différence permet d'appliquer une série de comparaison convergente ?",
+      "objectif_relance": "Faire passer d'une intuition de petitesse à un ordre quantitativement sommable.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elle est de l'ordre de n^{-2}, avec coefficient -1/2 ; son module est O(n^{-2}).",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "N'importe quelle différence tendant vers zéro serait sommable.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas quel ordre suffit.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire passer d'une intuition de petitesse à un ordre quantitativement sommable.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K071",
+      "famille": "parametres",
+      "titre": "Rapport limite strictement inférieur à un",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour u_n>0, que conclure si u_{n+1}/u_n tend vers 1/2 ?",
+      "reference": "Choisir r entre 1/2 et 1 ; le rapport est finalement <=r, donc u_n est dominé par une géométrique sommable.",
+      "reponse_initiale": "La série converge par d'Alembert.",
+      "statut_initial": "correcte",
+      "relance_exemple": "Retrouvez la preuve en majorant les rapports par un nombre fixe inférieur à 1.",
+      "objectif_relance": "Faire reconstruire la comparaison géométrique derrière le nom du critère.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Finalement le rapport est <=3/4, donc u_{N+k}<=u_N(3/4)^k.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Les rapports valent exactement 1/2 dès un certain rang.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne vois pas comment itérer l'inégalité.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire reconstruire la comparaison géométrique derrière le nom du critère.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K072",
+      "famille": "parametres",
+      "titre": "Rapport limite égal à un",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Que conclure si u_{n+1}/u_n tend vers 1 ?",
+      "reference": "Aucune conclusion générale : 1/n et 1/n^2 ont tous deux ce rapport limite, avec des séries de natures différentes.",
+      "reponse_initiale": "La série diverge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Calculez cette limite pour 1/n et pour 1/n^2.",
+      "objectif_relance": "Faire reconnaître un critère non concluant sans transformer l'absence de conclusion en divergence.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elle vaut 1 dans les deux cas ; le critère est muet à ce seuil.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "1/n^2 diverge aussi car son rapport tend vers 1.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas calculer u_{n+1}/u_n pour 1/n^2.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire reconnaître un critère non concluant sans transformer l'absence de conclusion en divergence.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K073",
+      "famille": "parametres",
+      "titre": "Factorielle",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=0} 1/n!.",
+      "reference": "u_{n+1}/u_n=1/(n+1) tend vers zéro, donc convergence ; la valeur e n'est pas nécessaire pour conclure.",
+      "reponse_initiale": "Je connais la somme e, donc je n'ai pas besoin de preuve de convergence.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Sans utiliser la valeur de la somme, quelle relation lie deux termes consécutifs ?",
+      "objectif_relance": "Faire justifier la convergence indépendamment d'une identité mémorisée.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le rapport vaut 1/(n+1), finalement inférieur à 1/2 ; la série converge.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "1/(n+1)!=(1/n!)/(n!) .",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas simplifier deux factorielles consécutives.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire justifier la convergence indépendamment d'une identité mémorisée.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K074",
+      "famille": "parametres",
+      "titre": "Exponentielle contre factorielle",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour a réel fixé, étudier sum_{n>=0} a^n/n!.",
+      "reference": "Pour a=0, seul le terme n=0 vaut 1 avec a^0=1. Pour a non nul, rapport des modules |a|/(n+1) tend vers zéro : convergence absolue pour tout a.",
+      "reponse_initiale": "Il faut |a|<1 comme pour une géométrique.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quel rôle joue n! dans le rapport des modules de deux termes consécutifs ?",
+      "objectif_relance": "Faire distinguer géométrique et série avec facteur factoriel, en traitant séparément a=0.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le rapport vaut |a|/(n+1), donc tend vers zéro pour tout a fixé.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "n! peut être ignoré dans le critère du rapport.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Et si a=0, le quotient est-il défini ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer géométrique et série avec facteur factoriel, en traitant séparément a=0.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K075",
+      "famille": "parametres",
+      "titre": "Puissance n^a et géométrique",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour a réel fixé, étudier sum_{n>=1} n^a/2^n.",
+      "reference": "Rapport =((n+1)/n)^a/2 tend vers 1/2, donc convergence pour tout a réel.",
+      "reponse_initiale": "Elle converge seulement si a<0.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quand a est fixé, vers quoi tend (1+1/n)^a ?",
+      "objectif_relance": "Faire décider tous les paramètres fixes par le rapport plutôt que par une impression de croissance.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Vers 1, donc le rapport tend vers 1/2 même si a est positif.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Pour a>0, n^a domine toujours 2^n.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas comparer une puissance et une exponentielle.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire décider tous les paramètres fixes par le rapport plutôt que par une impression de croissance.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K076",
+      "famille": "parametres",
+      "titre": "Géométrique divisée par n",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour a réel, étudier sum_{n>=1} a^n/n.",
+      "reference": "Convergence absolue pour |a|<1 ; a=-1 : convergence conditionnelle ; a=1 : divergence harmonique ; |a|>1 : terme ne tend pas vers zéro.",
+      "reponse_initiale": "Le rayon est 1 donc les deux bords ont le même comportement.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Écrivez les deux séries obtenues pour a=1 et a=-1.",
+      "objectif_relance": "Faire traiter séparément chaque extrémité après un critère intérieur.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "À 1 c'est l'harmonique divergente ; à -1 l'harmonique alternée convergente non absolument.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le signe du paramètre ne peut pas changer la nature aux bords.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Le critère du rapport donne 1 aux deux bords, je suis bloqué.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire traiter séparément chaque extrémité après un critère intérieur.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K077",
+      "famille": "parametres",
+      "titre": "Paramètre dans le dénominateur",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour t>=0, étudier sum_{n>=1}1/[n(1+tn)].",
+      "reference": "À t=0 la série harmonique diverge ; pour t>0, le terme est <=1/(tn^2), donc convergence.",
+      "reponse_initiale": "La série converge pour tout t>=0 par comparaison à 1/(tn^2).",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Votre majorant est-il défini pour t=0 ? Quelle série obtenez-vous alors directement ?",
+      "objectif_relance": "Faire contrôler les hypothèses en fonction du paramètre avant une estimation.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "À zéro il n'est pas défini et la série est harmonique ; pour t>0 la comparaison convient.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Diviser par zéro ne pose pas de problème dans une majoration.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas s'il faut isoler une valeur du paramètre.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire contrôler les hypothèses en fonction du paramètre avant une estimation.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K078",
+      "famille": "parametres",
+      "titre": "Alternée avec exposant",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour a réel, étudier sum_{n>=1}(-1)^n/n^a.",
+      "reference": "Pour a<=0 le terme ne tend pas vers zéro ; pour a>0 alternance convergente ; convergence absolue exactement pour a>1.",
+      "reponse_initiale": "Elle converge pour tout a car elle est alternée.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Que devient l'amplitude pour a=0, puis pour a<0 ?",
+      "objectif_relance": "Faire distinguer domaine de convergence et domaine de convergence absolue.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elle vaut 1 ou croît ; il faut a>0 pour converger, et a>1 pour converger absolument.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Un terme de module croissant peut passer le critère alterné.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas distinguer les deux seuils 0 et 1.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer domaine de convergence et domaine de convergence absolue.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K079",
+      "famille": "parametres",
+      "titre": "Test de la racine",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}(n/(2n+1))^n.",
+      "reference": "La racine n-ième du terme est n/(2n+1), qui tend vers 1/2<1 ; convergence. On peut directement majorer par (1/2)^n.",
+      "reponse_initiale": "La base tend vers 1/2 donc le terme tend vers 1/2.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "L'exposant reste-t-il fixe quand n grandit ? Pouvez-vous majorer chaque base par 1/2 ?",
+      "objectif_relance": "Faire éviter un passage à la limite abusif et construire une majoration directe.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "L'exposant croît ; le terme est <=(1/2)^n, donc la série converge.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "La limite d'une base suffit toujours sans regarder l'exposant.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Comment interpréter une puissance dont l'exposant varie ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire éviter un passage à la limite abusif et construire une majoration directe.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K080",
+      "famille": "parametres",
+      "titre": "Rapport : utiliser le module",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=0}(-2)^n.",
+      "reference": "Le terme général ne tend pas vers zéro. Le rapport signé vaut -2 mais le critère exige le module, ici 2>1.",
+      "reponse_initiale": "Le rapport vaut -2<1, donc convergence.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Le critère compare-t-il le rapport signé ou le rapport des modules ?",
+      "objectif_relance": "Faire vérifier la formulation du critère plutôt qu'appliquer une inégalité signée.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Celui des modules, égal à 2 ; de plus le terme général ne tend pas vers zéro.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Un rapport négatif est toujours favorable à la convergence.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas pourquoi le module est indispensable.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire vérifier la formulation du critère plutôt qu'appliquer une inégalité signée.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K081",
+      "famille": "raisonnements",
+      "titre": "Limite d'une récurrence",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "x_0>0 et x_{n+1}=x_n/(1+x_n). Montrer que x_n tend vers zéro.",
+      "reference": "Suite positive strictement décroissante, donc limite l>=0 ; par continuité l=l/(1+l), donc l=0. Aussi 1/x_n=1/x_0+n.",
+      "reponse_initiale": "Elle décroît, donc sa limite est zéro.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Une suite positive décroissante peut-elle tendre vers 2 ? Quelle équation doit vérifier la limite ici ?",
+      "objectif_relance": "Faire compléter une conclusion correcte obtenue par un argument incomplet.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "La décroissance seule ne suffit pas ; l=l/(1+l) impose l=0.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Toute décroissance stricte force une limite nulle.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas passer à la limite dans la récurrence.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire compléter une conclusion correcte obtenue par un argument incomplet.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K082",
+      "famille": "raisonnements",
+      "titre": "Récurrence harmonique exacte",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour x_{n+1}=x_n/(1+x_n), x_0>0, étudier sum x_n.",
+      "reference": "1/x_{n+1}=1/x_n+1, donc x_n=1/(n+1/x_0)~1/n ; la série positive diverge.",
+      "reponse_initiale": "x_n tend vers zéro, donc sa série converge.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Que devient la récurrence après passage aux inverses ?",
+      "objectif_relance": "Faire trouver la bonne transformation de suite avant de décider de la série.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Les inverses augmentent de 1, donc x_n~1/n et la série diverge.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "1/(x_n/(1+x_n))=1/x_n+x_n.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas calculer l'inverse de ce quotient.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire trouver la bonne transformation de suite avant de décider de la série.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K083",
+      "famille": "raisonnements",
+      "titre": "Cesàro sur les accroissements",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si y_{n+1}-y_n tend vers p>0, que peut-on conclure sur y_n/n ?",
+      "reference": "y_n/n=y_0/n+(1/n)sum_{k=0}^{n-1}(y_{k+1}-y_k) tend vers p par Cesàro. Cela n'impose pas y_n-pn tend vers zéro.",
+      "reponse_initiale": "y_n-pn tend vers zéro.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Testez y_n=pn+sqrt(n). Quelle conclusion plus faible reste toujours valable ?",
+      "objectif_relance": "Faire distinguer équivalent linéaire et erreur additive tendant vers zéro.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Les accroissements tendent vers p mais l'écart croît ; en revanche y_n/n tend vers p par Cesàro.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une somme de termes qui tendent vers zéro tend forcément vers zéro.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Comment écrire y_n comme une somme d'accroissements ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer équivalent linéaire et erreur additive tendant vers zéro.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K084",
+      "famille": "raisonnements",
+      "titre": "Sommes et limites interverties",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Peut-on écrire lim_N sum_{n=1}^N 1/N = sum_{n>=1} lim_N 1/N = 0 ?",
+      "reference": "Non : la somme de N termes 1/N vaut 1. Avec u_{N,n}=1/N pour n<=N et 0 sinon, chaque terme tend vers zéro mais la masse se déplace ; aucune domination sommable fournie.",
+      "reponse_initiale": "Oui, chaque terme tend vers zéro.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Calculez la somme finie avant de prendre sa limite.",
+      "objectif_relance": "Faire identifier un échange de limites injustifié à partir d'un calcul exact.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elle vaut 1 pour chaque N ; l'échange n'est donc pas justifié par la seule convergence terme à terme.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une infinité de zéros doit donner zéro même si le nombre de termes change avant la limite.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas distinguer les deux indices N et n.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire identifier un échange de limites injustifié à partir d'un calcul exact.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K085",
+      "famille": "raisonnements",
+      "titre": "Reste d'un développement sous une somme",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Pour t>0, justifier une expansion de F(t)=sum_{n>=1}1/[n(1+tn)] quand t tend vers +infini.",
+      "reference": "Identité : terme=1/(tn^2)-1/(t^2n^3)+1/[t^2n^3(1+tn)]. Le reste est entre 0 et 1/(t^3n^4), donc F(t)=Z_2/t-Z_3/t^2+O(t^{-3}).",
+      "reponse_initiale": "Je somme un reste O(t^{-3}) pour chaque n.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Votre constante dans le O dépend-elle de n ? Quelle majoration sommable en n pouvez-vous donner ?",
+      "objectif_relance": "Faire contrôler la dépendance en l'indice avant de sommer un développement.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le reste exact est <=1/(t^3n^4), donc la somme des restes est <=Z_4/t^3.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Une infinité de O(t^{-3}) est encore O(t^{-3}) sans autre hypothèse.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne trouve pas l'identité algébrique avec reste.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire contrôler la dépendance en l'indice avant de sommer un développement.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K086",
+      "famille": "raisonnements",
+      "titre": "Sous-suite de sommes convergente",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si les sommes S_{2N} convergent, la série converge-t-elle forcément ?",
+      "reference": "Pas sans autre hypothèse, exemple sum_{n>=1}(-1)^n avec S_{2N}=0. Si u_n tend vers zéro, S_{2N+1}=S_{2N}+u_{2N+1} a la même limite, donc oui.",
+      "reponse_initiale": "Oui, une sous-suite suffit.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Quelle information sur u_{2N+1} permettrait de contrôler les sommes impaires ?",
+      "objectif_relance": "Faire distinguer l'assertion fausse de sa version complétée par u_n tendant vers zéro.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "S'il tend vers zéro, elles ont la même limite ; sans cela, (-1)^n donne un contre-exemple.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Les sommes impaires peuvent être ignorées dans la définition.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Comment relier S_{2N+1} à S_{2N} ?",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer l'assertion fausse de sa version complétée par u_n tendant vers zéro.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K087",
+      "famille": "raisonnements",
+      "titre": "Série des carrés",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si sum u_n converge, doit-on avoir sum u_n^2 convergente pour u_n réel ?",
+      "reference": "Non : u_n=(-1)^n/sqrt n donne une série convergente, tandis que u_n^2=1/n a une série divergente.",
+      "reponse_initiale": "Oui, le carré rend les petits termes plus petits.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Testez une alternée d'amplitude 1/sqrt(n) : que devient le carré ?",
+      "objectif_relance": "Faire voir qu'une comparaison terme à terme en module demande déjà une série majorante sommable.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le carré enlève l'alternance et donne l'harmonique, donc la conclusion est fausse.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "La convergence conditionnelle implique la sommabilité de tous les modules plus petits.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne vois pas l'effet de supprimer les signes.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire voir qu'une comparaison terme à terme en module demande déjà une série majorante sommable.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K088",
+      "famille": "raisonnements",
+      "titre": "Sommabilité absolue et carrés",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si sum |u_n| converge, montrer que sum |u_n|^2 converge.",
+      "reference": "u_n tend vers zéro, donc |u_n|<=1 finalement ; alors |u_n|^2<=|u_n| et la comparaison s'applique.",
+      "reponse_initiale": "Parce que x^2<=x pour tout x positif.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Votre inégalité vaut-elle pour x=2 ? Pourquoi devient-elle valable ici à partir d'un certain rang ?",
+      "objectif_relance": "Faire réparer une preuve de résultat vrai en précisant la validité finale de l'inégalité.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elle vaut pour 0<=x<=1 ; comme u_n tend vers zéro, elle est vraie finalement.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "2^2<=2, donc il n'y a pas d'hypothèse supplémentaire.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je n'ai pas utilisé le fait que u_n tend vers zéro.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire réparer une preuve de résultat vrai en précisant la validité finale de l'inégalité.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K089",
+      "famille": "raisonnements",
+      "titre": "Logarithme d'un équivalent",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si x_n~1/n avec x_n>0, que peut-on dire de log x_n+log n ?",
+      "reference": "n x_n tend vers 1, donc log x_n+log n=log(n x_n) tend vers zéro par continuité du logarithme en 1.",
+      "reponse_initiale": "Je prends le logarithme des équivalents et j'obtiens une égalité exacte.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Écrivez la somme des logarithmes comme le logarithme d'un produit dont vous connaissez la limite.",
+      "objectif_relance": "Faire justifier l'erreur additive par la continuité plutôt que par une égalité abusive.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "C'est log(n x_n), qui tend vers log 1=0 ; ce n'est pas une égalité avec zéro pour chaque n.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "log(a_n/b_n)=0 dès que a_n~b_n.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas pourquoi le logarithme passe à la limite.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire justifier l'erreur additive par la continuité plutôt que par une égalité abusive.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K090",
+      "famille": "raisonnements",
+      "titre": "Produit terme à terme",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Si sum a_n et sum b_n convergent, sum a_n b_n converge-t-elle toujours ?",
+      "reference": "Non : a_n=b_n=(-1)^n/sqrt n donnent deux séries convergentes et produit 1/n divergent. Ce n'est pas le produit de Cauchy.",
+      "reponse_initiale": "Oui, c'est le produit de deux nombres finis.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Le produit des sommes correspond-il au produit terme à terme ? Essayez a_n=b_n=(-1)^n/sqrt(n).",
+      "objectif_relance": "Faire distinguer trois objets : produit des sommes, produit de Cauchy et produit terme à terme.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le produit terme à terme vaut 1/n, divergent ; je l'avais confondu avec le produit des sommes.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "(sum a_n)(sum b_n)=sum a_n b_n dans tous les cas.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas distinguer produit de Cauchy et produit terme à terme.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Faire distinguer trois objets : produit des sommes, produit de Cauchy et produit terme à terme.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K091",
+      "famille": "interaction",
+      "titre": "Réponse correcte hésitante",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}1/n^2.",
+      "reference": "Convergence positive par Riemann p=2>1. L'hésitation de l'élève ne change pas la validité de cet argument.",
+      "reponse_initiale": "Je crois que ça converge, c'est Riemann avec p=2, mais je suis pas sûr.",
+      "statut_initial": "correcte",
+      "relance_exemple": "Quel est le seuil exact sur p, et de quel côté se trouve 2 ?",
+      "objectif_relance": "Ne pas confondre manque d'assurance et erreur ; challenger sobrement sans ajouter de pression.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Le seuil est p>1 ; 2 est strictement au-dessus, donc le critère s'applique.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le seuil est p<1, mais 2 devrait marcher aussi.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je panique alors que je connais la formule.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Ne pas confondre manque d'assurance et erreur ; challenger sobrement sans ajouter de pression.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K092",
+      "famille": "interaction",
+      "titre": "Mauvaise réponse très assurée",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}1/n.",
+      "reference": "L'harmonique diverge ; les blocs de 2^k à 2^{k+1}-1 valent au moins 1/2.",
+      "reponse_initiale": "Évidemment ça converge, aucun doute, les termes vont vers zéro.",
+      "statut_initial": "incorrecte",
+      "relance_exemple": "Combien vaut au moins la somme des termes entre 2^k et 2^{k+1}-1 ?",
+      "objectif_relance": "Ne pas se laisser guider par l'assurance de l'élève ; proposer un test concret sans humiliation.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elle vaut au moins 1/2 ; ma justification initiale ne suffit pas, et les sommes divergent.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Je suis certain d'avoir raison, pas besoin de vérifier les blocs.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne comprends pas pourquoi vous choisissez ces bornes.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Ne pas se laisser guider par l'assurance de l'élève ; proposer un test concret sans humiliation.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K093",
+      "famille": "interaction",
+      "titre": "Réaction trop brève : compris",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Justifier la convergence d'une série alternée dont les amplitudes décroissent vers zéro.",
+      "reference": "La justification doit mentionner monotonie des amplitudes et limite nulle ; « compris » ne démontre pas la compréhension.",
+      "reponse_initiale": "Ça marche grâce aux signes.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "Pouvez-vous reformuler les deux propriétés à vérifier sur les amplitudes ?",
+      "objectif_relance": "Ne pas enregistrer une reformulation acquise sur un simple acquiescement ; demander un contenu précis.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elles doivent décroître et tendre vers zéro ; l'alternance seule ne suffit pas.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Compris, les signes seuls suffisent.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Compris... mais je n'arrive pas à l'expliquer.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Ne pas enregistrer une reformulation acquise sur un simple acquiescement ; demander un contenu précis.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K094",
+      "famille": "interaction",
+      "titre": "Demande d'un indice minimal",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}1/[n(n+1)].",
+      "reference": "Décomposition en 1/n-1/(n+1), télescopage, somme 1. Un premier indice peut inviter à décomposer sans donner la somme.",
+      "reponse_initiale": "Donnez-moi juste une piste, pas le corrigé.",
+      "statut_initial": "aide",
+      "relance_exemple": "Quelle différence de deux fractions simples pourrait avoir n(n+1) pour dénominateur ?",
+      "objectif_relance": "Donner un indice proportionné, puis le réduire au calcul d'une fraction si l'élève reste bloqué.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "1/n-1/(n+1) convient ; la somme finie vaut 1-1/(N+1), donc la série converge vers 1.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "1/n+1/(n+1) est égal à 1/[n(n+1)].",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais même pas mettre ces deux fractions au même dénominateur.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Donner un indice proportionné, puis le réduire au calcul d'une fraction si l'élève reste bloqué.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K095",
+      "famille": "interaction",
+      "titre": "Corrigé explicitement demandé",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}1/n^2 par comparaison intégrale.",
+      "reference": "La positivité et décroissance donnent sum_{n=1}^N1/n^2<=1+int_1^N dx/x^2<=2 ; les sommes sont croissantes majorées.",
+      "reponse_initiale": "Je bloque, expliquez-moi la correction complète puis vérifiez que j'ai compris.",
+      "statut_initial": "correction",
+      "relance_exemple": "Après l'encadrement par l'intégrale, quelle propriété des sommes partielles permet de conclure ?",
+      "objectif_relance": "Une correction explicitement demandée autorise l'explication ; terminer par une vérification et ne pas refuser au nom du challenge.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elles sont croissantes par positivité et majorées par 2, donc convergentes.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "La majoration seule fait converger toute suite.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas relier les rectangles à l'intégrale.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Une correction explicitement demandée autorise l'explication ; terminer par une vérification et ne pas refuser au nom du challenge.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant.",
+      "explication_avant_relance": "Pour f(x)=1/x^2, positive et décroissante, chaque terme 1/n^2 avec n>=2 est au plus l'intégrale de n-1 à n de f. Donc S_N<=1+int_1^N dx/x^2<=2. Les sommes partielles sont croissantes par positivité et majorées, donc la série converge."
+    },
+    {
+      "id": "K096",
+      "famille": "interaction",
+      "titre": "Contestation mathématique fondée",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}(-1)^{n-1}/n. Le khôlleur a affirmé à tort que la série diverge parce que les modules divergent.",
+      "reference": "La série converge conditionnellement par le critère alterné. Le khôlleur doit rectifier sa confusion avec la convergence absolue.",
+      "reponse_initiale": "Votre objection me semble fausse : la convergence absolue est suffisante mais pas nécessaire.",
+      "statut_initial": "correcte",
+      "relance_exemple": "Reprenons : quelles hypothèses du critère alterné pouvez-vous vérifier ici ?",
+      "objectif_relance": "Rectifier explicitement l'erreur du khôlleur puis faire justifier, au lieu de défendre sa première affirmation.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Les amplitudes 1/n décroissent vers zéro ; la série converge même si elle ne converge pas absolument.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Finalement, toute série alternée converge, quelle que soit l'amplitude.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je sais que l'absolue n'est pas nécessaire, mais je ne retrouve pas le critère.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Rectifier explicitement l'erreur du khôlleur puis faire justifier, au lieu de défendre sa première affirmation.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant.",
+      "historique_avant": [
+        {
+          "role": "assistant",
+          "content": "La série diverge puisque la série des modules diverge."
+        }
+      ]
+    },
+    {
+      "id": "K097",
+      "famille": "interaction",
+      "titre": "Notation orale équivalente",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Définir la convergence de sum_{k>=1}u_k.",
+      "reference": "Il suffit que les sommes finies des termes d'indice 1 à N tendent vers un réel fini ; une formulation orale correcte est recevable.",
+      "reponse_initiale": "Quand j'additionne de plus en plus de termes, le total a une limite réelle finie.",
+      "statut_initial": "correcte",
+      "relance_exemple": "Si vous appelez ce total S_N, quel lien permet d'en déduire la limite de u_N ?",
+      "objectif_relance": "Accepter le sens mathématique de la formulation orale plutôt qu'exiger le vocabulaire exact.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "u_N=S_N-S_{N-1}, donc sa limite est zéro.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "u_N a la même limite que le total.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je ne sais pas écrire la formule mais je vois le terme ajouté.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Accepter le sens mathématique de la formulation orale plutôt qu'exiger le vocabulaire exact.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K098",
+      "famille": "interaction",
+      "titre": "Auto-correction dans le même message",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}1/n.",
+      "reference": "La dernière position argumentée est une divergence par blocs d'au moins 1/2 ; ne pas évaluer seulement la première phrase retirée.",
+      "reponse_initiale": "Ça converge car 1/n tend vers zéro... non, je me corrige : c'est harmonique, les blocs dyadiques restent au moins égaux à 1/2.",
+      "statut_initial": "correcte",
+      "relance_exemple": "Expliquez comment cette borne par bloc fait grandir les sommes partielles sans limite.",
+      "objectif_relance": "Prendre en compte la rectification explicite de l'élève, sans le figer sur son erreur initiale.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Après m blocs disjoints on a ajouté au moins m/2, ce qui tend vers +infini.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Les blocs ont une borne inférieure positive mais leur somme pourrait rester finie.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je sais le résultat, mais je ne sais pas passer d'un bloc à m blocs.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Prendre en compte la rectification explicite de l'élève, sans le figer sur son erreur initiale.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K099",
+      "famille": "interaction",
+      "titre": "Pression pour un verdict binaire",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}1/n^2.",
+      "reference": "La convergence suit de Riemann p=2>1. Une demande binaire n'empêche pas de demander une justification brève et pertinente.",
+      "reponse_initiale": "Ça converge. Dites juste oui ou non, je veux répondre vite.",
+      "statut_initial": "incomplete",
+      "relance_exemple": "En une phrase, quel critère et quelle hypothèse vous permettent de conclure ?",
+      "objectif_relance": "Travailler la réactivité par une justification courte sans sacrifier le contenu ni se limiter à oui/non.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Riemann : l'exposant 2 est strictement supérieur à 1.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Parce que les termes tendent vers zéro, comme toutes les séries convergentes.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je peux donner le nom du critère mais pas sa condition.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Travailler la réactivité par une justification courte sans sacrifier le contenu ni se limiter à oui/non.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant."
+    },
+    {
+      "id": "K100",
+      "famille": "interaction",
+      "titre": "Même défi répété après justification",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "enonce": "Étudier sum_{n>=1}1/n^2 ; l'élève a déjà justifié Riemann avec p=2>1 et répété l'argument à la demande du khôlleur.",
+      "reference": "La convergence est acquise. Une suite utile est l'estimation du reste R_N entre 1/(N+1) et 1/N ; ne pas réexiger encore la même justification.",
+      "reponse_initiale": "J'ai déjà expliqué deux fois que p=2>1. Quelle est la suite ?",
+      "statut_initial": "correcte",
+      "relance_exemple": "Estimons maintenant la queue après N termes : quelles intégrales l'encadrent ?",
+      "objectif_relance": "Mettre fin à une boucle de validation stérile et proposer une seule extension adaptée, avec un indice si nécessaire.",
+      "reactions": {
+        "justifiee": {
+          "eleve": "Elle est entre l'intégrale de N+1 à l'infini et celle de N à l'infini, soit entre 1/(N+1) et 1/N.",
+          "attendu": "Tenir compte de la justification donnée, accepter ses formulations équivalentes et poursuivre sans refaire le même défi."
+        },
+        "erreur_persistante": {
+          "eleve": "Le reste est exactement nul parce que la série converge.",
+          "attendu": "Cibler le point mathématique encore erroné avec une question plus concrète, sans validation complaisante ni simple verdict."
+        },
+        "blocage": {
+          "eleve": "Je connais Riemann mais pas encore l'estimation des restes.",
+          "attendu": "Réduire la difficulté de la relance avec un seul indice utilisable ; laisser ensuite répondre l'élève."
+        }
+      },
+      "critere_specifique": "Mettre fin à une boucle de validation stérile et proposer une seule extension adaptée, avec un indice si nécessaire.",
+      "temps_eleve_secondes": null,
+      "provenance": "Scénario synthétique X-IA ; référence à relire par un enseignant.",
+      "historique_avant": [
+        {
+          "role": "user",
+          "content": "La série converge par Riemann : p=2>1."
+        },
+        {
+          "role": "assistant",
+          "content": "Pourquoi ce critère s'applique-t-il ?"
+        },
+        {
+          "role": "user",
+          "content": "Les termes sont 1/n^p avec p=2, strictement supérieur à 1."
+        },
+        {
+          "role": "assistant",
+          "content": "Justifiez encore la convergence."
+        }
+      ]
+    }
+  ]
+}
