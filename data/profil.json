@@ -1,11 +1,13 @@
 {
   "nom": "eleve",
   "niveaux": {
-    "2 — Dérivation et Intégration": 1.4000000000000001
+    "2 — Dérivation et Intégration": 1.0000000000000002
   },
   "exercices_vus": [
     "2.1",
-    "2.3"
+    "2.3",
+    "2.4",
+    "2.5"
   ],
   "historique": [
     {
@@ -19,6 +21,18 @@
       "chapitre": "2 — Dérivation et Intégration",
       "verdict": "incomplete",
       "type_erreur": "reponse_incomplete"
+    },
+    {
+      "exercice": "2.4",
+      "chapitre": "2 — Dérivation et Intégration",
+      "verdict": "incorrecte",
+      "type_erreur": "raisonnement"
+    },
+    {
+      "exercice": "2.5",
+      "chapitre": "2 — Dérivation et Intégration",
+      "verdict": "incorrecte",
+      "type_erreur": "non_determinable"
     }
   ]
 }

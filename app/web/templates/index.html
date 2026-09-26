@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tuteur · Mathématiques</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body>
+<main>
+  <header><p class="eyebrow">MATHÉMATIQUES · PRÉPA SCIENTIFIQUE</p>
+    <h1>Un exercice à la fois.</h1>
+    <p class="muted">Développez votre raisonnement, puis faites le point avec votre tuteur.</p>
+  </header>
+  <section class="card" aria-label="Votre progression">
+    <form method="get" class="chapter-form">
+      <div class="chapter-choice"><label for="chapitre">Votre chapitre</label>
+        <select id="chapitre" name="chapitre" {% if not chapitres %}disabled{% endif %}>
+        {% for nom in chapitres %}<option value="{{ nom }}" {% if nom == chapitre %}selected{% endif %}>{{ nom }}</option>{% endfor %}
+        </select>
+      </div>
+      <button class="secondary" {% if not chapitres %}disabled{% endif %}>Choisir</button>
+    </form>
+    {% if chapitre in chapitres %}
+    <div class="level"><span>Niveau actuel dans ce chapitre</span><strong>{{ '%.1f'|format(profil.niveau(chapitre))|replace('.', ',') }} <span class="muted">/ 5</span></strong></div>
+    <meter min="1" max="5" value="{{ profil.niveau(chapitre) }}" aria-label="Niveau actuel"></meter>
+    {% endif %}
+  </section>
+  {% if erreur %}<p class="error" role="alert">{{ erreur }}</p>{% endif %}
+  <p id="math-warning" class="muted" hidden>Le rendu des formules est indisponible. Vérifiez votre connexion puis rechargez la page.</p>
+  {% if exercice %}
+  <section class="card">
+    <div class="exercise-heading"><h2>Exercice {{ exercice.id }}</h2><span class="badge">Difficulté {{ exercice.difficulte }} / 5</span></div>
+    <div class="math prose">{{ exercice.enonce }}</div>
+    <form method="post" id="answer-form">
+      <input type="hidden" name="csrf" value="{{ session.csrf }}">
+      <input type="hidden" name="chapitre" value="{{ chapitre }}">
+      <input type="hidden" name="exercice_id" value="{{ exercice.id }}">
+      <label for="reponse">Votre réponse</label>
+      <p id="answer-hint" class="muted hint">Expliquez vos étapes. Vous pouvez écrire vos formules entre $…$.</p>
+      <textarea id="reponse" name="reponse" rows="7" maxlength="12000" aria-describedby="answer-hint" placeholder="Je commence par…" {% if evaluation %}readonly{% endif %}>{{ reponse }}</textarea>
+      {% if not evaluation %}<button id="submit-answer" type="submit">Vérifier ma réponse</button><span id="pending" role="status" hidden>Correction en cours… Cela peut prendre un moment.</span>{% endif %}
+    </form>
+  </section>
+  {% if evaluation %}
+  <section class="card result {{ evaluation.verdict }}" role="status" tabindex="-1" id="result">
+    <p class="eyebrow">VOTRE CORRECTION</p><h2>{{ verdicts[evaluation.verdict] }}</h2>
+    <div class="math prose">{{ evaluation.explication }}</div>
+    <p class="muted">Votre progression a été enregistrée.</p>
+    <a class="button" href="{{ url_for('index', chapitre=chapitre) }}">Exercice suivant →</a>
+  </section>
+  {% endif %}
+  {% elif chapitre in chapitres %}
+  <section class="card"><h2>Chapitre terminé pour le moment</h2><p>Vous avez parcouru tous les exercices disponibles. Choisissez un autre chapitre pour continuer.</p></section>
+  {% elif not chapitres %}
+  <section class="card"><h2>Aucun exercice disponible</h2><p>La banque d’exercices est vide pour le moment.</p></section>
+  {% endif %}
+  <footer>Un espace pour apprendre, à votre rythme.</footer>
+</main>
+</body>
+</html>

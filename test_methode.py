@@ -10,16 +10,14 @@ Documentation : https://docs.pipelex.com/latest/get-started/quick-start/#via-api
 import asyncio
 import json
 import os
-from pathlib import Path
 
 from pipelex_sdk.client import PipelexAPIClient
+from app.evaluation import evaluer_reponse
 
 import sys
 sys.stdout.reconfigure(encoding="utf-8")
 
 
-BUNDLE_DIR = Path(__file__).resolve().parent / "methods" / "evaluation_maths_prepa"
-PIPE_CODE = "evaluation_maths_prepa.evaluer_reponse"
 
 # Ajouter un dictionnaire à cette liste pour tester un cas supplémentaire.
 CAS_TEST = [
@@ -73,11 +71,6 @@ async def main() -> None:
     if not os.environ.get("PIPELEX_API_KEY", "").strip():
         raise SystemExit("Veuillez définir la variable d'environnement PIPELEX_API_KEY.")
 
-    fichiers = sorted(BUNDLE_DIR.rglob("*.mthds"))
-    if not fichiers:
-        raise SystemExit(f"Aucun fichier .mthds trouvé dans {BUNDLE_DIR}.")
-    contenus = [fichier.read_text(encoding="utf-8") for fichier in fichiers]
-
     # Le SDK lit PIPELEX_API_KEY et attend la fin de l'exécution distante.
     async with PipelexAPIClient() as client:
         for numero, cas in enumerate(CAS_TEST, start=1):
@@ -86,14 +79,7 @@ async def main() -> None:
             print(f"Énoncé : {cas['enonce']}")
             print(f"Réponse de l'élève : {cas['reponse_eleve']}", flush=True)
             try:
-                resultat = await client.start_and_wait(
-                    pipe_code=PIPE_CODE,
-                    mthds_contents=contenus,
-                    inputs={
-                        "enonce": cas["enonce"],
-                        "reponse_eleve": cas["reponse_eleve"],
-                    },
-                )
+                resultat = await evaluer_reponse(client, cas["enonce"], cas["reponse_eleve"])
             except Exception as erreur:
                 print(f"Échec de l'exécution : {erreur}", flush=True)
                 continue
