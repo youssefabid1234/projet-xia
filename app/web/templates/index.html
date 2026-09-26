@@ -22,7 +22,7 @@
     <form method="get" class="chapter-form">
       <div class="chapter-choice"><label for="chapitre">Votre chapitre</label>
         <select id="chapitre" name="chapitre" {% if not chapitres %}disabled{% endif %}>
-        {% for nom in chapitres %}<option value="{{ nom }}" {% if nom == chapitre %}selected{% endif %}>{{ nom }}</option>{% endfor %}
+        {% for nom in chapitres %}<option value="{{ nom }}" {% if nom == chapitre %}selected{% endif %}>{{ nom|nom_chapitre }}</option>{% endfor %}
         </select>
       </div>
       <button class="secondary" {% if not chapitres %}disabled{% endif %}>Choisir</button>

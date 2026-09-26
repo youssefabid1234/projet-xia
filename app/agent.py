@@ -10,11 +10,15 @@ from app.cours import chercher_dans_cours as recherche_cours
 from app.enonces import verifier_enonce
 from app.profil import GAINS, Profil, choisir_exercice
 from app.colle import Colle
-
-CHAPITRE_SERIES = "17 — Série de réels ou de complexes"
+from app.chapitres import CHAPITRE_SERIES, chapitre_catalogue, nom_chapitre, donnees_publiques
 
 INSTRUCTIONS = """Tu es un examinateur qui mène une colle de mathématiques de prépa.
 Tu diriges l'interrogation : l'élève choisit uniquement le chapitre.
+Le chapitre s'appelle uniquement « Series numeriques » pour l'élève.
+Le cours et les exercices de ce chapitre sont déjà associés par le serveur.
+Ne présente jamais leur numérotation différente comme un cours manquant ou un
+remplacement. N'expose pas l'indexation ni le rattachement interne des supports.
+Les numéros des définitions et théorèmes restent utilisables pour citer les sources.
 Dès que le chapitre est choisi, recherche le cours, prépare la première question
 de définition avec preparer_tache et pose-la dans ce même tour, sans demander de
 préférence, proposer d'options ni attendre une confirmation.
@@ -157,12 +161,13 @@ class Agent(Colle):
         self.initialiser_colle()
 
     async def proposer_exercice(self, chapitre, client=None):
+        chapitre = chapitre_catalogue(chapitre)
         if self.etape != "exercices" or not self.nouvelle_tache_autorisee:
             raise ValueError("Le catalogue attend l'acquisition des étapes précédentes et la fin de la tâche active.")
         if self.chapitre and chapitre != self.chapitre:
             raise ValueError("Conserver le chapitre de cette colle.")
         if chapitre not in self.chapitres:
-            raise ValueError("Chapitre inconnu. Disponibles : " + ", ".join(self.chapitres))
+            raise ValueError("Chapitre inconnu. Disponibles : " + ", ".join(map(nom_chapitre, self.chapitres)))
         profil = Profil.charger(self.chemin_profil)
         if self.tache and self.exercice and self.tache["etape"] == "exercices":
             action = self.tache.get("decision", {}).get("action")
@@ -187,18 +192,19 @@ class Agent(Colle):
             self.chapitre = chapitre
             self.ouvrir_tache(self.exercice)
             # Réserver le corrigé au vérificateur et à l'évaluateur.
-            return {cle: self.exercice[cle] for cle in ("id", "chapitre", "difficulte", "enonce")}
+            return donnees_publiques({cle: self.exercice[cle] for cle in ("id", "chapitre", "difficulte", "enonce")})
 
     def consulter_niveau(self, chapitre):
+        chapitre = chapitre_catalogue(chapitre)
         if chapitre not in self.chapitres:
             raise ValueError("Chapitre inconnu.")
-        return {"chapitre": chapitre, "niveau": Profil.charger(self.chemin_profil).niveau(chapitre)}
+        return {"chapitre": nom_chapitre(chapitre), "niveau": Profil.charger(self.chemin_profil).niveau(chapitre)}
 
     async def chercher_dans_cours(self, question, client=None):
         resultat = await recherche_cours(question, client)
         for passage in resultat.get("passages", []):
             self.sources[passage["identifiant"]] = {**passage, "chapitre": resultat.get("chapitre")}
-        return resultat
+        return donnees_publiques(resultat)
 
     async def evaluer_reponse(self, enonce, reponse):
         if not self.exercice or enonce != self.exercice["enonce"]:
@@ -239,7 +245,7 @@ class Agent(Colle):
         for _ in range(6):
             resultat = await client.responses.create(
                 model=modele, instructions=INSTRUCTIONS + "\nChapitres disponibles : "
-                + json.dumps(self.chapitres, ensure_ascii=False)
+                + json.dumps(list(map(nom_chapitre, self.chapitres)), ensure_ascii=False)
                 + "\nÉtat de la colle : " + json.dumps(self.etat_colle(), ensure_ascii=False),
                 input=conversation, tools=OUTILS, parallel_tool_calls=False, store=False,
                 tool_choice=({"type": "function", "name": "observer_tour"}
@@ -285,5 +291,5 @@ class Agent(Colle):
                 except (ValueError, TypeError) as erreur:
                     sortie = {"erreur": str(erreur)}
                 conversation.append({"type": "function_call_output", "call_id": appel.call_id,
-                                     "output": json.dumps(sortie, ensure_ascii=False)})
+                                     "output": json.dumps(donnees_publiques(sortie), ensure_ascii=False)})
         raise RuntimeError("Le tuteur a atteint la limite d'appels d'outils. Réessayez.")

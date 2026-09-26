@@ -36,6 +36,17 @@ class ChatTests(unittest.TestCase):
         self.assertIn(b'/classique', self.client.get("/").data)
         self.assertEqual(self.client.get("/classique").status_code, 200)
 
+    def test_chapitre_series_affiche_sous_un_seul_nom(self):
+        chapitre = "17 — Série de réels ou de complexes"
+        self.app.config["EXERCICES_PATH"].write_text(json.dumps([
+            {"id": "17.1", "chapitre": chapitre, "enonce": "Question", "difficulte": 1}
+        ]), encoding="utf-8")
+        self.envoyer(action="nouvelle")
+        page = self.client.get("/").get_data(as_text=True)
+        self.assertIn("Chapitres disponibles : Series numeriques.", page)
+        self.assertNotIn(chapitre, page)
+        self.assertNotIn("16 —", page)
+
     @patch("app.agent.Agent.repondre", autospec=True)
     def test_validation_avant_api(self, repondre):
         for valeurs in ({"csrf": "faux"}, {"message": " "}, {"message": "x" * 12001}):

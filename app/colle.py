@@ -5,6 +5,7 @@ from uuid import uuid4
 
 from pipelex_sdk.client import PipelexAPIClient
 from app.profil import Profil
+from app.chapitres import chapitre_catalogue, donnees_publiques
 from app.generated.progression_colle.models import Performance, Decision
 
 ETAPES = ("cours", "demonstration", "applications", "exercices")
@@ -33,8 +34,8 @@ class Colle:
         self.session_colle = uuid4().hex
 
     def etat_colle(self):
-        return {"chapitre": self.chapitre, "etape": self.etape,
-                "tache": self.tache, "nouvelle_tache_autorisee": self.nouvelle_tache_autorisee}
+        return donnees_publiques({"chapitre": self.chapitre, "etape": self.etape,
+                "tache": self.tache, "nouvelle_tache_autorisee": self.nouvelle_tache_autorisee})
 
     def sauver_tache(self):
         profil = Profil.charger(self.chemin_profil)
@@ -58,6 +59,7 @@ class Colle:
         self.sauver_tache()
 
     def preparer_tache(self, chapitre, enonce, source, nature):
+        chapitre = chapitre_catalogue(chapitre)
         if not self.nouvelle_tache_autorisee:
             raise ValueError("Terminer la tâche active et sa reformulation avant de continuer.")
         if self.etape == "exercices":
@@ -65,8 +67,7 @@ class Colle:
         if chapitre not in self.chapitres or (self.chapitre and chapitre != self.chapitre):
             raise ValueError("Conserver le chapitre de cette colle.")
         passage = self.sources.get(source)
-        correspondances = {"16 — Séries numériques": "17 — Série de réels ou de complexes"}
-        if not passage or correspondances.get(passage["chapitre"], passage["chapitre"]) != chapitre:
+        if not passage or chapitre_catalogue(passage["chapitre"]) != chapitre:
             raise ValueError("Rechercher d'abord une source de ce chapitre dans le cours indexé.")
         if nature not in ({"definition", "theoreme"} if self.etape == "cours" else {self.etape}):
             raise ValueError("Nature de tâche incompatible avec l'étape.")

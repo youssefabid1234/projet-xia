@@ -180,6 +180,29 @@ class ColleTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(resultat["etape"], "cours")
         self.assertEqual(self.agent.chapitre, chapitre)
 
+    async def test_nom_public_relie_cours_exercices_et_profil(self):
+        source = {"chapitre": "16 — Séries numériques", "passages": [
+            {"identifiant": "def", "texte": "Définition source", "type": "définition",
+             "page_source": {"pdf": [139]}}]}
+        with patch("app.agent.recherche_cours", AsyncMock(return_value=source)):
+            resultat = await self.agent.chercher_dans_cours("Série convergente")
+        self.assertEqual(resultat["chapitre"], "Series numeriques")
+        self.assertEqual(resultat["passages"], source["passages"])
+        self.agent.preparer_tache("Series numeriques", "Définir une série", "def", "definition")
+        etat = self.agent.etat_colle()
+        self.assertEqual(etat["chapitre"], "Series numeriques")
+        self.assertEqual(etat["tache"]["chapitre"], "Series numeriques")
+        profil = Profil.charger(self.path)
+        profil.niveaux[self.agent.chapitre] = 3.2
+        profil.sauvegarder(self.path)
+        self.assertEqual(self.agent.consulter_niveau("Series numeriques"),
+                         {"chapitre": "Series numeriques", "niveau": 3.2})
+        self.agent.etape = "exercices"
+        self.agent.nouvelle_tache_autorisee = True
+        with patch("app.agent.verifier_enonce", AsyncMock(side_effect=lambda texte, *args: texte)):
+            exercice = await self.agent.proposer_exercice("Series numeriques")
+        self.assertEqual(exercice["chapitre"], "Series numeriques")
+
     async def test_dialogue_observation_forcee_et_verdict_automatique(self):
         self.preparer()
         arguments = dict(tentative="oui", indice_demande="non", indice_donne="non", rappel_cours="non",

@@ -13,6 +13,7 @@ from pipelex_sdk.client import PipelexAPIClient
 from app.web.auth import auth
 from app.evaluation import evaluer_reponse
 from app.agent import Agent
+from app.chapitres import nom_chapitre
 from app.profil import GAINS, Profil, charger_exercices, choisir_exercice
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -38,6 +39,7 @@ async def corriger(enonce, reponse, corrige):
 
 def create_app(config=None):
     app = Flask(__name__)
+    app.jinja_env.filters["nom_chapitre"] = nom_chapitre
     app.config.update(
         SECRET_KEY=os.environ.get("FLASK_SECRET_KEY") or secrets.token_hex(32),
         UTILISATEURS_PATH=ROOT / "data" / "utilisateurs.json",
@@ -99,7 +101,7 @@ def create_app(config=None):
                         etat["tour"] = secrets.token_urlsafe(24)
                         session["tour"] = etat["tour"]
                         return redirect(url_for("chat"))
-            return render_template("chat.html", messages=agent.messages, chapitres=agent.chapitres,
+            return render_template("chat.html", messages=agent.messages, chapitres=list(map(nom_chapitre, agent.chapitres)),
                                    message=message, erreur=erreur, etape=agent.etape), statut
 
     @app.route("/classique", methods=["GET", "POST"])

@@ -55,7 +55,7 @@ class AgentTests(unittest.IsolatedAsyncioTestCase):
                 await agent.proposer_exercice(chapitre)
         self.verifier.assert_not_awaited()
         exercice = await agent.proposer_exercice(CHAPITRE_SERIES)
-        self.assertEqual(exercice["chapitre"], CHAPITRE_SERIES)
+        self.assertEqual(exercice["chapitre"], "Series numeriques")
         self.assertEqual({ex["chapitre"] for ex in catalogue}, chapitres_originaux)
 
     async def test_selection_niveau_et_historique(self):
@@ -111,7 +111,7 @@ class AgentTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.verifier.await_count, 2)
         outputs = [json.loads(item["output"]) for item in self.agent.historique
                    if item.get("type") == "function_call_output"]
-        self.assertEqual(outputs, [{"id": "b", "chapitre": "17 — Série de réels ou de complexes", "difficulte": 3,
+        self.assertEqual(outputs, [{"id": "b", "chapitre": "Series numeriques", "difficulte": 3,
                                     "enonce": "Calculer $2+2$."}])
         self.assertEqual(Profil.charger(self.chemin).historique, [])
         self.agent.nouvelle_tache_autorisee = True
