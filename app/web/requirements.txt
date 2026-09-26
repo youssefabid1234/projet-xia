@@ -1,3 +1,4 @@
 Flask>=3.1,<4
 pipelex-sdk>=0.10.2,<0.13
 openai>=1.68,<3
+pydantic>=2,<3

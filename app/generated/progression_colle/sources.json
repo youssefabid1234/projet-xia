@@ -1,0 +1,20 @@
+{
+  "generator": "pipelex-integrate",
+  "method": {
+    "files": [
+      "methods/progression_colle/main.mthds"
+    ]
+  },
+  "target": "python-pydantic",
+  "pipe": {
+    "pipe_ref": "progression_colle.decider_suite",
+    "inputs": {
+      "performance": "progression_colle.Performance"
+    },
+    "output": "progression_colle.Decision"
+  },
+  "bundle_dir": "methods/progression_colle",
+  "sources": {
+    "methods/progression_colle/main.mthds": "d4e423b95bc71fbedded93021ee53e896440e188aa4ea113e5c9a0309a66c0f0"
+  }
+}

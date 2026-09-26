@@ -85,7 +85,7 @@ async def chercher_dans_cours(question, client=None, *, chemin=INDEX):
     lexicaux = scores_lexicaux(question, index["passages"])
     scores = [semantic + .25 * lexical for semantic, lexical in zip(cosinus, lexicaux)]
     positions = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:5]
-    champs = ("identifiant", "titre", "type", "section", "contexte", "texte", "page_source", "transcription_relue")
+    champs = ("identifiant", "titre", "type", "section", "contexte", "texte", "page_source", "transcription_relue", "contient_preuve")
     return {"question": question, "chapitre": index["chapitre"],
             "information": "Passages classés par proximité ; vérifier leur pertinence. Les formules non relues peuvent être dégradées par l'extraction PDF.",
             "passages": [{**{k: index["passages"][i][k] for k in champs if k in index["passages"][i]},

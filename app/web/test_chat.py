@@ -78,47 +78,11 @@ class ChatTests(unittest.TestCase):
         self.assertEqual(page.status_code, 502)
         self.assertIn(b"Mon raisonnement", page.data)
 
-    @patch.dict(os.environ, {"OPENAI_API_KEY": "test", "PIPELEX_API_KEY": "test"})
-    @patch("app.agent.Agent.repondre", autospec=True)
-    @patch("app.agent.PipelexAPIClient")
-    def test_bouton_corrige_dernier_message_et_persiste(self, classe, repondre):
-        async def parler(agent, message):
-            agent.exercice = {"id": "a", "chapitre": "Analyse", "enonce": "Calculer 1+1.",
-                              "corrige": "La somme 1+1 vaut 2."}
-            agent.chapitres = ["Analyse"]
-            agent.derniere_reponse = message
-            agent.messages.append({"role": "user", "content": message})
-        repondre.side_effect = parler
-        pipelex = AsyncMock()
-        classe.return_value.__aenter__.return_value = pipelex
-        pipelex.start_and_wait.return_value.main_stuff = {
-            "verdict": "correcte", "type_erreur": "aucune", "explication": "La somme vaut 2."}
-        self.assertEqual(self.envoyer(action="corriger").status_code, 400)
-        self.assertEqual(self.envoyer(message="2").status_code, 302)
-        with self.client.session_transaction() as session:
-            self.tokens["tour"] = session["tour"]
-        self.assertIn('Corriger ma réponse'.encode(), self.client.get("/").data)
-        self.assertEqual(self.envoyer(action="corriger", csrf="faux").status_code, 400)
-        with patch.dict(os.environ, {"PIPELEX_API_KEY": ""}):
-            self.assertEqual(self.envoyer(action="corriger").status_code, 503)
-        pipelex.start_and_wait.side_effect = RuntimeError("réseau")
-        with self.assertLogs(self.app.logger, level="ERROR"):
-            self.assertEqual(self.envoyer(action="corriger").status_code, 502)
-        self.assertEqual(Profil.charger(self.app.config["PROFILS_DIR"] / "test.json").historique, [])
-        pipelex.start_and_wait.side_effect = None
-        # La correction ne dépend pas du modèle de conversation ni du texte du formulaire.
-        with patch.dict(os.environ, {"OPENAI_API_KEY": ""}):
-            self.assertEqual(self.envoyer(action="corriger", message="texte falsifié").status_code, 302)
-        self.assertEqual(pipelex.start_and_wait.call_args.kwargs["inputs"]["reponse_eleve"], "2")
+    def test_correction_uniquement_dans_dialogue(self):
         page = self.client.get("/").data
-        self.assertIn(b"Verdict : correcte", page)
-        self.assertIn(b"La somme vaut 2.", page)
-        self.assertIn(b"1,8/5", page)
-        self.assertEqual(self.envoyer(action="corriger").status_code, 409)
-        with self.client.session_transaction() as session:
-            self.tokens["tour"] = session["tour"]
+        self.assertNotIn(b'correction-form', page)
+        self.assertNotIn(b'correct-message', page)
         self.assertEqual(self.envoyer(action="corriger").status_code, 400)
-        self.assertEqual(len(Profil.charger(self.app.config["PROFILS_DIR"] / "test.json").historique), 1)
 
 
 if __name__ == "__main__":

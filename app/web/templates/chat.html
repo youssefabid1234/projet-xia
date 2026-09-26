@@ -15,14 +15,15 @@
   {% include "compte.html" %}
   <header>
     <p class="eyebrow">MATHÉMATIQUES · PRÉPA SCIENTIFIQUE</p>
-    <h1>Cherchons ensemble.</h1>
-    <p class="muted">Un exercice, vos idées, puis un petit coup de pouce si nécessaire.</p>
+    <h1>Votre colle de prépa.</h1>
+    <p class="muted">Cours, démonstration, applications, puis exercices : le tuteur guide la progression.</p>
     <a href="{{ url_for('index') }}">Ouvrir l’ancienne interface</a>
   </header>
+  <p class="muted">Étape : {{ {"cours": "Questions de cours", "demonstration": "Démonstration", "applications": "Applications directes", "exercices": "Exercices du catalogue"}[etape] }}.</p>
   <section class="card" aria-label="Discussion avec le tuteur" role="log">
     <article class="chat-message assistant">
       <h2>Tuteur</h2>
-      <p>Bonjour ! Quel chapitre souhaitez-vous travailler ? Je peux vous proposer un exercice adapté, ou faire le point sur votre niveau.</p>
+      <p>Bonjour ! Quel chapitre souhaitez-vous travailler ? Nous commencerons par les définitions et théorèmes du cours. Je déciderai de la suite selon vos réponses.</p>
       {% if chapitres %}<p class="muted">Chapitres disponibles : {{ chapitres|join(', ') }}.</p>
       {% else %}<p class="muted">La banque d’exercices est vide pour le moment.</p>{% endif %}
     </article>
@@ -40,19 +41,12 @@
       <input type="hidden" name="csrf" value="{{ session.csrf }}">
       <input type="hidden" name="tour" value="{{ session.tour }}">
       <label for="message">Votre message</label>
-      <p class="muted hint" id="chat-hint">Partagez une piste, posez une question ou soumettez votre raisonnement. Formules : $…$.</p>
-      <textarea id="message" name="message" rows="4" maxlength="12000" required aria-describedby="chat-hint" placeholder="Je voudrais travailler un exercice…">{{ message }}</textarea>
+      <p class="muted hint" id="chat-hint">Partagez votre raisonnement. Vous pouvez demander une correction à tout moment. Formules : $…$.</p>
+      <textarea id="message" name="message" rows="4" maxlength="12000" required aria-describedby="chat-hint" placeholder="Je voudrais travailler le chapitre…">{{ message }}</textarea>
       <button type="submit" id="send-message">Envoyer</button>
       <span id="chat-pending" role="status" hidden>Le tuteur réfléchit…</span>
     </form>
-    <form method="post" id="correction-form">
-      <input type="hidden" name="csrf" value="{{ session.csrf }}">
-      <input type="hidden" name="tour" value="{{ session.tour }}">
-      <input type="hidden" name="action" value="corriger">
-      <p class="muted hint">La correction porte sur votre dernier message envoyé pour l’exercice actif.</p>
-      <button type="submit" id="correct-message" {% if not peut_corriger %}disabled{% endif %}>Corriger ma réponse</button>
-      <span id="correction-pending" role="status" hidden>Correction en cours…</span>
-    </form>
+
   </section>
   <form method="post">
     <input type="hidden" name="csrf" value="{{ session.csrf }}">

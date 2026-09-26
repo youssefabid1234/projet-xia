@@ -20,7 +20,7 @@ description = "Réponse textuelle de l'élève, avec son raisonnement s'il est f
 refines = "Text"
 
 [concept.Corrige]
-description = "Corrigé vérifié de l'exercice fourni par le catalogue ; référence de l'évaluation."
+description = "Corrigé vérifié du catalogue ou passage source du cours indexé ; référence de l'évaluation."
 refines = "Text"
 
 [concept.Evaluation]
@@ -42,9 +42,17 @@ prompt = """
 @reponse_eleve
 @corrige
 
-Le corrigé fourni vient du catalogue vérifié : utilise-le comme référence pour
+Le corrigé fourni vient du catalogue vérifié ou du cours indexé : utilise-le comme référence pour
 les résultats et justifications attendus. Ne reconstruis pas une solution de
 référence à partir de l'énoncé et ne remplace pas le corrigé par ta propre solution.
+La réponse peut contenir les interventions successives d'une colle dans leur ordre
+chronologique. Évalue le raisonnement final en intégrant les rectifications explicites
+de l'élève ; ne compte pas comme encore présente une erreur qu'il a expliquée et corrigée.
+Une demande de correction ou d'aide ne constitue pas une réponse mathématique.
+Un blocage sans tentative est incomplete, jamais incorrecte par défaut.
+Pour une question de cours, vérifie uniquement les attendus de cette question,
+pas tous les résultats du passage source. Si la preuve ou les éléments attendus
+manquent à la référence, le verdict est indeterminable.
 Compare la réponse de l'élève au corrigé en acceptant les équivalences mathématiques
 et les méthodes alternatives valides ; ne pénalise pas une différence de présentation.
 Si l'énoncé ou le corrigé est absent, illisible, ambigu, incomplet pour la question

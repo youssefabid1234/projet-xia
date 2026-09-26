@@ -81,21 +81,8 @@ def create_app(config=None):
                     conversations.pop(identifiant)
                     session["conversation"] = secrets.token_urlsafe(32)
                     return redirect(url_for("chat"))
-                elif request.form.get("action") == "corriger":
-                    if agent.derniere_reponse is None or not agent.exercice:
-                        erreur, statut = "Envoyez d'abord votre réponse à l'exercice actif.", 400
-                    elif not os.environ.get("PIPELEX_API_KEY", "").strip():
-                        erreur, statut = "La correction est indisponible : configurez PIPELEX_API_KEY sur le serveur.", 503
-                    else:
-                        try:
-                            asyncio.run(agent.corriger_derniere_reponse())
-                        except Exception:
-                            app.logger.exception("Échec de la correction du dernier message")
-                            erreur, statut = "La correction a échoué. Votre réponse est conservée ; réessayez.", 502
-                        else:
-                            etat["tour"] = secrets.token_urlsafe(24)
-                            session["tour"] = etat["tour"]
-                            return redirect(url_for("chat"))
+                elif request.form.get("action"):
+                    erreur, statut = "Action indisponible. Écrivez votre demande dans le dialogue.", 400
                 elif not message.strip() or len(message) > 12000:
                     erreur, statut = "Écrivez un message de 1 à 12 000 caractères.", 400
                 elif len(agent.messages) >= 120:
@@ -113,8 +100,7 @@ def create_app(config=None):
                         session["tour"] = etat["tour"]
                         return redirect(url_for("chat"))
             return render_template("chat.html", messages=agent.messages, chapitres=agent.chapitres,
-                                   message=message, erreur=erreur,
-                                   peut_corriger=agent.exercice is not None and agent.derniere_reponse is not None), statut
+                                   message=message, erreur=erreur, etape=agent.etape), statut
 
     @app.route("/classique", methods=["GET", "POST"])
     def index():
