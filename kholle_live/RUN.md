@@ -2,8 +2,11 @@
 
 ```
 cd kholle_live
-uv run uvicorn main:app --host 0.0.0.0 --port 8000
+bash scripts/start_demo.sh
 ```
+
+Lance le proxy de patience (8001) puis le serveur (8000) qui passe par lui ; Ctrl-C arrête les deux
+(voir « Proxy de patience »). Serveur seul, sans proxy : `uv run uvicorn main:app --host 0.0.0.0 --port 8000`.
 
 Ouvrir http://localhost:8000/, cliquer « Démo ». Clés dans `kholle_live/.env` (modèle : `.env.example`).
 La clé Gradium n'accepte que 2 sessions à la fois, et une khôlle les prend toutes les deux (transcription + voix) :
@@ -60,16 +63,18 @@ passer par un proxy LLM qui retient les phrases inachevées.
 `kholle/llm_proxy.py` se place entre gradbot et OpenAI et retient la réponse du khôlleur quand
 l'étudiant s'arrête au milieu d'une phrase (« Donc je développe… »). Tout le reste passe tel quel.
 
-```
-cd kholle_live
-uv run uvicorn kholle.llm_proxy:app --port 8001
-```
+La démo se lance avec `bash scripts/start_demo.sh` (Git Bash sous Windows), depuis `kholle_live` :
+1. démarre le proxy sur 8001 (relancé s'il s'arrête ; journal dans `$TMPDIR/kholle_proxy.log`) ;
+2. attend qu'il réponde, 10 s au plus ;
+3. démarre le serveur sur 8000 avec `LLM_BASE_URL=http://127.0.0.1:8001/v1` pour ce seul processus.
 
-Puis, dans `kholle_live/.env` : `LLM_BASE_URL=http://127.0.0.1:8001/v1`, et relancer le serveur (8000).
-Le proxy doit tourner avant la khôlle : `LLM_BASE_URL` réglée sans proxy = khôlleur muet.
+Si le proxy ne répond pas, un grand avertissement s'affiche et le serveur part en direct sur OpenAI :
+le khôlleur n'est jamais muet. Ctrl-C arrête les deux. Ne pas mettre `LLM_BASE_URL` dans `.env`.
 
-**Interrupteur** : remettre l'ancienne valeur (`# LLM_BASE_URL=`, commentée : gradbot parle directement
-à OpenAI) et relancer le serveur. Sans relancer le serveur : relancer le proxy avec `PROXY_HOLD=0` (simple relais).
+**Interrupteur** : `PROXY_HOLD=0 bash scripts/start_demo.sh` (le proxy relaie tout), ou lancer le serveur
+seul : `uv run uvicorn main:app --host 0.0.0.0 --port 8000` (gradbot parle directement à OpenAI).
+
+Tests en direct (élève synthétique, port 8011) : `scripts/live_tests/README.md`.
 
 Ce que fait gradbot (mesuré) : uniquement `POST /v1/chat/completions`, toujours en `stream: true`.
 Relance après `SILENCE_TIMEOUT_S` : un message utilisateur `...`, collé au précédent s'il est de l'étudiant.

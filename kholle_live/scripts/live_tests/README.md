@@ -1,0 +1,1 @@
+Depuis `kholle_live`, lancer `PORT=8011 bash scripts/start_demo.sh` (proxy 8001 + serveur 8011), puis `uv run python scripts/live_tests/patience.py` (tests a, b, c, e, f ; ffmpeg et GRADIUM_API_KEY requis ; `SERVEUR=hôte:port` pour une autre cible) ; résultats dans `sortie/`.
