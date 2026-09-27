@@ -3,8 +3,13 @@
 Lancer : uv run uvicorn main:app --host 0.0.0.0 --port 8000
 """
 
+import asyncio
+import contextlib
 import dataclasses
+import json
+import logging
 import os
+import time
 from pathlib import Path
 from typing import Literal
 
@@ -13,14 +18,21 @@ from dotenv import load_dotenv
 ICI = Path(__file__).resolve().parent
 # Avant tout le reste : gradbot.config.from_env() est mis en cache au premier appel.
 load_dotenv(ICI / ".env")
+# Clé du LLM : à défaut de LLM_API_KEY, celle d'OpenAI (déjà là pour la vision).
+if not os.environ.get("LLM_API_KEY") and os.environ.get("OPENAI_API_KEY"):
+    os.environ["LLM_API_KEY"] = os.environ["OPENAI_API_KEY"]
 
 import fastapi  # noqa: E402
 import gradbot  # noqa: E402
+import httpx  # noqa: E402
 from pydantic import BaseModel  # noqa: E402
 
-from kholle import board, exercises, prompts, report, state  # noqa: E402
+from kholle import board, exercises, outils, prompts, report, state  # noqa: E402
 
 gradbot.init_logging()
+logging.basicConfig(level=logging.INFO, format="{asctime} {name} {levelname} {message}", style="{")
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logger = logging.getLogger("kholle.voix")
 CONFIG = gradbot.config.from_env()
 
 app = fastapi.FastAPI(title="Khôlle live")
@@ -41,8 +53,15 @@ class Replique(BaseModel):
 
 @app.get("/api/exercise")
 def exercice_courant():
-    ex = exercises.get(state.get_session().exercise_id)
-    return {"id": ex["id"], "titre": ex["titre"], "enonce_latex": ex["enonce_latex"]}
+    s = state.get_session()
+    ex = exercises.get(s.exercise_id)
+    question = exercises.question(ex, s.question_index) if s.question_index else None
+    return {
+        "id": ex["id"],
+        "titre": ex["titre"],
+        "enonce_latex": ex["enonce_latex"],
+        "question": question and question["question_orale"],
+    }
 
 
 @app.post("/api/session/new")
@@ -61,26 +80,228 @@ def transcription(replique: Replique):
     return dataclasses.asdict(state.add_turn(replique.qui, replique.texte))
 
 
-# Voix : point de départ minimal (modèle : gradbot demos/fantasy_shop/main.py).
-# Protocole client : {"type": "start"} puis trames audio binaires ; {"type": "stop"}.
-@app.websocket("/ws/kholle")
-async def ws_kholle(websocket: fastapi.WebSocket):
-    def on_start(msg: dict) -> gradbot.SessionConfig:
-        langue = gradbot.LANGUAGES["fr"]
-        return gradbot.SessionConfig(
-            voice_id=os.environ.get("KHOLLEUR_VOICE_ID") or None,
-            instructions=prompts.build_instructions(state.get_session()),
-            language=langue,
-            tools=[],  # TODO(A) : donner_indice, question_suivante, terminer_colle
-            **{
-                "rewrite_rules": langue.rewrite_rules,
-                "assistant_speaks_first": True,
-                "silence_timeout_s": float(os.environ.get("SILENCE_TIMEOUT_S", 10)),
-            }
-            | CONFIG.session_kwargs,
-        )
+# ── Voix ────────────────────────────────────────────────────
+# Modèle : gradbot demos/fantasy_shop, mais avec notre propre boucle autour de
+# gradbot.run() (et non handle_session) : il faut garder la poignée d'entrée
+# pour pousser une nouvelle config quand le tableau change.
+# Protocole client : {"type": "start"}, trames audio Opus, {"type": "stop"}.
+# En plus des messages gradbot, le serveur envoie {"type": "outil", "nom", "resultat"}.
 
-    await gradbot.websocket.handle_session(websocket, config=CONFIG, on_start=on_start)
+
+def session_config(instructions: str, *, premiere: bool) -> gradbot.SessionConfig:
+    langue = gradbot.LANGUAGES["fr"]
+    voix = os.environ.get("KHOLLEUR_VOICE_ID") or gradbot.flagship_voice("Gaspard").voice_id
+    return gradbot.SessionConfig(
+        **CONFIG.session_kwargs
+        | {
+            "voice_id": voix,
+            "instructions": instructions,
+            "language": langue,
+            "tools": outils.OUTILS,
+            "rewrite_rules": langue.rewrite_rules,
+            # Sans effet après le démarrage : gradbot ne salue qu'une fois.
+            "assistant_speaks_first": premiere,
+            "silence_timeout_s": float(os.environ.get("SILENCE_TIMEOUT_S", 10)),
+        }
+    )
+
+
+class Transcription:
+    """Regroupe les morceaux de texte STT / TTS en répliques pour state.add_turn."""
+
+    def __init__(self) -> None:
+        self.qui: state.Qui | None = None
+        self.tour: int | None = None
+        self.morceaux: list[str] = []
+        self.t = 0.0
+
+    def ajouter(self, qui: state.Qui, texte: str, tour: int | None = None) -> None:
+        if (qui, tour) != (self.qui, self.tour):
+            self.vider()
+        if not self.morceaux:
+            self.t = time.time() - state.get_session().started_at
+        self.qui, self.tour = qui, tour
+        self.morceaux.append(texte)
+
+    def vider(self) -> None:
+        if self.morceaux:
+            tour = state.add_turn(self.qui, " ".join(" ".join(self.morceaux).split()))
+            tour.t = self.t  # début de la réplique, pas sa fin
+        self.morceaux = []
+
+
+class Kholle:
+    """La khôlle vocale en cours : une session gradbot reliée au navigateur."""
+
+    def __init__(self, websocket: fastapi.WebSocket) -> None:
+        self.websocket = websocket
+        self.boucle = asyncio.get_running_loop()
+        self.entree: gradbot.SessionInputHandle | None = None
+        self.transcription = Transcription()
+        self.deja_faux: set[str] = set()
+        self.verrou = asyncio.Lock()
+        self.taches: set[asyncio.Task] = set()
+
+    def config(self, *, premiere: bool = False) -> gradbot.SessionConfig:
+        s = state.get_session()
+        instructions = prompts.build_instructions(s, self.deja_faux)
+        self.deja_faux = prompts.erreurs(s.board_lines)
+        return session_config(instructions, premiere=premiere)
+
+    async def pousser_config(self) -> None:
+        """Nouvelles consignes (tableau, question) ; gradbot garde l'historique."""
+        async with self.verrou:
+            await self.entree.send_config(self.config())
+
+    async def boucle_entree(self) -> None:
+        try:
+            while True:
+                brut = await self.websocket.receive()
+                if brut["type"] == "websocket.disconnect":
+                    break
+                if brut.get("bytes") is not None:
+                    await self.entree.send_audio(brut["bytes"])
+                elif brut.get("text") and json.loads(brut["text"]).get("type") == "stop":
+                    break
+        except (fastapi.WebSocketDisconnect, RuntimeError):
+            pass
+        finally:
+            with contextlib.suppress(Exception):
+                await self.entree.close()
+
+    async def boucle_sortie(self, sortie: gradbot.SessionOutputHandle) -> None:
+        try:
+            while (msg := await sortie.receive()) is not None:
+                await self.traiter(msg)
+        except Exception as exc:
+            logger.warning("Sortie gradbot interrompue : %r", exc)
+            await _envoyer_erreur(self.websocket, exc)
+        finally:
+            self.transcription.vider()
+            with contextlib.suppress(Exception):
+                await self.websocket.close()
+
+    async def traiter(self, msg: gradbot.MsgOut) -> None:
+        if msg.msg_type == "tool_call":
+            outil = gradbot.ToolHandle(msg.tool_call_handle, msg.tool_call)
+            tache = asyncio.create_task(self.outil(outil))
+            self.taches.add(tache)
+            tache.add_done_callback(self.taches.discard)
+            return
+        schema = gradbot.schemas.from_msg(msg)
+        if schema is None:
+            return
+        if isinstance(schema, gradbot.schemas.UserText):
+            self.transcription.ajouter("eleve", schema.text)
+        elif isinstance(schema, gradbot.schemas.AgentText):
+            self.transcription.ajouter("kholleur", schema.text, schema.turn_idx)
+        await self.websocket.send_json(schema.model_dump())
+        if msg.msg_type == "audio":
+            await self.websocket.send_bytes(msg.data)
+
+    async def outil(self, h: gradbot.ToolHandle) -> None:
+        logger.info("Outil %s", h.name)
+        executer = outils.EXECUTER.get(h.name)
+        if executer is None:
+            await h.send_error(f"Outil inconnu : {h.name}")
+            return
+        try:
+            resultat = executer()
+            if h.name == "question_suivante" and "question" in resultat:
+                await self.pousser_config()
+            if h.name == "terminer_colle":
+                self.transcription.vider()
+                _en_arriere_plan(_lancer_compte_rendu())
+            await h.send_json(resultat)
+        except Exception as exc:
+            logger.exception("Outil %s en échec", h.name)
+            await h.send_error(str(exc))
+            return
+        with contextlib.suppress(Exception):
+            await self.websocket.send_json({"type": "outil", "nom": h.name, "resultat": resultat})
+
+
+_en_cours: Kholle | None = None
+_taches: set[asyncio.Future] = set()
+
+
+def _en_arriere_plan(coro) -> None:
+    tache = asyncio.ensure_future(coro)
+    _taches.add(tache)
+    tache.add_done_callback(_taches.discard)
+
+
+async def _lancer_compte_rendu() -> None:
+    """POST /api/report (lane C), servi par l'application elle-même sans passer par le réseau."""
+    try:
+        async with httpx.AsyncClient(
+            transport=httpx.ASGITransport(app=app), base_url="http://kholle", timeout=300
+        ) as client:
+            r = await client.post("/api/report")
+        if r.is_error:
+            logger.warning("Compte-rendu : HTTP %s %s", r.status_code, r.text[:200])
+    except Exception:
+        logger.exception("Compte-rendu impossible")
+
+
+async def _envoyer_erreur(websocket: fastapi.WebSocket, exc: Exception | str) -> None:
+    with contextlib.suppress(Exception):
+        await websocket.send_json({"type": "error", "message": str(exc)})
+
+
+@state.on_board_change
+def _tableau_change(session: state.Session) -> None:
+    """Pousse le nouveau tableau au khôlleur, quel que soit le fil qui a appelé set_board."""
+    k = _en_cours
+    if k is None or k.entree is None:
+        return
+    envoi = asyncio.run_coroutine_threadsafe(k.pousser_config(), k.boucle)
+    envoi.add_done_callback(_signaler_echec_envoi)
+
+
+def _signaler_echec_envoi(envoi) -> None:
+    if not envoi.cancelled() and envoi.exception():
+        logger.error("Envoi du tableau en échec : %r", envoi.exception())
+
+
+@app.websocket("/ws/chat")
+async def ws_chat(websocket: fastapi.WebSocket):
+    global _en_cours
+    await websocket.accept()
+    debut = await websocket.receive_json()
+    if debut.get("type") != "start":
+        await websocket.close(code=4000, reason="Message start attendu")
+        return
+    if not CONFIG.gradbot_server.url and not CONFIG.gradium.api_key:
+        await _envoyer_erreur(websocket, "GRADIUM_API_KEY manquante dans kholle_live/.env")
+        await websocket.close()
+        return
+
+    state.new_session(state.get_session().exercise_id)
+    k = Kholle(websocket)
+    try:
+        k.entree, sortie = await gradbot.run(
+            **CONFIG.client_kwargs,
+            session_config=k.config(premiere=True),
+            input_format=gradbot.AudioFormat.OggOpus,
+            output_format=CONFIG.audio_format,
+        )
+    except Exception as exc:
+        logger.exception("Démarrage de la session vocale impossible")
+        await _envoyer_erreur(websocket, exc)
+        await websocket.close()
+        return
+
+    _en_cours = k
+    logger.info("Khôlle vocale démarrée (session %s)", state.get_session().id)
+    try:
+        await asyncio.gather(k.boucle_sortie(sortie), k.boucle_entree())
+    finally:
+        if _en_cours is k:
+            _en_cours = None
+        for tache in k.taches:
+            tache.cancel()
+        logger.info("Khôlle vocale terminée")
 
 
 # Monte /static (notre dossier) et /static/js (worklets audio fournis par gradbot),

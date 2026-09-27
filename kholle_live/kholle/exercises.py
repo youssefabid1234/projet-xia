@@ -36,3 +36,16 @@ def demo() -> dict:
     """L'exercice marqué `demo: true` (à défaut, le premier)."""
     exos = all()
     return next((e for e in exos if e.get("demo")), exos[0])
+
+
+def question(ex: dict, index: int) -> dict:
+    """Question n° `index` : 0 = l'exercice lui-même, k >= 1 = questions_suivantes[k-1].
+
+    Lève IndexError si elle n'existe pas.
+    """
+    if index == 0:
+        return ex
+    suivantes = ex.get("questions_suivantes", [])
+    if not 1 <= index <= len(suivantes):
+        raise IndexError(f"{ex['id']} n'a pas de question {index}")
+    return suivantes[index - 1]
