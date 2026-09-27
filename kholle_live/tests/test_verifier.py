@@ -1,7 +1,8 @@
 import pytest
+import sympy
 
 from kholle.state import BoardLine
-from kholle.verifier import check_line
+from kholle.verifier import _parser, check_line
 
 DEFS_LN_SIN = {"f(x)": "log(1+sin(x))"}
 
@@ -96,3 +97,31 @@ def test_autre_point():
 def test_code_arbitraire_refuse():
     attaque = "x.__class__.__mro__[-1].__subclasses__()"
     assert check_line(ligne(attaque, "x", 1), {}).verdict == "?"
+
+
+@pytest.mark.parametrize(
+    "texte, attendu",
+    [
+        ("e**x", "exp(x)"),
+        ("e^x", "exp(x)"),
+        ("e**(sin(x))", "exp(sin(x))"),
+        ("e^(sin x)", "exp(sin(x))"),
+    ],
+)
+def test_exponentielle_lue_comme_exp(texte, attendu):
+    assert _parser(texte) == sympy.sympify(attendu)
+
+
+def test_eval_c3_exponentielle():
+    # C3 voulu : e^x = 1 + x + x^2/2 + x^3/6.
+    assert check_line(ligne("e^x", "1 + x + x^2/2 + x^3/6", 3), {}).verdict == "ok"
+    # C3 tel qu'écrit sur l'échantillon : le terme en x manque.
+    resultat = check_line(ligne("exp(x)", "1 + x**2/2 + x**3/6", 3), {})
+    assert (resultat.verdict, resultat.detail) == ("faux", "erreur sur le terme en x")
+
+
+def test_eval_e7_exponentielle_de_sinus():
+    resultat = check_line(ligne("e^(sin x)", "1 + x + x^2/2 + x^3/6", 3), {})
+    assert (resultat.verdict, resultat.detail) == ("faux", "erreur sur le terme en x^3")
+    # E7 tel que lu : les parenthèses de sin(x) prises pour |x|. Jamais "faux" dans ce cas.
+    assert check_line(ligne("exp(sin(abs(x)))", "1 + x + x**2/2 + x**3/6", 3), {}).verdict == "?"
