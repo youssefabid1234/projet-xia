@@ -51,7 +51,7 @@
     .statut.oui { background: var(--juste-fond); color: var(--juste); }
     .statut.non { background: var(--faux-fond); color: var(--faux); }
     code { font: 0.88rem/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace; background: var(--puce); padding: 1px 6px; border-radius: 4px; }
-    code.barre { text-decoration: line-through; text-decoration-color: var(--faux); }
+    .barree { font: italic 0.8rem/1 system-ui, sans-serif; color: var(--doux); }
     .erreur p { margin: 4px 0 0; }
     .tag { font: 600 0.8rem/1 system-ui, sans-serif; background: var(--puce); border-radius: 4px; padding: 3px 7px; margin-right: 6px; white-space: nowrap; }
     .exos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -103,7 +103,7 @@
       {% if e.corrigee_apres_question %}<span class="statut oui">corrigée après question</span>
       {% else %}<span class="statut non">non corrigée</span>{% endif %}
     </div>
-    {% for l in cr.tableau if l.n == e.ligne %}<code class="{{ 'barre' if l.barre }}">{{ l.texte }}</code>{% endfor %}
+    {% for l in cr.tableau if l.n == e.ligne %}<code>{{ l.texte }}</code>{% if l.barre %} <span class="barree">barrée au tableau</span>{% endif %}{% endfor %}
     <p>{{ e.description }}</p>
   </div>
   {% else %}
