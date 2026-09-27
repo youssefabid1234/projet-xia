@@ -59,7 +59,18 @@ def _exercice(session: Session) -> str:
 
 
 def _tableau(lignes: list[BoardLine], deja_faux: Collection[str]) -> str:
-    return "\n".join(_ligne(l, cle_ligne(l) not in deja_faux) for l in lignes) or "(tableau vide)"
+    if not lignes:
+        return "(tableau vide)"
+    nouvelles = [l.n for l in lignes if not l.barre and l.verdict == "faux" and cle_ligne(l) not in deja_faux]
+    texte = "\n".join(_ligne(l, l.n in nouvelles) for l in lignes)
+    # Le tableau finit noyé dans le long prompt système de gradbot : on rappelle la priorité.
+    if nouvelles:
+        texte += (
+            "\n→ À traiter maintenant : "
+            + ", ".join(f"L{n}" for n in nouvelles)
+            + " (nouvelle erreur). Désigne cette ligne et pose une question qui oriente vers l'erreur."
+        )
+    return texte
 
 
 def _ligne(l: BoardLine, nouvelle: bool) -> str:

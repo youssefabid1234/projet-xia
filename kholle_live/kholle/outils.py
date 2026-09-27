@@ -33,7 +33,7 @@ OUTILS = [
     _outil(
         "terminer_colle",
         "Termine la khôlle et lance la rédaction du compte-rendu. À appeler juste après "
-        "avoir annoncé la fin à l'étudiant.",
+        "avoir annoncé la fin à l'étudiant, jamais avant qu'il ait répondu à la dernière question.",
     ),
 ]
 

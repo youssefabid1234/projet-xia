@@ -54,7 +54,7 @@ def test_consignes_tableau():
     assert "L1 ✓ u = sin x\n" in texte
     assert "L2 ? ln(1+u) = u - u^2/2\n" in texte
     assert "NOUVELLE ERREUR L3 ✗ f(x) = x - x^2/2 - x^3/6 — coefficient de x^3\n" in texte
-    assert texte.rstrip().endswith("L4 (barrée)")
+    assert "L4 (barrée)\n→ À traiter maintenant : L3 (nouvelle erreur)." in texte
 
     deja = prompts.erreurs(s.board_lines)
     assert deja == {"f(x) = x - x^2/2 - x^3/6"}
@@ -62,6 +62,7 @@ def test_consignes_tableau():
     s.board_lines = [ligne(4, "f(x)  =  x - x^2/2 - x^3/6", "faux")]
     texte = prompts.build_instructions(s, deja)
     assert "L4 ✗ f(x)  =  x - x^2/2 - x^3/6" in texte and "NOUVELLE ERREUR L" not in texte
+    assert "→ À traiter maintenant : L" not in texte
 
 
 # ── Outils ──────────────────────────────────────────────────
@@ -185,6 +186,7 @@ def test_kholle_vocale(fausse):
         assert cfg.voice_id == gradbot.flagship_voice("Gaspard").voice_id
         assert cfg.language == gradbot.Lang.Fr and cfg.assistant_speaks_first
         assert cfg.silence_timeout_s == 12.0
+        assert json.loads(cfg.llm_extra_config)["parallel_tool_calls"] is False
         assert [t.name for t in cfg.tools] == list(outils.EXECUTER)
         assert "Donnez-moi le développement limité" in cfg.instructions
 

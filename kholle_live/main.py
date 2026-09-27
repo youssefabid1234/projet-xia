@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 ICI = Path(__file__).resolve().parent
 # Avant tout le reste : gradbot.config.from_env() est mis en cache au premier appel.
 load_dotenv(ICI / ".env")
+load_dotenv(ICI.parent / ".env")  # clés du dépôt ; celles d'ici priment
 # Clé du LLM : à défaut de LLM_API_KEY, celle d'OpenAI (déjà là pour la vision).
 if not os.environ.get("LLM_API_KEY") and os.environ.get("OPENAI_API_KEY"):
     os.environ["LLM_API_KEY"] = os.environ["OPENAI_API_KEY"]
@@ -92,9 +93,13 @@ def transcription(replique: Replique):
 def session_config(instructions: str, *, premiere: bool) -> gradbot.SessionConfig:
     langue = gradbot.LANGUAGES["fr"]
     voix = os.environ.get("KHOLLEUR_VOICE_ID") or gradbot.flagship_voice("Gaspard").voice_id
+    # Un outil à la fois : sinon le LLM enchaîne question_suivante et terminer_colle
+    # sans attendre la réponse de l'étudiant (vu avec gpt-4.1).
+    llm_extra = {"parallel_tool_calls": False} | (CONFIG.llm.extra_config or {})
     return gradbot.SessionConfig(
         **CONFIG.session_kwargs
         | {
+            "llm_extra_config": json.dumps(llm_extra),
             "voice_id": voix,
             "instructions": instructions,
             "language": langue,
