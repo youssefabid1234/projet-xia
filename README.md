@@ -2,7 +2,7 @@
 
 Le X-khôlleur simule une khôlle de mathématiques pour les élèves de prépa scientifique : il interroge sur le cours, demande une démonstration, puis propose une application et des exercices adaptés. L’élève répond au clavier, au tableau manuscrit ou par dictée ; le colleur accompagne le raisonnement et termine par une note indicative sur 20 et un bilan. Les chapitres disponibles sont les **séries numériques** et les **équations différentielles linéaires**.
 
-Le développement s’est fait sur plusieurs branches ; la version finale de rendu est sur `main`. La préparation du rendu se fait sur `modalites-integrees` ; les modifications de cette branche doivent encore être intégrées à `main`.
+La branche `main` contient la version finale intégrée et est sélectionnée par défaut lors du clonage du dépôt.
 
 ## Installation depuis un clone frais
 
@@ -15,7 +15,6 @@ Installer Python 3.12 avec le lanceur `py`, puis :
 ```powershell
 git clone https://github.com/youssefabid1234/projet-xia.git
 cd projet-xia
-git switch modalites-integrees
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --upgrade pip
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
@@ -35,7 +34,6 @@ Installer Git, Python 3.12 et son module `venv` avec le gestionnaire de paquets 
 ```bash
 git clone https://github.com/youssefabid1234/projet-xia.git
 cd projet-xia
-git switch modalites-integrees
 python3.12 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
 .venv/bin/python -m pip install -r requirements.txt
@@ -48,7 +46,7 @@ Renseigner `.env`, puis :
 .venv/bin/python -m app.web
 ```
 
-Les commandes sélectionnent la branche de préparation. Pour le rendu intégré, utiliser `git switch main` à la place. L’activation de l’environnement virtuel n’est pas nécessaire avec ces commandes.
+L’activation de l’environnement virtuel n’est pas nécessaire avec ces commandes.
 
 ## Clés API et configuration
 
