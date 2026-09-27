@@ -1,6 +1,6 @@
 // [lane B] Affichage du tableau vérifié (✓ / ✗ / ?) dans #board-panel.
 (() => {
-  const PERIODE_MS = 1000;
+  const PERIODE_MS = 500;
   const panneau = document.getElementById("board-panel");
   if (!panneau) return;
 

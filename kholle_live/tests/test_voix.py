@@ -36,6 +36,7 @@ def test_consignes_exercice_sans_indices():
     assert "QUESTION EN COURS" not in texte
 
     assert "C'est la dernière question" not in texte
+    assert "N'invente jamais de question" in texte
 
     s.question_index = 1
     texte = prompts.build_instructions(s)
@@ -43,6 +44,7 @@ def test_consignes_exercice_sans_indices():
     assert suite["question_orale"] in texte and suite["reponse"] in texte
     assert all(indice not in texte for indice in suite["indices"])
     assert "C'est la dernière question" in texte
+    assert "N'invente jamais de question" not in texte
 
     # Sans question suivante, l'exercice principal est la dernière question.
     assert "C'est la dernière question" in prompts.build_instructions(state.new_session("dl_cos_sin"))
@@ -233,11 +235,13 @@ def test_kholle_vocale(fausse):
         attendre(lambda: len(fausse.configs) == 1)
         assert "NOUVELLE ERREUR L1 ✗" in fausse.configs[0].instructions
         assert fausse.configs[0].instructions.startswith("PRIORITÉ ABSOLUE")
+        assert fausse.configs[0].silence_timeout_s == 4.0  # question à la première pause
         # Le LLM démarre avec l'alerte : elle est retirée des consignes suivantes.
         fausse.emettre("event", event=SimpleNamespace(event_type="llm_started"))
         assert ws.receive_json() == {"type": "event", "event": "llm_started"}
         attendre(lambda: len(fausse.configs) == 2)
         assert not fausse.configs[1].instructions.startswith("PRIORITÉ ABSOLUE")
+        assert fausse.configs[1].silence_timeout_s == 12.0
         fausse.emettre("event", event=SimpleNamespace(event_type="llm_started"))
         ws.receive_json()
         state.set_board([ligne(1, "f(x) = x - x^2/2 - x^3/6", "faux"), ligne(2, "donc", "?")])
@@ -265,6 +269,29 @@ def test_kholle_vocale(fausse):
         ("kholleur", "On s'arrête là."),
     ]
     assert all(a.t <= b.t for a, b in zip(s.transcript, s.transcript[1:]))
+
+
+def test_phrase_de_fin_sans_outil(fausse):
+    """Le LLM dit la phrase de fin sans appeler terminer_colle : le serveur termine."""
+    client = TestClient(main.app)
+    client.post("/api/session/new", json={"exercise_id": "dl_ln_sin"})
+    with client.websocket_connect("/ws/chat") as ws:
+        ws.send_json({"type": "start"})
+        ws.receive_json()
+        s = state.get_session()
+        fausse.emettre("tts_text", text="Très bien, on s'arrête là, je rédige", turn_idx=3, start_s=0.0, stop_s=1.0)
+        fausse.emettre("tts_text", text="votre compte-rendu.", turn_idx=3, start_s=1.0, stop_s=2.0)
+        recus = [ws.receive_json() for _ in range(3)]
+        assert {"type": "outil", "nom": "terminer_colle", "resultat": {"ok": True}} in recus
+        attendre(lambda: fausse.rapports == [s.id])
+        assert s.finished
+
+        # Appel tardif du LLM : réponse ok, ni second compte-rendu ni second message.
+        fausse.appel_outil("terminer_colle")
+        attendre(lambda: fausse.resultats == [("terminer_colle", {"ok": True})])
+        ws.send_json({"type": "stop"})
+    attendre(lambda: main._en_cours is None)
+    assert fausse.rapports == [s.id]
 
 
 def test_sans_cle_gradium(monkeypatch):

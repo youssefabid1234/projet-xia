@@ -1,8 +1,9 @@
 """Lecture du tableau manuscrit par un modèle de vision (prompts/board_reader.md). [lane B]
 
-Contre les fausses alertes : dès qu'une ligne sort "faux", l'image est relue
-une seconde fois. La ligne ne reste "faux" que si la seconde lecture la
-trouve fausse aussi ; sinon elle passe à "?".
+Contre les fausses alertes : l'image est lue deux fois en parallèle. Dès qu'une
+ligne sort "faux" de la première lecture, elle ne reste "faux" que si la seconde
+la trouve fausse aussi ; sinon elle passe à "?". Sans ligne fausse, la seconde
+lecture n'est pas attendue.
 """
 
 from __future__ import annotations
@@ -13,6 +14,7 @@ import functools
 import json
 import logging
 import os
+from concurrent.futures import Future, ThreadPoolExecutor
 from pathlib import Path
 
 from openai import OpenAI
@@ -84,18 +86,24 @@ def stats() -> dict[str, int]:
     return dict(_stats)
 
 
+# Seconde lecture lancée avec la première : une ligne fausse s'affiche après une
+# lecture au lieu de deux (5,6 s -> ~3 s sur un tableau de trois lignes).
+_RELECTURE = ThreadPoolExecutor(max_workers=2, thread_name_prefix="relecture")
+
+
 def read_board(png: bytes, exercise: dict) -> list[BoardLine]:
     """Transcrit le tableau (PNG, ou photo JPEG), vérifie chaque ligne avec SymPy
-    et fait confirmer chaque ligne "faux" par une seconde lecture."""
+    et fait confirmer chaque ligne "faux" par une seconde lecture, faite en même temps."""
+    seconde = _RELECTURE.submit(_lire, png, exercise)
     lignes = _lire(png, exercise)
     if any(l.verdict == "faux" for l in lignes):
-        lignes = _confirmer(lignes, png, exercise)
+        lignes = _confirmer(lignes, seconde)
     return lignes
 
 
-def _confirmer(lignes: list[BoardLine], png: bytes, exercise: dict) -> list[BoardLine]:
+def _confirmer(lignes: list[BoardLine], lecture: Future) -> list[BoardLine]:
     try:
-        seconde = {l.n: l for l in _lire(png, exercise)}
+        seconde = {l.n: l for l in lecture.result()}
     except Exception:
         logger.exception("Seconde lecture du tableau en échec")
         seconde = {}

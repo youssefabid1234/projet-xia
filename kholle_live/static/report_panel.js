@@ -1,8 +1,8 @@
 // [lane C] Compte-rendu : dès que la khôlle est finie, il s'affiche en plein écran
-// par-dessus la page. Sondage toutes les 2 s de /api/report/status ; si personne
+// par-dessus la page. Sondage toutes les 0,5 s de /api/report/status ; si personne
 // n'a lancé la rédaction, POST /api/report (idempotent côté serveur).
 (() => {
-  const PERIODE_MS = 2000;
+  const PERIODE_MS = 500;
   const ESSAIS_MAX = 3;
   const panneau = document.getElementById("report-panel");
 

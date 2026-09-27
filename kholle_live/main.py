@@ -9,6 +9,7 @@ import dataclasses
 import json
 import logging
 import os
+import re
 import time
 from pathlib import Path
 from typing import Literal
@@ -107,7 +108,15 @@ def stt_config() -> str:
     return json.dumps(extra | (CONFIG.stt.extra_config or {}))
 
 
-def session_config(instructions: str, *, premiere: bool) -> gradbot.SessionConfig:
+def silence_s(alerte: bool) -> float:
+    """Relance après un silence : longue pour laisser réfléchir, courte quand une nouvelle
+    ligne fausse attend (la question vient à la première pause, pas 12 s plus tard)."""
+    if alerte:
+        return float(os.environ.get("SILENCE_ALERTE_S", 4))
+    return float(os.environ.get("SILENCE_TIMEOUT_S", 12))
+
+
+def session_config(instructions: str, *, premiere: bool, alerte: bool = False) -> gradbot.SessionConfig:
     langue = gradbot.LANGUAGES["fr"]
     voix = os.environ.get("KHOLLEUR_VOICE_ID") or gradbot.flagship_voice("Gaspard").voice_id
     # Un outil à la fois : sinon le LLM enchaîne question_suivante et terminer_colle
@@ -125,7 +134,7 @@ def session_config(instructions: str, *, premiere: bool) -> gradbot.SessionConfi
             "rewrite_rules": langue.rewrite_rules,
             # Sans effet après le démarrage : gradbot ne salue qu'une fois.
             "assistant_speaks_first": premiere,
-            "silence_timeout_s": float(os.environ.get("SILENCE_TIMEOUT_S", 10)),
+            "silence_timeout_s": silence_s(alerte),
         }
     )
 
@@ -154,6 +163,11 @@ class Transcription:
         self.morceaux = []
 
 
+# Phrase de fin du DÉROULÉ (prompts/kholleur_system.md). En audio, gpt-4.1 la dit parfois
+# sans appeler terminer_colle : le serveur termine alors la khôlle à sa place.
+PHRASE_DE_FIN = re.compile(r"rédige votre compte[- ]rendu", re.IGNORECASE)
+
+
 class Kholle:
     """La khôlle vocale en cours : une session gradbot reliée au navigateur."""
 
@@ -166,13 +180,14 @@ class Kholle:
         self.alerte = False  # consignes en cours avec l'alerte « nouvelle erreur »
         self.verrou = asyncio.Lock()
         self.taches: set[asyncio.Task] = set()
+        self.dit: dict[int | None, str] = {}  # texte du khôlleur par tour
 
     def config(self, *, premiere: bool = False) -> gradbot.SessionConfig:
         s = state.get_session()
         instructions = prompts.build_instructions(s, self.deja_faux)
         self.alerte = bool(prompts.nouvelles_erreurs(s.board_lines, self.deja_faux))
         self.deja_faux = prompts.erreurs(s.board_lines)
-        return session_config(instructions, premiere=premiere)
+        return session_config(instructions, premiere=premiere, alerte=self.alerte)
 
     async def pousser_config(self) -> None:
         """Nouvelles consignes (tableau, question) ; gradbot garde l'historique."""
@@ -223,6 +238,10 @@ class Kholle:
             self.transcription.ajouter("eleve", schema.text)
         elif isinstance(schema, gradbot.schemas.AgentText):
             self.transcription.ajouter("kholleur", schema.text, schema.turn_idx)
+            self.dit[schema.turn_idx] = f"{self.dit.get(schema.turn_idx, '')} {schema.text}"
+            if PHRASE_DE_FIN.search(self.dit[schema.turn_idx]) and not state.get_session().finished:
+                logger.warning("Phrase de fin sans terminer_colle : le serveur termine la khôlle")
+                self._en_tache(self.terminer())
         elif isinstance(schema, gradbot.schemas.SessionEvent) and schema.event == "llm_started" and self.alerte:
             # gradbot lit la config au lancement du LLM : cette réponse a vu l'alerte,
             # on la retire pour que les suivantes ne reviennent pas sans cesse sur la ligne.
@@ -237,20 +256,35 @@ class Kholle:
         if executer is None:
             await h.send_error(f"Outil inconnu : {h.name}")
             return
+        if h.name == "terminer_colle" and state.get_session().finished:
+            await h.send_json({"ok": True})  # déjà terminée sur la phrase de fin
+            return
         try:
             resultat = executer()
             if h.name == "question_suivante" and "question" in resultat:
                 await self.pousser_config()
             if h.name == "terminer_colle":
-                self.transcription.vider()
-                _en_arriere_plan(_lancer_compte_rendu())
+                self.lancer_compte_rendu()
             await h.send_json(resultat)
         except Exception as exc:
             logger.exception("Outil %s en échec", h.name)
             await h.send_error(str(exc))
             return
+        await self.signaler_outil(h.name, resultat)
+
+    async def terminer(self) -> None:
+        """terminer_colle sans appel du LLM (phrase de fin dite seule)."""
+        resultat = outils.terminer_colle()
+        self.lancer_compte_rendu()
+        await self.signaler_outil("terminer_colle", resultat)
+
+    def lancer_compte_rendu(self) -> None:
+        self.transcription.vider()
+        _en_arriere_plan(_lancer_compte_rendu())
+
+    async def signaler_outil(self, nom: str, resultat: dict) -> None:
         with contextlib.suppress(Exception):
-            await self.websocket.send_json({"type": "outil", "nom": h.name, "resultat": resultat})
+            await self.websocket.send_json({"type": "outil", "nom": nom, "resultat": resultat})
 
 
 _en_cours: Kholle | None = None

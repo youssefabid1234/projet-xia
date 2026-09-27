@@ -86,11 +86,18 @@ def _exercice(session: Session) -> str:
             + q["question_orale"],
             f"Réponse attendue à cette question : {q['reponse']}",
         ]
-    # En audio, le khôlleur disait la phrase de fin sans appeler terminer_colle.
+    # En audio, le khôlleur disait la phrase de fin sans appeler terminer_colle, et
+    # inventait parfois la question suivante (« Passons à la suite : … cosinus … »).
     if session.question_index == len(ex.get("questions_suivantes", [])):
         parties.append(
             "C'est la dernière question : dès qu'elle est résolue, dis la phrase de fin et "
             "appelle terminer_colle dans la même réponse, sans attendre que l'étudiant parle."
+        )
+    else:
+        parties.append(
+            "Dès que la réponse attendue est obtenue (ligne ✓ au tableau ou dite à l'oral), "
+            "appelle question_suivante dans la même réponse et pose la question qu'elle renvoie. "
+            "N'invente jamais de question : il n'y en a pas d'autre que celles de question_suivante."
         )
     return "\n".join(parties)
 

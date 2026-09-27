@@ -1,4 +1,5 @@
 import json
+import threading
 import time
 from types import SimpleNamespace
 
@@ -21,7 +22,8 @@ def ligne_brute(n, lhs, rhs, ordre=3, var="x"):
 
 
 class FauxOpenAI:
-    """Renvoie les lectures dans l'ordre (la dernière ensuite) ; une exception est levée."""
+    """1re lecture au fil appelant, 2e (à défaut la 1re) au fil de relecture, lancées
+    ensemble ; une exception est levée."""
 
     def __init__(self, *lectures):
         self.lectures = lectures
@@ -30,7 +32,8 @@ class FauxOpenAI:
 
     def _create(self, **kwargs):
         self.appels.append(kwargs)
-        lecture = self.lectures[min(len(self.appels), len(self.lectures)) - 1]
+        relecture = threading.current_thread().name.startswith("relecture")
+        lecture = self.lectures[min(int(relecture), len(self.lectures) - 1)]
         if isinstance(lecture, Exception):
             raise lecture
         return SimpleNamespace(output_text=json.dumps({"lines": lecture}))
@@ -52,9 +55,9 @@ def lire(monkeypatch, *lectures):
 
 
 def test_pas_de_relecture_sans_ligne_fausse(monkeypatch):
-    lignes, appels, ecart = lire(monkeypatch, [JUSTE])
+    # La seconde lecture part quand même, mais n'est ni attendue ni comptée.
+    lignes, _, ecart = lire(monkeypatch, [JUSTE])
     assert [l.verdict for l in lignes] == ["ok"]
-    assert appels == 1
     assert ecart == {"relectures": 0, "desaccords": 0}
 
 
