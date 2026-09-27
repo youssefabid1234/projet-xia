@@ -1,0 +1,662 @@
+{
+  "id": "demo0001",
+  "eleve": null,
+  "exercise_id": "dl_ln_sin",
+  "started_at": 1790519400.0,
+  "question_index": 1,
+  "transcript": [
+    {
+      "t": 0.0,
+      "qui": "kholleur",
+      "texte": "Bonjour, installez-vous. Comment vous appelez-vous ?"
+    },
+    {
+      "t": 4.1,
+      "qui": "eleve",
+      "texte": "Bonjour, je m'appelle Camille."
+    },
+    {
+      "t": 7.5,
+      "qui": "kholleur",
+      "texte": "Bien, Camille. Donnez-moi le développement limité à l'ordre trois, en zéro, de logarithme de un plus sinus de x."
+    },
+    {
+      "t": 19.0,
+      "qui": "eleve",
+      "texte": "D'accord. Je pose u égal sinus x. Comme u tend vers zéro quand x tend vers zéro, je peux composer avec le développement de ln de un plus u."
+    },
+    {
+      "t": 31.2,
+      "qui": "eleve",
+      "texte": "Sinus x, c'est x moins x cube sur six plus petit o de x cube."
+    },
+    {
+      "t": 41.0,
+      "qui": "kholleur",
+      "texte": "Continuez, je vous écoute."
+    },
+    {
+      "t": 47.3,
+      "qui": "eleve",
+      "texte": "Et ln de un plus u, c'est u moins u carré sur deux plus petit o de u carré."
+    },
+    {
+      "t": 60.0,
+      "qui": "eleve",
+      "texte": "Donc je remplace u par son développement..."
+    },
+    {
+      "t": 78.6,
+      "qui": "eleve",
+      "texte": "J'obtiens x moins x carré sur deux moins x cube sur six plus petit o de x cube."
+    },
+    {
+      "t": 90.2,
+      "qui": "kholleur",
+      "texte": "Regardez votre troisième ligne. À quel ordre avez-vous développé ln de un plus u, et quel reste obtenez-vous vraiment ?"
+    },
+    {
+      "t": 106.8,
+      "qui": "eleve",
+      "texte": "Euh... à l'ordre deux. Ah, mais u est équivalent à x, donc u cube est de l'ordre de x cube : il me manque le terme en u cube."
+    },
+    {
+      "t": 121.5,
+      "qui": "kholleur",
+      "texte": "Et donc ?"
+    },
+    {
+      "t": 126.0,
+      "qui": "eleve",
+      "texte": "Il faut aller jusqu'à l'ordre trois : ln de un plus u égale u moins u carré sur deux plus u cube sur trois plus petit o de u cube. Je barre la troisième ligne."
+    },
+    {
+      "t": 150.4,
+      "qui": "eleve",
+      "texte": "u carré, c'est x carré plus petit o de x cube, parce que le produit suivant donne du x puissance quatre. Et u cube, c'est x cube plus petit o de x cube."
+    },
+    {
+      "t": 176.0,
+      "qui": "eleve",
+      "texte": "Le coefficient de x cube vaut un tiers moins un sixième, donc un sixième. ln de un plus sinus x égale x moins x carré sur deux plus x cube sur six plus petit o de x cube."
+    },
+    {
+      "t": 192.3,
+      "qui": "kholleur",
+      "texte": "Très bien. En déduire la position de la courbe de f par rapport à sa tangente en zéro."
+    },
+    {
+      "t": 205.0,
+      "qui": "eleve",
+      "texte": "La tangente en zéro, c'est y égale x, parce que f de zéro vaut zéro et f prime de zéro vaut un."
+    },
+    {
+      "t": 213.7,
+      "qui": "eleve",
+      "texte": "Ensuite... je ne vois pas trop comment conclure sur la position."
+    },
+    {
+      "t": 231.9,
+      "qui": "kholleur",
+      "texte": "Que vaut f de x moins x au voisinage de zéro ?"
+    },
+    {
+      "t": 246.5,
+      "qui": "eleve",
+      "texte": "f de x moins x égale moins x carré sur deux plus petit o de x carré. C'est négatif au voisinage de zéro, donc la courbe est sous sa tangente."
+    },
+    {
+      "t": 270.2,
+      "qui": "kholleur",
+      "texte": "Des deux côtés de zéro ?"
+    },
+    {
+      "t": 276.8,
+      "qui": "eleve",
+      "texte": "Oui, x carré est positif que x soit positif ou négatif, donc le signe ne change pas : la courbe est sous la tangente des deux côtés."
+    },
+    {
+      "t": 288.0,
+      "qui": "kholleur",
+      "texte": "Très bien, on s'arrête là, je rédige votre compte-rendu."
+    }
+  ],
+  "board_lines": [
+    {
+      "n": 1,
+      "texte": "u = sin x = x - x^3/6 + o(x^3)",
+      "barre": false,
+      "lisible": true,
+      "verifiable": true,
+      "lhs": "sin(x)",
+      "rhs": "x - x**3/6",
+      "var": "x",
+      "point": "0",
+      "ordre": 3,
+      "verdict": "ok",
+      "detail": null
+    },
+    {
+      "n": 2,
+      "texte": "ln(1+u) = u - u^2/2 + o(u^2)",
+      "barre": false,
+      "lisible": true,
+      "verifiable": true,
+      "lhs": "log(1+u)",
+      "rhs": "u - u**2/2",
+      "var": "u",
+      "point": "0",
+      "ordre": 2,
+      "verdict": "ok",
+      "detail": null
+    },
+    {
+      "n": 3,
+      "texte": "ln(1+sin x) = x - x^2/2 - x^3/6 + o(x^3)",
+      "barre": true,
+      "lisible": true,
+      "verifiable": true,
+      "lhs": "log(1+sin(x))",
+      "rhs": "x - x**2/2 - x**3/6",
+      "var": "x",
+      "point": "0",
+      "ordre": 3,
+      "verdict": "faux",
+      "detail": "coefficient de x^3 : 1/6 attendu, -1/6 écrit"
+    },
+    {
+      "n": 4,
+      "texte": "ln(1+u) = u - u^2/2 + u^3/3 + o(u^3)",
+      "barre": false,
+      "lisible": true,
+      "verifiable": true,
+      "lhs": "log(1+u)",
+      "rhs": "u - u**2/2 + u**3/3",
+      "var": "u",
+      "point": "0",
+      "ordre": 3,
+      "verdict": "ok",
+      "detail": null
+    },
+    {
+      "n": 5,
+      "texte": "u^2 = x^2 + o(x^3) ; u^3 = x^3 + o(x^3)",
+      "barre": false,
+      "lisible": true,
+      "verifiable": false,
+      "lhs": null,
+      "rhs": null,
+      "var": null,
+      "point": null,
+      "ordre": null,
+      "verdict": "?",
+      "detail": null
+    },
+    {
+      "n": 6,
+      "texte": "ln(1+sin x) = x - x^2/2 + x^3/6 + o(x^3)",
+      "barre": false,
+      "lisible": true,
+      "verifiable": true,
+      "lhs": "log(1+sin(x))",
+      "rhs": "x - x**2/2 + x**3/6",
+      "var": "x",
+      "point": "0",
+      "ordre": 3,
+      "verdict": "ok",
+      "detail": null
+    },
+    {
+      "n": 7,
+      "texte": "f(x) - x = -x^2/2 + o(x^2) < 0 près de 0 : courbe sous la tangente y = x",
+      "barre": false,
+      "lisible": true,
+      "verifiable": false,
+      "lhs": null,
+      "rhs": null,
+      "var": null,
+      "point": null,
+      "ordre": null,
+      "verdict": "?",
+      "detail": null
+    }
+  ],
+  "board_snapshots": [
+    {
+      "t": 38.0,
+      "lines": [
+        {
+          "n": 1,
+          "texte": "u = sin x = x - x^3/6 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "sin(x)",
+          "rhs": "x - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "t": 55.0,
+      "lines": [
+        {
+          "n": 1,
+          "texte": "u = sin x = x - x^3/6 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "sin(x)",
+          "rhs": "x - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 2,
+          "texte": "ln(1+u) = u - u^2/2 + o(u^2)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+u)",
+          "rhs": "u - u**2/2",
+          "var": "u",
+          "point": "0",
+          "ordre": 2,
+          "verdict": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "t": 84.0,
+      "lines": [
+        {
+          "n": 1,
+          "texte": "u = sin x = x - x^3/6 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "sin(x)",
+          "rhs": "x - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 2,
+          "texte": "ln(1+u) = u - u^2/2 + o(u^2)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+u)",
+          "rhs": "u - u**2/2",
+          "var": "u",
+          "point": "0",
+          "ordre": 2,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 3,
+          "texte": "ln(1+sin x) = x - x^2/2 - x^3/6 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+sin(x))",
+          "rhs": "x - x**2/2 - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "faux",
+          "detail": "coefficient de x^3 : 1/6 attendu, -1/6 écrit"
+        }
+      ]
+    },
+    {
+      "t": 142.0,
+      "lines": [
+        {
+          "n": 1,
+          "texte": "u = sin x = x - x^3/6 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "sin(x)",
+          "rhs": "x - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 2,
+          "texte": "ln(1+u) = u - u^2/2 + o(u^2)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+u)",
+          "rhs": "u - u**2/2",
+          "var": "u",
+          "point": "0",
+          "ordre": 2,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 3,
+          "texte": "ln(1+sin x) = x - x^2/2 - x^3/6 + o(x^3)",
+          "barre": true,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+sin(x))",
+          "rhs": "x - x**2/2 - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "faux",
+          "detail": "coefficient de x^3 : 1/6 attendu, -1/6 écrit"
+        },
+        {
+          "n": 4,
+          "texte": "ln(1+u) = u - u^2/2 + u^3/3 + o(u^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+u)",
+          "rhs": "u - u**2/2 + u**3/3",
+          "var": "u",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "t": 171.0,
+      "lines": [
+        {
+          "n": 1,
+          "texte": "u = sin x = x - x^3/6 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "sin(x)",
+          "rhs": "x - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 2,
+          "texte": "ln(1+u) = u - u^2/2 + o(u^2)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+u)",
+          "rhs": "u - u**2/2",
+          "var": "u",
+          "point": "0",
+          "ordre": 2,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 3,
+          "texte": "ln(1+sin x) = x - x^2/2 - x^3/6 + o(x^3)",
+          "barre": true,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+sin(x))",
+          "rhs": "x - x**2/2 - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "faux",
+          "detail": "coefficient de x^3 : 1/6 attendu, -1/6 écrit"
+        },
+        {
+          "n": 4,
+          "texte": "ln(1+u) = u - u^2/2 + u^3/3 + o(u^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+u)",
+          "rhs": "u - u**2/2 + u**3/3",
+          "var": "u",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 5,
+          "texte": "u^2 = x^2 + o(x^3) ; u^3 = x^3 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": false,
+          "lhs": null,
+          "rhs": null,
+          "var": null,
+          "point": null,
+          "ordre": null,
+          "verdict": "?",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "t": 188.0,
+      "lines": [
+        {
+          "n": 1,
+          "texte": "u = sin x = x - x^3/6 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "sin(x)",
+          "rhs": "x - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 2,
+          "texte": "ln(1+u) = u - u^2/2 + o(u^2)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+u)",
+          "rhs": "u - u**2/2",
+          "var": "u",
+          "point": "0",
+          "ordre": 2,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 3,
+          "texte": "ln(1+sin x) = x - x^2/2 - x^3/6 + o(x^3)",
+          "barre": true,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+sin(x))",
+          "rhs": "x - x**2/2 - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "faux",
+          "detail": "coefficient de x^3 : 1/6 attendu, -1/6 écrit"
+        },
+        {
+          "n": 4,
+          "texte": "ln(1+u) = u - u^2/2 + u^3/3 + o(u^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+u)",
+          "rhs": "u - u**2/2 + u**3/3",
+          "var": "u",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 5,
+          "texte": "u^2 = x^2 + o(x^3) ; u^3 = x^3 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": false,
+          "lhs": null,
+          "rhs": null,
+          "var": null,
+          "point": null,
+          "ordre": null,
+          "verdict": "?",
+          "detail": null
+        },
+        {
+          "n": 6,
+          "texte": "ln(1+sin x) = x - x^2/2 + x^3/6 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+sin(x))",
+          "rhs": "x - x**2/2 + x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        }
+      ]
+    },
+    {
+      "t": 268.0,
+      "lines": [
+        {
+          "n": 1,
+          "texte": "u = sin x = x - x^3/6 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "sin(x)",
+          "rhs": "x - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 2,
+          "texte": "ln(1+u) = u - u^2/2 + o(u^2)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+u)",
+          "rhs": "u - u**2/2",
+          "var": "u",
+          "point": "0",
+          "ordre": 2,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 3,
+          "texte": "ln(1+sin x) = x - x^2/2 - x^3/6 + o(x^3)",
+          "barre": true,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+sin(x))",
+          "rhs": "x - x**2/2 - x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "faux",
+          "detail": "coefficient de x^3 : 1/6 attendu, -1/6 écrit"
+        },
+        {
+          "n": 4,
+          "texte": "ln(1+u) = u - u^2/2 + u^3/3 + o(u^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+u)",
+          "rhs": "u - u**2/2 + u**3/3",
+          "var": "u",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 5,
+          "texte": "u^2 = x^2 + o(x^3) ; u^3 = x^3 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": false,
+          "lhs": null,
+          "rhs": null,
+          "var": null,
+          "point": null,
+          "ordre": null,
+          "verdict": "?",
+          "detail": null
+        },
+        {
+          "n": 6,
+          "texte": "ln(1+sin x) = x - x^2/2 + x^3/6 + o(x^3)",
+          "barre": false,
+          "lisible": true,
+          "verifiable": true,
+          "lhs": "log(1+sin(x))",
+          "rhs": "x - x**2/2 + x**3/6",
+          "var": "x",
+          "point": "0",
+          "ordre": 3,
+          "verdict": "ok",
+          "detail": null
+        },
+        {
+          "n": 7,
+          "texte": "f(x) - x = -x^2/2 + o(x^2) < 0 près de 0 : courbe sous la tangente y = x",
+          "barre": false,
+          "lisible": true,
+          "verifiable": false,
+          "lhs": null,
+          "rhs": null,
+          "var": null,
+          "point": null,
+          "ordre": null,
+          "verdict": "?",
+          "detail": null
+        }
+      ]
+    }
+  ],
+  "hints": [
+    {
+      "t": 229.5,
+      "question_index": 1,
+      "niveau": 1
+    }
+  ],
+  "finished": true,
+  "report": null
+}

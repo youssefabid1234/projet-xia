@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compte-rendu de khôlle — {{ cr.eleve }}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.18.9/katex.min.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.18.9/katex.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.18.9/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false})"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --papier: #fbfaf6;
+      --encre: #1d2230;
+      --doux: #5d6475;
+      --filet: #dcd8cc;
+      --accent: #1f4e8c;
+      --juste: #2e6b3f;
+      --juste-fond: #e6f1e8;
+      --faux: #a33a2c;
+      --faux-fond: #f8e7e3;
+      --puce: #efece3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--papier); color: var(--encre);
+      font: 17px/1.55 "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+    main { max-width: 860px; margin: 0 auto; padding: 40px 24px 56px; }
+    header { border-bottom: 2px solid var(--encre); padding-bottom: 14px; }
+    h1 { font-size: 1.75rem; line-height: 1.25; margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+    h1 .note { color: var(--accent); white-space: nowrap; }
+    .meta { color: var(--doux); font-size: 0.95rem; margin-top: 6px; }
+    .notes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0 8px; }
+    .case { border: 1px solid var(--filet); border-radius: 6px; padding: 10px 12px; background: #fff; }
+    .case b { display: block; font: 600 0.78rem/1.2 system-ui, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; color: var(--doux); }
+    .case span { font-size: 1.5rem; font-variant-numeric: tabular-nums; }
+    .case small { color: var(--doux); }
+    .jauge { height: 4px; background: var(--puce); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+    .jauge i { display: block; height: 100%; background: var(--accent); }
+    h2 { font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.07em; font-family: system-ui, sans-serif;
+         color: var(--doux); margin: 30px 0 10px; font-weight: 600; }
+    .appreciation { font-size: 1.1rem; margin: 0; }
+    ul { margin: 0; padding-left: 1.2em; }
+    li { margin: 4px 0; }
+    .erreur { border-left: 3px solid var(--faux); padding: 6px 0 6px 14px; margin: 10px 0; }
+    .erreur .tete { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; font-family: system-ui, sans-serif; font-size: 0.85rem; }
+    .erreur .ligne { font-weight: 700; }
+    .statut { border-radius: 999px; padding: 1px 9px; font-weight: 600; }
+    .statut.oui { background: var(--juste-fond); color: var(--juste); }
+    .statut.non { background: var(--faux-fond); color: var(--faux); }
+    code { font: 0.88rem/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace; background: var(--puce); padding: 1px 6px; border-radius: 4px; }
+    code.barre { text-decoration: line-through; text-decoration-color: var(--faux); }
+    .erreur p { margin: 4px 0 0; }
+    .tag { font: 600 0.8rem/1 system-ui, sans-serif; background: var(--puce); border-radius: 4px; padding: 3px 7px; margin-right: 6px; white-space: nowrap; }
+    .exos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .exo { border: 1px solid var(--filet); border-radius: 6px; padding: 12px 14px; background: #fff; }
+    .exo h3 { margin: 0 0 6px; font-size: 1rem; }
+    .exo p { margin: 0; }
+    .enonce { border-top: 1px solid var(--filet); margin-top: 36px; padding-top: 4px; }
+    .enonce ol { padding-left: 1.3em; }
+    footer { margin-top: 32px; color: var(--doux); font: 0.8rem/1.4 system-ui, sans-serif; }
+    @media (max-width: 640px) {
+      main { padding: 24px 16px 40px; }
+      h1 { font-size: 1.35rem; }
+      .notes { grid-template-columns: repeat(2, 1fr); }
+      .exos { grid-template-columns: 1fr; }
+    }
+    @media print { body { background: #fff; } .case, .exo { break-inside: avoid; } }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Khôlle de mathématiques — {{ cr.eleve }} — <span class="note">{{ cr.note|fr }}/20</span></h1>
+    <div class="meta">{{ cr.exercice.titre }} · {{ cr.date|date_longue }} · durée {{ cr.duree_s|mmss }}</div>
+  </header>
+
+  <section class="notes" aria-label="Détail de la note">
+    {% for cle, nom in [("oral", "Oral"), ("rigueur", "Rigueur"), ("autonomie", "Autonomie"), ("cours", "Cours")] %}
+    <div class="case">
+      <b>{{ nom }}</b>
+      <span>{{ cr[cle]|fr }}</span><small> / 5</small>
+      <div class="jauge"><i style="width: {{ (cr[cle] * 20)|round|int }}%"></i></div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <h2>Appréciation</h2>
+  <p class="appreciation">{{ cr.appreciation }}</p>
+
+  <h2>Points forts</h2>
+  <ul>
+    {% for p in cr.points_forts %}<li>{{ p }}</li>{% endfor %}
+  </ul>
+
+  <h2>Erreurs</h2>
+  {% for e in cr.erreurs %}
+  <div class="erreur">
+    <div class="tete">
+      <span class="ligne">{% if e.ligne %}Ligne {{ e.ligne }}{% else %}À l’oral{% endif %}</span>
+      {% if e.corrigee_apres_question %}<span class="statut oui">corrigée après question</span>
+      {% else %}<span class="statut non">non corrigée</span>{% endif %}
+    </div>
+    {% for l in cr.tableau if l.n == e.ligne %}<code class="{{ 'barre' if l.barre }}">{{ l.texte }}</code>{% endfor %}
+    <p>{{ e.description }}</p>
+  </div>
+  {% else %}
+  <p>Aucune erreur relevée.</p>
+  {% endfor %}
+
+  <h2>À retravailler</h2>
+  <ul>
+    {% for a in cr.a_retravailler %}<li><span class="tag">{{ a.tag }}</span>{{ a.conseil }}</li>{% endfor %}
+  </ul>
+
+  <h2>Prochaine khôlle : deux exercices ciblés</h2>
+  <div class="exos">
+    {% for ex in cr.exercices_conseilles %}
+    <article class="exo">
+      <h3>{{ loop.index }}. {{ ex.titre }}</h3>
+      <p>{{ ex.enonce_latex }}</p>
+    </article>
+    {% endfor %}
+  </div>
+
+  <section class="enonce">
+    <h2>Énoncé de la khôlle</h2>
+    <ol>
+      <li>{{ cr.exercice.enonce_latex }}</li>
+      {% for q in cr.exercice.questions_suivantes %}<li>{{ q }}</li>{% endfor %}
+    </ol>
+  </section>
+
+  <footer>
+    Indices utilisés : {{ cr.indices|length }}{% if cr.indices %} (niveaux {{ cr.indices|map(attribute="niveau")|join(", ") }}){% endif %}.
+    Rédigé par {{ "la méthode Pipelex compte_rendu.mthds" if cr.moteur == "pipelex" else "OpenAI (méthode compte_rendu.mthds)" }}
+    en {{ cr.duree_generation_s|fr }} s.
+  </footer>
+</main>
+</body>
+</html>

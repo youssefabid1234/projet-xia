@@ -1,0 +1,70 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage[normalem]{ulem}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Khôlle de mathématiques --- << cr.eleve|tex >> --- << cr.note|fr >>/20}\\[4pt]
+  << cr.exercice.titre|tex >> \quad·\quad << cr.date|date_longue >> \quad·\quad durée << cr.duree_s|mmss >>
+\end{center}
+
+\begin{center}
+  \begin{tabular}{cccc}
+    Oral & Rigueur & Autonomie & Cours \\
+    \hline
+    << cr.oral|fr >>/5 & << cr.rigueur|fr >>/5 & << cr.autonomie|fr >>/5 & << cr.cours|fr >>/5
+  \end{tabular}
+\end{center}
+
+\section*{Appréciation}
+<< cr.appreciation|tex >>
+
+\section*{Points forts}
+\begin{itemize}
+<% for p in cr.points_forts %>
+  \item << p|tex >>
+<% endfor %>
+\end{itemize}
+
+\section*{Erreurs}
+<% if cr.erreurs %>
+\begin{itemize}
+<% for e in cr.erreurs %>
+  \item \textbf{<< ("Ligne " ~ e.ligne) if e.ligne else "À l'oral" >>}<% for l in cr.tableau if l.n == e.ligne %> : \texttt{<< "\\sout{" if l.barre >><< l.texte|tex >><< "}" if l.barre >>}<% endfor %>\\
+    << e.description|tex >> \emph{(<< "corrigée après question" if e.corrigee_apres_question else "non corrigée" >>)}
+<% endfor %>
+\end{itemize}
+<% else %>
+Aucune erreur relevée.
+<% endif %>
+
+\section*{À retravailler}
+\begin{itemize}
+<% for a in cr.a_retravailler %>
+  \item \textbf{<< a.tag|tex >>} : << a.conseil|tex >>
+<% endfor %>
+\end{itemize}
+
+\section*{Prochaine khôlle : deux exercices ciblés}
+\begin{enumerate}
+<% for ex in cr.exercices_conseilles %>
+  \item \textbf{<< ex.titre|tex >>}. << ex.enonce_latex >>
+<% endfor %>
+\end{enumerate}
+
+\bigskip\hrule\medskip
+\subsection*{Énoncé de la khôlle}
+\begin{enumerate}
+  \item << cr.exercice.enonce_latex >>
+<% for q in cr.exercice.questions_suivantes %>
+  \item << q|tex >>
+<% endfor %>
+\end{enumerate}
+
+\end{document}
