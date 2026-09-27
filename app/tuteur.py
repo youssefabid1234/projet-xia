@@ -1,7 +1,7 @@
 """Tuteur interactif : python -m app.tuteur (ou python app/tuteur.py).
 
-Dépendance : pipelex-sdk>=0.10.2. Définir PIPELEX_API_KEY dans
-l'environnement ; aucun fichier .env n'est chargé automatiquement.
+Dépendance : pipelex-sdk>=0.10.2. PIPELEX_API_KEY est lue dans l'environnement
+ou dans le fichier .env à la racine du projet.
 """
 
 import asyncio
@@ -12,9 +12,12 @@ from pathlib import Path
 from pipelex_sdk.client import PipelexAPIClient
 
 if __package__:
+    from .config import charger_env
     from .evaluation import evaluer_reponse
     from .profil import GAINS, Profil, charger_exercices, choisir_exercice
 else:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from app.config import charger_env
     from evaluation import evaluer_reponse
     from profil import GAINS, Profil, charger_exercices, choisir_exercice
 
@@ -24,6 +27,7 @@ CHEMIN_PROFIL = ROOT / "data" / "profil.json"
 
 
 async def main() -> None:
+    charger_env()
     exercices = charger_exercices()
     if not exercices:
         print("Aucun exercice disponible dans la banque.")

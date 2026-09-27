@@ -1,0 +1,191 @@
+{
+  "version": 1,
+  "exercices": {
+    "17.1": {
+      "empreinte": "399e8df8ed1fbda8",
+      "exploitable": true,
+      "enonce": "Calculer la somme\n$$\\sum_{n=0}^{+\\infty} \\frac{1}{(2n + 1)^2}.$$",
+      "corrige": "Soit $N \\in \\mathbb{N}$,\n$$\\sum_{k=1}^{2N+1} \\frac{1}{k^2} = \\sum_{k=1}^N \\frac{1}{(2k)^2} + \\sum_{k=0}^N \\frac{1}{(2k + 1)^2}.$$ \nDonc\n$$\\sum_{k=0}^N \\frac{1}{(2k + 1)^2} = \\sum_{k=1}^{2N+1} \\frac{1}{k^2} - \\sum_{k=1}^N \\frac{1}{(2k)^2} \\xrightarrow[N \\to +\\infty]{} \\frac{3}{4} \\cdot \\frac{\\pi^2}{6} = \\frac{\\pi^2}{8}.$$ \nD'où\n$$\\sum_{k=0}^{+\\infty} \\frac{1}{(2k + 1)^2} = \\frac{\\pi^2}{8}.$$"
+    },
+    "17.10": {
+      "empreinte": "d6feef09595aebd7",
+      "exploitable": true,
+      "enonce": "Soit la suite $(a_n)$ définie pour tout entier $n \\geq 1$ par\n$$a_n = \\left(1 + \\frac{1}{\\sqrt{n}}\\right)^{-n}.$$ \nÉtudier la nature de la série $\\sum_{n=1}^{+\\infty} a_n$.",
+      "corrige": "On a\n\\[\na_n = \\left(1 + \\frac{1}{\\sqrt{n}}\\right)^{-n} = \\exp\\left(-n \\ln\\left(1 + \\frac{1}{\\sqrt{n}}\\right)\\right).\n\\]\nOr, en développant le logarithme pour $n \\to +\\infty$ :\n\\[\n\\ln\\left(1 + \\frac{1}{\\sqrt{n}}\\right) = \\frac{1}{\\sqrt{n}} + o\\left(\\frac{1}{\\sqrt{n}}\\right).\n\\]\nDonc\n\\[\n-n \\ln\\left(1 + \\frac{1}{\\sqrt{n}}\\right) = -n \\left(\\frac{1}{\\sqrt{n}} + o\\left(\\frac{1}{\\sqrt{n}}\\right)\\right) = -\\sqrt{n} + o(\\sqrt{n}).\n\\]\nAinsi\n\\[\na_n = e^{-\\sqrt{n} + o(\\sqrt{n})}.\n\\]\nConsidérons $n^2 a_n$ :\n\\[\nn^2 a_n = e^{2 \\ln n} e^{-\\sqrt{n} + o(\\sqrt{n})} = e^{2 \\ln n - \\sqrt{n} + o(\\sqrt{n})}.\n\\]\nComme $\\ln n = o(\\sqrt{n})$, on a\n\\[\n2 \\ln n - \\sqrt{n} + o(\\sqrt{n}) = -\\sqrt{n} + o(\\sqrt{n}) \\to -\\infty \\quad \\text{quand } n \\to +\\infty.\n\\]\nDonc\n\\[\nn^2 a_n \\to 0 \\quad \\text{quand } n \\to +\\infty,\n\\]\nce qui implique\n\\[\na_n = o\\left(\\frac{1}{n^2}\\right).\n\\]\nOr, la série $\\sum \\frac{1}{n^2}$ (série de Riemann) est convergente, donc par comparaison, la série $\\sum a_n$ converge également."
+    },
+    "17.11": {
+      "empreinte": "badc445c339adefa",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.12": {
+      "empreinte": "313334353633ebba",
+      "exploitable": true,
+      "enonce": "Soit $(u_n)$ une suite de réels positifs. On pose $v_n = \\frac{u_n}{1 + u_n}$. Montrer que les séries $\\sum u_n$ et $\\sum v_n$ sont de même nature.",
+      "corrige": "Pour tout $n \\in \\mathbb{N}$, on a\n$$v_n = \\frac{u_n}{1 + u_n} \\leq u_n$$\ncar $u_n \\geq 0$. Donc\n- si $\\sum u_n$ converge, alors $\\sum v_n$ converge aussi, car $v_n \\leq u_n$ et $v_n \\geq 0$.\n\nSupposons maintenant que $\\sum v_n$ converge. Alors $v_n \\to 0$ quand $n \\to +\\infty$, donc à partir d'un certain rang, $v_n \\leq \\frac{1}{2}$.\n\nOr,\n$$u_n = \\frac{v_n}{1 - v_n}$$\nDonc, pour $n$ assez grand,\n$$1 - v_n \\geq \\frac{1}{2} \\implies u_n \\leq 2 v_n$$\nComme $\\sum v_n$ converge, la série $\\sum u_n$ converge aussi (série à termes positifs).\n\nAinsi, les séries $\\sum u_n$ et $\\sum v_n$ sont de même nature.\n\nDe plus, comme $u_n \\to 0$, on a\n$$v_n = \\frac{u_n}{1 + u_n} \\sim u_n \\quad \\text{quand } n \\to +\\infty.$$"
+    },
+    "17.13": {
+      "empreinte": "7fa10b6614101fe9",
+      "exploitable": true,
+      "enonce": "Règle de Cauchy\n1. Soit $(a_n) \\in S(\\mathbb{C})$ telle que $n\\sqrt[p]{|a_n|} \\xrightarrow[n \\to +\\infty]{} \\ell \\in \\mathbb{R}^+ \\cup \\{+\\infty\\}$.\n- Si $\\ell < 1$, montrer que $\\sum a_n$ est absolument convergente.\n- Si $\\ell > 1$ ou si $\\ell = 1^+$, montrer que $\\sum a_n$ diverge grossièrement.\n- Lorsque $\\ell = 1$, montrer qu’on ne peut pas conclure.\n2. En déduire la nature des séries $\\sum \\left( \\frac{n+1}{2n+5} \\right)^n$ et $\\sum \\frac{n \\ln n}{(\\ln n)^n}$.",
+      "corrige": "1. 1er cas : $\\ell \\in \\mathbb{R}^+$. Donc $\\forall \\varepsilon > 0, \\exists N_1 \\in \\mathbb{N}, \\forall k \\geq N_1$, $\\left| k\\sqrt[p]{|a_k|} - \\ell \\right| \\leq \\varepsilon$, donc $\\forall k \\geq N_1$, $\\ell - \\varepsilon \\leq k\\sqrt[p]{|a_k|} \\leq \\ell + \\varepsilon$.\nPour $\\ell < 1$, on choisit $\\varepsilon$ tel que $\\ell + \\varepsilon < 1$ (en prenant $\\varepsilon = \\frac{1-\\ell}{2}$) et donc $0 \\leq k\\sqrt[p]{|a_k|} \\leq 1 - \\frac{1-\\ell}{2}$ et ainsi $0 \\leq |a_k| \\leq \\left(1 - \\frac{1-\\ell}{2}\\right)^k$. Or $\\sum \\left(1 - \\frac{1-\\ell}{2}\\right)^k$ converge, donc $\\sum |a_k|$ converge aussi, donc $\\sum a_k$ est absolument convergente.\nSi $\\ell > 1$, à partir d’un certain rang, $1 \\leq |a_k|$ d’après le lemme des tunnels, donc $\\sum a_n$ est grossièrement divergente.\nAvec $a_n = \\frac{1}{n^\\alpha} = e^{-\\alpha \\ln n}$, $n\\sqrt{a_n} = e^{-\\alpha \\ln n / n} \\xrightarrow[n \\to +\\infty]{} 1$, pourtant $\\sum \\frac{1}{n^\\alpha}$ converge ou diverge selon $\\alpha$.\n2.\n$\\frac{n+1}{2n+5} \\xrightarrow[n \\to +\\infty]{} \\frac{1}{2} < 1$, donc $\\sum \\left( \\frac{n+1}{2n+5} \\right)^n$ converge.\n$a_n = \\frac{n \\ln n}{(\\ln n)^n} = \\frac{e^{\\ln n} \\ln n}{(e^{\\ln \\ln n})^n} = e^{\\ln^2 n - n \\ln \\ln n}$.\n$n\\sqrt{a_n} = e^{\\frac{1}{n} \\ln^2 n - \\ln \\ln n} \\xrightarrow[n \\to +\\infty]{} 0 < 1$ donc $\\sum a_n$ converge, car $\\frac{\\ln^2 n}{n} \\xrightarrow[n \\to +\\infty]{} 0$ et $\\ln \\ln n \\xrightarrow[n \\to +\\infty]{} +\\infty$."
+    },
+    "17.14": {
+      "empreinte": "44aedabbabd7bb6f",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.15": {
+      "empreinte": "79e9ceb31bdba1d7",
+      "exploitable": true,
+      "enonce": "Soit $(a_n)$ une suite décroissante de réels positifs. On suppose que la série $\\sum a_n$ converge. Montrer que $n a_n \\xrightarrow[n \\to +\\infty]{} 0$.",
+      "corrige": "Soit $q \\in \\mathbb{N}$,\n\n$\\sum_{k=\\lfloor q/2 \\rfloor}^{q} a_k \\geq \\left(q - \\left\\lfloor \\frac{q}{2} \\right\\rfloor + 1\\right) a_q$ car $(a_n)$ est décroissante.\n\n$\\geq \\left(\\frac{q}{2} + 1\\right) a_q \\geq \\frac{q}{2} a_q \\geq 0$\n\nSupposons que $\\sum a_n$ converge, donc :\n\n$\\sum_{k=\\lfloor q/2 \\rfloor}^{q} a_k = \\sum_{k=0}^{q} a_k - \\sum_{k=0}^{\\lfloor q/2 \\rfloor - 1} a_k \\xrightarrow[q \\to +\\infty]{} \\sum_{k=0}^{+\\infty} a_k - \\sum_{k=0}^{+\\infty} a_k = 0$\n\nDONC $\\frac{q}{2} a_q \\xrightarrow[q \\to +\\infty]{} 0$."
+    },
+    "17.16": {
+      "empreinte": "a6ed4abd05a0c208",
+      "exploitable": true,
+      "enonce": "Soit $(u_n)$ une suite réelle décroissante qui tend vers $0$.\nMontrer que les séries\n$$\\sum u_n$$\net\n$$\\sum 2^n u_{2^n}$$\non la même nature. En déduire la nature de\n$$\\sum_{n \\geq 2} \\frac{1}{n (\\ln n)^\\beta},$$ où $\\beta \\in \\mathbb{R}$.",
+      "corrige": "On pose\n$$S_N = \\sum_{n=0}^N 2^n u_{2^n} \\quad \\text{et} \\quad T_N = \\sum_{n=0}^N u_n.$$ \nOn a, pour $2^{n-1} + 1 \\leq i \\leq 2^n$, $u_i \\geq u_{2^n}$.\n\nDonc,\n\\[\nS_N = \\sum_{n=0}^N 2^n u_{2^n} = 2 \\sum_{n=0}^N 2^{n-1} u_{2^n} = 2 \\sum_{n=1}^N \\sum_{k=2^{n-1}}^{2^n - 1} u_{2^n} \\leq 2 \\sum_{n=1}^N \\sum_{k=2^{n-1}}^{2^n - 1} u_k = 2 \\sum_{i=1}^{2^N - 1} u_i = 2 T_{2^N - 1}.\n\\]\n\nDe plus,\n\\[\nT_{2^N - 1} = \\sum_{i=1}^{2^N - 1} u_i = \\sum_{n=1}^N \\sum_{i=2^{n-1}}^{2^n - 1} u_i \\leq \\sum_{n=1}^N \\sum_{k=2^{n-1}}^{2^n - 1} 2^{n-1} u_{2^{n-1}} = \\sum_{n=1}^N 2^{n-1} u_{2^{n-1}} = S_{N-1}.\n\\]\n\nOn a donc\n\\[\nS_N / 2 \\leq T_{2^N - 1} \\leq S_{N-1}.\n\\]\n\nSi $(S_N)$ converge, alors $(S_{N-1})$ est majorée, donc $(T_{2^N - 1})$ est majorée. Or, comme $(u_n)$ est à termes positifs décroissants, $T_i \\leq T_{2i - 1}$, donc $(T_i)$ est majorée, d'où la convergence de $\\sum u_n$.\n\nRéciproquement, si $(T_N)$ converge, alors $(T_N)$ est majorée, donc $(S_N)$ également, donc $\\sum 2^n u_{2^n}$ converge (car les termes sont positifs).\n\nPosons $u_n = \\frac{1}{n (\\ln n)^\\beta}$, alors\n\\[\n2^n u_{2^n} = \\frac{2^n}{2^n (\\ln 2^n)^\\beta} = \\frac{1}{n^\\beta (\\ln 2)^\\beta}.\n\\]\n\nOr, la série\n$$\\sum \\frac{1}{n^\\beta}$$\nconverge si et seulement si $\\beta > 1$ (série de Riemann), donc\n$$\\sum u_n$$\nconverge si et seulement si $\\beta > 1$."
+    },
+    "17.17": {
+      "empreinte": "7674a968d6fefbf6",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.18": {
+      "empreinte": "839800011667e3c9",
+      "exploitable": true,
+      "enonce": "Soient $a \\in \\mathbb{R}^*_+$ et $\\alpha \\in \\mathbb{R}$. Nature de $\\sum a_n$ où $a_n = \\dfrac{n^{\\alpha}}{(1 + a)(1 + a^2) \\cdots (1 + a^n)}$.",
+      "corrige": "Si $a \\geq 1$, $a_n \\leq \\dfrac{n^{\\alpha}}{2^n}$, or $n^2 a_n \\leq \\dfrac{n^{\\alpha+2}}{2^n} \\xrightarrow[n \\to +\\infty]{} 0$ d’après les croissances comparées, donc $\\sum a_n$ converge, d’après le critère de Riemann.\n\nSupposons maintenant que $a < 1$, on pose $b_n = (1 + a) \\cdots (1 + a^n)$.\nOn a $\\ln b_n = \\sum_{k=1}^n \\ln(1 + a^k)$ et on a $\\ln(1 + a^k) \\sim a^k$ car $a^k \\xrightarrow[k \\to +\\infty]{} 0$ or $\\sum a^k$ converge, donc $\\sum \\ln(1 + a^k)$ converge, donc $\\ln b_n \\xrightarrow[n \\to +\\infty]{} S \\in \\mathbb{R}$, donc $b_n = e^{\\ln b_n} \\xrightarrow[n \\to +\\infty]{} e^S > 0$, donc $a_n \\sim \\dfrac{n^{\\alpha}}{e^S}$ qui diverge grossièrement (série de Riemann)."
+    },
+    "17.19": {
+      "empreinte": "d6ee6ec797fef3c8",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.2": {
+      "empreinte": "9816ca3892326ff1",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.20": {
+      "empreinte": "bd1d186272d24ceb",
+      "exploitable": true,
+      "enonce": "Soit $(a_n)_{n \\geq 1}$ une suite de complexes telle que $\\sum a_n$ est absolument convergente. On suppose que pour tout $k \\in \\mathbb{N}^*$, $\\sum_{n=1}^{+\\infty} \\frac{a_n}{n^k} = 0$. Que peut-on dire de la suite $(a_n)_{n \\geq 1}$ ?",
+      "corrige": "On a donc $\\frac{a_n}{n} \\to_{n \\to +\\infty} 0$ et donc $n^2 \\left| \\frac{a_n}{n^3} \\right| = \\frac{|a_n|}{n} \\to_{n \\to +\\infty} 0$, donc d’après le critère de Riemann, $\\sum \\frac{a_n}{n^3}$ est absolument convergente. De plus, $\\forall k \\geq 3$, $\\frac{a_n}{n^k} = o\\left( \\frac{a_n}{n^3} \\right)$. \n\nSupposons $H : (a_n)$ non identiquement nulle. On pose alors $i_0 = \\min\\{i \\in \\mathbb{N} \\mid a_i \\neq 0\\}$, et pour $k \\geq 3$, \n\n$S_k = \\sum_{n=i_0+1}^{+\\infty} a_n \\left( \\frac{n}{i_0} \\right)^k$\n\n$S_{k+1} = \\sum_{n=i_0+1}^{+\\infty} a_n \\left( \\frac{n}{i_0} \\right)^{k+1} \\leq \\sum_{n=i_0+1}^{+\\infty} a_n \\left( \\frac{n}{i_0} \\right)^k \\left( \\frac{i_0+1}{i_0} \\right)$\n\nDonc $S_{k+1} \\leq \\frac{i_0+1}{i_0} S_k$, donc on montre par récurrence que $0 \\leq S_n \\leq S_3 \\left( \\frac{i_0+1}{i_0} \\right)^{n-3} \\to_{n \\to +\\infty} 0$, donc $S_n \\to_{n \\to +\\infty} 0$.\n\nDonc il existe $k \\in \\mathbb{N}$ tel que $S_k \\leq |a_{i_0}|$.\n\n$\\sum_{n=1}^{+\\infty} \\frac{a_n}{n^k} = \\sum_{n=i_0+1}^{+\\infty} \\frac{a_n}{n^k} + \\frac{a_{i_0}}{i_0^k}$\n\n$\\geq \\frac{|a_{i_0}|}{i_0^k} - \\sum_{n=i_0+1}^{+\\infty} \\frac{|a_n|}{n^k}$\n\n$= \\frac{|a_{i_0}|}{i_0^k} - \\frac{|S_k|}{i_0^k} > 0$ car $|S_k| < |a_{i_0}|$.\n\nDonc $\\sum_{n=1}^{+\\infty} \\frac{a_n}{n^k} \\neq 0$ ce qui est absurde, donc $\\forall n \\in \\mathbb{N}, a_n = 0$."
+    },
+    "17.21": {
+      "empreinte": "d376e6af91055809",
+      "exploitable": true,
+      "enonce": "Règle de Duhamel\nSoit $(a_n)$ une série à termes strictement positifs.\n\n1. On suppose qu’il existe $\\alpha \\in \\mathbb{R}$ tel que\n$$\\frac{a_{n+1}}{a_n} = 1 - \\frac{\\alpha}{n} + o\\left(\\frac{1}{n}\\right).$$\nSi $\\alpha > 1$, montrer que $\\sum a_n$ converge et si $\\alpha < 1$, montrer que $\\sum a_n$ diverge.\n\n2. Déterminer la nature de la série $\\sum a_n$, où\n$$a_n = \\frac{2 \\times 4 \\times \\cdots \\times (2n - 2) \\times (2n)}{3 \\times 5 \\times \\cdots \\times (2n - 1) \\times (2n + 1)}.$$",
+      "corrige": "1. Supposons $\\alpha > 1$. Soit $\\beta \\in ]1, \\alpha[$, et posons pour tout $n \\in \\mathbb{N}^*$,\n$$b_n = \\frac{1}{n^\\beta}.$$\nOn a\n$$\\frac{b_{n+1}}{b_n} = \\left(\\frac{n}{n+1}\\right)^\\beta = \\left(1 - \\frac{1}{n+1}\\right)^\\beta = 1 - \\frac{\\beta}{n} + o\\left(\\frac{1}{n}\\right).$$\nDonc\n$$\\frac{a_{n+1}}{a_n} - \\frac{b_{n+1}}{b_n} = \\left(1 - \\frac{\\alpha}{n} + o\\left(\\frac{1}{n}\\right)\\right) - \\left(1 - \\frac{\\beta}{n} + o\\left(\\frac{1}{n}\\right)\\right) = \\frac{\\beta - \\alpha}{n} + o\\left(\\frac{1}{n}\\right).$$\nComme $\\beta < \\alpha$, il existe $N \\in \\mathbb{N}$ tel que pour tout $n \\geq N$,\n$$\\frac{a_{n+1}}{a_n} - \\frac{b_{n+1}}{b_n} \\leq 0.$$\nDonc $a_n = O(b_n)$.\nOr, la série $\\sum b_n = \\sum \\frac{1}{n^\\beta}$ converge car $\\beta > 1$.\nDonc $\\sum a_n$ converge.\n\nPour $\\alpha < 1$, on applique le même raisonnement avec $\\beta = 1$, et on obtient $b_n = O(a_n)$.\nLa série $\\sum b_n = \\sum \\frac{1}{n}$ diverge, donc $\\sum a_n$ diverge.\n\n2. Calculons\n$$\\frac{a_{n+1}}{a_n} = \\frac{2 \\times 4 \\times \\cdots \\times (2n) \\times (2n + 2)}{3 \\times 5 \\times \\cdots \\times (2n + 1) \\times (2n + 3)} \\times \\frac{3 \\times 5 \\times \\cdots \\times (2n - 1) \\times (2n + 1)}{2 \\times 4 \\times \\cdots \\times (2n - 2) \\times (2n)} = \\frac{2n + 2}{2n + 3}.$$\nOn a\n$$\\frac{2n + 2}{2n + 3} = 1 - \\frac{1}{2n + 3} = 1 - \\frac{1}{2n} \\times \\frac{1}{1 + \\frac{3}{2n}} = 1 - \\frac{1}{2n} + o\\left(\\frac{1}{n}\\right).$$\nDonc $\\alpha = \\frac{1}{2} < 1$, et la série $\\sum a_n$ diverge.\n\nIl existe une autre version de la règle de Duhamel, aussi classique :\nSi l’on suppose qu’il existe $\\alpha, \\beta > 1$ tels que\n$$\\frac{a_{n+1}}{a_n} = 1 - \\frac{\\alpha}{n} + O\\left(\\frac{1}{n^\\beta}\\right),$$\nalors il existe $k \\in \\mathbb{R}^*_+$ tel que\n$$a_n \\sim k n^{-\\alpha}.$$"
+    },
+    "17.22": {
+      "empreinte": "7c2947ad145ea89e",
+      "exploitable": true,
+      "enonce": "Soit $\\varphi : \\mathbb{N}^* \\to \\mathbb{N}^*$ une application injective. Montrer que la série\n$$\\sum_{n=1}^{+\\infty} \\frac{1}{\\varphi(n)^2}$$\ndiverge.",
+      "corrige": "Soit $S_N = \\sum_{n=N+1}^{2N} \\frac{1}{\\varphi(n)^2}$. On a\n\\[\nS_N = \\sum_{n=N+1}^{2N} \\frac{1}{\\varphi(n)^2} \\geq \\frac{1}{(2N)^2} \\sum_{n=N+1}^{2N} 1 = \\frac{N}{4N^2} = \\frac{1}{4N}.\n\\]\nEn effet, puisque $\\varphi$ est injective, les entiers $\\varphi(N+1), \\ldots, \\varphi(2N)$ sont $N$ entiers distincts, donc\n\\[\n\\sum_{n=N+1}^{2N} \\frac{1}{\\varphi(n)^2} \\geq \\sum_{k=1}^N \\frac{1}{k^2}.\n\\]\nOr, on sait que\n\\[\n\\sum_{k=1}^N \\frac{1}{k^2} \\geq \\frac{N(N+1)}{2} \\cdot \\frac{1}{(2N)^2} = \\frac{N(N+1)}{8N^2} = \\frac{N+1}{8N} \\geq \\frac{1}{8} \\neq 0.\n\\]\nAinsi, $S_N$ ne tend pas vers $0$ quand $N \\to +\\infty$, ce qui contredit la convergence de la série. Donc la série\n$$\\sum_{n=1}^{+\\infty} \\frac{1}{\\varphi(n)^2}$$\ndiverge."
+    },
+    "17.23": {
+      "empreinte": "a67f97447ee8682c",
+      "exploitable": true,
+      "enonce": "Soit $(u_n)$ une suite décroissante de réels qui tend vers $0$.\n\nMontrer que les séries $\\sum u_n$ et $\\sum n(u_n - u_{n+1})$ ont la même nature.\n\nLorsqu'elles sont définies, comparer les sommes de ces deux séries.",
+      "corrige": "On suppose que $u_n \\in \\mathbb{R}^+$ et que $n(u_n - u_{n+1}) \\geq 0$ car $(u_n)$ est décroissante.\n\nPosons\n$$T_n = \\sum_{k=1}^n k(u_k - u_{k+1}) = \\sum_{k=1}^n k u_k - \\sum_{k=1}^n (k - 1) u_k = u_1 - (n + 1) u_{n+1} + \\sum_{k=2}^{n+1} u_k = \\sum_{k=1}^n u_k - n u_{n+1} = S_n - n u_{n+1}$$\n\nHypothèse : $\\sum u_n$ converge, on note $S = \\lim_{n \\to +\\infty} S_n$.\n\nAlors\n$$T_n = S_n - n u_{n+1} \\leq S_n \\leq S$$\n\nLa suite $(T_n)$ est croissante et majorée, donc $\\sum n(u_n - u_{n+1})$ converge.\n\nHypothèse : $\\sum n(u_n - u_{n+1}) = \\sum v_n$ converge.\n\nPour tout $k \\geq 1$, on a\n$$u_k - u_{k+1} = \\frac{v_k}{k}.$$ \n\nPour $N > n$,\n$$\\sum_{k=n}^N (u_k - u_{k+1}) = \\sum_{k=n}^N \\frac{v_k}{k} = u_n - u_{N+1}.$$ \n\nDonc pour tout $n \\geq 1$,\n$$u_n = u_{N+1} + \\sum_{k=n}^N \\frac{v_k}{k} = \\sum_{k=n}^{+\\infty} \\frac{v_k}{k}$$\n\nOn a\n$$0 \\leq n u_{n+1} \\leq u_n = \\sum_{k=n}^{+\\infty} \\frac{v_k}{k} \\leq n \\sum_{k=n}^{+\\infty} \\frac{v_k}{n} = \\sum_{k=n}^{+\\infty} v_k \\xrightarrow[n \\to +\\infty]{} 0.$$ \n\nDonc $n u_{n+1} \\to 0$ quand $n \\to +\\infty$ et\n$$T_n = S_n - n u_{n+1}.$$ \n\nPar passage à la limite,\n$$\\sum_{k=1}^{+\\infty} v_k = T = S.$$"
+    },
+    "17.24": {
+      "empreinte": "1922c5cf4c2dfd47",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.25": {
+      "empreinte": "6e3f27b43d254a4f",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.26": {
+      "empreinte": "20712fe5900472d2",
+      "exploitable": true,
+      "enonce": "Calculer\n$$\\sum_{n=2}^{+\\infty} \\ln\\left(1 + \\frac{(-1)^n}{n}\\right).$$",
+      "corrige": "On a\n$$\\ln\\left(1 + \\frac{(-1)^n}{n}\\right) = \\frac{(-1)^n}{n} + O\\left(\\frac{1}{n^2}\\right).$$\nDonc la série converge car $\\frac{1}{n} \\to 0$ quand $n \\to +\\infty$ en décroissant, donc elle vérifie le critère spécial des séries alternées.\n\nSoit $N \\in \\mathbb{N}$,\n\\[\n\\sum_{n=2}^{2N} \\ln\\left(1 + \\frac{(-1)^n}{n}\\right) = \\sum_{n=2}^N \\ln\\left(1 + \\frac{1}{2n}\\right) + \\ln\\left(1 - \\frac{1}{2n+1}\\right) - \\ln\\left(1 - \\frac{1}{2N+1}\\right).\n\\]\n\nOr,\n\\[\n\\sum_{n=2}^N \\left[\\ln\\left(\\frac{2n+1}{2n}\\right) + \\ln\\left(\\frac{2n}{2n+1}\\right)\\right] - \\ln\\left(1 - \\frac{1}{2N+1}\\right) = - \\ln\\left(1 - \\frac{1}{2N+1}\\right) \\xrightarrow[N \\to +\\infty]{} 0.\n\\]"
+    },
+    "17.27": {
+      "empreinte": "5e092ad212518384",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.28": {
+      "empreinte": "a0be72b99077f92c",
+      "exploitable": true,
+      "enonce": "On considère une suite récurrente telle que $u_0 \\in \\left]0, \\frac{\\pi}{2}\\right[$ et telle que, pour tout $n \\in \\mathbb{N}$, $u_{n+1} = u_n \\cos u_n$.\n\nÉtudier la suite $(u_n)$, puis les séries de terme général $(-1)^n u_n$ et $\\ln(\\cos u_n)$.\n\nDéterminer la nature de la série $\\sum u_n$.",
+      "corrige": "On a $u_{n+1} = u_n \\cos(u_n)$, si $u_n \\in \\left]0, \\frac{\\pi}{2}\\right[$, alors $0 \\leq \\cos u_n \\leq 1$ donc $u_{n+1} \\in \\left]0, \\frac{\\pi}{2}\\right[$. Par récurrence, on en déduit que\n\n$\\forall n \\in \\mathbb{N}, \\quad u_n \\in \\left]0, \\frac{\\pi}{2}\\right[$.\n\nDonc $u_{n+1} = u_n \\cos u_n \\leq u_n$ donc $(u_n)$ est décroissante et minorée, donc $u_n \\xrightarrow[n \\to +\\infty]{} \\ell \\in \\mathbb{R}$. La limite vérifie en outre\n\n$\\ell = \\ell \\cos \\ell$ donc $\\ell = 0$ ou $1 = \\cos \\ell$ donc $\\ell = 0$.\n\nDonc la série $\\sum (-1)^n u_n$ converge d’après le théorème spécial des séries alternées.\n\nOn a\n\n$\\ln \\cos u_n = \\ln \\frac{u_{n+1}}{u_n} = \\ln u_{n+1} - \\ln u_n$.\n\nDonc\n\n$\\sum_{n=0}^N \\ln \\cos u_n = \\sum_{n=0}^N (\\ln u_{n+1} - \\ln u_n) = \\ln u_{N+1} - \\ln u_0 \\xrightarrow[N \\to +\\infty]{} -\\infty$ (car $u_n \\xrightarrow[n \\to +\\infty]{} 0$).\n\nDe plus,\n\n$\\ln \\cos u_n = \\ln \\left(1 - \\frac{u_n^2}{2} + o(u_n^2)\\right) = -\\frac{u_n^2}{2} + o(u_n^2) \\sim -\\frac{u_n^2}{2}$,\n\ndonc $\\sum u_n^2$ diverge.\n\nÀ partir d’un certain rang, on aura $|u_n| \\geq u_n^2$, car $u_n \\xrightarrow[n \\to +\\infty]{} 0$, donc à partir d’un certain rang, $u_n \\leq 1$.\n\nDonc la série $\\sum u_n$ diverge car $\\sum u_n^2$ diverge."
+    },
+    "17.29": {
+      "empreinte": "bfe33e914bf74939",
+      "exploitable": true,
+      "enonce": "Pour tout $n \\in \\mathbb{N}^*$, on note :\n$$h_n = \\sum_{k=1}^n \\frac{1}{k} \\quad \\text{et} \\quad u_n = h_n - \\ln n.$$\n1. Trouver un équivalent de $u_{n+1} - u_n$.\n2. Déterminer la nature de la série\n$$\\sum (u_{n+1} - u_n)$$\npuis en déduire la convergence de la suite $(u_n)$. On notera $\\gamma$ la limite de la suite $(u_n)$.\n3. Montrer que\n$$h_n = \\ln n + \\gamma + o(1).$$\n4. Montrer qu'il existe $\\alpha$ et $\\beta$ tels que\n$$\\sum_{k=1}^{2n} \\frac{(-1)^k}{k} = \\alpha h_{2n} + \\beta h_n.$$\n5. En déduire que\n$$\\sum_{k=1}^{+\\infty} \\frac{(-1)^k}{k} = -\\ln 2.$$ \n\nSoit $\\sigma \\in \\mathbb{R}$. On note $(w_n)$ la suite définie par :\n$$w_k = \\begin{cases} \\sigma^k & \\text{lorsque } 4 \\mid k \\\\ \\frac{1}{k} & \\text{sinon} \\end{cases}$$\nDe plus, on note\n$$S_n = \\sum_{k=1}^n w_k.$$ \n6. Montrer que $(S_n)$ converge si et seulement si $\\sigma = -3$.\n7. Étudier la nature et calculer la somme de la série\n$$\\sum w_k.$$ \n8. Question bonus : Soit $(\\sigma_n)_{n \\in \\mathbb{N}} \\in \\mathbb{C}^N$, $T$-périodique. Donner une condition nécessaire et suffisante pour que\n$$\\sum_{n \\geq 1} \\frac{\\sigma_n}{n}$$\nsoit semi-convergente.",
+      "corrige": "1. à 5. : fait en cours\n\n6.\nOn a\n$$S_{4n} = \\sum_{k=1}^{4n} w_k = \\sum_{\\substack{k=1 \\\\ 4 \\nmid k}}^{4n} \\frac{1}{k} + \\sum_{\\substack{k=1 \\\\ 4 \\mid k}}^{4n} \\sigma^k = \\sum_{k=1}^{4n} \\frac{1}{k} - \\sum_{\\substack{k=1 \\\\ 4 \\mid k}}^{4n} \\frac{1 - \\sigma^k}{k}.$$ \nOr, comme $4 \\mid k$, on pose $k = 4m$, donc\n$$\\sum_{\\substack{k=1 \\\\ 4 \\mid k}}^{4n} \\frac{1 - \\sigma^k}{k} = \\sum_{m=1}^n \\frac{1 - \\sigma^{4m}}{4m} = \\frac{1 - \\sigma^4}{4} \\sum_{m=1}^n \\frac{1}{m}.$$ \nAinsi,\n$$S_{4n} = \\sum_{k=1}^{4n} \\frac{1}{k} - \\frac{1 - \\sigma^4}{4} \\sum_{m=1}^n \\frac{1}{m} = h_{4n} - \\frac{1 - \\sigma^4}{4} h_n.$$ \nEn utilisant l'équivalent $h_n = \\ln n + \\gamma + o(1)$, on obtient\n$$S_{4n} = \\ln(4n) + \\gamma + o(1) - \\frac{1 - \\sigma^4}{4} (\\ln n + \\gamma + o(1)) = \\ln 4 + \\left(1 - \\frac{1 - \\sigma^4}{4}\\right) \\ln n + \\gamma \\left(1 - \\frac{1 - \\sigma^4}{4}\\right) + o(1).$$\nPour que $(S_{4n})$ converge, il faut que le coefficient devant $\\ln n$ soit nul, donc\n$$1 - \\frac{1 - \\sigma^4}{4} = 0 \\implies 1 = \\frac{1 - \\sigma^4}{4} \\implies 1 - \\sigma^4 = 4 \\implies \\sigma^4 = -3.$$ \nComme $\\sigma \\in \\mathbb{R}$, la seule solution est $\\sigma = -3$.\n\n7.\nOn a $S_{4n+1} = S_{4n} + w_{4n+1} = S_{4n} + \\frac{1}{4n+1}$, donc $S_{4n}$ et $S_{4n+1}$ ont la même limite. De même pour $S_{4n+2}$ et $S_{4n+3}$. Par conséquent, $(S_n)$ converge vers la même limite que $(S_{4n})$, qui vaut\n$$\\lim_{n \\to +\\infty} S_{4n} = 2 \\ln 2.$$\nDe plus, comme $|w_k| \\geq \\frac{1}{k}$, la série $\\sum w_k$ est semi-convergente.\n\n8.\nCondition nécessaire et suffisante (CNS) :\n$$\\sum_{i=1}^T \\sigma_i = 0.$$ \n\nPreuve :\nSoit $N \\in \\mathbb{N}$, on écrit la division euclidienne de $N$ par $T$ :\n$$N = Tq + r, \\quad 0 \\leq r < T.$$ \nAlors\n$$S_N = \\sum_{n=1}^N \\sigma_n = \\sum_{k=0}^{q-1} \\sum_{n=kT+1}^{(k+1)T} \\sigma_n + \\sum_{n=qT+1}^{qT+r} \\sigma_n = \\sum_{k=0}^{q-1} \\sum_{n=1}^T \\sigma_n + \\sum_{n=1}^r \\sigma_n = q \\sum_{n=1}^T \\sigma_n + \\sum_{n=1}^r \\sigma_n.$$ \nAinsi, la suite $(S_N)_{N \\in \\mathbb{N}^*}$ est bornée si et seulement si\n$$\\sum_{n=1}^T \\sigma_n = 0.$$ \n\nDe plus, comme $\\frac{1}{n} \\to 0$ décroissant, d'après le théorème d'Abel, la série\n$$\\sum \\frac{\\sigma_n}{n}$$\nconverge.\n\nEn effet,\n$$\\sum_{k=1}^n \\frac{\\sigma_k}{k} = \\sum_{k=1}^n \\frac{S_k - S_{k-1}}{k} = \\sum_{k=1}^n \\frac{S_k}{k} - \\sum_{k=0}^{n-1} \\frac{S_k}{k+1} + \\frac{S_n}{n+1} = \\sum_{k=1}^n S_k \\left( \\frac{1}{k} - \\frac{1}{k+1} \\right) + \\frac{S_n}{n+1} = \\sum_{k=1}^n S_k \\frac{1}{k(k+1)} + \\frac{S_n}{n+1}.$$ \n\nOn a vu que\n$$S_N = q S_T + \\sum_{n=1}^r \\sigma_n,$$\navec $q = \\lfloor \\frac{N}{T} \\rfloor$ et $r = N - qT$.\n\n- Premier cas : $S_T = 0$.\nAlors $(S_N)_{N \\in \\mathbb{N}^*}$ est bornée.\n\nDe plus,\n$$\\frac{S_n}{n+1} \\to 0,$$\net\n$$S_k \\frac{1}{k(k+1)} \\sim S_k \\frac{1}{k^2} = O\\left( \\frac{1}{k^2} \\right).$$\nLa série $\\sum \\frac{1}{k^2}$ est convergente, donc\n$$\\sum S_k \\frac{1}{k(k+1)}$$\nest absolument convergente, et donc\n$$\\sum \\frac{\\sigma_k}{k}$$\nconverge.\n\n- Deuxième cas : $S_T \\neq 0$.\nAlors\n$$S_N = \\frac{N}{T} S_T + \\sum_{n=1}^r \\sigma_n,$$\net\n$$\\frac{S_n}{n+1} \\to \\frac{S_T}{T} \\neq 0,$$\n\nDe plus,\n$$S_k \\frac{1}{k(k+1)} \\sim S_T \\frac{k}{T} \\frac{1}{k^2} = \\frac{S_T}{T} \\frac{1}{k},$$\nqui diverge.\n\nDonc\n$$\\sum S_k \\frac{1}{k(k+1)}$$\ndiverge, et par conséquent\n$$\\sum \\frac{\\sigma_k}{k}$$\ndiverge."
+    },
+    "17.3": {
+      "empreinte": "8d3b837907c5848d",
+      "exploitable": true,
+      "enonce": "Soit $(u_n)$, $(v_n)$ et $(w_n)$ trois séries de réels telles que, pour tout $n \\in \\mathbb{N}$, $u_n \\leq v_n \\leq w_n$. Montrer que si $\\sum u_n$ et $\\sum w_n$ convergent, alors $\\sum v_n$ est aussi convergente.",
+      "corrige": "Les séries $\\sum u_n$ et $\\sum w_n$ étant convergentes, on a également que la série $\\sum (w_n - u_n)$, à termes positifs, converge ;\n\nDe plus, pour tout $n \\in \\mathbb{N}$, on a $0 \\leq v_n - u_n \\leq w_n - u_n$, donc la série $\\sum (v_n - u_n)$ converge car c’est une série à termes positifs, majorée par une série convergente.\n\nDonc, la série $\\sum (v_n - u_n) + \\sum u_n = \\sum v_n$ converge comme somme de séries convergentes."
+    },
+    "17.30": {
+      "empreinte": "4acb7f0dffc20594",
+      "exploitable": true,
+      "enonce": "1. Déterminer la nature de la série de terme général $u_n = \\sum_{k=0}^{+\\infty} \\frac{(-1)^k}{n+1+k}$.\n\n2. Déterminer la nature de la série de terme général $v_n = (-1)^n u_n$.",
+      "corrige": "1. $\\frac{1}{n+1+k} \\xrightarrow[k \\to +\\infty]{} 0$ en décroissant, quantité bien définie, donc d’après le théorème spécial des séries alternées, la série converge.\n\n$u_n = \\sum_{k=0}^{+\\infty} \\frac{(-1)^k}{n+1+k} = \\sum_{k=n+1}^{+\\infty} \\frac{(-1)^{k-n-1}}{k}$\n\n$u_{n+1} - u_n = -(-1)^{n+1} \\sum_{k=n+1}^{+\\infty} \\frac{(-1)^k}{k} + \\sum_{k=n+2}^{+\\infty} \\frac{(-1)^k}{k}$\n\n$= -(-1)^{n+1} \\sum_{k=n+1}^{+\\infty} (-1)^k \\left( \\frac{1}{k} - \\frac{1}{k+1} \\right)$\n\n$= (-1)^n \\sum_{k=n+1}^{+\\infty} \\frac{(-1)^k}{k(k+1)}$\n\nOn a bien $\\frac{1}{k(k+1)} \\xrightarrow[k \\to +\\infty]{} 0$ en décroissant, donc le théorème spécial des séries alternées s’applique. Et $\\sum_{k=n+1}^{+\\infty} \\frac{(-1)^k}{k(k+1)}$ est du signe de son premier terme.\n\nDonc $u_{n+1} - u_n \\leq 0$ et $\\sum_{k=n+1}^{+\\infty} \\frac{(-1)^k}{k(k+1)} \\leq \\frac{1}{(n+1)(n+2)}$, et $|u_{n+1} - u_n| \\leq \\frac{1}{(n+1)(n+2)} = o\\left( \\frac{1}{n} \\right)$\n\n$u_{n+1} + u_n = (-1)^{n+1} \\sum_{k=n+1}^{+\\infty} \\frac{(-1)^k}{k} - \\sum_{k=n+2}^{+\\infty} \\frac{(-1)^k}{k}$\n\n$= (-1)^{n+1} \\times (-1)^{n+1} \\frac{1}{n+1} = \\frac{1}{n+1} \\sim \\frac{1}{n}$\n\nPar suite :\n\n$u_n = \\frac{1}{2} \\left( (u_n + u_{n+1}) + (u_n - u_{n+1}) \\right) = \\frac{1}{2n} + o\\left( \\frac{1}{n} \\right) + o\\left( \\frac{1}{n} \\right) \\sim \\frac{1}{2n}$\n\nDonc $\\sum u_n$ diverge.\n\nCependant, $u_n \\xrightarrow[n \\to +\\infty]{} 0$ en décroissant, donc d’après le théorème spécial des séries alternées, $\\sum (-1)^n u_n$ converge."
+    },
+    "17.31": {
+      "empreinte": "c24f26f83f7508c1",
+      "exploitable": true,
+      "enonce": "Sommation par paquets.\nSoient $(x_n)_{n \\in \\mathbb{N}} \\in \\mathbb{S}(\\mathbb{C})$ et $\\varphi : \\mathbb{N} \\to \\mathbb{N}$ une application strictement croissante.\nOn pose\n$$y_0 = \\sum_{k=0}^{\\varphi(0)} x_k$$\net, pour tout $n \\in \\mathbb{N}^*$,\n$$y_n = \\sum_{k=\\varphi(n-1)+1}^{\\varphi(n)} x_k.$$ \nAinsi, $y_n$ constitue un « paquet » de $\\varphi(n) - \\varphi(n-1)$ termes consécutifs de $(x_k)$, en convenant que $\\varphi(-1) = -1$.\n\n1. Montrer que si $\\sum x_n$ converge, alors $\\sum y_n$ converge également. Montrer que la réciproque est fausse.\n\n2. Montrer que la réciproque est vraie lorsque $\\sum x_k$ est à termes positifs.\n\n3. Montrer que la réciproque est vraie lorsque $(x_n)$ tend vers $0$ et que la suite $(\\varphi(n) - \\varphi(n-1))$ est majorée.\n\n4. Montrer que la réciproque est vraie lorsqu’à l’intérieur de chaque paquet (pour $k \\in [\\varphi(n-1)+1, \\varphi(n)]$), tous les $x_k$ sont réels et de même signe.",
+      "corrige": "On pose\n$$y_0 = \\sum_{k=0}^{\\varphi(0)} x_k$$\net, pour tout $n \\in \\mathbb{N}^*$,\n$$y_n = \\sum_{k=\\varphi(n-1)+1}^{\\varphi(n)} x_k.$$ \n\n1. Hypothèse : $\\sum x_n$ converge.\n\nAlors,\n$$\\sum_{k=0}^n y_k = \\sum_{k=0}^n \\sum_{i=\\varphi(k-1)+1}^{\\varphi(k)} x_i = \\sum_{k=0}^{\\varphi(n)} x_k,$$\nqui converge (suite extraite de la série $\\sum x_n$).\n\nRéciproque : Prenons $u_n = (-1)^n$, alors\n$$\\sum_{k=0}^n (u_{2k} + u_{2k+1})$$\nconverge (car chaque terme est nul), mais\n$$\\sum u_k$$\ndiverge grossièrement.\n\n2. Hypothèse : $\\sum y_k$ converge.\n\nSoit $n \\in \\mathbb{N}$, il existe $N \\in \\mathbb{N}$ tel que $\\varphi(N) + 1 \\le n \\le \\varphi(N+1)$.\nAlors,\n\\begin{align*}\n\\sum_{k=0}^n x_k &= \\sum_{k=0}^{\\varphi(N)} x_k + \\sum_{k=\\varphi(N)+1}^n x_k \\\\\n&\\le \\sum_{k=0}^{\\varphi(N)} x_k + \\sum_{k=\\varphi(N)+1}^{\\varphi(N+1)} x_k \\quad \\text{(on majore par le paquet suivant)} \\\\\n&= \\sum_{k=0}^N y_k + y_{N+1} \\\\\n&\\le \\sum_{k=0}^{N+1} y_k \\le \\sum_{k=0}^{+\\infty} y_k,\n\\end{align*}\ncar $y_k \\ge 0$.\n\nDonc la série $\\sum x_k$ converge, car elle est majorée et à termes positifs.\n\n3. Hypothèses : $x_n \\to 0$ quand $n \\to +\\infty$ et $M = \\sup_{n \\in \\mathbb{N}} (\\varphi(n) - \\varphi(n-1)) < +\\infty$.\n\nOn pose\n$$\\ell = \\sum_{k=0}^{+\\infty} y_k.$$\n\nSoit $\\varepsilon > 0$, il existe $N \\in \\mathbb{N}$ tel que $\\forall n \\ge N$, $|x_n| < \\frac{\\varepsilon}{2(M+1)}$ et il existe $N' \\in \\mathbb{N}$ tel que $\\forall n \\ge N'$,\n$$\\left| \\sum_{k=0}^{\\varphi(n)} x_k - \\ell \\right| \\le \\frac{\\varepsilon}{2}.$$\n\nOn pose $n_0 = \\varphi(\\max(N, N'))$.\n\nSoit $n \\ge n_0$, il existe $n_1 \\in \\mathbb{N}$ tel que\n$$\\varphi(n_1) + 1 \\le n \\le \\varphi(n_1 + 1),$$\navec $1 \\le 1 - \\varphi(n_1) \\le M$.\n\nOn a\n\\begin{align*}\nS_n &= \\sum_{k=0}^n x_k - \\ell \\\\\n&= \\sum_{k=0}^{\\varphi(n_1)} x_k + \\sum_{k=\\varphi(n_1)+1}^n x_k - \\ell \\\\\n&\\le \\left| \\sum_{k=0}^{\\varphi(n_1)} x_k - \\ell \\right| + \\sum_{k=\\varphi(n_1)+1}^n |x_k| \\\\\n&\\le \\frac{\\varepsilon}{2} + (M+1) \\frac{\\varepsilon}{2(M+1)} = \\varepsilon.\n\\end{align*}\n\nDonc la réciproque est vérifiée et $\\sum x_k$ converge.\n\n4. Hypothèse :\n$$\\ell = \\sum_{k=0}^{+\\infty} y_k.$$\n\nPour tout $n \\in \\mathbb{N}$, il existe $k_n \\in \\mathbb{N}$ tel que\n$$\\varphi(k_n) + 1 \\le n \\le \\varphi(k_n + 1).$$\n\nOn a\n\\begin{align*}\n\\sum_{k=0}^n x_k - \\ell &= \\sum_{k=0}^{\\varphi(k_n)} x_k + \\sum_{k=\\varphi(k_n)+1}^n x_k - \\ell \\\\\n&\\le \\left| \\sum_{k=0}^{\\varphi(k_n)} x_k - \\ell \\right| + \\sum_{k=\\varphi(k_n)+1}^n |x_k| \\\\\n&\\le \\left| \\sum_{k=0}^{k_n} y_k - \\ell \\right| + \\left| y_{k_n + 1} \\right|.\n\\end{align*}\n\nD’après l’hypothèse, à l’intérieur de chaque paquet, tous les $x_k$ sont réels et de même signe, donc\n$$\\sum_{k=\\varphi(k_n)+1}^{\\varphi(k_n+1)} |x_k| = \\left| \\sum_{k=\\varphi(k_n)+1}^{\\varphi(k_n+1)} x_k \\right| = |y_{k_n+1}|.$$\n\nDonc\n$$\\sum_{k=0}^n x_k - \\ell \\le \\left| \\sum_{k=0}^{k_n} y_k - \\ell \\right| + |y_{k_n+1}| \\to 0$$\nquand $n \\to +\\infty$, car $\\sum y_k$ converge et $k_n \\to +\\infty$ (sinon, $k_n$ serait majorée, ce qui contredirait la croissance stricte de $\\varphi$).\n\nAinsi, $\\sum x_k$ converge vers $\\ell$."
+    },
+    "17.4": {
+      "empreinte": "be68985a72d78c5e",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.5": {
+      "empreinte": "c608babde3ad88e0",
+      "exploitable": true,
+      "enonce": "Soit $(u_n)$ une suite de réels positifs telle que $\\sum u_n$ converge. Déterminer la nature de $\\sum \\sqrt{u_{2n} u_n}$.",
+      "corrige": "$\\sum u_{2n}$ est convergente car $\\sum_{k=0}^n u_{2k} \\leq \\sum_{k=0}^{2n} u_k$, donc $\\sum \\sqrt{u_{2n} u_n} \\in S(\\mathbb{R}^+)$ et les sommes partielles sont majorées d’après l’inégalité de Cauchy-Schwarz :\n\n$$\n\\sum_{k=0}^n \\sqrt{u_{2k} u_k} \\leq \\left( \\sum_{k=0}^n u_{2k} \\right)^{1/2} \\left( \\sum_{k=0}^n u_k \\right)^{1/2} \\leq \\left( \\sum_{k=0}^n u_k \\right)^{1/2} \\left( \\sum_{k=0}^{2n} u_k \\right)^{1/2} \\leq \\left( \\sum_{k=0}^{+\\infty} u_k \\right)^{1/2} \\left( \\sum_{k=0}^{+\\infty} u_k \\right)^{1/2}\n$$\n\nDonc la série $\\sum \\sqrt{u_{2n} u_n}$ est convergente."
+    },
+    "17.6": {
+      "empreinte": "327b87a1aaaacad2",
+      "exploitable": true,
+      "enonce": "Grâce à une comparaison entre série et intégrale, déterminer un équivalent de\n$$\\sum_{k=2}^n \\ln k.$$ \nEn déduire la nature de la série de terme général \n$$u_n = \\left(\\sum_{k=2}^n \\ln k\\right)^{-1}.$$",
+      "corrige": "Soit $n \\geq 2$, soit $k \\in \\llbracket 2, n \\rrbracket$, soit $t \\in [k-1, k]$. La fonction $\\ln$ étant croissante sur $\\mathbb{R}_+^*$ :\n\n$$\\ln t \\leq \\ln k \\leq \\ln t + 1.$$\n\nDonc,\n\n$$\\int_{k-1}^k \\ln t \\, dt \\leq \\ln k \\leq \\int_{k-1}^k (\\ln t + 1) \\, dt.$$ \n\nEn sommant de $k=2$ à $n$, on obtient :\n\n$$\\sum_{k=2}^n \\int_{k-1}^k \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\sum_{k=2}^n \\int_{k-1}^k (\\ln t + 1) \\, dt,$$\n\nsoit\n\n$$\\int_1^n \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\int_1^n \\ln t \\, dt + \\int_1^n 1 \\, dt = \\int_1^n \\ln t \\, dt + (n - 1).$$\n\nCalculons l'intégrale :\n\n$$\\int \\ln t \\, dt = t \\ln t - t + C,$$\n\ndonc\n\n$$\\int_1^n \\ln t \\, dt = [t \\ln t - t]_1^n = n \\ln n - n + 1.$$ \n\nAinsi,\n\n$$n \\ln n - n + 1 \\leq \\sum_{k=2}^n \\ln k \\leq n \\ln n - n + 1 + (n - 1) = n \\ln n.$$ \n\nOn en déduit que\n\n$$\\sum_{k=2}^n \\ln k \\sim n \\ln n \\quad \\text{quand } n \\to +\\infty.$$ \n\nDonc,\n\n$$u_n = \\left(\\sum_{k=2}^n \\ln k\\right)^{-1} \\sim \\frac{1}{n \\ln n} \\quad \\text{et } u_n \\geq 0.$$ \n\nD'après le cours, la série\n\n$$\\sum_{n=2}^{+\\infty} \\frac{1}{n \\ln n}$$\n\net l'intégrale\n\n$$\\int_2^{+\\infty} \\frac{dt}{t \\ln t}$$\n\nont la même nature. Or,\n\n$$\\int_2^{+\\infty} \\frac{dt}{t \\ln t} = [\\ln(\\ln t)]_2^{+\\infty} = +\\infty,$$\n\ndonc la série\n\n$$\\sum u_n$$\n\ndiverge."
+    },
+    "17.7": {
+      "empreinte": "7f9624b6d5d932d7",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.8": {
+      "empreinte": "f126fb7c002ec0a2",
+      "exploitable": false,
+      "enonce": "",
+      "corrige": ""
+    },
+    "17.9": {
+      "empreinte": "ee6fb658f24d978c",
+      "exploitable": true,
+      "enonce": "Soit $(\\varepsilon_n)_{n \\in \\mathbb{N}}$ une suite de réels de $]0,1[$, telle que $\\varepsilon_n \\xrightarrow[n \\to +\\infty]{} 0$. Pour tout $n \\in \\mathbb{N}^*$, on pose\n$$p_n = \\prod_{i=1}^n (1 - \\varepsilon_i).$$\nMontrer que\n$$p_n \\xrightarrow[n \\to +\\infty]{} 0 \\iff \\sum \\varepsilon_n \\text{ diverge}.$$",
+      "corrige": "On a\n$$\\ln p_n = \\sum_{k=1}^n \\ln(1 - \\varepsilon_k) \\quad \\text{et} \\quad \\ln(1 - \\varepsilon_k) \\sim -\\varepsilon_k.$$\nDonc\n$$p_n \\xrightarrow[n \\to +\\infty]{} 0 \\iff \\ln p_n \\xrightarrow[n \\to +\\infty]{} -\\infty$$\n$$\\iff \\sum_{k=1}^n \\ln(1 - \\varepsilon_k) \\xrightarrow[n \\to +\\infty]{} -\\infty$$\n$$\\iff \\sum \\varepsilon_k \\text{ diverge.}$$"
+    }
+  }
+}

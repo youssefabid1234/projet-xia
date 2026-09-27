@@ -7,6 +7,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import AsyncMock, patch
 
+from app.faux import FauxOpenAI, FauxServices
 from app.profil import Profil
 from app.web import create_app
 
@@ -89,12 +90,12 @@ class WebTests(unittest.TestCase):
         self.assertIn("Chapitre terminé".encode(), response.data)
         self.assertNotIn(b"<textarea", response.data)
 
-    @patch("app.web.PipelexAPIClient")
-    def test_real_adapter_rejects_invalid_result(self, client_class):
+    def test_real_adapter_rejects_invalid_result(self):
         client = AsyncMock()
-        client_class.return_value.__aenter__.return_value = client
         client.start_and_wait.return_value.main_stuff = {"verdict": "invalide"}
-        with self.assertLogs(self.app.logger, level="ERROR"):
+        services = FauxServices(FauxOpenAI())
+        services._pipelex = client  # client Pipelex partagé, réutilisé entre les corrections
+        with patch("app.web.services_partages", return_value=services),                 self.assertLogs(self.app.logger, level="ERROR"):
             response = self.submit()
         self.assertEqual(response.status_code, 502)
         self.assertEqual(Profil.charger(self.profile).historique, [])

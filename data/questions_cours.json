@@ -1,0 +1,357 @@
+{
+  "version": 1,
+  "chapitre": "16 — Séries numériques",
+  "index": "data/cours_index.json",
+  "questions": [
+    {
+      "source": "16.1.1",
+      "nature": "definition",
+      "priorite": 2,
+      "question": "Soit $(u_n)_{n\\in\\mathbb N}$ une suite de réels ou de complexes. Qu'appelle-t-on série de terme général $u_n$ ?",
+      "reponse_attendue": "La série de terme général $u_n$, notée $\\sum_{n\\geq0}u_n$ ou $\\sum u_n$, est la suite $(S_n)_{n\\in\\mathbb N}$ des sommes partielles de la suite $(u_n)$, définies par $S_n=\\sum_{k=0}^{n}u_k$. $S_n$ est appelée somme partielle d'ordre $n$ et $u_n$ le terme général de la série."
+    },
+    {
+      "source": "16.1.5",
+      "nature": "definition",
+      "priorite": 1,
+      "question": "Donnez la définition d'une série convergente.",
+      "reponse_attendue": "La série $\\sum u_n$ converge si la suite $(S_n)$ de ses sommes partielles $S_n=\\sum_{k=0}^{n}u_k$ admet une limite finie ; cette limite est la somme de la série, notée $\\sum_{n=0}^{+\\infty}u_n=\\lim_{n\\to+\\infty}S_n$. Une série non convergente est dite divergente."
+    },
+    {
+      "source": "16.1.13",
+      "nature": "definition",
+      "priorite": 1,
+      "question": "Que signifie qu'une série $\\sum u_n$ diverge grossièrement ?",
+      "reponse_attendue": "On dit que $\\sum u_n$ diverge grossièrement lorsque son terme général $(u_n)_{n\\in\\mathbb N}$ ne tend pas vers $0$."
+    },
+    {
+      "source": "16.2.3",
+      "nature": "definition",
+      "priorite": 1,
+      "question": "Donnez la définition d'une série absolument convergente.",
+      "reponse_attendue": "On dit que la série $\\sum u_n$ converge absolument si la série $\\sum |u_n|$ est convergente."
+    },
+    {
+      "source": "16.2.7",
+      "nature": "definition",
+      "priorite": 2,
+      "question": "Qu'appelle-t-on série semi-convergente ?",
+      "reponse_attendue": "Une série $\\sum u_n$ est dite semi-convergente si elle est convergente sans être absolument convergente."
+    },
+    {
+      "source": "16.2.16",
+      "nature": "definition",
+      "priorite": 2,
+      "question": "Qu'appelle-t-on série de Riemann de paramètre $\\alpha\\in\\mathbb R$ ?",
+      "reponse_attendue": "La série de Riemann de paramètre $\\alpha\\in\\mathbb R$ est la série $\\sum_{n\\geq1}\\frac{1}{n^\\alpha}$."
+    },
+    {
+      "source": "16.3.1",
+      "nature": "definition",
+      "priorite": 3,
+      "question": "Donnez la définition d'une série alternée, telle qu'elle est donnée dans le cours.",
+      "reponse_attendue": "Une série $\\sum u_n$ est dite alternée s'il existe une suite $(a_n)$ positive, décroissante et de limite nulle telle que, pour tout $n$, $u_n=(-1)^na_n$. Dans ce cours, la décroissance et la limite nulle de $(a_n)$ font partie de la définition."
+    },
+    {
+      "source": "16.4.2",
+      "nature": "definition",
+      "priorite": 3,
+      "question": "Soit $I$ un ensemble quelconque et $(a_i)_{i\\in I}$ une famille d'éléments de $\\overline{\\mathbb R}_+$. Comment définit-on la somme $\\sum_{i\\in I}a_i$ ?",
+      "reponse_attendue": "On définit $\\sum_{i\\in I}a_i=\\sup_{\\overline{\\mathbb R}_+}\\left\\{\\sum_{j\\in J}a_j,\\ J\\in\\mathcal P_f(I)\\right\\}$, c'est-à-dire la borne supérieure dans $\\overline{\\mathbb R}_+$ de l'ensemble des sommes finies, où $\\mathcal P_f(I)$ désigne l'ensemble des parties finies de $I$ (les $a_i$ pouvant être infinis)."
+    },
+    {
+      "source": "16.4.4",
+      "nature": "definition",
+      "priorite": 3,
+      "question": "Quand dit-on qu'une famille $(a_i)_{i\\in I}$ d'éléments de $\\overline{\\mathbb R}_+$ est sommable ?",
+      "reponse_attendue": "La famille $(a_i)_{i\\in I}$ d'éléments de $\\overline{\\mathbb R}_+$ est sommable si $\\sum_{i\\in I}a_i<+\\infty$, la somme étant définie comme la borne supérieure dans $\\overline{\\mathbb R}_+$ des sommes finies $\\sum_{j\\in J}a_j$, $J\\in\\mathcal P_f(I)$."
+    },
+    {
+      "source": "16.4.13",
+      "nature": "definition",
+      "priorite": 2,
+      "question": "Quand dit-on qu'une famille $(a_i)_{i\\in I}$ de réels ou de complexes est sommable ?",
+      "reponse_attendue": "La famille $(a_i)_{i\\in I}$ de réels ou de complexes est sommable si la famille de réels positifs $(|a_i|)_{i\\in I}$ est sommable, c'est-à-dire si $\\sum_{i\\in I}|a_i|<+\\infty$. On note $\\ell^1(I)$ l'ensemble des familles sommables indexées par $I$."
+    },
+    {
+      "source": "16.4.18",
+      "nature": "definition",
+      "priorite": 3,
+      "question": "Comment définit-on la somme d'une famille sommable $(a_i)_{i\\in I}$ de réels, puis de complexes ?",
+      "reponse_attendue": "Si $(a_i)_{i\\in I}\\in\\ell^1(I,\\mathbb R)$, on pose $\\sum_{i\\in I}a_i=\\sum_{i\\in I}a_i^+-\\sum_{i\\in I}a_i^-$, où $a_i^+$ et $a_i^-$ sont les parties positive et négative de $a_i$. Si $(a_i)_{i\\in I}\\in\\ell^1(I,\\mathbb C)$, on pose $\\sum_{i\\in I}a_i=\\sum_{i\\in I}\\mathrm{Re}(a_i)+i\\sum_{i\\in I}\\mathrm{Im}(a_i)$."
+    },
+    {
+      "source": "16.5.1",
+      "nature": "definition",
+      "priorite": 2,
+      "question": "Qu'appelle-t-on série exponentielle de paramètre $z\\in\\mathbb C$ ?",
+      "reponse_attendue": "La série exponentielle de paramètre $z\\in\\mathbb C$ est la série $\\sum_{n\\in\\mathbb N}\\frac{z^n}{n!}$."
+    },
+    {
+      "source": "16.1.9",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Soit $a\\in\\mathbb C$. Que savez-vous de la série géométrique $\\sum a^n$ : nature et, le cas échéant, somme ?",
+      "reponse_attendue": "Soit $a\\in\\mathbb C$. La série $\\sum a^n$ converge si et seulement si $|a|<1$ ; dans ce cas, $\\sum_{n=0}^{+\\infty}a^n=\\frac{1}{1-a}$."
+    },
+    {
+      "source": "16.1.12",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Énoncez la condition nécessaire de convergence d'une série portant sur son terme général.",
+      "reponse_attendue": "Si $\\sum u_n$ converge, alors $(u_n)_{n\\in\\mathbb N}$ tend vers $0$. De manière équivalente, si $(u_n)_{n\\in\\mathbb N}$ ne tend pas vers $0$, alors $\\sum u_n$ diverge."
+    },
+    {
+      "source": "16.1.15",
+      "nature": "theoreme",
+      "priorite": 2,
+      "question": "Énoncez les propriétés de linéarité des séries : que peut-on dire d'une combinaison linéaire de deux séries selon leurs natures ?",
+      "reponse_attendue": "Soit $\\lambda,\\mu\\in\\mathbb C$. 1. Si $\\sum u_n$ et $\\sum v_n$ convergent, alors $\\sum(\\lambda u_n+\\mu v_n)$ converge et $\\sum_{n=0}^{+\\infty}(\\lambda u_n+\\mu v_n)=\\lambda\\sum_{n=0}^{+\\infty}u_n+\\mu\\sum_{n=0}^{+\\infty}v_n$. 2. Si $\\sum u_n$ converge et $\\sum v_n$ diverge, alors $\\sum(u_n+v_n)$ diverge. 3. Si $\\sum u_n$ et $\\sum v_n$ divergent, on ne peut rien conclure sur $\\sum(u_n+v_n)$."
+    },
+    {
+      "source": "16.2.1",
+      "nature": "theoreme",
+      "priorite": 2,
+      "question": "Que peut-on dire de la nature d'une série à termes positifs ?",
+      "reponse_attendue": "Soit $\\sum u_n$ une série à termes positifs. Alors soit $\\sum u_n$ converge, soit elle diverge vers $+\\infty$."
+    },
+    {
+      "source": "16.2.2",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Énoncez le théorème de comparaison des séries à termes positifs.",
+      "reponse_attendue": "Soit $\\sum u_n$ et $\\sum v_n$ deux séries à termes positifs telles qu'il existe $N\\in\\mathbb N$ tel que pour tout $n\\geq N$, $0\\leq u_n\\leq v_n$. Alors : 1. si $\\sum v_n$ converge, $\\sum u_n$ converge aussi ; 2. si $\\sum u_n$ diverge, $\\sum v_n$ diverge aussi. De plus, si la divergence est grossière pour $\\sum u_n$, elle l'est aussi pour $\\sum v_n$."
+    },
+    {
+      "source": "16.2.4",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Énoncez le théorème reliant convergence absolue et convergence d'une série.",
+      "reponse_attendue": "Toute série réelle ou complexe absolument convergente est convergente : si $\\sum|u_n|$ converge, alors $\\sum u_n$ converge."
+    },
+    {
+      "source": "16.2.8",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Énoncez le théorème de comparaison des séries par domination ou négligeabilité.",
+      "reponse_attendue": "Soit $\\sum u_n$ une série à termes quelconques et $\\sum v_n$ une série à termes positifs telles que $u_n=O(v_n)$ (ou $u_n=o(v_n)$). Alors la convergence de $\\sum v_n$ entraîne la convergence absolue de $\\sum u_n$, et la divergence de $\\sum u_n$ (celle de $\\sum|u_n|$ suffit) entraîne la divergence de $\\sum v_n$."
+    },
+    {
+      "source": "16.2.9",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Énoncez le théorème de comparaison des séries par équivalence.",
+      "reponse_attendue": "Soit $\\sum u_n$ et $\\sum v_n$ deux séries à termes positifs. Si $u_n\\underset{+\\infty}{\\sim}v_n$, alors les séries $\\sum u_n$ et $\\sum v_n$ sont de même nature."
+    },
+    {
+      "source": "16.2.13",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Énoncez le théorème de comparaison entre série et intégrale.",
+      "reponse_attendue": "Soit $a\\in\\mathbb R_+$ et $f:[a,+\\infty[\\to\\mathbb R$ une fonction décroissante, continue et positive. Alors $\\sum_{n\\geq a}f(n)$ converge si et seulement si $\\int_a^{+\\infty}f(t)\\,dt$ converge : la série et l'intégrale sont de même nature."
+    },
+    {
+      "source": "16.2.15",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Que savez-vous de la convergence de la série exponentielle $\\sum\\frac{z^n}{n!}$ pour $z\\in\\mathbb C$, et de sa somme ?",
+      "reponse_attendue": "Pour toute valeur de $z\\in\\mathbb C$, la série exponentielle $\\sum\\frac{z^n}{n!}$ est absolument convergente, et sa somme vaut $e^z$ : $\\sum_{n=0}^{+\\infty}\\frac{z^n}{n!}=e^z$."
+    },
+    {
+      "source": "16.2.17",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Donnez la nature de la série de Riemann $\\sum_{n\\geq1}\\frac{1}{n^\\alpha}$ en fonction de $\\alpha\\in\\mathbb R$.",
+      "reponse_attendue": "Soit $\\alpha\\in\\mathbb R$. La série de Riemann $\\sum_{n\\geq1}\\frac{1}{n^\\alpha}$ converge si et seulement si $\\alpha>1$."
+    },
+    {
+      "source": "16.2.20",
+      "nature": "theoreme",
+      "priorite": 3,
+      "question": "Énoncez la règle de Riemann, dite règle « $n^\\alpha u_n$ », pour les séries à termes positifs.",
+      "reponse_attendue": "Soit $\\sum u_n$ une série à termes positifs. 1. S'il existe $\\alpha>1$ tel que $n^\\alpha u_n\\to0$, alors $\\sum u_n$ converge. 2. Si $nu_n\\to+\\infty$, alors $\\sum u_n$ diverge."
+    },
+    {
+      "source": "16.2.22",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Énoncez la règle de d'Alembert.",
+      "reponse_attendue": "Soit $\\sum u_n$ une série à termes quelconques (non nuls, pour que le quotient ait un sens). On suppose que $\\left(\\left|\\frac{u_{n+1}}{u_n}\\right|\\right)$ admet une limite $\\ell$. Alors : 1. si $0\\leq\\ell<1$, $\\sum u_n$ converge absolument ; 2. si $\\ell>1$, $\\sum u_n$ diverge grossièrement ; 3. si $\\ell=1$, on ne peut pas conclure par cette méthode."
+    },
+    {
+      "source": "16.3.2",
+      "nature": "theoreme",
+      "priorite": 1,
+      "question": "Énoncez le théorème spécial de convergence des séries alternées (TSCSA), avec toutes ses conclusions.",
+      "reponse_attendue": "Soit $\\sum u_n$ une série alternée, c'est-à-dire $u_n=(-1)^na_n$ avec $(a_n)$ positive, décroissante et de limite nulle. Alors : 1. la série $\\sum u_n$ converge ; 2. ses sommes partielles sont du signe du premier terme ; 3. ses restes $r_n=\\sum_{k=n+1}^{+\\infty}u_k$ sont du signe de leur premier terme $u_{n+1}$ et majorés en valeur absolue par ce premier terme : $|r_n|\\leq|u_{n+1}|$."
+    },
+    {
+      "source": "16.4.10",
+      "nature": "theoreme",
+      "priorite": 2,
+      "question": "Énoncez le théorème de Fubini pour une famille $(a_{i,j})_{(i,j)\\in I\\times J}$ d'éléments de $\\overline{\\mathbb R}_+$.",
+      "reponse_attendue": "Soit $I$ et $J$ deux ensembles quelconques et $(a_{i,j})_{(i,j)\\in I\\times J}$ une famille d'éléments de $\\overline{\\mathbb R}_+$. Alors, sans aucune hypothèse de sommabilité (égalités dans $\\overline{\\mathbb R}_+$) : $\\sum_{i\\in I}\\sum_{j\\in J}a_{i,j}=\\sum_{(i,j)\\in I\\times J}a_{i,j}=\\sum_{j\\in J}\\sum_{i\\in I}a_{i,j}$."
+    },
+    {
+      "source": "16.4.21",
+      "nature": "theoreme",
+      "priorite": 3,
+      "question": "Quel est le lien entre la sommabilité d'une suite $(a_n)_{n\\in\\mathbb N}$ de complexes et la série $\\sum a_n$ ?",
+      "reponse_attendue": "La suite $(a_n)_{n\\in\\mathbb N}$ est sommable si et seulement si la série $\\sum a_n$ est absolument convergente. On a alors $\\sum_{n=0}^{+\\infty}a_n=\\sum_{n\\in\\mathbb N}a_n$. De plus, la somme est invariante par permutation des termes."
+    },
+    {
+      "source": "16.4.23",
+      "nature": "theoreme",
+      "priorite": 3,
+      "question": "Énoncez le théorème de Fubini pour une famille $(a_{i,j})_{(i,j)\\in I\\times J}$ de réels ou de complexes.",
+      "reponse_attendue": "Soit $(a_{i,j})_{(i,j)\\in I\\times J}$ une famille de réels ou de complexes. Elle est sommable si et seulement si pour tout $i\\in I$, $(a_{i,j})_{j\\in J}$ est sommable, et la famille $\\left(\\sum_{j\\in J}|a_{i,j}|\\right)_{i\\in I}$ est sommable ; on a une condition nécessaire et suffisante similaire en intervertissant $i$ et $j$. En cas de sommabilité, $\\sum_{i\\in I}\\sum_{j\\in J}a_{i,j}=\\sum_{j\\in J}\\sum_{i\\in I}a_{i,j}$."
+    },
+    {
+      "source": "16.4.25",
+      "nature": "theoreme",
+      "priorite": 2,
+      "question": "Énoncez le théorème du produit de Cauchy de deux séries.",
+      "reponse_attendue": "Soit $\\sum_{n\\geq0}a_n$ et $\\sum_{n\\geq0}b_n$ deux séries absolument convergentes, et pour tout $n\\in\\mathbb N$, $c_n=\\sum_{k=0}^{n}a_kb_{n-k}$. Alors $\\sum_{n\\geq0}c_n$ est absolument convergente, et $\\left(\\sum_{n=0}^{+\\infty}a_n\\right)\\left(\\sum_{n=0}^{+\\infty}b_n\\right)=\\sum_{n=0}^{+\\infty}c_n$."
+    },
+    {
+      "source": "16.5.5",
+      "nature": "theoreme",
+      "priorite": 2,
+      "question": "Donnez les développements en série de $e^x$, $\\cos(x)$ et $\\sin(x)$ pour $x\\in\\mathbb R$.",
+      "reponse_attendue": "Pour tout $x\\in\\mathbb R$ : $e^x=\\sum_{n=0}^{+\\infty}\\frac{x^n}{n!}$, $\\cos(x)=\\sum_{n=0}^{+\\infty}(-1)^n\\frac{x^{2n}}{(2n)!}$ et $\\sin(x)=\\sum_{n=0}^{+\\infty}(-1)^n\\frac{x^{2n+1}}{(2n+1)!}$."
+    },
+    {
+      "source": "16.6.1",
+      "nature": "theoreme",
+      "priorite": 2,
+      "question": "Énoncez la formule du binôme négatif.",
+      "reponse_attendue": "Pour tout $p\\in\\mathbb N$ et tout $z\\in\\mathbb C$ tel que $|z|<1$, la série $\\sum_{n\\geq p}n(n-1)\\cdots(n-p+1)z^{n-p}$ est absolument convergente et $\\sum_{n=p}^{+\\infty}n(n-1)\\cdots(n-p+1)z^{n-p}=\\frac{p!}{(1-z)^{p+1}}$. De façon équivalente : $\\frac{1}{(1-z)^{p+1}}=\\sum_{n=p}^{+\\infty}\\binom{n}{p}z^{n-p}=\\sum_{n=0}^{+\\infty}\\binom{n+p}{p}z^n$."
+    },
+    {
+      "source": "16.1.12",
+      "nature": "demonstration",
+      "priorite": 1,
+      "question": "Démontrez que si la série $\\sum u_n$ converge, alors son terme général $u_n$ tend vers $0$.",
+      "reponse_attendue": "Notons $S_n=\\sum_{k=0}^{n}u_k$ et $S=\\lim S_n$, qui existe et est finie par hypothèse. Pour $n\\geq1$, $u_n=S_n-S_{n-1}$. Comme $(S_n)$ et $(S_{n-1})$ tendent toutes deux vers $S$, on obtient $u_n\\to S-S=0$. La formulation « si $u_n$ ne tend pas vers $0$, la série diverge » en est la contraposée."
+    },
+    {
+      "source": "16.2.2",
+      "nature": "demonstration",
+      "priorite": 1,
+      "question": "Démontrez le théorème de comparaison des séries à termes positifs : si $0\\leq u_n\\leq v_n$ pour tout $n\\geq N$ et si $\\sum v_n$ converge, alors $\\sum u_n$ converge.",
+      "reponse_attendue": "Les termes étant positifs, la suite des sommes partielles $U_n=\\sum_{k=0}^{n}u_k$ est croissante ; il suffit donc de montrer qu'elle est majorée (limite monotone). Pour $n\\geq N$, $U_n=\\sum_{k=0}^{N-1}u_k+\\sum_{k=N}^{n}u_k\\leq\\sum_{k=0}^{N-1}u_k+\\sum_{k=N}^{n}v_k\\leq\\sum_{k=0}^{N-1}u_k+\\sum_{k=0}^{+\\infty}v_k$, car les $v_k$ sont positifs et $\\sum v_n$ converge. Ainsi $(U_n)$ est croissante et majorée, donc converge : $\\sum u_n$ converge. Le second point (si $\\sum u_n$ diverge, $\\sum v_n$ diverge) est la contraposée ; enfin si $u_n$ ne tend pas vers $0$, $v_n$ non plus, car $v_n\\to0$ impliquerait $u_n\\to0$ par encadrement."
+    },
+    {
+      "source": "16.2.4",
+      "nature": "demonstration",
+      "priorite": 1,
+      "question": "Démontrez que si $\\sum|u_n|$ converge, alors $\\sum u_n$ converge (pour une série réelle, puis complexe).",
+      "reponse_attendue": "Cas réel : on pose $u_n^+=\\max(u_n,0)$ et $u_n^-=\\max(-u_n,0)$, de sorte que $u_n=u_n^+-u_n^-$ et $0\\leq u_n^+\\leq|u_n|$, $0\\leq u_n^-\\leq|u_n|$. Par le théorème de comparaison des séries à termes positifs, $\\sum u_n^+$ et $\\sum u_n^-$ convergent, donc par linéarité $\\sum u_n=\\sum(u_n^+-u_n^-)$ converge. Cas complexe : $|\\mathrm{Re}(u_n)|\\leq|u_n|$ et $|\\mathrm{Im}(u_n)|\\leq|u_n|$, donc $\\sum\\mathrm{Re}(u_n)$ et $\\sum\\mathrm{Im}(u_n)$ sont absolument convergentes, donc convergentes par le cas réel ; par linéarité, $\\sum u_n=\\sum\\mathrm{Re}(u_n)+i\\sum\\mathrm{Im}(u_n)$ converge."
+    },
+    {
+      "source": "16.2.8",
+      "nature": "demonstration",
+      "priorite": 2,
+      "question": "Soit $\\sum v_n$ une série à termes positifs convergente et $(u_n)$ une suite réelle ou complexe telle que $u_n=O(v_n)$. Démontrez que $\\sum u_n$ converge absolument.",
+      "reponse_attendue": "Puisque $u_n=O(v_n)$ (le cas $u_n=o(v_n)$ en est un cas particulier), il existe $M\\geq0$ et $N\\in\\mathbb N$ tels que $|u_n|\\leq Mv_n$ pour tout $n\\geq N$. La série $\\sum Mv_n$ converge par linéarité, donc par le théorème de comparaison des séries à termes positifs, $\\sum|u_n|$ converge : $\\sum u_n$ converge absolument. Par contraposée, si $\\sum|u_n|$ diverge, alors $\\sum v_n$ diverge."
+    },
+    {
+      "source": "16.2.9",
+      "nature": "demonstration",
+      "priorite": 2,
+      "question": "Soit $\\sum u_n$ et $\\sum v_n$ deux séries à termes positifs telles que $u_n\\sim v_n$. Démontrez qu'elles sont de même nature.",
+      "reponse_attendue": "Comme $u_n\\sim v_n$, on a $u_n-v_n=o(v_n)$, donc à partir d'un certain rang $|u_n-v_n|\\leq\\frac12v_n$, soit $\\frac12v_n\\leq u_n\\leq\\frac32v_n$. Ainsi $u_n=O(v_n)$ et $v_n=O(u_n)$. Par comparaison des séries à termes positifs (domination), si $\\sum v_n$ converge alors $\\sum u_n$ converge, et si $\\sum u_n$ converge alors $\\sum v_n$ converge : les deux séries sont de même nature."
+    },
+    {
+      "source": "16.2.13",
+      "nature": "demonstration",
+      "priorite": 1,
+      "question": "Soit $a\\in\\mathbb R_+$ et $f:[a,+\\infty[\\to\\mathbb R$ continue, positive et décroissante. Démontrez que la série $\\sum_{n\\geq a}f(n)$ et l'intégrale $\\int_a^{+\\infty}f(t)\\,dt$ sont de même nature.",
+      "reponse_attendue": "Soit $n_0$ un entier $\\geq a$. Par décroissance de $f$, pour tout entier $n\\geq n_0$ et tout $t\\in[n,n+1]$, $f(n+1)\\leq f(t)\\leq f(n)$, d'où en intégrant : $f(n+1)\\leq\\int_n^{n+1}f(t)\\,dt\\leq f(n)$. Lemme : $f$ étant continue et positive, $x\\mapsto\\int_{n_0}^{x}f(t)\\,dt$ est croissante, donc l'intégrale $\\int_a^{+\\infty}f$ converge si et seulement si la série $\\sum_{n\\geq n_0}\\int_n^{n+1}f(t)\\,dt$ converge (Chasles : ses sommes partielles sont $\\int_{n_0}^{N+1}f$). Si $\\sum f(n)$ converge, le TCSTP donne la convergence de $\\sum\\int_n^{n+1}f$, donc de l'intégrale. Réciproquement, si l'intégrale converge, $\\sum\\int_n^{n+1}f$ converge, donc $\\sum f(n+1)$ converge par le TCSTP, et donc $\\sum f(n)$ aussi (décalage d'indice)."
+    },
+    {
+      "source": "16.2.17",
+      "nature": "demonstration",
+      "priorite": 1,
+      "question": "Démontrez que la série de Riemann $\\sum_{n\\geq1}\\frac{1}{n^\\alpha}$ converge si et seulement si $\\alpha>1$.",
+      "reponse_attendue": "Si $\\alpha\\leq0$, $\\frac{1}{n^\\alpha}=n^{-\\alpha}\\geq1$ ne tend pas vers $0$ : la série diverge grossièrement. Si $\\alpha>0$, $f:t\\mapsto\\frac{1}{t^\\alpha}$ est continue, positive et décroissante sur $[1,+\\infty[$, donc par comparaison série-intégrale $\\sum_{n\\geq1}\\frac{1}{n^\\alpha}$ est de même nature que $\\int_1^{+\\infty}\\frac{dt}{t^\\alpha}$. Pour $\\alpha\\neq1$, $\\int_1^{x}\\frac{dt}{t^\\alpha}=\\frac{x^{1-\\alpha}-1}{1-\\alpha}$, qui a une limite finie quand $x\\to+\\infty$ si et seulement si $\\alpha>1$ ; pour $\\alpha=1$, $\\int_1^{x}\\frac{dt}{t}=\\ln x\\to+\\infty$. Donc la série converge si et seulement si $\\alpha>1$."
+    },
+    {
+      "source": "16.2.22",
+      "nature": "demonstration",
+      "priorite": 1,
+      "question": "Démontrez la règle de d'Alembert : si $\\left|\\frac{u_{n+1}}{u_n}\\right|\\to\\ell$, montrez que $\\sum u_n$ converge absolument lorsque $\\ell<1$ et diverge grossièrement lorsque $\\ell>1$.",
+      "reponse_attendue": "Si $0\\leq\\ell<1$, on fixe $\\ell'\\in]\\ell,1[$ : il existe $N$ tel que pour $n\\geq N$, $|u_{n+1}|\\leq\\ell'|u_n|$, d'où par récurrence $|u_n|\\leq|u_N|\\,\\ell'^{\\,n-N}$ pour $n\\geq N$. La série géométrique $\\sum\\ell'^{\\,n}$ converge car $0<\\ell'<1$, donc par le TCSTP $\\sum|u_n|$ converge : la série converge absolument. Si $\\ell>1$, à partir d'un certain rang $\\left|\\frac{u_{n+1}}{u_n}\\right|>1$, donc $(|u_n|)$ est strictement croissante à partir de ce rang et à termes strictement positifs : elle ne tend pas vers $0$, et la série diverge grossièrement. (Si $\\ell=1$, on ne peut pas conclure : $\\sum\\frac1n$ diverge et $\\sum\\frac1{n^2}$ converge, avec un rapport tendant vers $1$ dans les deux cas.)"
+    },
+    {
+      "source": "16.3.2",
+      "nature": "demonstration",
+      "priorite": 1,
+      "question": "Soit $(a_n)$ une suite positive, décroissante, de limite nulle. Démontrez que la série alternée $\\sum(-1)^na_n$ converge.",
+      "reponse_attendue": "Notons $S_n=\\sum_{k=0}^{n}(-1)^ka_k$ et montrons que $(S_{2n})$ et $(S_{2n+1})$ sont adjacentes. $S_{2n+2}-S_{2n}=a_{2n+2}-a_{2n+1}\\leq0$ par décroissance de $(a_n)$ : $(S_{2n})$ est décroissante. $S_{2n+3}-S_{2n+1}=a_{2n+2}-a_{2n+3}\\geq0$ : $(S_{2n+1})$ est croissante. Enfin $S_{2n+1}-S_{2n}=-a_{2n+1}\\to0$. Les deux suites sont adjacentes, donc convergent vers une même limite $S$ ; les suites extraites d'indices pairs et impairs ayant la même limite, $(S_n)$ converge vers $S$ : la série converge."
+    },
+    {
+      "source": "16.5.3",
+      "nature": "demonstration",
+      "priorite": 2,
+      "question": "On note $e(z)=\\sum_{n=0}^{+\\infty}\\frac{z^n}{n!}$ pour $z\\in\\mathbb C$. Démontrez que $e(z+z')=e(z)e(z')$ pour tous $z,z'\\in\\mathbb C$.",
+      "reponse_attendue": "Les séries $\\sum\\frac{z^n}{n!}$ et $\\sum\\frac{z'^n}{n!}$ sont absolument convergentes, donc par le théorème du produit de Cauchy, $e(z)e(z')=\\sum_{n=0}^{+\\infty}c_n$ avec $c_n=\\sum_{k=0}^{n}\\frac{z^k}{k!}\\cdot\\frac{z'^{\\,n-k}}{(n-k)!}=\\frac{1}{n!}\\sum_{k=0}^{n}\\binom{n}{k}z^kz'^{\\,n-k}=\\frac{(z+z')^n}{n!}$ d'après la formule du binôme de Newton. Donc $e(z)e(z')=\\sum_{n=0}^{+\\infty}\\frac{(z+z')^n}{n!}=e(z+z')$."
+    },
+    {
+      "source": "16.1.4",
+      "nature": "applications",
+      "priorite": 2,
+      "question": "Soit $(u_n)_{n\\in\\mathbb N}$ une suite de réels ou de complexes. Montrez que la suite $(u_n)$ converge si et seulement si la série $\\sum(u_{n+1}-u_n)$ converge.",
+      "reponse_attendue": "Les sommes partielles sont télescopiques : $S_n=\\sum_{k=0}^{n}(u_{k+1}-u_k)=u_{n+1}-u_0$. Donc $(S_n)$ a une limite finie si et seulement si $(u_{n+1})$, c'est-à-dire $(u_n)$, converge. Dans ce cas, $\\sum_{n=0}^{+\\infty}(u_{n+1}-u_n)=\\lim_{n\\to+\\infty}u_n-u_0$."
+    },
+    {
+      "source": "16.1.8",
+      "nature": "applications",
+      "priorite": 2,
+      "question": "Étudiez la nature de la série $\\sum(-1)^n$ et le comportement de ses sommes partielles.",
+      "reponse_attendue": "Les sommes partielles $S_n=\\sum_{k=0}^{n}(-1)^k$ valent $1$ si $n$ est pair et $0$ si $n$ est impair : $(S_n)$ n'a pas de limite, donc la série diverge (grossièrement, puisque $(-1)^n$ ne tend pas vers $0$). Elle ne diverge pourtant ni vers $+\\infty$ ni vers $-\\infty$ : ses sommes partielles restent bornées. Toute série divergente ne diverge donc pas vers $\\pm\\infty$."
+    },
+    {
+      "source": "16.1.10",
+      "nature": "applications",
+      "priorite": 1,
+      "question": "Montrez que la série harmonique $\\sum_{n\\geq1}\\frac1n$ diverge.",
+      "reponse_attendue": "Par exemple par comparaison avec une intégrale : $t\\mapsto\\frac1t$ étant décroissante, pour tout $k\\geq1$, $\\frac1k\\geq\\int_k^{k+1}\\frac{dt}{t}$, donc $H_n=\\sum_{k=1}^{n}\\frac1k\\geq\\int_1^{n+1}\\frac{dt}{t}=\\ln(n+1)\\to+\\infty$. Les sommes partielles tendent vers $+\\infty$ : la série diverge, bien que son terme général tende vers $0$ (la divergence n'est pas grossière). Autre méthode acceptable : $H_{2n}-H_n=\\sum_{k=n+1}^{2n}\\frac1k\\geq n\\cdot\\frac1{2n}=\\frac12$, ce qui est incompatible avec la convergence de $(H_n)$."
+    },
+    {
+      "source": "16.2.6",
+      "nature": "applications",
+      "priorite": 2,
+      "question": "Soit $\\alpha\\in]0,1]$. Montrez que la série $\\sum_{n\\geq1}\\frac{(-1)^n}{n^\\alpha}$ converge, mais n'est pas absolument convergente.",
+      "reponse_attendue": "Elle n'est pas absolument convergente car $\\sum_{n\\geq1}\\frac1{n^\\alpha}$ est une série de Riemann avec $\\alpha\\leq1$, donc divergente. Pour la convergence, on montre que $(S_{2n})$ et $(S_{2n+1})$ sont adjacentes, où $S_n=\\sum_{k=1}^{n}\\frac{(-1)^k}{k^\\alpha}$ : $S_{2n+2}-S_{2n}=\\frac1{(2n+2)^\\alpha}-\\frac1{(2n+1)^\\alpha}\\leq0$, $S_{2n+3}-S_{2n+1}=\\frac1{(2n+2)^\\alpha}-\\frac1{(2n+3)^\\alpha}\\geq0$ et $S_{2n+1}-S_{2n}=-\\frac1{(2n+1)^\\alpha}\\to0$. Elles convergent donc vers une même limite, et $(S_n)$ converge (on peut aussi invoquer directement le TSCSA, $(\\frac1{n^\\alpha})$ étant positive, décroissante, de limite nulle). La série est donc semi-convergente."
+    },
+    {
+      "source": "16.2.11",
+      "nature": "applications",
+      "priorite": 2,
+      "question": "Pour $n\\geq2$, on pose $u_n=\\frac{(-1)^n}{\\sqrt n}$ et $v_n=\\frac{(-1)^n}{\\sqrt n+(-1)^n}$. Montrez que $u_n\\sim v_n$, que $\\sum u_n$ converge mais que $\\sum v_n$ diverge.",
+      "reponse_attendue": "$\\frac{v_n}{u_n}=\\frac{\\sqrt n}{\\sqrt n+(-1)^n}\\to1$, donc $u_n\\sim v_n$. La série $\\sum u_n$ converge par le TSCSA, car $\\left(\\frac1{\\sqrt n}\\right)$ est positive, décroissante, de limite nulle. Par ailleurs $v_n-u_n=(-1)^n\\frac{\\sqrt n-\\sqrt n-(-1)^n}{\\sqrt n(\\sqrt n+(-1)^n)}=-\\frac{1}{n+(-1)^n\\sqrt n}$ ; la série $\\sum(u_n-v_n)$ est à termes positifs et $u_n-v_n\\sim\\frac1n$, donc elle diverge par comparaison à la série harmonique. Ainsi $\\sum v_n=\\sum u_n-\\sum(u_n-v_n)$ diverge (somme d'une série convergente et d'une série divergente). Cela montre que le théorème de comparaison par équivalents exige des séries à termes positifs."
+    },
+    {
+      "source": "16.2.23",
+      "nature": "applications",
+      "priorite": 1,
+      "question": "Montrez à l'aide de la règle de d'Alembert que, pour tout $z\\in\\mathbb C$, la série $\\sum\\frac{z^n}{n!}$ converge absolument.",
+      "reponse_attendue": "Si $z=0$, le terme général est nul pour $n\\geq1$ et la série converge absolument. Si $z\\neq0$, $u_n=\\frac{z^n}{n!}\\neq0$ et $\\left|\\frac{u_{n+1}}{u_n}\\right|=\\frac{|z|}{n+1}\\to0$. Comme $0<1$, la règle de d'Alembert montre que $\\sum\\frac{z^n}{n!}$ converge absolument, sans utiliser la fonction exponentielle."
+    },
+    {
+      "source": "16.5.8",
+      "nature": "applications",
+      "priorite": 2,
+      "question": "Calculez $\\sum_{n=0}^{+\\infty}(n^3+1)\\frac{2^n}{n!}$.",
+      "reponse_attendue": "On décompose $n^3+1$ sur la base $1,\\ n,\\ n(n-1),\\ n(n-1)(n-2)$ : $n^3=n(n-1)(n-2)+3n(n-1)+n$, donc $n^3+1=n(n-1)(n-2)+3n(n-1)+n+1$. Pour $p\\in\\mathbb N$ et $x\\in\\mathbb R$, $\\sum_{n=0}^{+\\infty}n(n-1)\\cdots(n-p+1)\\frac{x^n}{n!}=\\sum_{n=p}^{+\\infty}\\frac{x^n}{(n-p)!}=x^pe^x$ (séries absolument convergentes, ce qui justifie la séparation par linéarité). Avec $x=2$ : la somme vaut $8e^2+3\\cdot4e^2+2e^2+e^2=23e^2$."
+    },
+    {
+      "source": "16.6.3",
+      "nature": "applications",
+      "priorite": 2,
+      "question": "Calculez $\\sum_{n=0}^{+\\infty}\\frac{n^2+n+2}{3^n}$.",
+      "reponse_attendue": "On décompose sur la base $1,\\ n+1,\\ (n+1)(n+2)$ : $n^2+n+2=(n+1)(n+2)-2(n+1)+2$. Par la formule du binôme négatif, pour $|x|<1$ : $\\sum_{n=0}^{+\\infty}x^n=\\frac1{1-x}$, $\\sum_{n=0}^{+\\infty}(n+1)x^n=\\frac1{(1-x)^2}$ et $\\sum_{n=0}^{+\\infty}(n+1)(n+2)x^n=\\frac2{(1-x)^3}$, toutes absolument convergentes. Avec $x=\\frac13$, $1-x=\\frac23$ : la somme vaut $2\\cdot\\frac{27}{8}-2\\cdot\\frac94+2\\cdot\\frac32=\\frac{27}4-\\frac92+3=\\frac{21}4$."
+    }
+  ]
+}

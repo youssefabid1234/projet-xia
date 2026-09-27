@@ -3,70 +3,66 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dialogue avec le tuteur · Mathématiques</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="csrf" content="{{ session.csrf }}">
+  <title>Colle de maths</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='colle.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.css" crossorigin="anonymous">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-  <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='colle.js') }}"></script>
 </head>
 <body>
-<main>
-  {% include "compte.html" %}
-  <header>
-    <p class="eyebrow">MATHÉMATIQUES · PRÉPA SCIENTIFIQUE</p>
-    <h1>Votre colle de prépa.</h1>
-    <p class="muted">Cours, démonstration, applications, puis exercices : le tuteur guide la progression.</p>
-    <a href="{{ url_for('index') }}">Ouvrir l’ancienne interface</a>
-  </header>
-  <p class="muted">Étape : {{ {"cours": "Questions de cours", "demonstration": "Démonstration", "applications": "Applications directes", "exercices": "Exercices du catalogue"}[etape] }}.</p>
-  <section class="card" aria-label="Discussion avec le tuteur" role="log">
-    <article class="chat-message assistant">
-      <h2>Tuteur</h2>
-      <p>Choisissez votre chapitre</p>
-      {% if not chapitre_selectionne %}
-      {% if chapitres %}
-      <form method="post">
-        <input type="hidden" name="csrf" value="{{ session.csrf }}">
-        <input type="hidden" name="tour" value="{{ session.tour }}">
-        <input type="hidden" name="action" value="chapitre">
-        {% for chapitre in chapitres %}
-        <button type="submit" name="chapitre" value="{{ loop.index0 }}">{{ chapitre }}</button>
-        {% endfor %}
-      </form>
-      {% else %}<p class="muted">La banque d’exercices est vide pour le moment.</p>{% endif %}
-      {% endif %}
-    </article>
-    {% for item in messages %}
-    <article class="chat-message {{ item.role }}" {% if loop.last %}id="last-message" tabindex="-1"{% endif %}>
-      <h2>{{ 'Vous' if item.role == 'user' else 'Tuteur' }}</h2>
-      <div class="math prose">{{ item.content }}</div>
-    </article>
-    {% endfor %}
-  </section>
-  <p id="math-warning" class="muted" hidden>Le rendu des formules est indisponible. Le texte reste lisible.</p>
-  {% if erreur %}<p class="error" role="alert">{{ erreur }}</p>{% endif %}
-  {% if chapitre_selectionne %}
-  <section class="card">
-    <form method="post" id="chat-form">
-      <input type="hidden" name="csrf" value="{{ session.csrf }}">
-      <input type="hidden" name="tour" value="{{ session.tour }}">
-      <label for="message">Votre message</label>
-      <p class="muted hint" id="chat-hint">Partagez votre raisonnement. Vous pouvez demander une correction à tout moment. Formules : $…$.</p>
-      <textarea id="message" name="message" rows="4" maxlength="12000" required aria-describedby="chat-hint" placeholder="Votre raisonnement…">{{ message }}</textarea>
-      <button type="submit" id="send-message">Envoyer</button>
-      <span id="chat-pending" role="status" hidden>Le tuteur réfléchit…</span>
-    </form>
-
-  </section>
-  {% endif %}
-  <form method="post">
+<header class="barre">
+  <a class="marque" href="{{ url_for('chat') }}">Colle <span>de maths</span></a>
+  <div id="minuteur" class="minuteur" hidden aria-live="off"><span id="minuteur-temps">--:--</span></div>
+  <form method="post" action="{{ url_for('auth.deconnexion') }}" class="compte">
+    <span class="doux">{{ session.utilisateur }}</span>
+    <a href="{{ url_for('index') }}" class="lien-discret">Interface classique</a>
     <input type="hidden" name="csrf" value="{{ session.csrf }}">
-    <input type="hidden" name="tour" value="{{ session.tour }}">
-    <button type="submit" name="action" value="nouvelle" class="secondary">Nouvelle discussion</button>
-    <p class="muted hint">Votre progression est conservée. La discussion reste disponible jusqu’au redémarrage du serveur.</p>
+    <button type="submit" class="bouton-discret">Se déconnecter</button>
   </form>
-  <footer>Un espace pour apprendre, à votre rythme.</footer>
+</header>
+
+<main class="salle">
+  <section id="accueil" class="accueil" hidden>
+    <p class="surtitre">Mathématiques · Prépa scientifique</p>
+    <h1>Passez une colle, comme au tableau.</h1>
+    <p class="doux">Le colleur vous interroge, vous fait chercher, donne des indices quand vous bloquez
+      et corrige si besoin. À la fin, vous recevez une note indicative et un bilan.</p>
+    <ol class="deroule">
+      <li><strong>Cours</strong> une définition et un énoncé de théorème</li>
+      <li><strong>Démonstration</strong> une preuve courte du cours</li>
+      <li><strong>Application</strong> un exemple du cours à traiter</li>
+      <li><strong>Exercices</strong> adaptés à votre niveau, jusqu'à la fin du temps</li>
+    </ol>
+    <div id="choix-chapitres" class="choix"></div>
+    <p class="doux petit" id="duree-annonce"></p>
+    <section id="anciennes" class="anciennes" hidden>
+      <h2>Vos dernières colles</h2>
+      <div id="anciennes-liste"></div>
+    </section>
+  </section>
+
+  <section id="colle" class="colle" hidden>
+    <ol id="etapes" class="etapes" aria-label="Étapes de la colle"></ol>
+    <div id="fil" class="fil" role="log" aria-live="polite" aria-label="Dialogue avec le colleur"></div>
+    <p id="alerte" class="alerte" role="alert" hidden></p>
+    <form id="saisie" class="saisie" autocomplete="off">
+      <label for="message" class="sr">Votre réponse</label>
+      <textarea id="message" rows="3" maxlength="6000" placeholder="Votre réponse, comme au tableau… (formules entre $…$)"></textarea>
+      <div id="apercu" class="apercu" hidden aria-label="Aperçu des formules"></div>
+      <div class="actions">
+        <span class="doux petit">Entrée pour envoyer · Maj+Entrée pour aller à la ligne</span>
+        <button type="button" id="terminer" class="bouton-secondaire">Terminer la colle</button>
+        <button type="submit" id="envoyer">Envoyer</button>
+      </div>
+    </form>
+    <div id="fin" class="fin" hidden>
+      <button type="button" id="nouvelle">Nouvelle colle</button>
+    </div>
+  </section>
+  <p id="math-warning" class="doux petit" hidden>Le rendu des formules est indisponible (connexion au CDN KaTeX) : le texte reste lisible.</p>
 </main>
+<script type="application/json" id="donnees">{{ donnees|tojson }}</script>
 </body>
 </html>

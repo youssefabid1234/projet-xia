@@ -1,20 +1,19 @@
-# Agent tuteur pour la prépa scientifique
+# Colle de maths : simulateur de khôlle pour la prépa scientifique
 
-Projet Python d’agent tuteur destiné aux élèves de classes préparatoires scientifiques.
-Il vise à accompagner les élèves dans la compréhension des cours et la résolution d’exercices.
+Application web qui fait passer une colle orale de mathématiques : le colleur
+interroge l’élève sur le cours, lui fait démontrer un résultat, puis lui donne
+des exercices adaptés à son niveau. Il fait chercher, donne des indices gradués,
+corrige si besoin et termine par une note indicative sur 20 et un bilan.
 
-- `methods/` : méthodes Pipelex.
-- `app/` : profil élève, tuteur en terminal et interface web.
-- `.env.example` : variables d’environnement à renseigner dans un fichier `.env` local.
+- `app/` : moteur de colle, colleur (LLM), évaluation, profils, interface web, tuteur en terminal.
+- `methods/` : méthodes Pipelex (évaluation d’une réponse, ancienne décision de progression).
+- `data/` : cours indexé, banque de questions de cours, catalogue d’exercices et leur vérification.
+- `scripts/` : extraction et indexation du cours, préparation des données, simulation en terminal.
 
 ## Installation sur Windows
 
-Prérequis : Git et Python **3.12 64 bits**, avec le lanceur `py`, ainsi que des
-clés API OpenAI et Pipelex pour utiliser toutes les fonctions du tuteur.
-Une connexion Internet est nécessaire pour installer les dépendances et appeler
-les API.
-
-Dans PowerShell, cloner le dépôt puis créer un environnement Python isolé :
+Prérequis : Git et Python **3.12 64 bits** avec le lanceur `py`, une clé API
+OpenAI (indispensable) et une clé Pipelex (interface classique et mode d’évaluation Pipelex).
 
 ```powershell
 git clone https://github.com/youssefabid1234/projet-xia.git
@@ -22,186 +21,162 @@ cd projet-xia
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --upgrade pip
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m pip check
 ```
-
-Le `requirements.txt` racine regroupe les dépendances de l'application web,
-du tuteur en terminal, des scripts d'extraction et d'indexation des cours et des
-tests hors ligne. Il réutilise les listes de `app/web/requirements.txt` et de
-`scripts/requirements-cours.txt` ; pip installe aussi leurs dépendances transitives.
-Les commandes appellent directement le Python de `.venv` : aucune activation ni
-modification de la politique d'exécution PowerShell n'est nécessaire.
 
 ### Configuration
 
-Dans la même fenêtre PowerShell, remplacer les valeurs ci-dessous par vos clés :
+Copier `.env.example` en `.env` à la racine et y renseigner les clés. Le fichier
+`.env` est **chargé automatiquement** au lancement (les variables déjà définies
+dans l’environnement restent prioritaires). Il est ignoré par Git : ne jamais
+mettre de vraie clé dans `.env.example`, qui est versionné.
 
-```powershell
-$env:PIPELEX_API_KEY = "votre-cle"
-$env:OPENAI_API_KEY = "votre-cle-openai"
-# Facultatif : modèle du dialogue et de la vérification des tentatives.
-$env:OPENAI_MODEL = "gpt-4.1-mini"
-# Remplacer par une valeur secrète personnelle et conserver la même aux relancements.
-$env:FLASK_SECRET_KEY = "remplacer-par-une-longue-valeur-secrete-aleatoire"
-```
+| Variable | Rôle |
+|---|---|
+| `OPENAI_API_KEY` | Colleur, analyse des messages, évaluation locale, recherche dans le cours. |
+| `PIPELEX_API_KEY` | Interface classique, tuteur en terminal, mode `COLLE_EVALUATEUR=pipelex`. |
+| `OPENAI_MODEL` | Modèle utilisé (défaut `gpt-4.1-mini`). |
+| `FLASK_SECRET_KEY` | Valeur secrète stable pour garder les sessions après un redémarrage. |
+| `COLLE_EVALUATEUR` | `local` (défaut) ou `pipelex` : voir « Évaluation » ci-dessous. |
+| `COLLE_DUREE_MINUTES` | Durée d’une colle (défaut 30). |
 
-Ces variables sont valables pour la fenêtre PowerShell courante ; les redéfinir
-dans chaque nouvelle fenêtre avant de lancer le serveur. `.env.example` sert
-de modèle, mais l'application **ne charge pas automatiquement de fichier `.env`**.
-Ne pas publier vos clés dans le dépôt.
-
-Les exercices et l'index du cours sont fournis dans `data/` : aucune extraction
-PDF ni génération d'embeddings n'est nécessaire pour démarrer.
-
-## Lancement sur Windows
-
-Depuis la racine du projet, dans la fenêtre PowerShell configurée ci-dessus :
+## Lancement
 
 ```powershell
 .\.venv\Scripts\python.exe -m app.web
 ```
 
-Ouvrir http://127.0.0.1:5000, créer un compte avec le formulaire d'inscription,
-puis se connecter pour discuter en français avec le tuteur.
-Arrêter le serveur avec `Ctrl+C`. Pour le relancer, reprendre la configuration
-des variables si nécessaire puis la commande ci-dessus ; inutile de réinstaller
-les dépendances à chaque lancement. Ce serveur local utilise le port 5000 ;
-si ce port est occupé, arrêter l'autre serveur avant de relancer l'application.
+Ouvrir http://127.0.0.1:5000, créer un compte, puis cliquer sur « Commencer ».
+Au démarrage, le serveur préchauffe les connexions OpenAI en arrière-plan
+(5 à 15 s dans un processus neuf) : le premier élève n’attend donc pas.
+Un seul processus serveur à la fois (stockage JSON local, port 5000).
 
-Pour utiliser le tuteur en terminal (clé Pipelex requise) :
+Autres points d’entrée :
 
 ```powershell
+# Colle en terminal, avec mesure de la latence de chaque tour (profil temporaire).
+.\.venv\Scripts\python.exe -m scripts.simuler_colle
+# Tuteur minimal en terminal, par l'API Pipelex.
 .\.venv\Scripts\python.exe -m app.tuteur
 ```
 
+Dans `simuler_colle`, `/juste` envoie la réponse attendue (pour parcourir toute
+la colle rapidement) et `/bilan` termine la colle.
+
+## Déroulé d’une colle
+
+1. **Cours** : une définition, puis un énoncé de théorème.
+2. **Démonstration** : la preuve courte d’un résultat du cours.
+3. **Application** : un exemple du cours à traiter.
+4. **Exercices** du catalogue, jusqu’à la fin du temps.
+
+Règles, appliquées par le serveur (`app/colle.py`) et non par le modèle :
+
+- une réponse juste clôt la question ; la suivante s’affiche aussitôt ;
+- une erreur est signalée sans donner la réponse et l’élève doit corriger ;
+- les indices sont gradués ; le colleur donne la correction sur demande, ou
+  après 3 indices, ou après 3 réponses fausses ou incomplètes (en exercice :
+  4 indices ou 4 erreurs, une réponse partielle sans erreur n’étant qu’une étape) ;
+- une question corrigée est remplacée par une autre de même nature : on ne passe
+  pas à l’étape suivante sans acquisition ; après 3 questions corrigées sur une
+  étape, le colleur avance et le bilan le signale ;
+- une demande de saut d’étape est refusée ; en exercice, elle vaut demande de correction ;
+- les questions réussies (profil) ne sont jamais reposées, même dans une colle ultérieure ;
+- aux exercices, une réussite autonome vise une difficulté supérieure, une
+  correction donnée une difficulté inférieure ; le niveau du profil évolue comme avant.
+
+La colle en cours est sauvegardée après chaque tour (`data/profils/<élève>.colle.json`)
+et reprend après un rechargement de la page ou un redémarrage du serveur. Le
+bilan est archivé dans le profil (`colles`) et affiché sur la page d’accueil.
+
+## Fonctionnement d’un tour
+
+Pour chaque message de l’élève (`app/examinateur.py`) :
+
+1. **en parallèle**, un appel court classe l’intention (réponse, demande d’indice,
+   blocage, demande de correction, question de cours, demande de saut, hors sujet)
+   et l’évaluateur compare la réponse à la référence ; l’évaluation est abandonnée
+   si le message n’est pas une réponse ;
+2. le serveur décide de l’action (valider, signaler l’erreur, indice, correction…) ;
+3. le colleur formule sa réaction, **diffusée mot à mot** (flux NDJSON) ; si la
+   question est close, le serveur affiche lui-même la question suivante.
+
+La référence (réponse attendue ou corrigé) est donnée au colleur en consigne
+privée et ne doit être dévoilée qu’au moment de la correction. Pour une question
+de cours posée par l’élève, le colleur interroge l’index du cours (embeddings +
+BM25, `app/cours.py`) et cite la source (« Théorème 16.2.4, page PDF 143 ») ;
+tout complément absent des extraits est précédé de « Hors du cours extrait : ».
+
+Latence mesurée (gpt-4.1-mini, serveur préchauffé) : **1 à 4 s avant le premier
+mot affiché**, 1,5 à 4,5 s pour le tour complet. L’ancien agent mettait environ
+47 s par tour et échouait à chaque réponse d’élève (voir « Historique »).
+
+## Données
+
+- `data/questions_cours.json` : 50 questions de cours (12 définitions, 20 théorèmes,
+  10 démonstrations, 8 applications) avec leur réponse attendue en LaTeX, vérifiée
+  sur les pages du PDF. Chaque question renvoie à un passage de `data/cours_index.json`.
+  Priorité 1 = grand classique de colle, posé en premier.
+- `data/exercices.json` : catalogue brut extrait du PDF (non modifié).
+- `data/enonces_verifies.json` : pour chaque exercice, résultat de la vérification
+  privée (`app/enonces.py`) : énoncé et corrigé retranscrits en LaTeX propre, ou
+  exercice écarté si une formule reste ambiguë. 20 exercices de séries sur 31 sont
+  exploitables. Le cache est invalidé si le texte du catalogue change ; un
+  exercice absent du cache est vérifié à la volée au moment de le proposer.
+
+```powershell
+# Vérifier d'avance les exercices (un appel OpenAI par exercice non encore vérifié).
+.\.venv\Scripts\python.exe -m scripts.verifier_enonces --chapitre 17
+# Retenter les exercices écartés avec un modèle plus fort.
+.\.venv\Scripts\python.exe -m scripts.verifier_enonces --ecartes --modele gpt-4.1
+```
+
+Seul le chapitre des séries a un cours indexé et une banque de questions
+(`app/chapitres.py`, dictionnaire `COLLES`). Pour ouvrir un autre chapitre :
+indexer son cours (voir [scripts/COURS.md](scripts/COURS.md)), écrire sa banque de
+questions au même format, vérifier ses exercices, puis l’ajouter à `COLLES`.
+
+## Évaluation
+
+La méthode `methods/evaluation_maths_prepa/main.mthds` reste la seule source des
+consignes de correction. Elle s’exécute de deux façons (`app/evaluation.py`) :
+
+- `COLLE_EVALUATEUR=local` (défaut) : le système, le prompt et le schéma de sortie
+  sont lus dans le fichier `.mthds` et envoyés directement à OpenAI en sortie
+  structurée : 1 à 3 s ;
+- `COLLE_EVALUATEUR=pipelex` : exécution par l’API Pipelex hébergée, 7 à 22 s par
+  réponse mesurées, quel que soit le modèle choisi. Dans ce mode, l’évaluation
+  n’est lancée qu’après l’analyse du message, pour ne pas payer une évaluation
+  Pipelex sur une demande d’indice.
+
+L’interface classique (`/classique`) et le tuteur en terminal utilisent toujours
+l’API Pipelex. Le client Pipelex est désormais partagé entre les requêtes et
+interrogé toutes les 0,5 s au lieu de 2 s.
+
+La méthode `methods/progression_colle` n’est plus appelée pendant la colle : sa
+décision (15 à 26 s mesurées) était de toute façon contrainte par le serveur, et
+les règles sont maintenant explicites dans `app/colle.py`. Elle et ses types
+générés (`app/generated/progression_colle`) sont conservés.
+
 ## Interface web
 
-Choisir un chapitre pour une colle : questions de cours (définitions et théorèmes),
-démonstration courte, applications des exemples, puis exercices du catalogue.
-L’agent pilote les étapes et refuse de passer à la suite tant que l’acquisition
-n’est pas établie. Il questionne face au blocage, demande de justifier la méthode
-et exige la reformulation d’une erreur avant de poursuivre.
+`app/web/` : Flask, API JSON (`/api/colle`, `/api/message`, `/api/bilan`,
+`/api/nouvelle`, `/api/etat`) et page unique (`templates/chat.html`,
+`static/colle.js`, `static/colle.css`). Les requêtes Flask déposent leur travail
+sur une boucle asyncio partagée (`app/services.py`) qui garde les clients OpenAI
+et Pipelex ouverts ; un seul tour à la fois par élève, sans bloquer les autres.
+Les formules sont rendues par [KaTeX](https://katex.org/docs/autorender) (CDN),
+y compris en aperçu pendant la saisie. Thèmes clair et sombre, affichage mobile.
 
-Pour les tâches de cours, démonstration et application, le serveur évalue chaque
-message avant la réponse du tuteur, sans attendre un signal du modèle. Une réponse
-correcte clôt la tâche et enregistre `acquise: true` dans le profil, indépendamment
-du modèle de progression. L'identifiant du passage et la nature de la tâche
-empêchent de la reposer, y compris après déconnexion ou redémarrage. Le serveur
-reconstitue l'étape depuis ces acquis et impose l'enregistrement de chaque
-nouvelle question avant son affichage.
+Les comptes sont dans `data/utilisateurs.json` (mots de passe hachés par
+Werkzeug), les profils dans `data/profils/<identifiant>.json` ; ces données sont
+ignorées par Git. L’ancienne interface d’exercices reste sur `/classique`.
 
-Pour les exercices du catalogue, la correction se déclenche quand le travail semble terminé, après deux tours de
-blocage, à partir du troisième indice donné, ou sur demande dans le dialogue
-(même sans tentative). Le bouton de correction a été supprimé du chat.
-Les demandes d’aide ne comptent pas comme tentatives ; un blocage durable peut
-néanmoins faire l’objet d’une évaluation incomplète.
+## Tests
 
-Le cours actuellement indexé couvre les séries numériques, reliées explicitement
-au chapitre « 17 — Série de réels ou de complexes » du catalogue. Les autres
-chapitres nécessitent un cours indexé pour mener la colle complète ; l’agent
-signale ce manque et ne saute pas directement aux exercices.
-
-L’ancienne interface reste accessible sur http://127.0.0.1:5000/classique,
-avec le même formulaire, les mêmes corrections et la même progression.
-Le tuteur en terminal (`python -m app.tuteur`) reste également disponible.
-
-L’interface Flask se trouve dans `app/web/`. L’agent dans `app/agent.py` utilise
-l’API Responses OpenAI et les outils de recherche, de préparation de tâche,
-d’observation du tour, d’évaluation et de sélection d’exercice.
-`app/colle.py` contrôle les transitions côté serveur. Une observation est imposée
-au modèle à chaque nouveau message sur une tâche active. La classification des
-signaux et le jugement pédagogique restent probabilistes.
-La recherche utilise les 80 passages de séries numériques dans
-`data/cours_index.json` et renvoie leurs pages sources. Elle combine embeddings
-OpenAI et recherche lexicale ; voir [les commandes et tests du cours](scripts/COURS.md).
-Les instructions du tuteur imposent cette recherche avant toute réponse sur une
-notion, définition, méthode ou théorème, avec citation du passage et de sa page PDF.
-Tout complément absent des extraits doit porter la mention « Hors du cours extrait : ».
-Avant chaque proposition dans le chat, `app/enonces.py` vérifie l'énoncé avec le
-corrigé du catalogue dans un appel OpenAI privé. Il remet les formules en LaTeX
-uniquement si leur lecture est certaine ; sinon l'agent passe silencieusement au
-candidat suivant, selon le même ordre de niveau. La vérification par modèle reste
-probabiliste, avec consigne de refuser au moindre doute.
-Les exercices écartés restent exclus pour cette conversation sans être comptés
-comme vus. Le catalogue n'est pas modifié et le corrigé n'entre pas dans
-l'historique du dialogue. Une panne de vérification laisse le candidat réessayable.
-L'énoncé validé est conservé dans l'exercice actif : la correction utilise ce
-texte exact et ne relance jamais la vérification ou la reconstruction.
-Cette préparation consomme un appel OpenAI par candidat examiné.
-Le choix et la lecture du niveau utilisent `app/profil.py`, l’évaluation réutilise
-la méthode existante via `app/evaluation.py`. Le function calling suit la
-[documentation officielle OpenAI](https://developers.openai.com/api/docs/guides/function-calling).
-L'évaluation reçoit `enonce`, `reponse_eleve` et le champ `corrige` du catalogue
-(ou le passage source du cours pour les trois premières étapes),
-réservé aux appels privés de vérification et d'évaluation. Elle compare la copie à ce corrigé vérifié ; elle ne
-reconstruit plus de référence. Un corrigé absent ou vide bloque l'appel ; une
-ambiguïté empêchant la comparaison doit produire `indeterminable`.
-L’évaluation porte sur les interventions réelles de l’élève dans la tâche, en
-tenant compte de ses rectifications. Le modèle ne fournit pas de copie réécrite
-à l’évaluateur.
-
-Le profil conserve chaque tâche sous `taches` : énoncé, étape, source, demandes
-d’indices, indices donnés, tentatives, rappels de cours, intuition initiale,
-types d’erreur, notions, évaluations successives et décision. Les anciens profils
-restent compatibles. Les tâches de cours ne sont pas ajoutées aux exercices vus.
-
-`methods/progression_colle/main.mthds` reçoit ces signaux et l’historique du
-chapitre, puis décide `avancer`, `approfondir`, `revenir_au_cours` ou
-`changer_exercice`, avec un jugement d’acquisition et une justification.
-Le serveur exige au minimum une définition et un théorème acquis dans le profil
-avant la démonstration. Pour le cours, une nouvelle réponse évaluée correcte
-valide directement l'acquisition. Pour le catalogue, il refuse une avance sans
-réponse correcte et acquisition, et bloque toute transition tant qu'une erreur
-reste à reformuler. Une réussite au catalogue
-cible une difficulté supérieure ; un changement pour blocage cible plus facile,
-avec repli sur le niveau disponible le plus proche.
-Si la décision Pipelex échoue, la correction reste disponible et l’étape est conservée.
-Cette décision n'est pas appelée pour valider une réponse de cours correcte.
-
-Les types Python générés sont dans `app/generated/progression_colle` (ne pas les
-modifier à la main). Après une modification de la méthode, les régénérer avec
-Pipelex puis vérifier leur cohérence depuis la racine :
+Tests hors ligne (services simulés par `app/faux.py`, aucun crédit consommé) :
 
 ```powershell
-.venv/Scripts/python.exe scripts/codegen_check.py app/generated/progression_colle
-```
-
-Exemple d’entrée de la méthode de progression :
-
-```json
-{"performance":{"etape":"cours","indices_demandes":1,"indices_donnes":1,"tentatives":2,"rappels_cours":0,"intuition_initiale":"pertinente","type_erreur":"aucune","notions":["convergence"],"verdict":"correcte","erreur_reformulee":false,"historique":"[]"}}
-```
-
-Chaque échange consomme du crédit OpenAI ; chaque évaluation et décision de
-progression consomme aussi du crédit Pipelex. Les clés restent côté serveur ; le fichier
-`.env` n’est pas chargé automatiquement. Sans clé OpenAI, l’ancienne interface
-reste utilisable avec la clé Pipelex seule.
-
-Les conversations sont isolées par session de navigateur et conservées en mémoire
-(au plus 100 discussions, 60 échanges par discussion). Un redémarrage les efface.
-« Nouvelle discussion » efface le dialogue courant, sans effacer le profil.
-
-L’interface web demande une inscription ou une connexion. Les comptes sont dans
-`data/utilisateurs.json`, avec des mots de passe hachés par Werkzeug. Chaque élève
-a son profil dans `data/profils/<identifiant>.json`. Ces données sont ignorées par Git.
-La session Flask conserve la connexion ; « Se déconnecter » la termine.
-Définir `FLASK_SECRET_KEY` avec une valeur secrète stable pour conserver les sessions
-au redémarrage (sinon une clé aléatoire est créée à chaque lancement).
-Utiliser un seul processus serveur pour ce stockage JSON local.
-Le tuteur en terminal conserve son fichier `data/profil.json` indépendant.
-Le profil web est sauvegardé à chaque tâche, observation et correction
-valide ; les exercices déjà traités ne sont plus proposés. Dans le chat,
-retravailler un exercice déjà enregistré ne modifie pas à nouveau le niveau.
-
-Les formules des énoncés et explications sont rendues avec
-[KaTeX auto-render](https://katex.org/docs/autorender), chargé depuis un CDN
-(connexion Internet nécessaire). Les délimiteurs `$…$`, `$$…$$`, `\(…\)`
-et `\[…\]` sont pris en charge. Le texte reste lisible si le CDN est inaccessible.
-
-Tests hors ligne, avec Pipelex simulé et un profil temporaire :
-
-```powershell
-.venv/Scripts/python.exe -m unittest app.test_colle app.test_agent app.test_enonces app.test_evaluation app.test_cours app.web.test_web app.web.test_chat app.web.test_auth scripts.test_lister_formules_coupees
+.venv/Scripts/python.exe -m unittest app.test_colle app.test_examinateur app.test_enonces app.test_evaluation app.test_cours app.test_chapitres app.web.test_web app.web.test_chat app.web.test_auth scripts.test_lister_formules_coupees
 ```
 
 ## Repérer les formules coupées dans les énoncés
@@ -211,7 +186,20 @@ python scripts/lister_formules_coupees.py --sortie data/enonces_a_verifier.md
 ```
 
 Le rapport contient les identifiants, pages sources, lignes suspectes et énoncés
-complets numérotés. Le script ne modifie pas `data/exercices.json` : corriger son
-champ `enonce` à la main en consultant le PDF. La détection est heuristique et peut
-signaler une formule multiligne valide. Ajouter `--tous-multilignes` pour inclure
-tous les énoncés multilignes, ou `--format json` pour un rapport exploitable en code.
+complets numérotés. Le script ne modifie pas `data/exercices.json`. La détection
+est heuristique. Ajouter `--tous-multilignes` pour inclure tous les énoncés
+multilignes, ou `--format json` pour un rapport exploitable en code.
+
+## Historique : pourquoi le moteur a été refait
+
+Mesures faites sur l’ancien agent (`app/agent.py`, supprimé), avec les vraies API :
+
+- l’outil `observer_tour` déclarait ses indicateurs comme texte libre ; le modèle
+  y écrivait la phrase de l’élève au lieu de « oui »/« non », le serveur refusait,
+  le modèle réessayait six fois puis le tour échouait : **toute réponse d’élève
+  sur une question de cours finissait en erreur 502** ;
+- chaque réponse enchaînait une évaluation Pipelex (8 à 19 s) puis une décision
+  Pipelex (15 à 26 s), plus plusieurs appels OpenAI : environ 47 s par tour ;
+- un verrou global sérialisait tous les élèves pendant ces appels ;
+- un message renvoyé après une erreur était enregistré et évalué deux fois ;
+- chaque énoncé d’exercice était revérifié par un appel OpenAI à chaque proposition.

@@ -6,7 +6,7 @@ import secrets
 from pathlib import Path
 from threading import Lock
 
-from flask import Blueprint, current_app, g, redirect, render_template, request, session, url_for
+from flask import Blueprint, current_app, g, jsonify, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.profil import Profil
@@ -41,6 +41,8 @@ def authentifier():
                 g.profil_path = Path(current_app.config["PROFILS_DIR"]) / f"{identifiant}.json"
     if g.profil_path is None:
         session.pop("utilisateur", None)
+        if request.path.startswith("/api/"):
+            return jsonify(erreur="Session expirée : reconnectez-vous."), 401
         if request.endpoint not in ("auth.connexion", "auth.inscription", None):
             return redirect(url_for("auth.connexion"))
 

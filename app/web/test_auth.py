@@ -41,11 +41,14 @@ class AuthTests(unittest.TestCase):
         return client.post("/deconnexion", data={"csrf": self.csrf(client)})
 
     def test_protection(self):
-        for route in ("/", "/classique"):
-            for method in (self.client.get, self.client.post):
-                response = method(route)
-                self.assertEqual(response.status_code, 302)
-                self.assertTrue(response.location.endswith("/connexion"))
+        for method, route in ((self.client.get, "/"), (self.client.get, "/classique"),
+                              (self.client.post, "/classique")):
+            response = method(route)
+            self.assertEqual(response.status_code, 302)
+            self.assertTrue(response.location.endswith("/connexion"))
+        for method, route in ((self.client.get, "/api/etat"), (self.client.post, "/api/colle"),
+                              (self.client.post, "/api/message"), (self.client.post, "/api/bilan")):
+            self.assertEqual(method(route).status_code, 401)
 
     def test_inscription_hachage_connexion_et_deconnexion(self):
         self.assertEqual(self.compte(self.client, "Alice").status_code, 302)

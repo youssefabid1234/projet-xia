@@ -29,6 +29,7 @@ class Profil:
         self.exercices_vus = []
         self.historique = []
         self.taches = {}
+        self.colles = []
 
     def niveau(self, chapitre):
         return self.niveaux.get(chapitre, NIVEAU_DEPART)
@@ -64,6 +65,7 @@ class Profil:
             "exercices_vus": self.exercices_vus,
             "historique": self.historique,
             "taches": self.taches,
+            "colles": self.colles,
         }
 
     @classmethod
@@ -73,13 +75,16 @@ class Profil:
         profil.exercices_vus = donnees.get("exercices_vus", [])
         profil.historique = donnees.get("historique", [])
         profil.taches = donnees.get("taches", {})
+        profil.colles = donnees.get("colles", [])
         return profil
 
     def sauvegarder(self, chemin):
-        Path(chemin).write_text(
-            json.dumps(self.to_dict(), ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
+        # Écriture atomique : un arrêt pendant la sauvegarde ne corrompt pas le profil.
+        chemin = Path(chemin)
+        chemin.parent.mkdir(parents=True, exist_ok=True)
+        temporaire = chemin.with_suffix(chemin.suffix + ".tmp")
+        temporaire.write_text(json.dumps(self.to_dict(), ensure_ascii=False, indent=2), encoding="utf-8")
+        temporaire.replace(chemin)
 
     @classmethod
     def charger(cls, chemin, nom_defaut="eleve"):

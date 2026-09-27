@@ -1,14 +1,16 @@
 """Tests du vérificateur privé, sans appel payant."""
 
 import json
+import tempfile
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import AsyncMock
 
 import httpx
 from openai import APIConnectionError, AsyncOpenAI
 
-from app.enonces import verifier_enonce
+from app.enonces import CacheEnonces, verifier_enonce, verifier_exercice
 
 
 class EnoncesTests(unittest.IsolatedAsyncioTestCase):
@@ -34,7 +36,7 @@ class EnoncesTests(unittest.IsolatedAsyncioTestCase):
                 "status": "completed", "model": corps["model"],
                 "output": [{"type": "message", "id": "m1", "role": "assistant", "status": "completed",
                             "content": [{"type": "output_text", "annotations": [], "text": json.dumps(
-                                {"exploitable": True, "enonce": propre})}]}]})
+                                {"exploitable": True, "enonce": propre, "corrige": "Corrigé propre"})}]}]})
 
         async with AsyncOpenAI(api_key="test", http_client=httpx.AsyncClient(
                 transport=httpx.MockTransport(transport))) as client:
@@ -42,7 +44,7 @@ class EnoncesTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(len(requetes), 1)
 
     async def test_ambiguite_retourne_none(self):
-        client = self.client('{"exploitable": false, "enonce": ""}')
+        client = self.client('{"exploitable": false, "enonce": "", "corrige": ""}')
         self.assertIsNone(await verifier_enonce("X\nun", "Corrigé ambigu", client))
 
     async def test_absence_source_ne_declenche_pas_api(self):
@@ -52,16 +54,49 @@ class EnoncesTests(unittest.IsolatedAsyncioTestCase):
             client.responses.create.assert_not_awaited()
 
     async def test_sorties_invalides_ne_sont_pas_des_rejets_pedagogiques(self):
-        for contenu in ("", "pas du JSON", "[]", '{"exploitable": "true", "enonce": "x"}',
-                        '{"exploitable": true, "enonce": " "}', '{"exploitable": false, "enonce": "x"}'):
+        for contenu in ("", "pas du JSON", "[]", '{"exploitable": "true", "enonce": "x", "corrige": "y"}',
+                        '{"exploitable": true, "enonce": "x"}',
+                        '{"exploitable": true, "enonce": " ", "corrige": "y"}',
+                        '{"exploitable": true, "enonce": "x", "corrige": ""}',
+                        '{"exploitable": false, "enonce": "x", "corrige": ""}'):
             with self.subTest(contenu=contenu), self.assertRaises(ValueError):
                 await verifier_enonce("énoncé", "corrigé", self.client(contenu))
         with self.assertRaises(ValueError):
             await verifier_enonce("énoncé", "corrigé", self.client(
-                '{"exploitable": true, "enonce": "x"}', status="incomplete"))
+                '{"exploitable": true, "enonce": "x", "corrige": "y"}', status="incomplete"))
 
     async def test_panne_reseau_ne_retourne_pas_un_enonce_non_verifie(self):
         client = self.client("")
         client.responses.create.side_effect = APIConnectionError(request=httpx.Request("POST", "https://example.test"))
         with self.assertRaisesRegex(ValueError, "temporairement indisponible"):
             await verifier_enonce("énoncé", "corrigé", client)
+
+    async def test_cache_une_seule_verification_par_exercice(self):
+        with tempfile.TemporaryDirectory() as dossier:
+            cache = CacheEnonces(Path(dossier) / "cache.json")
+            exercice = {"id": "17.1", "enonce": "X\nun", "corrige": "corrigé"}
+            client = self.client(json.dumps({"exploitable": True, "enonce": r"$\sum u_n$", "corrige": "Propre"}))
+            attendu = {"enonce": r"$\sum u_n$", "corrige": "Propre"}
+            self.assertEqual(await cache.exercice_verifie(exercice, client), attendu)
+            self.assertEqual(await CacheEnonces(cache.chemin).exercice_verifie(exercice, client), attendu)
+            client.responses.create.assert_awaited_once()
+            # Un exercice ambigu reste écarté sans nouvel appel.
+            rejete = {"id": "17.2", "enonce": "X", "corrige": "c"}
+            refus = self.client('{"exploitable": false, "enonce": "", "corrige": ""}')
+            self.assertIsNone(await cache.exercice_verifie(rejete, refus))
+            self.assertEqual(cache.lire(rejete), (True, None))
+            # Un texte modifié invalide l'entrée.
+            self.assertEqual(cache.lire({**exercice, "enonce": "autre"}), (False, None))
+
+    async def test_panne_non_mise_en_cache(self):
+        with tempfile.TemporaryDirectory() as dossier:
+            cache = CacheEnonces(Path(dossier) / "cache.json")
+            client = self.client("")
+            client.responses.create.side_effect = APIConnectionError(request=httpx.Request("POST", "https://example.test"))
+            with self.assertRaises(ValueError):
+                await cache.exercice_verifie({"id": "a", "enonce": "e", "corrige": "c"}, client)
+            self.assertFalse(cache.chemin.exists())
+
+    async def test_verifier_exercice_renvoie_enonce_et_corrige(self):
+        client = self.client('{"exploitable": true, "enonce": "E", "corrige": "C"}')
+        self.assertEqual(await verifier_exercice("e", "c", client), {"enonce": "E", "corrige": "C"})
