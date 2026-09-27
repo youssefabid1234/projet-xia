@@ -27,14 +27,26 @@
     #eval-outils.visible { display: flex; }
     main { flex: 1; position: relative; min-height: 0; }
     canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; background: #fff; cursor: crosshair; }
+    canvas.gomme { cursor: none; }
+    .modes { display: inline-flex; }
+    .mode { min-height: 52px; min-width: 110px; font-size: 1.15rem; font-weight: 600; }
+    .mode + .mode { margin-left: -1px; }
+    .mode:first-child { border-radius: 8px 0 0 8px; }
+    .mode:last-child { border-radius: 0 8px 8px 0; }
+    .mode[aria-pressed="true"], .mode[aria-pressed="true"]:active { background: var(--encre); border-color: var(--encre); color: #fff; }
+    #curseur-gomme { position: absolute; left: 0; top: 0; width: 40px; height: 40px; margin: -20px 0 0 -20px; border: 2px solid var(--doux); border-radius: 50%; background: rgba(255, 255, 255, 0.4); pointer-events: none; display: none; }
   </style>
 </head>
 <body>
   <header>
     <p id="enonce">Chargement de l'énoncé…</p>
     <div class="outils">
-      <button id="effacer" type="button">Effacer</button>
+      <span class="modes" role="group" aria-label="Outil">
+        <button id="stylo" class="mode" type="button" aria-pressed="true">Stylo</button>
+        <button id="gomme" class="mode" type="button" aria-pressed="false">Gomme</button>
+      </span>
       <button id="annuler" type="button">Annuler le trait</button>
+      <button id="effacer" type="button">Tout effacer</button>
       <label class="bouton">Photo<input id="photo" type="file" accept="image/*" capture="environment"></label>
       <button id="eval-bascule" type="button" aria-pressed="false">éval</button>
       <span id="eval-outils">
@@ -44,20 +56,24 @@
       <span id="statut" role="status"></span>
     </div>
   </header>
-  <main><canvas id="tableau"></canvas></main>
+  <main><canvas id="tableau"></canvas><div id="curseur-gomme"></div></main>
 
   <script>
     const ATTENTE_MS = 1500;
     const LARGEUR_MAX = 1400;
     const MARGE = 24;
     const EPAISSEUR = 3;
+    const RAYON_GOMME = 20;
 
     const canvas = document.getElementById("tableau");
     const ctx = canvas.getContext("2d");
     const statut = document.getElementById("statut");
+    const curseur = document.getElementById("curseur-gomme");
 
     // Chaque trait : liste de points en pixels CSS. Tout est redessiné depuis cette liste.
+    // Un passage de gomme est un trait comme un autre (trait.gomme), tracé en blanc et large.
     let traits = [];
+    let outil = "stylo";
     let enCours = new Map();  // pointerId -> trait
     let version = 0;
     let versionEnvoyee = 0;
@@ -86,21 +102,21 @@
       redessiner();
     }
 
-    function tracer(c, trait) {
-      c.lineWidth = EPAISSEUR;
+    function tracer(c, trait, debut = 0) {
+      const largeur = trait.gomme ? 2 * RAYON_GOMME : EPAISSEUR;
+      c.lineWidth = largeur;
       c.lineCap = "round";
       c.lineJoin = "round";
-      c.strokeStyle = "#000";
-      c.fillStyle = "#000";
-      if (trait.length === 1) {
+      c.strokeStyle = c.fillStyle = trait.gomme ? "#fff" : "#000";
+      if (trait.length - debut === 1) {
         c.beginPath();
-        c.arc(trait[0][0], trait[0][1], EPAISSEUR / 2, 0, 2 * Math.PI);
+        c.arc(trait[debut][0], trait[debut][1], largeur / 2, 0, 2 * Math.PI);
         c.fill();
         return;
       }
       c.beginPath();
-      c.moveTo(trait[0][0], trait[0][1]);
-      for (let i = 1; i < trait.length; i++) c.lineTo(trait[i][0], trait[i][1]);
+      c.moveTo(trait[debut][0], trait[debut][1]);
+      for (let i = debut + 1; i < trait.length; i++) c.lineTo(trait[i][0], trait[i][1]);
       c.stroke();
     }
 
@@ -114,6 +130,23 @@
       return [e.clientX - r.left, e.clientY - r.top];
     }
 
+    // --- Outils : stylo ou gomme ---
+    function choisirOutil(nom) {
+      outil = nom;
+      for (const b of document.querySelectorAll(".mode")) b.setAttribute("aria-pressed", String(b.id === nom));
+      canvas.classList.toggle("gomme", nom === "gomme");
+      cacherCurseur();
+    }
+    document.getElementById("stylo").addEventListener("click", () => choisirOutil("stylo"));
+    document.getElementById("gomme").addEventListener("click", () => choisirOutil("gomme"));
+
+    function placerCurseur(e) {
+      const [x, y] = point(e);
+      curseur.style.transform = `translate(${x}px, ${y}px)`;
+      curseur.style.display = "block";
+    }
+    function cacherCurseur() { curseur.style.display = "none"; }
+
     canvas.addEventListener("pointerdown", e => {
       // Le stylet a la priorité : la paume posée avant ou pendant qu'il écrit est ignorée.
       if (e.pointerType === "touch" && [...enCours.values()].some(t => t.stylet)) return;
@@ -125,29 +158,36 @@
       canvas.setPointerCapture(e.pointerId);
       const trait = [point(e)];
       trait.stylet = e.pointerType === "pen";
+      trait.gomme = outil === "gomme";
       enCours.set(e.pointerId, trait);
       traits.push(trait);
       clearTimeout(minuteur);
       tracer(ctx, trait);
+      if (trait.gomme) placerCurseur(e);
     });
 
     canvas.addEventListener("pointermove", e => {
       const trait = enCours.get(e.pointerId);
+      // Le cercle suit aussi la souris ou le stylet en survol, jamais une paume.
+      if (outil === "gomme" && (trait || e.pointerType !== "touch")) placerCurseur(e);
       if (!trait) return;
       e.preventDefault();
       const evenements = e.getCoalescedEvents ? e.getCoalescedEvents() : [];
       const debut = trait.length - 1;
       for (const ev of evenements.length ? evenements : [e]) trait.push(point(ev));
-      tracer(ctx, trait.slice(debut));
+      tracer(ctx, trait, debut);
     });
 
+    // Gommer compte comme écrire : même envoi 1,5 s après le dernier trait.
     function finTrait(e) {
       if (!enCours.delete(e.pointerId)) return;
+      cacherCurseur();
       version++;
       planifierEnvoi();
     }
     canvas.addEventListener("pointerup", finTrait);
     canvas.addEventListener("pointercancel", finTrait);
+    canvas.addEventListener("pointerleave", e => { if (!enCours.has(e.pointerId)) cacherCurseur(); });
 
     document.getElementById("annuler").addEventListener("click", () => {
       if (!traits.length) return;
@@ -166,14 +206,15 @@
       planifierEnvoi();
     });
 
-    // --- Export PNG : fond blanc, recadré sur l'encre, 1400 px de large au plus ---
+    // --- Export PNG : encre noire sur fond blanc (la gomme repeint en blanc), recadré sur l'encre ---
     function exporter() {
       const r = canvas.getBoundingClientRect();
+      const encre = traits.filter(t => !t.gomme);
       let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-      for (const t of traits) for (const [x, y] of t) {
+      for (const t of encre) for (const [x, y] of t) {
         x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y);
       }
-      if (!traits.length) { x0 = 0; y0 = 0; x1 = Math.min(r.width, 400); y1 = Math.min(r.height, 200); }
+      if (!encre.length) { x0 = 0; y0 = 0; x1 = Math.min(r.width, 400); y1 = Math.min(r.height, 200); }
       x0 = Math.max(0, x0 - MARGE); y0 = Math.max(0, y0 - MARGE);
       x1 = Math.min(r.width, x1 + MARGE); y1 = Math.min(r.height, y1 + MARGE);
       const largeur = Math.max(1, x1 - x0), hauteur = Math.max(1, y1 - y0);
@@ -240,7 +281,7 @@
     });
 
     document.getElementById("eval-enregistrer").addEventListener("click", async () => {
-      if (!traits.length) { dire("tableau vide", true); return; }
+      if (!traits.some(t => !t.gomme)) { dire("tableau vide", true); return; }
       const label = choix.value;
       try {
         await poster(`/api/eval/sample?label=${encodeURIComponent(label)}`, await exporter(), "image/png");
