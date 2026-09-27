@@ -76,7 +76,8 @@ def test_consignes_tableau():
 
     deja = prompts.erreurs(s.board_lines)
     assert deja == {"f(x) = x - x^2/2 - x^3/6"}
-    assert not prompts.build_instructions(s, deja).startswith("PRIORITÉ")
+    assert prompts.build_instructions(s, deja).startswith(prompts.SILENCE)
+    assert prompts.SILENCE not in consignes
     # La même erreur, renumérotée, n'est plus nouvelle.
     s.board_lines = [ligne(4, "f(x)  =  x - x^2/2 - x^3/6", "faux")]
     assert prompts.rendre_tableau(s.board_lines, deja) == "L4 ✗ f(x)  =  x - x^2/2 - x^3/6"

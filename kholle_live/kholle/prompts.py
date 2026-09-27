@@ -41,7 +41,16 @@ def build_instructions(session: Session, deja_faux: Collection[str] = ()) -> str
         "{tableau}", rendre_tableau(session.board_lines, deja_faux)
     )
     nouvelles = nouvelles_erreurs(session.board_lines, deja_faux)
-    return f"{alerte(nouvelles)}\n\n{texte}" if nouvelles else texte
+    return f"{alerte(nouvelles) if nouvelles else SILENCE}\n\n{texte}"
+
+
+# En tête, comme l'alerte : dans le corps des consignes, la règle n'était suivie
+# qu'une fois sur deux (le khôlleur reformulait sa question avec une piste).
+SILENCE = (
+    "SI L'ÉTUDIANT SE TAIT (son message est « ... ») : demande seulement où il en est, "
+    "sans aucune piste mathématique et sans reposer ta question sous un autre angle. "
+    "Toute piste passe par donner_indice."
+)
 
 
 def alerte(nouvelles: list[BoardLine]) -> str:
@@ -54,8 +63,9 @@ def alerte(nouvelles: list[BoardLine]) -> str:
         "PRIORITÉ ABSOLUE : l'étudiant vient d'écrire au tableau une ligne fausse.\n"
         f"{lignes}\n"
         "Ta prochaine prise de parole, même après un silence (« ... »), désigne cette ligne "
-        "(« votre troisième ligne ») et pose UNE question qui oriente vers l'erreur, sans la "
-        "corriger. Ne demande pas ce qu'il cherche."
+        "(« votre troisième ligne ») et pose UNE question qui oriente vers la cause de l'erreur, "
+        "sans la corriger. C'est l'exception à la règle du silence : ne demande ni où il en est "
+        "ni ce qu'il cherche."
     )
 
 
