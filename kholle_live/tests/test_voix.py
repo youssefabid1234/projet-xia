@@ -35,11 +35,17 @@ def test_consignes_exercice_sans_indices():
         assert indice not in texte
     assert "QUESTION EN COURS" not in texte
 
+    assert "C'est la dernière question" not in texte
+
     s.question_index = 1
     texte = prompts.build_instructions(s)
     suite = ex["questions_suivantes"][0]
     assert suite["question_orale"] in texte and suite["reponse"] in texte
     assert all(indice not in texte for indice in suite["indices"])
+    assert "C'est la dernière question" in texte
+
+    # Sans question suivante, l'exercice principal est la dernière question.
+    assert "C'est la dernière question" in prompts.build_instructions(state.new_session("dl_cos_sin"))
 
 
 def test_consignes_tableau():
@@ -62,8 +68,15 @@ def test_consignes_tableau():
     ]
     assert tableau in prompts.build_instructions(s)
 
+    consignes = prompts.build_instructions(s)
+    assert consignes.startswith(
+        "PRIORITÉ ABSOLUE : l'étudiant vient d'écrire au tableau une ligne fausse.\n"
+        "- ligne 3 : « f(x) = x - x^2/2 - x^3/6 » (coefficient de x^3)\n"
+    )
+
     deja = prompts.erreurs(s.board_lines)
     assert deja == {"f(x) = x - x^2/2 - x^3/6"}
+    assert not prompts.build_instructions(s, deja).startswith("PRIORITÉ")
     # La même erreur, renumérotée, n'est plus nouvelle.
     s.board_lines = [ligne(4, "f(x)  =  x - x^2/2 - x^3/6", "faux")]
     assert prompts.rendre_tableau(s.board_lines, deja) == "L4 ✗ f(x)  =  x - x^2/2 - x^3/6"
@@ -135,7 +148,7 @@ class FausseSession:
         return Entree(), Sortie()
 
     def emettre(self, msg_type, **champs):
-        msg = SimpleNamespace(msg_type=msg_type, event=None, data=None, **champs)
+        msg = SimpleNamespace(**{"msg_type": msg_type, "event": None, "data": None} | champs)
         self.boucle.call_soon_threadsafe(self.file.put_nowait, msg)
 
     def appel_outil(self, nom):
@@ -215,10 +228,18 @@ def test_kholle_vocale(fausse):
         state.set_board([ligne(1, "f(x) = x - x^2/2 - x^3/6", "faux")])
         attendre(lambda: len(fausse.configs) == 1)
         assert "NOUVELLE ERREUR L1 ✗" in fausse.configs[0].instructions
-        state.set_board([ligne(1, "f(x) = x - x^2/2 - x^3/6", "faux"), ligne(2, "donc", "?")])
+        assert fausse.configs[0].instructions.startswith("PRIORITÉ ABSOLUE")
+        # Le LLM démarre avec l'alerte : elle est retirée des consignes suivantes.
+        fausse.emettre("event", event=SimpleNamespace(event_type="llm_started"))
+        assert ws.receive_json() == {"type": "event", "event": "llm_started"}
         attendre(lambda: len(fausse.configs) == 2)
-        assert "NOUVELLE ERREUR L" not in fausse.configs[1].instructions
-        assert not fausse.configs[1].assistant_speaks_first
+        assert not fausse.configs[1].instructions.startswith("PRIORITÉ ABSOLUE")
+        fausse.emettre("event", event=SimpleNamespace(event_type="llm_started"))
+        ws.receive_json()
+        state.set_board([ligne(1, "f(x) = x - x^2/2 - x^3/6", "faux"), ligne(2, "donc", "?")])
+        attendre(lambda: len(fausse.configs) == 3)
+        assert "NOUVELLE ERREUR L" not in fausse.configs[2].instructions
+        assert not fausse.configs[2].assistant_speaks_first
 
         # Question suivante : nouvelles consignes avant la réponse à l'outil.
         fausse.appel_outil("question_suivante")

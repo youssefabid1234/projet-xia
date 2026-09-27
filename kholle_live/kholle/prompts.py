@@ -26,15 +26,36 @@ def erreurs(lignes: Iterable[BoardLine]) -> set[str]:
     return {cle_ligne(l) for l in lignes if l.verdict == "faux" and not l.barre}
 
 
+def nouvelles_erreurs(lignes: Iterable[BoardLine], deja_faux: Collection[str]) -> list[BoardLine]:
+    return [l for l in lignes if not l.barre and l.verdict == "faux" and cle_ligne(l) not in deja_faux]
+
+
 def build_instructions(session: Session, deja_faux: Collection[str] = ()) -> str:
-    """Consignes complètes : modèle + exercice (sans les indices) + tableau.
+    """Consignes complètes : alerte éventuelle + modèle + exercice (sans les indices) + tableau.
 
     `deja_faux` : les `erreurs()` du tableau lors de l'envoi précédent. Les lignes
     fausses absentes de cet ensemble sont préfixées « NOUVELLE ERREUR ».
     """
     modele = (PROMPTS / "kholleur_system.md").read_text(encoding="utf-8")
-    return modele.replace("{exercice}", _exercice(session)).replace(
+    texte = modele.replace("{exercice}", _exercice(session)).replace(
         "{tableau}", rendre_tableau(session.board_lines, deja_faux)
+    )
+    nouvelles = nouvelles_erreurs(session.board_lines, deja_faux)
+    return f"{alerte(nouvelles)}\n\n{texte}" if nouvelles else texte
+
+
+def alerte(nouvelles: list[BoardLine]) -> str:
+    """En tête des consignes : en fin de consignes, le tableau se noie dans le long
+    prompt système de gradbot et, en audio, le LLM répondait à côté après un silence."""
+    lignes = "\n".join(
+        f"- ligne {l.n} : « {l.texte} »" + (f" ({l.detail})" if l.detail else "") for l in nouvelles
+    )
+    return (
+        "PRIORITÉ ABSOLUE : l'étudiant vient d'écrire au tableau une ligne fausse.\n"
+        f"{lignes}\n"
+        "Ta prochaine prise de parole, même après un silence (« ... »), désigne cette ligne "
+        "(« votre troisième ligne ») et pose UNE question qui oriente vers l'erreur, sans la "
+        "corriger. Ne demande pas ce qu'il cherche."
     )
 
 
@@ -55,6 +76,12 @@ def _exercice(session: Session) -> str:
             + q["question_orale"],
             f"Réponse attendue à cette question : {q['reponse']}",
         ]
+    # En audio, le khôlleur disait la phrase de fin sans appeler terminer_colle.
+    if session.question_index == len(ex.get("questions_suivantes", [])):
+        parties.append(
+            "C'est la dernière question : dès qu'elle est résolue, dis la phrase de fin et "
+            "appelle terminer_colle dans la même réponse, sans attendre que l'étudiant parle."
+        )
     return "\n".join(parties)
 
 
@@ -62,9 +89,8 @@ def rendre_tableau(lignes: list[BoardLine], deja_faux: Collection[str] = ()) -> 
     """Le champ {tableau} : une ligne par ligne du tableau, puis la priorité éventuelle."""
     if not lignes:
         return "(tableau vide)"
-    nouvelles = [l.n for l in lignes if not l.barre and l.verdict == "faux" and cle_ligne(l) not in deja_faux]
+    nouvelles = [l.n for l in nouvelles_erreurs(lignes, deja_faux)]
     texte = "\n".join(_ligne(l, l.n in nouvelles) for l in lignes)
-    # Le tableau finit noyé dans le long prompt système de gradbot : on rappelle la priorité.
     if nouvelles:
         texte += (
             "\n→ À traiter maintenant : "

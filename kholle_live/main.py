@@ -145,12 +145,14 @@ class Kholle:
         self.entree: gradbot.SessionInputHandle | None = None
         self.transcription = Transcription()
         self.deja_faux: set[str] = set()
+        self.alerte = False  # consignes en cours avec l'alerte « nouvelle erreur »
         self.verrou = asyncio.Lock()
         self.taches: set[asyncio.Task] = set()
 
     def config(self, *, premiere: bool = False) -> gradbot.SessionConfig:
         s = state.get_session()
         instructions = prompts.build_instructions(s, self.deja_faux)
+        self.alerte = bool(prompts.nouvelles_erreurs(s.board_lines, self.deja_faux))
         self.deja_faux = prompts.erreurs(s.board_lines)
         return session_config(instructions, premiere=premiere)
 
@@ -158,6 +160,11 @@ class Kholle:
         """Nouvelles consignes (tableau, question) ; gradbot garde l'historique."""
         async with self.verrou:
             await self.entree.send_config(self.config())
+
+    def _en_tache(self, coro) -> None:
+        tache = asyncio.create_task(coro)
+        self.taches.add(tache)
+        tache.add_done_callback(self.taches.discard)
 
     async def boucle_entree(self) -> None:
         try:
@@ -189,10 +196,7 @@ class Kholle:
 
     async def traiter(self, msg: gradbot.MsgOut) -> None:
         if msg.msg_type == "tool_call":
-            outil = gradbot.ToolHandle(msg.tool_call_handle, msg.tool_call)
-            tache = asyncio.create_task(self.outil(outil))
-            self.taches.add(tache)
-            tache.add_done_callback(self.taches.discard)
+            self._en_tache(self.outil(gradbot.ToolHandle(msg.tool_call_handle, msg.tool_call)))
             return
         schema = gradbot.schemas.from_msg(msg)
         if schema is None:
@@ -201,6 +205,10 @@ class Kholle:
             self.transcription.ajouter("eleve", schema.text)
         elif isinstance(schema, gradbot.schemas.AgentText):
             self.transcription.ajouter("kholleur", schema.text, schema.turn_idx)
+        elif isinstance(schema, gradbot.schemas.SessionEvent) and schema.event == "llm_started" and self.alerte:
+            # gradbot lit la config au lancement du LLM : cette réponse a vu l'alerte,
+            # on la retire pour que les suivantes ne reviennent pas sans cesse sur la ligne.
+            self._en_tache(self.pousser_config())
         await self.websocket.send_json(schema.model_dump())
         if msg.msg_type == "audio":
             await self.websocket.send_bytes(msg.data)
