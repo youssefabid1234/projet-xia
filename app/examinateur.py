@@ -362,7 +362,10 @@ class Examinateur:
         if action == REPONDRE_QUESTION:
             yield {"type": "statut", "texte": "Le colleur cherche dans le cours…"}
             try:
-                extraits = (await chercher_dans_cours(message, client))["passages"][:3]
+                from app.chapitres import COLLES
+                config = COLLES.get(colle.chapitre)
+                options = {"chemin": config["index"]} if config else {}
+                extraits = (await chercher_dans_cours(message, client, **options))["passages"][:3]
             except Exception:
                 journal.warning("Recherche dans le cours indisponible", exc_info=True)
         entrees = self.entrees_colleur(tache, action, evaluation, message, extraits)

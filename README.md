@@ -137,8 +137,12 @@ mot affiché**, 1,5 à 4,5 s pour le tour complet. L’ancien agent mettait envi
 .\.venv\Scripts\python.exe -m scripts.verifier_enonces --ecartes --modele gpt-4.1
 ```
 
-Seul le chapitre des séries a un cours indexé et une banque de questions
-(`app/chapitres.py`, dictionnaire `COLLES`). Pour ouvrir un autre chapitre :
+Les séries numériques et les équations différentielles linéaires sont disponibles
+(`app/chapitres.py`, dictionnaire `COLLES`). Le chapitre EDL comprend 14 exercices
+vérifiés et préparés avec leurs difficultés et notions, 23 passages de cours indexés
+et 25 questions (4 définitions, 11 résultats/méthodes, 5 démonstrations,
+5 applications). Ses fichiers portent le suffixe `_edl` ou le préfixe `cours_edl`.
+Pour ouvrir un autre chapitre :
 indexer son cours (voir [scripts/COURS.md](scripts/COURS.md)), écrire sa banque de
 questions au même format, vérifier ses exercices, puis l’ajouter à `COLLES`.
 

@@ -2,13 +2,14 @@
 import hashlib
 import json
 from pathlib import Path
-from app.chapitres import chapitre_catalogue
+from app.chapitres import COLLES, chapitre_catalogue
 
 DATA = Path(__file__).resolve().parents[1] / "data"
 
 
 def passages_cours():
-    return json.loads((DATA / "cours_index.json").read_text(encoding="utf-8"))["passages"]
+    return [p for config in COLLES.values()
+            for p in json.loads(config["index"].read_text(encoding="utf-8"))["passages"]]
 
 
 def notions_cours():

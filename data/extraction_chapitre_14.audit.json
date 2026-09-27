@@ -1,0 +1,103 @@
+{
+  "pdf_sha256": "94e5be8ecdfcecf97bfec56b342140cfe3ccf276d21f26dbb82060225186813d",
+  "exercices": [
+    {
+      "identifiant": "14.1",
+      "enonce_brut": "Résoudre l’équation diﬀérentielle (E): y′ + 2y = 4e2t, avec la condition de Cauchy y(0) = 0.",
+      "corrige_brut": "On a alors (H) : y′ + 2y = 0 ⇔y = λ e−2t.\nOn applique la méthode de variation de la constante :\ny(t) = λ(t) e−2t\n⇔λ′(t) e−2t = 4 e2t\n⇔λ′(t) = 4 e4t\n⇔λ(t) = e4t +C, C ∈R\n⇔y(t) = e2t +C e−2t\net C = −1\n⇔y(t) = 2 sinh 2t",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.2",
+      "enonce_brut": "Résoudre l’équation diﬀérentielle (E) : y′′ −10y′ + 41y = 170 sin t.",
+      "corrige_brut": "(H) : y′′ −10y′ + 41y = 0 et on a le polynôme caractéristique : χ(X) = X2 −10X + 41\n∆= 100 −4 × 41 =\n−64 = (±8i)2, d’où on tire X± = 10 ± 8i\n2\n= 5 ± 4i.\nD’où (H) ⇔∃u, v ∈R, y(t) = e5t (u cos 4t + v sin 4t)\nOn cherche ensuite une solution particulière de la forme y(t) = A cos t + B sin t (car χ(i)̸ = 0).\ny = A cos t + B sin t\ny′ = −A sin t + B cos t\ny′′ = −A cos t −B sin t\nOn remplace dans (E) :\n(−A−10B+41A) cos t+(−B+10A+41B) sin t = 170 sin t ⇔\n®\n40A −10B\n= 0\n40B + 10A\n= 170 ⇔\n®\nA\n= B/4\n170A\n= 170\n⇔\n®\nA\n= 1\nB\n= 4\nLes solutions sont donc \be5t (u cos 4t + v sin 4t) + cos t + 4 sin t / u, v ∈R\t.",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.3",
+      "enonce_brut": "Soit f : R −→R une application deux fois dérivable telle que\n∀x ∈R, f ′′(x) −2f ′(x) + f(x) = 2 ex\n1. Montrer que si f ′ ≥0, alors f ≥0.\n2. La réciproque est-elle vraie ?",
+      "corrige_brut": "1. On résout dans un premier temps l’équation diﬀérentielle proposée :\nχ(X) = X2 −2X + 1 = (X −1)2, on est face à une racine double, d’où ∃α, β ∈R, f(x) = ex(αx + β).\nOn cherche ensuite une sol particulière de la forme x 7−→a ex x2. On remplace dans (E) : ax2 ex −2 ex(ax2 +\n2ax) + ex(ax2 + 2ax + 2ax + 2a) = 2 ex ⇔a = 1.\nD’où ∀t ∈R, f(t) = et(t2 + αt + β) et f ′(t) = et(t2 + t(2 + α) + β + α) ≥0 (c’est une parabole tournée vers le\nhaut, de coeﬃcient dominant 1 > 0).\nf ′(t) ≥0 ⇔∆= (2 + α)2 −4(β + α) < 0 ⇔α2 −4β + 4 < 0\nPour f : ∆′ = α2 −4β et on a clairement que ∆< 0 ⇒∆′ < 0. La réciproque est en revanche fausse, il suﬃt de\nprendre β = 0.",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.4",
+      "enonce_brut": "On considère l’équation diﬀérentielle suivante\n(E) : x(x2 −1)y′ + 2y = x2,\noù y est une fonction de x.\n1. Résoudre cette équation diﬀérentielle Iorsque y est déﬁnie sur un intervalle I ne contenant aucun des réels −1, 0\net 1.\n2. Montrer que y est une solution de (E) si et seulement si x 7−→y(−x) est une solution de (E) .\n3. Déterminer les solutions de (E) sur R∗\n+ et sur R∗\n−.\n4. Déterminer les solutions de (E) sur ] −1 ; 1[.",
+      "corrige_brut": "1. Soit I un intervalle tel que I ∩{0, −1, 1} = ∅. Soit y: I −→R une application dérivable.\n(E) ⇔y′ +\n2\nx(x2 −1)y =\nx\nx2 −1\n(H) ⇔y′ =\n−2\nx(x2 −1)y\nOn eﬀectue une décomposition en éléments simples :\n−2\nx(x2 −1) = 2\nx +\n−1\nx −1 +\n−1\nx + 1\nZ\n−2\nx(x2 −1) dx =\nZ 2\nx +\n−1\nx −1 +\n−1\nx + 1 dx = 2 ln x + −ln(x −1) −ln(x + 1) = ln\nx2\n|x2 −1|\n(H) ⇔y(x) =\nλ\nx2\nx2 −1\n, or I∩{0, −1, 1} = ∅donc x 7→\nx2\nx2 −1 est de signe constant sur I donc (H) ⇔∃λ ∈R, ∀t ∈I, y(t) = λ\nt2\nt2 −1.\nOn applique la méthode de variation de la constante :\nλ′(x)\nx2\nx2 −1 =\nx\nx2 −1\n⇔λ′ = 1\nx\n⇔λ = ln x + k,\nk ∈R\nDonc (E) ⇔∃λ ∈R, ∀x ∈I, y(x) =\nx2\nx2 −1 (ln x + k)\n2. ⇒: Supposons y une solution. Notons z : −I −→R\nx 7−→y(−x)\n.\n∀x ∈−I, z′(x) = −y′(−x).\n∀x ∈I, x(x2−1)y′+2y = x2 donc ∀x ∈−I, −x((−x)2−1)y′(−x)+2y(−x) = (−x)2 ⇔x(x2−1)z′(x)+2z(x) = x2.\nDonc z est bien solution de (E).\n⇐: À faire\n3. La question précédente nous montre une symétrie, le raccord eﬀectué sur R∗\n+ sera le même sur R∗\n−. Ainsi, sur\nR∗\n+, on peut imposer I ∈{]0 ; 1[, ]1 ; +∞[}. Soit y1 une solution de (E) sur ]0 ; 1[ et soit y2 une solution de (E)\nsur ]1 ; +∞[. Alors d’après la question 1, on a :\ny1(x) =\nx2\nx2 −1 (ln x + λ1)\ny2(x) =\nx2\nx2 −1 (ln x + λ2)\nOr λ1,2x2\nx2 −1 −−−→\nx→1 +∞donc il n’y pas de raccordemment possible si λ1,2̸ = 0.\nx2\nx2 −1 × ln x =\nx2\nx + 1 × ln(x −1 + 1)\nx −1\n−−−→\nx→1\n1\n2 × 1\n(car ln(1 + u)\nu\n−−−→\nu→0 1)\nDonc la seule éventuelle solution de (E) sur R∗\n+ est : y: R∗\n+ −→R\nx 7−→\n\n\n\n\n\n\n\nx2 ln x\nx2 −1\nsi x̸ = 1\n1\n2\nsi x = 1\n, et y est bien continue en 1,\nd’après les calculs de limites précédents.\nOn rappelle ou bien on montre que f est dérivable en un point si et seulement si elle admet un DL d’ordre\n1 en ce point :\nf(x) −f(a)\nx −a\n−−−→\nx→a l ⇔f(x) = f(a) + l(x −a) + o(x −a)\nPosons x = h + 1 :\ny(x) = 1 + 2h + h2\nh(h + 2\n) ln(1 + h)\n= 1 + 2h + o(h)\nh + 2\n× h −h2\n2 + o(h2)\nh\n= (1 + 2h + o(h))\nÅ\n1 −h\n2 + o(h)\nã\n×\n1\n2(1 + h/2)\n= 1\n2\nÅ\n1 + 3\n2g + o(h)\nã Å\n1 −h\n2 + o(h)\nã\n= 1\n2(1 + h + o(h))\nDonc y est dérivable en 1 et y′(1) = 1\n2. De plus 1(12 −1)y′(1) + 2y(1) = 12 donc y est solution de (E).\n4. Il suﬃt maintenant de faire le raccordement en 0 : Soit y−un solution sur ]−1 ; 0[ et y+ une solution sur ]0 ; 1[.\nAlors\ny−(x) =\nx2\nx2 −1(ln |x| + C)\n= x ×\nÅ\nx2\nx2 −1(ln |x| + C)\nã\n= o(x)(car x ln(x) −−−→\nx→0 0)\nDe même pour y+. Le même raisonnement qu’à la question précédente montre que toute solution de y−se raccord\nà toute solution de y+ en une application dérivable sur ] −1 ; 1[ tel que y(0) = 0 = y′(0). On vériﬁe que y\nsatisfait (E) en x = 0.",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.5",
+      "enonce_brut": "Résoudre l’équation (E) : y′ = y\n2t + 1\n2yt.\nIndication : On pourra poser z = y2.",
+      "corrige_brut": "Soit I ⊂R∗un intervalle. y′ = y\n2t + 1\n2yt ⇔2yy′ = y2\nt + 1\nt .\nOn a z = y2 donc z′ = 2yy′. Ainsi (E) ⇔z′ = z\nt + 1\nt et (H) ⇔z′ = z\nt ⇔z = λt. On devine que t 7→−1 est solution\nparticulière et (E) ⇔∃λ ∈R, ∀t ∈I, z = λt −1 ⇔y2 = λt −1 ⇔y =\n√\nλt −1.\nSi λ < 0, t < 1\nλ, posons Iλ =\nò\n−∞; 1\nλ\nï\n. Si λ > 0, t > 1\nλ, posons Iλ =\nò 1\nλ ; +∞\nï\n.\nAinsi (E) ⇒∃λ ∈R, ∀t ∈I ⊂Iλ, y(t) =\n√\nλt −1\nSi y est solution, elle ne s’annule pas, donc d’après le théorème des valeurs intermédiaires, le signe de y est constant.\nFinalement (E) ⇔∃λ ∈R∗, ∃I ⊂Iλ, ∃ε ∈{−1, 1}, ∀t ∈I, y(t) = ε\n√\nλt −1",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.6",
+      "enonce_brut": "Déterminer les applications f : R −→R, continues et telles que :\n∀x ∈R,\nf(x) +\nZ x\n0\n(x −t)f(t) dt = 1.",
+      "corrige_brut": "f(x) +\nZ x\n0\n(x −t)f(t) dt = 1\n⇔f(x) + x\nZ x\n0\nf(t) dt −\nZ x\n0\ntf(t) dt = 1\n⇔f ′(x) +\nZ x\n0\nf(t) dt + xf(x) −xf(x) = 0\net f(0) = 1\n⇔f ′′(x) + f(x) = 0\net\n®f(0)\n= 1\nf ′(0)\n= 0\n⇔f(x) = cos x\ncos est solution et la solution est unique par le théorème de Cauchy-Lipschitz.",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.7",
+      "enonce_brut": "Soit q ∈R∗\n+. Résoudre l’équation diﬀérentielle\n(E) : (t2 + 1)y′′ + ty′ −q2y = 0 à l’aide du changement de variable t = sh(x).",
+      "corrige_brut": "On peut poser le changement de variable sinh x = t car x 7→sinh x est bijective de R dans R.\n(E) ⇔(sinh2 +1)y′′(sinh(x)) + sinh(x)y′(sinh(x)) = q2y(sinh x)\nz = y(sinh(x))\nz′ = cosh ×y′(sinh(x))\nz′′ = sinh(x)y′(sinh(x)) + cosh2(x)y′′(sinh(x))\n(E) ⇔z′′ −q2z = 0\n⇔z = a cosh(qx) + b sinh(qx), a, b ∈R\n⇔y(t) = z(argsh(x)) = a cosh(q argsh(t)) + b sinh(q argsh(t))\nOu encore :\n(E) ⇔z′′ −q2z = 0\n⇔z = a eqx +b e−qx\n⇔z = a eq ln(t+\n√\n1+t2) +b e−q ln(t+\n√\n1+t2)\n(car argsh(t) = ln(t +\np\n1 + t2))\n⇔y(t) = a(t +\np\n1 + t2)q + b(\np\n1 + t2 −1)q",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.8",
+      "enonce_brut": "Soient b et c deux applications continues de R dans R.\nOn considère l’equation diﬀérentielle (E) : y′ + b(x)y = c(x) .\n1. Résoudre (E) à l’aide d’intégrales.\n2. Soit T ∈R∗\n+. On suppose que b et c sont T-périodiques.\n(a) Montrer qu’une solution y de (E) est T-périodique si et seulement si y(0) = y(T)\n(b) Montrer que (E) possède une unique solution T-périodique si et seulement si\nZ T\n0\nb(t) dt̸ = 0.",
+      "corrige_brut": "1. (H) : y′ + by = 0 ⇔y = λ e−B(t),\noù B =\nR\nb\ny = λ(t) e−B(t) ↔λ′(t) = c eB\nDonc y =\nÇZ t\n0\nc(x) eB(x) dx\nå\ne−B(t) +λ e−B(t)\n2.\n(a) Soit y une solution de (E) telle que y(0) = y(T). Posons z : t 7−→y(t + T), alors z est aussi solution de\n(E). De plus z(0) = y(T) = y(0) qui est une solution du problème de Cauchy. Or d’après le théorème de\nCauchy-Lipschitz, la solution est unique et z = y.\n(b) y(T) = k e−B(T ) + eB(T )\nZ T\n0\nc(t) eB(t) dt et y(0) = k e−B(0)\nIl existe une unique solution T-périodique de (E) si et seulement si y(T) = y(0) a une unique solution\n⇔k(e−B(T ) −e−B(0)) = eB(T )\nZ T\n0\nc(t) eB(t) dt ⇔e−B(T ) −e−B(0)̸ = 0 ⇔B(0)̸ = B(T) ⇔\nZ T\n0\nb(t) dt̸ = 0",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.9",
+      "enonce_brut": "Résoudre (E) : f ′′(x) + f(−x) = x + cos x",
+      "corrige_brut": "Soit f solution : Alors (1) : f ′′(x) + f(−x) = x + cos x et (2) : f ′′(−x) + f(x) = −x + cos x et on obtient\n(1) + (2) : [f ′′(x) + f ′′(−x)] + [f(x) + f(−x)] = 2 cos x et (1) −(2) : [f ′′(x) −f ′′(−x)] + [f(−x) −f(x)] = 2x.\nPosons ainsi g(x) = f(x) −f(−x), impaire et h(x) = f(x) + f(−x), paire. On a alors :\n(E1) : h + h′′ = 2 cos x\n(E2) : g′′ −g = 2x\n(H1) ⇔∃α1, β1 ∈R, h(x) = α1 cos x + β1 sin x et de plus, x 7→x sin x est solution particulière de (E1) donc\n(E1) ⇔∃α1, β1 ∈R, ∀x ∈R, h(x) = α1 cos x + (β1 + x) sin x.\n(H2) ⇔∃α2, β2 ∈R, g(x) = α2 cosh x + β2 sinh x, de plus, x 7→−2x est solution particulière de (E2) donc\n(E2) ⇔g(x) = α2 cosh x + β2 sinh x −2x.\nOr par déﬁnition, h est paire, donc x 7→α1 cos x + (β1 + x) sin x est paire, donc β1 = 0. De même, g est impaire, donc\nx 7→α2 cosh x + β2 sinh x −2x est impaire, donc α2 = 0.\nOn a maintenant f(x) = f(x) + g(x)\n2\n= 1\n2(β2 sinh x −2x + α1 cos x + x sin x).\nLa réciproque est à vériﬁer, on aurait pu cependant raisonner par équivalences si on avait montré que la décomposition\nde f est une somme d’une fonction paire et impaire est unique, ce qui se montre aisément (cf. chapitre 1).",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.10",
+      "enonce_brut": "Soit λ ∈R.\nDéterminer les applications f de classe C 1 de R dans R, telles que pour tout x ∈R, f ′(x) = f(λ −x).",
+      "corrige_brut": "Soit f solution, alors f ′ est également C 1. Donc f ′′(x) = −f ′(λ −x). De plus, x 7−→λ −x est une involution\ndonc f ′′(x) = −f(x) ⇔(E) : f ′′(x) + f(x) = 0 ⇔∃X, ϕ ∈R, ∀x ∈R, f(x) = X cos(x + ϕ). Alors il vient\nf ′(x) = X cos\n\u0010\nx + ϕ + π\n2\n\u0011\n.\n0 est une solution triviale du problème, c’est pourquoi on considère X̸ = 0 :\ncos\n\u0010\nx + ϕ + π\n2\n\u0011\n= cos(λ −x + ϕ)\nen x = 0\ncos\n\u0010\nϕ + π\n2\n\u0011\n= cos(λ + ϕ)\nϕ + π\n2 ≡λ + ϕ [2π]\nλ ≡π\n2\n[2π]\nou ϕ ≡−λ\n2 −π\n4\n[π]\nCela ﬁxe la valeur de λ pour une valeur donnée de x, il faut s’assurer que cette valeur de λ fonctionne pour tout\nx ∈R : il suﬃt de trouver un contre-exemple pour montrer que cela ne fonctionne pas.",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.11",
+      "enonce_brut": "Résoudre l’équation diﬀérentielle (E) : x2y′′ + xy′ −4y + 4x2 = 0.\nOn pourra utiliser le changement de variable suivant :\nt = ln |x|\nOn précisera quelles sont les solutions déﬁnies sur R en entier.",
+      "corrige_brut": "Posons t = ln |x|, sur R∗\n+, t = ln(x) ⇔et = x. On pose z(t) = y(x) = y(et) i.e. y(x) = z(ln x).\ny′(x) = y′(ln x)\nx\n= z′(ln x)\nx\ny′′(x) = −1\nx2 z′(ln x) + 1\nx2 z′′(ln x)\nDonc (E) ⇔x2× 1\nx2 (z′′(ln x) −z′(ln x))+xz′(ln x)\nx\n−4z(ln x)+4x2 = 0 ⇔z′′(ln x) −4z(ln x) = −4x2 ⇔z′′(t) −4z(t) = −4 e2t\n(H) ⇔∃u, v ∈R, z(t) = u e2t +v e−2t.\nPour (E), une solution particulière est de la forme t 7→λt e2t, et on trouve λ = −1 (il suﬃt de remplacer y et ses\ndérivées par l’expression de cette fonction).\n(E) ⇔∃u, v ∈R, ∀t ∈R, z(t) = u e2t +v e−2t −t e2t\n⇔∀x ∈R∗\n+, y(x) = ux2 + v\nx2 + x2 ln |x|\nUne telle forme d’équation s’appelle équation d’Euler, elles ont la forme générale suivante :\nn\nX\nk=0\nxny(n) = f(x), où\nn ∈N∗, f ∈C 0. On pose alors encore le même changement de variable.\nCependant ici, les solutions sur R en entier sont la fonction identiquement nulle, en eﬀet, la fonction x 7→x2 ln x\nn’est pas deux fois dérivable en 0 donc le raccordemment n’est pas possible. On le montre au moyen d’un développe-\nment limité à l’ordre 2 sur la fonction : f : x 7−→\n®\nx2 ln |x|\nsi x̸ = 0\n0\nsi x = 0",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.12",
+      "enonce_brut": "Déterminer les applications f : R −→R, continues, telles que, pour tout x ∈R, f(x) = x2 +\nZ x\n0\ntf(x −t) dt.",
+      "corrige_brut": "Posons u = x −t alors :\n(E) ⇔f(x) = x2 +\nZ x\n0\n(x −u)f(u)du\n= x2 + x\nZ x\n0\nf(u)du −\nZ x\n0\nuf(u)du\nPar hypothèse, f ∈C 1(R), donc elle admet une primitive et sa primitive est également C 1 d’après la relation fonc-\ntionnelle. Posons g une primitive seconde (primitive de la primitive) de f tel que g(0) = g′(0) = 0. On a alors\n(E) ⇔g′′(x) = x2 + xg′(x) −[tg′(t)]x\n0 +\nZ x\n0\ng′(t) dt\n= x2 + xg′(x) −xg′(x) + g(x)\n= x2 + g(x)\nAlors (H) ⇔g′′ = g ⇔∃A, B ∈R, g(x) = A cosh(x) + B sinh(x)\nUne solution particulière est donc de la forme t 7→ax2 +bx+c et on trouve les coeﬃcients suivants :\n\n\n\n\n\na\n= −1\nb\n= g′(0) = 0\nc\n= −2\n,\ndonc g0(x) = −x2 −2 = −(x2 + 2).\nFinalement,\n(E) ⇔g′(x) = A sinh x + B cosh x −2x\net g(0) = 0\n⇔g′′(x) = A cosh x + B sinh x −2\net\n®g(0)\n= 0\ng′(0)\n= B = 0\n⇔f(x) = 2 sinh x −2\nRappel : Si a, b: R −→R ∈C 1, a = b ⇔(a′ = b′ ∧a(0) = b(0)) car a(x) = a(0) +\nR x\n0 a′(t) dt.",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.13",
+      "enonce_brut": "On souhaite résoudre le problème de Cauchy suivant :\ny′′ + |y| = 0 avec y(0) = a et y′(0) = 0\nOn admettra qu’il possède une unique solution déﬁnie sur R que l’on notera y.\n1. Montrer que pour tout x ∈R, y(x) ≤a.\n2. Déterminer y lorsque a ≤0.\nPour la suite, on suppose que a > 0.\n3. Montrer que y s’annule en exactement deux points b−< 0 et b+ > 0.\n4. Achever la résolution de l’exercice.",
+      "corrige_brut": "1. ∀x ∈R, y(x)\nT RI1\n=\ny(0) + xy′(0) +\nZ x\n0\n(x −t)y′′(t) dt. Or ∀x ∈R, y′′(x) ≤0, donc si x > 0, y(x) ≤y(0) = a, de\nmême si x < 0.\n2.\n\n\n\n\n\ny′′ −y\n= 0\ny′(0)\n= 0\ny(0)\n= a\n⇔y(x) = a cosh x\n3. Faire un schéma. Soit b = inf{x ∈R∗\n+ / y(x) ≤0}. L’ensemble considéré est non-vide, car sinon, ∀x ∈R∗\n+, y(x) >\n0 donc y(x) = a cos x > 0 .\nSupposons maintenant que y(b) < 0, alors d’après le théorème des valeurs intermédiaires, il existe x ∈]0, b[ (car\n1. Taylor-Young avec reste intégral\nb est l’inf) tel que y(x) = 0 car b est la borne inférieure. Donc y(b) ≥0, et même y(b) = 0 car y est continue.\n∀x ∈[0, b], y(x) ≥0, donc ∀x ∈[0, b], y(x) = a cos x. Donc b = π\n2 et y′(b) = a.\nDonc ∀x > b, y(x)\nT RI1\n=\ny(b)\n|{z}\n= 0\n+ y′(b)(x −b)\n|\n{z\n}\n≥0\n+\nZ x\nb\n(x −t)y′′(t) dt\n|\n{z\n}\n≥0\n, donc b est l’unique zéro de y sur R∗\n+.\ny est paire d’après l’énoncé. Donc y s’annule exactement en π\n2 et en −π\n2 .\n4. •\nSur\ni\n−π\n2 ; π\n2\nh\n, y(x) = a cos x\n•\nSur\nhπ\n2 ; +∞\nh\n, y(x) = A cosh x + B sinh x = −a sinh(x −b) = −a sinh\n\u0010\nx + π\n2\n\u0011\n(car y′(b) = −a et y(b) = 0)\nFinalement :\ny : x 7−→\n\n\n\n\n\n\n\n\n\n\n\na sinh\n\u0010π\n2 −x\n\u0011\nsi x ≥π\n2\na cos x\nsi |x| ≤π\n2\na sinh\n\u0010\nx + π\n2\n\u0011\nsi x ≤−π\n2",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    },
+    {
+      "identifiant": "14.14",
+      "enonce_brut": "Le but de l’exercice est de déterminer les applications f : R −→R continues, non identiquement nulles, s’annulant\nen au moins un point et telles que\n∀(x, y) ∈R2, f(x + y) + f(x −y) = 2f(x)f(y)\n1. Soit f une solution. Montrer que f est paire, puis qu’elle admet une primitive F impaire.\n2. Montrer qu’il existe x0 ∈R tel que\n∀y ∈R, f(y) = F(x0 + y) + F(x0 −y)\n2F(x0)\n.\nEn déduire que f est de classe C ∞\n3. Montrer qu’il existe µ tel que ∀x ∈R, F ′′(x) = µF(x) .\n4. Achever la résolution de l’exercice.",
+      "corrige_brut": "1. Prenons x = y = 0 : 2f(0) = 2f(0)2 ⇔f(0) = f(0)2 ⇒f(0) = 1 ou f(0) = 0. f(0) = 0 ⇒f = 0, car\n∀x, 2f(x) = 0 : c’est faux, donc f(0) = 1.\nPosons x = 0 et y = x : f(x) + f(−x) = 2f(x)f(0) = 2f(x) donc f(−x) = f(x) : f est bien paire.\nNotons F la primitive de f s’annulant en 0.\nZ x\n0\nf(t) dt = F(x)\n=\nZ x\n0\nf(−t) dt\n= −\nZ x\n0\n−f(−t) dt = −\u0002F(−t)\u0003x\n0\n= −F(−x)\nDonc F est bien impaire. On aurait pu procéder avec le changement de variables u = −t.\n2. Soit y ∈R :\nf(x + y) + f(x −y) = 2f(x)f(y)\nZ x\n0\nf(t + y) dt +\nZ x\n0\nf(t −y) dt =\nZ x\n0\n2f(y)f(t) dt\n\u0002F(t + y)\u0003x\n0 + \u0002F(t −y)\u0003x\n0 = 2f(y)F(t)\nF(x + y)\u0018\u0018\u0018\n−F(y) + F(x −y)\u0018\u0018\u0018\u0018\n−F(−y) = 2f(y)F(x)\nf̸ = 0 donc il existe x0 ∈R tel que F(x0)̸ = 0, et ainsi\nF(x0 + y) + F(x0 −y)\n2F(x0)\n= f(y)\nPar récurrence, à l’aide de la relation fonctionnelle juste établie, on a que f est de classe C ∞.\n3.\nF(x + y) + F(x −y) = 2F(x)f(y)\nF ′(x + y) −F ′(x −y) = 2F(x)f ′(y)\n(car d\ndy)\nF ′′(x + y) + F ′′(x −y) = 2F(x)f ′′(y)\nAvec y = 0, on a 2F ′′(x) = 2F(x)f ′′(0) = µF(x) avec µ = f ′′(0).\n4. Considérons (E) : F ′′(x) −µF(x) = 0\n1er cas : µ = 0 :\nF ′′(x) = 0 donc f ′(x) = 0 et f(x) = b ∈R or f(0) = 1 donc f = 1, or f s’annule au moins une fois .\n2e cas : µ > 0, µ = a2 :\n(E) ⇔F ′′ −a2F = 0, on a χ(X) = X2 −a2 = (X −a)(X + a) donc il existe c1, c2 ∈R, F(x) = c1 cosh(ax) +\nc2 sinh(ax). F(0) = 0 donc c1 = 0 donc F(x) = c2 sinh(ax). Ensuite f(x) = F ′(x) = c2a cosh(ax) et f(0) = 1\ndonc c2a = 1 donc f(x) = cosh(ax)̸ = 0, ∀x\n3e cas : µ < 0, µ = (ai)2 :\nF(x) = c1 cos(ax) + c2 sin(ax), de même F(0) = 0 donc c1 = 0 et F ′(x) = c2a cos(ax) = f(x), f(0) = 1 donc\nac2 = 1, donc f(x) = sin(ax).\nLa réciproque est à vériﬁer (s’aider de formules trigonométriques).",
+      "transcription_relue": false,
+      "corrige_vide_dans_source": false
+    }
+  ]
+}

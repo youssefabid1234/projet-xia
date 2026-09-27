@@ -16,7 +16,7 @@ import unicodedata
 ROOT = Path(__file__).resolve().parents[1]
 HEADING = re.compile(
     r"^(Définition|Théorème|Proposition|Corollaire|Lemme|Exemples?|"
-    r"Remarques?|Avertissement|Méthode) (16\.\d+\.\d+)(?:\s|$)"
+    r"Remarques?|Avertissement|Méthode|Terminologie) (\d+\.\d+\.\d+)(?:\s|$)"
 )
 TYPES = {"Exemples": "exemple", "Remarques": "remarque"}
 
@@ -28,7 +28,7 @@ def write_json(path, value):
     temporary.replace(path)
 
 
-def extract(pdf, start=139, end=157):
+def extract(pdf, start=139, end=157, chapitre="16 — Séries numériques"):
     import pymupdf
 
     passages, introductions, section, pending = [], [], [], []
@@ -95,7 +95,7 @@ def extract(pdf, start=139, end=157):
         p["texte"] = p["texte_brut"]
         p["transcription_relue"] = False
         p["contient_preuve"] = "Éléments de preuve" in p["texte"]
-    return {"version": 1, "statut": "a_verifier", "chapitre": "16 — Séries numériques",
+    return {"version": 1, "statut": "a_verifier", "chapitre": chapitre,
             "pdf_sha256": hashlib.sha256(pdf.read_bytes()).hexdigest(),
             "pages_pdf": [start, end], "introductions": introductions,
             "avertissement": "Texte PDF brut : indices, exposants et fractions à relire, sauf passages marqués transcription_relue.",
@@ -144,7 +144,7 @@ def embed(payload, client, model, batch_size=16):
 
 
 def preview_markdown(payload, count=10):
-    parts = ["# Aperçu des passages — Séries numériques", "Pages PDF (numérotation à partir de 1) et pages imprimées indiquées séparément."]
+    parts = [f"# Aperçu des passages — {payload['chapitre']}", "Pages PDF (numérotation à partir de 1) et pages imprimées indiquées séparément."]
     for p in payload["passages"][:count]:
         parts.extend([f"## {p['titre']}",
                       f"Type : {p['type']} — PDF : {p['page_source']['pdf']} — imprimées : {p['page_source']['imprimee']}",
@@ -156,6 +156,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--pdf", type=Path, default=ROOT / "data/cours/analyse.pdf")
     parser.add_argument("--pages", nargs=2, type=int, default=[139, 157])
+    parser.add_argument("--chapitre", default="16 — Séries numériques")
     parser.add_argument("--passages", type=Path, default=ROOT / "data/cours_passages.json")
     parser.add_argument("--output", type=Path, default=ROOT / "data/cours_index.json")
     parser.add_argument("--apercu", type=Path, default=ROOT / "data/cours_apercu.md")
@@ -178,7 +179,7 @@ def main(argv=None):
         write_json(args.output, result)
         print(f"{len(result['passages'])} passages indexés dans {args.output}")
     else:
-        payload = extract(args.pdf.resolve(), *args.pages)
+        payload = extract(args.pdf.resolve(), *args.pages, chapitre=args.chapitre)
         apply_review(payload, args.transcriptions)
         write_json(args.passages, payload)
         markdown = preview_markdown(payload)

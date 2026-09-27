@@ -1144,5 +1144,963 @@
       }
     },
     "difficulte": 5
+  },
+  {
+    "identifiant": "14.1",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Résoudre l’équation diﬀérentielle (E): y′ + 2y = 4e2t, avec la condition de Cauchy y(0) = 0.",
+    "corrige": "On a alors (H) : y′ + 2y = 0 ⇔y = λ e−2t.\nOn applique la méthode de variation de la constante :\ny(t) = λ(t) e−2t\n⇔λ′(t) e−2t = 4 e2t\n⇔λ′(t) = 4 e4t\n⇔λ(t) = e4t +C, C ∈R\n⇔y(t) = e2t +C e−2t\net C = −1\n⇔y(t) = 2 sinh 2t",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 41,
+        "imprimee": 35
+      },
+      "corrige": {
+        "pdf": 172,
+        "imprimee": 166
+      }
+    },
+    "difficulte": 1,
+    "notions": [
+      "Méthode 11.2.4 (Méthode de variation de la constante)",
+      "Théorème 11.2.10 (Résolution d’une équation linéaire y′ = ay + b à coefficients constants)"
+    ],
+    "references_notions": {
+      "Méthode 11.2.4 (Méthode de variation de la constante)": "11.2.4",
+      "Théorème 11.2.10 (Résolution d’une équation linéaire y′ = ay + b à coefficients constants)": "11.2.10"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Résoudre l’équation différentielle (E) : y′ + 2y = 4e^{2t}, avec la condition de Cauchy y(0) = 0.",
+      "etapes": [
+        {
+          "objectif": "Résoudre l’équation homogène associée",
+          "question": "Quelle est la solution générale de l’équation homogène y′ + 2y = 0 ?",
+          "indice": "Il s’agit d’une équation linéaire à coefficients constants du premier ordre.",
+          "reponse": "La solution générale de l’équation homogène y′ + 2y = 0 est y(t) = λ e^{-2t}, où λ ∈ ℝ."
+        },
+        {
+          "objectif": "Utiliser la méthode de variation de la constante pour une solution particulière",
+          "question": "Quelle forme particulière prend une solution utilisant la variation de la constante ?",
+          "indice": "Remplacez le coefficient λ par une fonction λ(t).",
+          "reponse": "On pose y_p(t) = λ(t) e^{-2t}, où λ(t) est une fonction à déterminer."
+        },
+        {
+          "objectif": "Déterminer l’équation vérifiée par λ(t)",
+          "question": "Comment s’exprime l’équation différentielle satisfaite par λ(t) ?",
+          "indice": "Utilisez la dérivée du produit y = λ(t) e^{-2t} et remplacez dans l’équation différentielle initiale.",
+          "reponse": "On obtient λ′(t) e^{-2t} = 4 e^{2t}, donc λ′(t) = 4 e^{4t}."
+        },
+        {
+          "objectif": "Résoudre l’équation sur λ(t)",
+          "question": "Comment déterminer λ(t) ?",
+          "indice": "Intégrez le membre de droite par rapport à t.",
+          "reponse": "On a λ(t) = ∫4 e^{4t} dt = e^{4t} + C, avec C ∈ ℝ."
+        },
+        {
+          "objectif": "Exprimer la solution générale de l’équation complète",
+          "question": "Quelle est la solution générale de l’équation différentielle initiale à partir de λ(t) ?",
+          "indice": "Remplacez λ(t) dans la forme générale y(t) = λ(t) e^{-2t}.",
+          "reponse": "On obtient y(t) = (e^{4t} + C) e^{-2t} = e^{2t} + C e^{-2t}."
+        },
+        {
+          "objectif": "Déterminer la constante à l’aide de la condition initiale",
+          "question": "Quelle valeur de C satisfait la condition de Cauchy y(0) = 0 ?",
+          "indice": "Remplacez t = 0 dans l’expression précédente et résolvez pour C.",
+          "reponse": "y(0) = 1 + C, donc C = -1 pour respecter la condition y(0) = 0."
+        },
+        {
+          "objectif": "Exprimer la solution finale sous une forme simplifiée",
+          "question": "Quelle forme reconnaissable peut-on donner à la solution pour conclure ?",
+          "indice": "Utilisez les identités sur les fonctions hyperboliques.",
+          "reponse": "La solution s’écrit y(t) = e^{2t} - e^{-2t} = 2 \\sinh 2t."
+        }
+      ],
+      "empreinte": "e103792813ade574a9cf4fee9800fe18f2f02f4d020ea19ca381be175a0fb2e2",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:28.683696+00:00"
+    }
+  },
+  {
+    "identifiant": "14.2",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Résoudre l’équation diﬀérentielle (E) : y′′ −10y′ + 41y = 170 sin t.",
+    "corrige": "(H) : y′′ −10y′ + 41y = 0 et on a le polynôme caractéristique : χ(X) = X2 −10X + 41\n∆= 100 −4 × 41 =\n−64 = (±8i)2, d’où on tire X± = 10 ± 8i\n2\n= 5 ± 4i.\nD’où (H) ⇔∃u, v ∈R, y(t) = e5t (u cos 4t + v sin 4t)\nOn cherche ensuite une solution particulière de la forme y(t) = A cos t + B sin t (car χ(i)̸ = 0).\ny = A cos t + B sin t\ny′ = −A sin t + B cos t\ny′′ = −A cos t −B sin t\nOn remplace dans (E) :\n(−A−10B+41A) cos t+(−B+10A+41B) sin t = 170 sin t ⇔\n®\n40A −10B\n= 0\n40B + 10A\n= 170 ⇔\n®\nA\n= B/4\n170A\n= 170\n⇔\n®\nA\n= 1\nB\n= 4\nLes solutions sont donc \be5t (u cos 4t + v sin 4t) + cos t + 4 sin t / u, v ∈R\t.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 41,
+        "imprimee": 35
+      },
+      "corrige": {
+        "pdf": 172,
+        "imprimee": 166
+      }
+    },
+    "difficulte": 1,
+    "notions": [
+      "Terminologie 11.3.4 (polynôme caractéristique)",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)",
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))",
+      "Proposition 11.3.8 (Solutions particulières pour un second membre Q(x)eλx, admis)",
+      "Proposition 11.3.6 (Passer des solutions complexes aux solutions réelles)",
+      "Proposition 11.1.3 (Principe de superposition)"
+    ],
+    "references_notions": {
+      "Terminologie 11.3.4 (polynôme caractéristique)": "11.3.4",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)": "11.3.7",
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))": "11.3.1",
+      "Proposition 11.3.8 (Solutions particulières pour un second membre Q(x)eλx, admis)": "11.3.8",
+      "Proposition 11.3.6 (Passer des solutions complexes aux solutions réelles)": "11.3.6",
+      "Proposition 11.1.3 (Principe de superposition)": "11.1.3"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Résoudre l’équation différentielle (E) : y'' −10y' + 41y = 170\\sin t.",
+      "etapes": [
+        {
+          "objectif": "Résoudre l'équation homogène associée",
+          "question": "Résoudre y'' −10y' + 41y = 0.",
+          "indice": "Utiliser le polynôme caractéristique associé à l’équation homogène.",
+          "reponse": "Le polynôme caractéristique est \\( X^2 - 10X + 41 \\). Le discriminant est \\( \\Delta = 100 - 4 \\times 41 = -64 \\), donc les racines sont complexes : \\( X = 5 \\pm 4i \\). Donc les solutions de l'équation homogène sont de la forme \\( y_0(t) = e^{5t}(u \\cos 4t + v \\sin 4t) \\) avec \\( u, v \\in \\mathbb{R} \\)."
+        },
+        {
+          "objectif": "Trouver une solution particulière de l'équation complète",
+          "question": "Proposer une forme de solution particulière pour y'' −10y' + 41y = 170\\sin t et déterminer ses coefficients.",
+          "indice": "Essayer une solution particulière sous la forme \\( y_p(t) = A \\cos t + B \\sin t \\) car le second membre est harmonique.",
+          "reponse": "On pose \\( y_p(t) = A \\cos t + B \\sin t \\). On a alors : \\( y'_p = -A \\sin t + B \\cos t \\) et \\( y''_p = -A \\cos t - B \\sin t \\). On remplace dans l'équation :\n\\((-A-10B+41A)\\cos t+(-B+10A+41B)\\sin t = 170 \\sin t\\), ce qui donne le système :\n\\( \\begin{cases} (40A - 10B) = 0 \\\\ (40B + 10A) = 170 \\end{cases} \\)\nOn résout : \\( A = B/4 \\) et \\( 170A = 170 \\) donc \\( A = 1, B = 4 \\)."
+        },
+        {
+          "objectif": "Écrire l'ensemble des solutions générales de l’équation complète",
+          "question": "Déduire l’ensemble des solutions générales de l’équation différentielle donnée.",
+          "indice": "Rappel : Toute solution est la somme d’une solution générale de l’homogène et d’une solution particulière.",
+          "reponse": "L'ensemble des solutions est : \\( y(t) = e^{5t}(u \\cos 4t + v \\sin 4t) + \\cos t + 4 \\sin t \\), avec \\( u, v \\in \\mathbb{R} \\)."
+        }
+      ],
+      "empreinte": "17507ca510d020e5b877f76e5234722c1a00d44fa70691fd20fcd39d488c622b",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:28.649443+00:00"
+    }
+  },
+  {
+    "identifiant": "14.3",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Soit f : R −→R une application deux fois dérivable telle que\n∀x ∈R, f ′′(x) −2f ′(x) + f(x) = 2 ex\n1. Montrer que si f ′ ≥0, alors f ≥0.\n2. La réciproque est-elle vraie ?",
+    "corrige": "1. On résout dans un premier temps l’équation diﬀérentielle proposée :\nχ(X) = X2 −2X + 1 = (X −1)2, on est face à une racine double, d’où ∃α, β ∈R, f(x) = ex(αx + β).\nOn cherche ensuite une sol particulière de la forme x 7−→a ex x2. On remplace dans (E) : ax2 ex −2 ex(ax2 +\n2ax) + ex(ax2 + 2ax + 2ax + 2a) = 2 ex ⇔a = 1.\nD’où ∀t ∈R, f(t) = et(t2 + αt + β) et f ′(t) = et(t2 + t(2 + α) + β + α) ≥0 (c’est une parabole tournée vers le\nhaut, de coeﬃcient dominant 1 > 0).\nf ′(t) ≥0 ⇔∆= (2 + α)2 −4(β + α) < 0 ⇔α2 −4β + 4 < 0\nPour f : ∆′ = α2 −4β et on a clairement que ∆< 0 ⇒∆′ < 0. La réciproque est en revanche fausse, il suﬃt de\nprendre β = 0.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 41,
+        "imprimee": 35
+      },
+      "corrige": {
+        "pdf": 172,
+        "imprimee": 166
+      }
+    },
+    "difficulte": 2,
+    "notions": [
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))",
+      "Terminologie 11.3.4 (polynôme caractéristique)",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)",
+      "Proposition 11.3.8 (Solutions particulières pour un second membre Q(x)eλx, admis)"
+    ],
+    "references_notions": {
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))": "11.3.1",
+      "Terminologie 11.3.4 (polynôme caractéristique)": "11.3.4",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)": "11.3.7",
+      "Proposition 11.3.8 (Solutions particulières pour un second membre Q(x)eλx, admis)": "11.3.8"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Soit f : \\mathbb{R} \\to \\mathbb{R} une application deux fois dérivable telle que\n\\[\\forall x \\in \\mathbb{R},\\quad f''(x) - 2f'(x) + f(x) = 2e^{x}\\]\n\n1. Montrer que si \\(f'(x) \\geq 0\\) pour tout \\(x\\), alors \\(f(x) \\geq 0\\) pour tout \\(x\\).\n2. La réciproque est-elle vraie ?",
+      "etapes": [
+        {
+          "objectif": "Résolution générale de l'équation différentielle",
+          "question": "Déterminez l'ensemble des solutions de l'équation différentielle \\(f''(x) - 2f'(x) + f(x) = 2e^{x}\\).",
+          "indice": "Cherchez d'abord la solution générale de l'équation homogène puis une solution particulière du second membre.",
+          "reponse": "Le polynôme caractéristique est \\(X^2 - 2X + 1 = (X - 1)^2\\) avec une racine double en 1. Les solutions générales de l'équation homogène sont donc \\(f_h(x) = e^{x}(\\alpha x + \\beta)\\), \\(\\alpha, \\beta \\in \\mathbb{R}\\). On cherche une solution particulière sous la forme \\(f_p(x) = a x^2 e^x\\). En substituant dans l'équation, on trouve \\(a = 1\\). Ainsi, \\(f(x) = e^{x}(x^2 + \\alpha x + \\beta)\\) est la solution générale."
+        },
+        {
+          "objectif": "Calcul de la dérivée de la solution générale",
+          "question": "Calculez explicitement \\(f'(x)\\) pour \\(f(x) = e^{x}(x^2 + \\alpha x + \\beta)\\).",
+          "indice": "Utilisez la formule de la dérivée du produit et simplifiez le résultat.",
+          "reponse": "\\(f'(x) = e^{x}[(x^2 + \\alpha x + \\beta)' + (x^2 + \\alpha x + \\beta)] = e^{x}(2x + \\alpha + x^2 + \\alpha x + \\beta) = e^{x}(x^2 + (2 + \\alpha)x + (\\beta + \\alpha))\\)."
+        },
+        {
+          "objectif": "Étude du signe de \\(f'(x)\\) et du lien avec \\(f(x)\\)",
+          "question": "Sous quelle condition \\(f'(x) \\geq 0\\) implique-t-il \\(f(x) \\geq 0\\) pour tout \\(x\\) ?",
+          "indice": "La forme polynomiale de \\(f'(x)\\) donne une parabole tournée vers le haut. Que se passe-t-il si ce polynôme est toujours positif ?",
+          "reponse": "\\(f'(x)\\) s'écrit comme un polynôme du second degré à coefficients réels et dominant positif (1), donc c'est une parabole vers le haut. Si elle est toujours positive, cela signifie que son discriminant est strictement négatif : \\((2+\\alpha)^2 - 4(\\beta+\\alpha) < 0\\) soit \\(\\alpha^2 - 4\\beta + 4 < 0\\). Or, le discriminant de \\(f(x)\\) est \\(\\Delta' = \\alpha^2 - 4\\beta\\), donc \\(\\Delta < 0\\) implique bien \\(\\Delta' < 0\\) et donc \\(f(x) > 0\\) pour tout \\(x\\)."
+        },
+        {
+          "objectif": "Étude de la réciproque",
+          "question": "La réciproque (si \\(f(x) \\geq 0\\) alors \\(f'(x) \\geq 0\\)) est-elle vraie ?",
+          "indice": "Cherchez un contre-exemple avec \\(\\beta = 0\\) dans les formules obtenues.",
+          "reponse": "Non, la réciproque n'est pas vraie. Par exemple, avec \\(\\beta = 0\\), il est possible que \\(f(x)\\) soit positif sans que \\(f'(x)\\) le soit toujours."
+        }
+      ],
+      "empreinte": "59841f7a950bb9c5edbab5661a4e42839e7eb74dd9b2bce4d39ba6568fa2155a",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:30.666378+00:00"
+    }
+  },
+  {
+    "identifiant": "14.4",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "On considère l’équation diﬀérentielle suivante\n(E) : x(x2 −1)y′ + 2y = x2,\noù y est une fonction de x.\n1. Résoudre cette équation diﬀérentielle Iorsque y est déﬁnie sur un intervalle I ne contenant aucun des réels −1, 0\net 1.\n2. Montrer que y est une solution de (E) si et seulement si x 7−→y(−x) est une solution de (E) .\n3. Déterminer les solutions de (E) sur R∗\n+ et sur R∗\n−.\n4. Déterminer les solutions de (E) sur ] −1 ; 1[.",
+    "corrige": "1. Soit I un intervalle tel que I ∩{0, −1, 1} = ∅. Soit y: I −→R une application dérivable.\n(E) ⇔y′ +\n2\nx(x2 −1)y =\nx\nx2 −1\n(H) ⇔y′ =\n−2\nx(x2 −1)y\nOn eﬀectue une décomposition en éléments simples :\n−2\nx(x2 −1) = 2\nx +\n−1\nx −1 +\n−1\nx + 1\nZ\n−2\nx(x2 −1) dx =\nZ 2\nx +\n−1\nx −1 +\n−1\nx + 1 dx = 2 ln x + −ln(x −1) −ln(x + 1) = ln\nx2\n|x2 −1|\n(H) ⇔y(x) =\nλ\nx2\nx2 −1\n, or I∩{0, −1, 1} = ∅donc x 7→\nx2\nx2 −1 est de signe constant sur I donc (H) ⇔∃λ ∈R, ∀t ∈I, y(t) = λ\nt2\nt2 −1.\nOn applique la méthode de variation de la constante :\nλ′(x)\nx2\nx2 −1 =\nx\nx2 −1\n⇔λ′ = 1\nx\n⇔λ = ln x + k,\nk ∈R\nDonc (E) ⇔∃λ ∈R, ∀x ∈I, y(x) =\nx2\nx2 −1 (ln x + k)\n2. ⇒: Supposons y une solution. Notons z : −I −→R\nx 7−→y(−x)\n.\n∀x ∈−I, z′(x) = −y′(−x).\n∀x ∈I, x(x2−1)y′+2y = x2 donc ∀x ∈−I, −x((−x)2−1)y′(−x)+2y(−x) = (−x)2 ⇔x(x2−1)z′(x)+2z(x) = x2.\nDonc z est bien solution de (E).\n⇐: À faire\n3. La question précédente nous montre une symétrie, le raccord eﬀectué sur R∗\n+ sera le même sur R∗\n−. Ainsi, sur\nR∗\n+, on peut imposer I ∈{]0 ; 1[, ]1 ; +∞[}. Soit y1 une solution de (E) sur ]0 ; 1[ et soit y2 une solution de (E)\nsur ]1 ; +∞[. Alors d’après la question 1, on a :\ny1(x) =\nx2\nx2 −1 (ln x + λ1)\ny2(x) =\nx2\nx2 −1 (ln x + λ2)\nOr λ1,2x2\nx2 −1 −−−→\nx→1 +∞donc il n’y pas de raccordemment possible si λ1,2̸ = 0.\nx2\nx2 −1 × ln x =\nx2\nx + 1 × ln(x −1 + 1)\nx −1\n−−−→\nx→1\n1\n2 × 1\n(car ln(1 + u)\nu\n−−−→\nu→0 1)\nDonc la seule éventuelle solution de (E) sur R∗\n+ est : y: R∗\n+ −→R\nx 7−→\n\n\n\n\n\n\n\nx2 ln x\nx2 −1\nsi x̸ = 1\n1\n2\nsi x = 1\n, et y est bien continue en 1,\nd’après les calculs de limites précédents.\nOn rappelle ou bien on montre que f est dérivable en un point si et seulement si elle admet un DL d’ordre\n1 en ce point :\nf(x) −f(a)\nx −a\n−−−→\nx→a l ⇔f(x) = f(a) + l(x −a) + o(x −a)\nPosons x = h + 1 :\ny(x) = 1 + 2h + h2\nh(h + 2\n) ln(1 + h)\n= 1 + 2h + o(h)\nh + 2\n× h −h2\n2 + o(h2)\nh\n= (1 + 2h + o(h))\nÅ\n1 −h\n2 + o(h)\nã\n×\n1\n2(1 + h/2)\n= 1\n2\nÅ\n1 + 3\n2g + o(h)\nã Å\n1 −h\n2 + o(h)\nã\n= 1\n2(1 + h + o(h))\nDonc y est dérivable en 1 et y′(1) = 1\n2. De plus 1(12 −1)y′(1) + 2y(1) = 12 donc y est solution de (E).\n4. Il suﬃt maintenant de faire le raccordement en 0 : Soit y−un solution sur ]−1 ; 0[ et y+ une solution sur ]0 ; 1[.\nAlors\ny−(x) =\nx2\nx2 −1(ln |x| + C)\n= x ×\nÅ\nx2\nx2 −1(ln |x| + C)\nã\n= o(x)(car x ln(x) −−−→\nx→0 0)\nDe même pour y+. Le même raisonnement qu’à la question précédente montre que toute solution de y−se raccord\nà toute solution de y+ en une application dérivable sur ] −1 ; 1[ tel que y(0) = 0 = y′(0). On vériﬁe que y\nsatisfait (E) en x = 0.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 41,
+        "imprimee": 35
+      },
+      "corrige": {
+        "pdf": [
+          172,
+          173,
+          174
+        ],
+        "imprimee": [
+          166,
+          167,
+          168
+        ]
+      }
+    },
+    "difficulte": 3,
+    "notions": [
+      "Définition 11.1.1 (Équation différentielle linéaire)",
+      "Théorème 11.1.2 (Structure de l’ensemble des solutions)",
+      "Méthode 11.2.4 (Méthode de variation de la constante)"
+    ],
+    "references_notions": {
+      "Définition 11.1.1 (Équation différentielle linéaire)": "11.1.1",
+      "Théorème 11.1.2 (Structure de l’ensemble des solutions)": "11.1.2",
+      "Méthode 11.2.4 (Méthode de variation de la constante)": "11.2.4"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "On considère l’équation différentielle suivante\n(E) : x(x^2 −1)y′ + 2y = x^2,\noù y est une fonction de x.\n1. Résoudre cette équation différentielle lorsque y est définie sur un intervalle I ne contenant aucun des réels −1, 0 et 1.\n2. Montrer que y est une solution de (E) si et seulement si x ↦ y(−x) est une solution de (E).\n3. Déterminer les solutions de (E) sur ℝ^*_+ et sur ℝ^*_−.\n4. Déterminer les solutions de (E) sur ]−1 ; 1[.",
+      "etapes": [
+        {
+          "objectif": "Réécriture de l’équation différentielle sous forme usuelle et résolution sur un intervalle sans les points singuliers.",
+          "question": "Résoudre l’équation différentielle (E) : x(x^2−1)y′ + 2y = x^2, lorsque y est définie sur un intervalle I ne contenant pas 0, −1, 1.",
+          "indice": "Exprimer l’équation sous la forme y′ + a(x)y = b(x) et utiliser la méthode de variation de la constante.",
+          "reponse": "L’équation (E) se réécrit y′ + (2/[x(x^2−1)])y = x/[x^2−1]. On cherche d’abord la solution générale de l’homogène ; on pose a(x) = −2/(x(x^2−1)). Décomposition en éléments simples : −2/(x(x^2−1)) = 2/x − 1/(x−1) − 1/(x+1). L’intégrale donne ln(x^2/|x^2−1|), donc la solution de l’homogène est y_h(x) = λ x^2/(x^2−1). Par variation de la constante, on pose y(x) = λ(x)x^2/(x^2−1), ce qui mène à λ'(x) = 1/x, donc λ(x) = ln x + k. La solution générale est y(x) = [x^2/(x^2−1)](ln x + k) sur tout intervalle I ne contenant ni 0, −1, 1."
+        },
+        {
+          "objectif": "Vérifier la symmetry des solutions par changement de variable x ↦ −x.",
+          "question": "Montrer que y est solution de (E) si et seulement si x ↦ y(−x) est solution de (E).",
+          "indice": "Considérer z(x) = y(−x), calculer z′(x) et remplacer dans l’équation (E).",
+          "reponse": "Soit z(x) = y(−x) sur −I. On a z′(x) = −y′(−x). En remplaçant dans (E) : −x((−x)^2−1)y′(−x) + 2y(−x) = (−x)^2 ⇔ x(x^2−1)z′(x) + 2z(x) = x^2, donc z est bien solution de (E) sur −I. La réciproque s'obtient de façon symétrique."
+        },
+        {
+          "objectif": "Détermination des solutions sur ℝ^*_+ et ℝ^*_−, et raccordement éventuel.",
+          "question": "Déterminer explicitement les solutions de (E) sur ℝ^*_+ et sur ℝ^*_−.",
+          "indice": "Considérer les intervalles ]0,1[, ]1,+∞[, ]−∞,−1[, et ]−1,0[ séparément et étudier le comportement aux points frontières.",
+          "reponse": "Sur ℝ^*_+, on considère successivement ]0,1[ et ]1,+∞[. Sur chaque intervalle, la solution générale est y(x) = [x^2/(x^2−1)](ln x + λ). Le raccordement en x=1 n’est possible que si λ=0, en raison du comportement à la limite. Ainsi, la seule solution continue sur ℝ^*_+ est y(x) = x^2 ln x/(x^2−1) pour x ≠ 1, et y(1) = 1/2 de manière à assurer la continuité. Un calcul par développement limité montre que y est dérivable en 1. Par symétrie (question 2) on obtient les solutions sur ℝ^*_−."
+        },
+        {
+          "objectif": "Détermination des solutions sur l’intervalle ]−1 ; 1[ et raccordement au point x=0.",
+          "question": "Déterminer les solutions de (E) sur l’intervalle ]−1 ; 1[, et préciser la régularité en x=0.",
+          "indice": "Procéder comme précédemment pour chaque sous-intervalle et étudier le comportement des solutions en x=0.",
+          "reponse": "Les solutions sur ]−1,0[ et sur ]0,1[ sont de la forme y(x) = [x^2/(x^2−1)](ln|x| + C). Pour x→0, x ln|x| → 0, ainsi y s’annule en 0. On montre que pour tout choix des constantes, toute solution se raccorde en une application de classe C^1 sur ]−1;1[ avec y(0)=0 et y'(0)=0, et la fonction satisfait bien (E) au point x=0."
+        }
+      ],
+      "empreinte": "a592dd0bb2d012341cd8f6cda37c48731b3760e0a0581c7e3dbafddc087f6b3b",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:30.511272+00:00"
+    }
+  },
+  {
+    "identifiant": "14.5",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Résoudre l’équation (E) : y′ = y\n2t + 1\n2yt.\nIndication : On pourra poser z = y2.",
+    "corrige": "Soit I ⊂R∗un intervalle. y′ = y\n2t + 1\n2yt ⇔2yy′ = y2\nt + 1\nt .\nOn a z = y2 donc z′ = 2yy′. Ainsi (E) ⇔z′ = z\nt + 1\nt et (H) ⇔z′ = z\nt ⇔z = λt. On devine que t 7→−1 est solution\nparticulière et (E) ⇔∃λ ∈R, ∀t ∈I, z = λt −1 ⇔y2 = λt −1 ⇔y =\n√\nλt −1.\nSi λ < 0, t < 1\nλ, posons Iλ =\nò\n−∞; 1\nλ\nï\n. Si λ > 0, t > 1\nλ, posons Iλ =\nò 1\nλ ; +∞\nï\n.\nAinsi (E) ⇒∃λ ∈R, ∀t ∈I ⊂Iλ, y(t) =\n√\nλt −1\nSi y est solution, elle ne s’annule pas, donc d’après le théorème des valeurs intermédiaires, le signe de y est constant.\nFinalement (E) ⇔∃λ ∈R∗, ∃I ⊂Iλ, ∃ε ∈{−1, 1}, ∀t ∈I, y(t) = ε\n√\nλt −1",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 41,
+        "imprimee": 35
+      },
+      "corrige": {
+        "pdf": 174,
+        "imprimee": 168
+      }
+    },
+    "difficulte": 2,
+    "notions": [
+      "Définition 11.1.1 (Équation différentielle linéaire)",
+      "Théorème 11.2.1 (Résolution de l’équation y′ = a(x)y (a continue))"
+    ],
+    "references_notions": {
+      "Définition 11.1.1 (Équation différentielle linéaire)": "11.1.1",
+      "Théorème 11.2.1 (Résolution de l’équation y′ = a(x)y (a continue))": "11.2.1"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Résoudre l’équation (E) : y' = \\frac{y}{2t} + \\frac{1}{2y t}.\nIndication : On pourra poser z = y^2.",
+      "etapes": [
+        {
+          "objectif": "Réduction à une équation sur z = y^2",
+          "question": "Montrer qu'en posant z = y^2, l'équation différentielle (E) se réécrit en une équation différentielle du premier ordre sur z.",
+          "indice": "Exprimer y' en fonction de z et y, puis remplacer dans (E).",
+          "reponse": "En posant z = y^2, on a z' = 2yy'. Ainsi, l'équation devient 2yy' = \\frac{y^2}{t} + \\frac{1}{t}, donc z' = \\frac{z}{t} + \\frac{1}{t}."
+        },
+        {
+          "objectif": "Résolution de l’équation linéaire sur z (= y^2)",
+          "question": "Résoudre l'équation z' = \\frac{z}{t} + \\frac{1}{t} sur I \\subset \\mathbb{R}^*.",
+          "indice": "C'est une équation différentielle linéaire du premier ordre à coefficients variables.",
+          "reponse": "On réécrit : z' - \\frac{z}{t} = \\frac{1}{t}.\nLe facteur intégrant est \\mu(t) = e^{- \\int \\frac{1}{t} dt} = \\frac{1}{t}.\nOn multiplie par \\frac{1}{t} : \\frac{z'}{t} - \\frac{z}{t^2} = \\frac{1}{t^2}\nSoit \\left(\\frac{z}{t}\\right)' = \\frac{1}{t^2}, donc \\frac{z}{t} = -\\frac{1}{t} + \\lambda.\nDonc z = \\lambda t - 1."
+        },
+        {
+          "objectif": "Retour à y et domaines de solutions",
+          "question": "En déduire l'ensemble des solutions pour y en fonction de \\lambda, puis discuter le domaine d'existence en t.",
+          "indice": "y^2 = \\lambda t - 1. Pour que y soit définie réel, imposer \\lambda t - 1 > 0 ou < 0 suivant le signe de \\lambda.",
+          "reponse": "On a y^2 = \\lambda t - 1, donc y(t) = \\pm\\sqrt{\\lambda t - 1}.\n• Si \\lambda > 0, \\lambda t - 1 > 0 \\Leftrightarrow t > \\frac{1}{\\lambda}.\n• Si \\lambda < 0, \\lambda t - 1 > 0 \\Leftrightarrow t < \\frac{1}{\\lambda}.\nOn pose alors I_\\lambda = (\\frac{1}{\\lambda}; +\\infty) si \\lambda > 0, I_\\lambda = (-\\infty; \\frac{1}{\\lambda}) si \\lambda < 0."
+        },
+        {
+          "objectif": "Interprétation du signe de y et unicité",
+          "question": "Montrer que si y est une solution réelle sur un intervalle, le signe de y est constant.",
+          "indice": "Utiliser l’hypothèse que y ne s’annule pas et le théorème des valeurs intermédiaires.",
+          "reponse": "Si y est solution (réelle), elle ne s'annule pas (car sinon division par zéro dans l’équation initiale), donc, par le théorème des valeurs intermédiaires, y est de signe constant sur tout intervalle de définition."
+        },
+        {
+          "objectif": "Formulation finale de l'ensemble des solutions",
+          "question": "Donner la forme générale de toutes les solutions réelles de (E) en explicitant les paramètres.",
+          "indice": "Combiner les résultats précédents sur le domaine, le signe de y et l’expression en racine.",
+          "reponse": "(E) \\Leftrightarrow \\exists \\lambda \\in \\mathbb{R}^*, \\exists I \\subset I_\\lambda, \\exists \\varepsilon \\in \\{-1,1\\},\\ \\forall t \\in I,\\ y(t) = \\varepsilon \\sqrt{\\lambda t - 1}."
+        }
+      ],
+      "empreinte": "a23ce140513d3fd7f349eb0becb95876989cfaae96bd9a202fc75c32e9b47916",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:34.032206+00:00"
+    }
+  },
+  {
+    "identifiant": "14.6",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Déterminer les applications f : R −→R, continues et telles que :\n∀x ∈R,\nf(x) +\nZ x\n0\n(x −t)f(t) dt = 1.",
+    "corrige": "f(x) +\nZ x\n0\n(x −t)f(t) dt = 1\n⇔f(x) + x\nZ x\n0\nf(t) dt −\nZ x\n0\ntf(t) dt = 1\n⇔f ′(x) +\nZ x\n0\nf(t) dt + xf(x) −xf(x) = 0\net f(0) = 1\n⇔f ′′(x) + f(x) = 0\net\n®f(0)\n= 1\nf ′(0)\n= 0\n⇔f(x) = cos x\ncos est solution et la solution est unique par le théorème de Cauchy-Lipschitz.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 41,
+        "imprimee": 35
+      },
+      "corrige": {
+        "pdf": 174,
+        "imprimee": 168
+      }
+    },
+    "difficulte": 3,
+    "notions": [
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)",
+      "Théorème 11.3.10 (Théorème de Cauchy-Lipschitz pour les EDL d’ordre 2 (admis))"
+    ],
+    "references_notions": {
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))": "11.3.1",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)": "11.3.7",
+      "Théorème 11.3.10 (Théorème de Cauchy-Lipschitz pour les EDL d’ordre 2 (admis))": "11.3.10"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Déterminer les applications f : \\mathbb{R} \\to \\mathbb{R}, continues et telles que, \\forall x \\in \\mathbb{R}, \\quad f(x) + \\int_0^x (x-t) f(t)\\,dt = 1.",
+      "etapes": [
+        {
+          "objectif": "Réécrire l'équation intégrale sous forme différentielle",
+          "question": "Montrer que l’équation intégrale\n$$\n\\forall x \\in \\mathbb{R},\\quad f(x) + \\int_0^x (x-t)f(t)dt = 1\n$$\nest équivalente à une équation différentielle linéaire du second ordre, et donner les conditions initiales correspondantes.",
+          "indice": "Utiliser la dérivation sous le signe intégral pour exprimer l’intégrale en fonction de f et ses dérivées.",
+          "reponse": "On a\n$$\nf(x) + \\int_0^x (x-t) f(t) dt = 1.\n$$\nOn développe le terme: $$\\int_0^x (x-t)f(t) dt = x\\int_0^x f(t) dt - \\int_0^x t f(t) dt$$.\nOn dérive l'équation par rapport à x :\n$$\n\\frac{d}{dx}\\left[f(x) + x\\int_0^x f(t) dt - \\int_0^x t f(t) dt\\right] = 0\n$$\nOn obtient:\n$$\nf'(x) + \\int_0^x f(t) dt + x f(x) - x f(x) = 0\n$$\nsoit\n$$\nf'(x) + \\int_0^x f(t) dt = 0\n$$\nEn dérivant encore :\n$$\nf''(x) + f(x) = 0\n$$\nLes conditions initiales sont obtenues pour x=0 :\n$$\nf(0) + 0 = 1 \\Rightarrow f(0) = 1\n$$\nEn dérivant l’équation précédente, pour x=0, on a :\n$$\nf'(0) + \\int_0^0 f(t) dt = f'(0) = 0\n$$\nDonc les conditions initiales sont : f(0) = 1, f'(0) = 0."
+        },
+        {
+          "objectif": "Résoudre l'équation différentielle obtenue",
+          "question": "Résoudre l’équation différentielle du second ordre $f''(x) + f(x) = 0$ avec les conditions initiales $f(0) = 1$ et $f'(0) = 0$.",
+          "indice": "La solution générale d’une équation $y'' + y = 0$ est de la forme $A\\cos x + B\\sin x$.",
+          "reponse": "La solution générale de $f''(x) + f(x) = 0$ est $f(x) = A\\cos x + B\\sin x$. Les conditions $f(0) = 1$ et $f'(0) = 0$ imposent $A = 1$ et $B = 0$. Donc, $f(x) = \\cos x$."
+        },
+        {
+          "objectif": "Conclure sur l’unicité de la solution",
+          "question": "Pourquoi la solution obtenue est-elle la seule possible sous les hypothèses données ?",
+          "indice": "Utiliser le théorème d’existence et d’unicité pour les EDL linéaires d’ordre 2.",
+          "reponse": "L’énoncé donne que $f$ est continue sur $\\mathbb{R}$, l’équation différentielle possède des coefficients constants et les conditions initiales sont prescrites. Par le Théorème 11.3.10 (Théorème de Cauchy-Lipschitz pour les EDL d’ordre 2), la solution $f(x) = \\cos x$ est unique."
+        }
+      ],
+      "empreinte": "4321fe9afb7d11fab459af45398122a8dca33072f29deeba66e4ffd597e6231e",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:33.731465+00:00"
+    }
+  },
+  {
+    "identifiant": "14.7",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Soit q ∈R∗\n+. Résoudre l’équation diﬀérentielle\n(E) : (t2 + 1)y′′ + ty′ −q2y = 0 à l’aide du changement de variable t = sh(x).",
+    "corrige": "On peut poser le changement de variable sinh x = t car x 7→sinh x est bijective de R dans R.\n(E) ⇔(sinh2 +1)y′′(sinh(x)) + sinh(x)y′(sinh(x)) = q2y(sinh x)\nz = y(sinh(x))\nz′ = cosh ×y′(sinh(x))\nz′′ = sinh(x)y′(sinh(x)) + cosh2(x)y′′(sinh(x))\n(E) ⇔z′′ −q2z = 0\n⇔z = a cosh(qx) + b sinh(qx), a, b ∈R\n⇔y(t) = z(argsh(x)) = a cosh(q argsh(t)) + b sinh(q argsh(t))\nOu encore :\n(E) ⇔z′′ −q2z = 0\n⇔z = a eqx +b e−qx\n⇔z = a eq ln(t+\n√\n1+t2) +b e−q ln(t+\n√\n1+t2)\n(car argsh(t) = ln(t +\np\n1 + t2))\n⇔y(t) = a(t +\np\n1 + t2)q + b(\np\n1 + t2 −1)q",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 41,
+        "imprimee": 35
+      },
+      "corrige": {
+        "pdf": 174,
+        "imprimee": 168
+      }
+    },
+    "difficulte": 3,
+    "notions": [
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))",
+      "Terminologie 11.3.4 (polynôme caractéristique)",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)"
+    ],
+    "references_notions": {
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))": "11.3.1",
+      "Terminologie 11.3.4 (polynôme caractéristique)": "11.3.4",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)": "11.3.7"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Soit q \\in \\mathbb{R}_{+}^*. Résoudre l’équation différentielle \n(E) : (t^2 + 1)y'' + t y' -q^2 y = 0 à l’aide du changement de variable t = \\sinh(x).",
+      "etapes": [
+        {
+          "objectif": "Effectuer le changement de variable pour simplifier l'équation différentielle",
+          "question": "Exprimer l’équation (E) en fonction de la variable x via le changement t = \\sinh(x), puis poser z(x) = y(\\sinh(x)).",
+          "indice": "Exprimez y', y'' par la règle de dérivation en chaîne. N'oubliez pas de calculer z', z'' en fonction de y'(t), y''(t).",
+          "reponse": "On a z(x) = y(\\sinh(x)). Par dérivation successives :\nz'(x) = \\cosh(x) y'(\\sinh(x))\nz''(x) = \\sinh(x) y'(\\sinh(x)) + \\cosh^2(x) y''(\\sinh(x)).\nRemplacer t = \\sinh(x) et utiliser \\cosh^2(x) = 1 + \\sinh^2(x), on obtient :\n(sinh^2(x) + 1) y''(\\sinh(x)) + sinh(x) y'(\\sinh(x)) - q^2 y(\\sinh(x)) = 0.\nAinsi, (E) équivaut à :\nz''(x) - q^2 z(x) = 0."
+        },
+        {
+          "objectif": "Résoudre l’équation différentielle linéaire à coefficients constants obtenue en x",
+          "question": "Résoudre l'équation z''(x) - q^2 z(x) = 0.",
+          "indice": "Cherchez des solutions exponentielles ou utilisez le polynôme caractéristique associé à l'équation.",
+          "reponse": "Le polynôme caractéristique est r^2 - q^2 = 0 d'où r = \\pm q. Les solutions générales sont z(x) = a \\cosh(qx) + b \\sinh(qx), avec a, b \\in \\mathbb{R}."
+        },
+        {
+          "objectif": "Exprimer la solution générale pour y(t) en fonction de t",
+          "question": "Exprimer y(t) à partir de la solution z(x).",
+          "indice": "Rappelez-vous que t = \\sinh(x) donc x = \\operatorname{argsh}(t). Substituez cet x dans z.",
+          "reponse": "Comme t = \\sinh(x), donc x = \\operatorname{argsh}(t), d'où :\ny(t) = z(\\operatorname{argsh}(t)) = a \\cosh(q\\,\\operatorname{argsh}(t)) + b \\sinh(q\\,\\operatorname{argsh}(t)), a, b \\in \\mathbb{R}."
+        },
+        {
+          "objectif": "Donner une forme explicite de la solution sans fonction argsh",
+          "question": "Exprimer y(t) explicitement en fonctions élémentaires de t, sans argsh.",
+          "indice": "Utilisez \\operatorname{argsh}(t) = \\ln(t + \\sqrt{1+t^2}).",
+          "reponse": "On a \\operatorname{argsh}(t) = \\ln(t + \\sqrt{1 + t^2}). Par suite :\ny(t) = a (t + \\sqrt{1 + t^2})^q + b (\\sqrt{1 + t^2} - t)^q, a, b \\in \\mathbb{R}."
+        }
+      ],
+      "empreinte": "43f9769e3c42fd38ee217154a576dab6a12d84d209a92d1944f3333e855b8c88",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:36.100382+00:00"
+    }
+  },
+  {
+    "identifiant": "14.8",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Soient b et c deux applications continues de R dans R.\nOn considère l’equation diﬀérentielle (E) : y′ + b(x)y = c(x) .\n1. Résoudre (E) à l’aide d’intégrales.\n2. Soit T ∈R∗\n+. On suppose que b et c sont T-périodiques.\n(a) Montrer qu’une solution y de (E) est T-périodique si et seulement si y(0) = y(T)\n(b) Montrer que (E) possède une unique solution T-périodique si et seulement si\nZ T\n0\nb(t) dt̸ = 0.",
+    "corrige": "1. (H) : y′ + by = 0 ⇔y = λ e−B(t),\noù B =\nR\nb\ny = λ(t) e−B(t) ↔λ′(t) = c eB\nDonc y =\nÇZ t\n0\nc(x) eB(x) dx\nå\ne−B(t) +λ e−B(t)\n2.\n(a) Soit y une solution de (E) telle que y(0) = y(T). Posons z : t 7−→y(t + T), alors z est aussi solution de\n(E). De plus z(0) = y(T) = y(0) qui est une solution du problème de Cauchy. Or d’après le théorème de\nCauchy-Lipschitz, la solution est unique et z = y.\n(b) y(T) = k e−B(T ) + eB(T )\nZ T\n0\nc(t) eB(t) dt et y(0) = k e−B(0)\nIl existe une unique solution T-périodique de (E) si et seulement si y(T) = y(0) a une unique solution\n⇔k(e−B(T ) −e−B(0)) = eB(T )\nZ T\n0\nc(t) eB(t) dt ⇔e−B(T ) −e−B(0)̸ = 0 ⇔B(0)̸ = B(T) ⇔\nZ T\n0\nb(t) dt̸ = 0",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": [
+          41,
+          42
+        ],
+        "imprimee": [
+          35,
+          36
+        ]
+      },
+      "corrige": {
+        "pdf": [
+          174,
+          175
+        ],
+        "imprimee": [
+          168,
+          169
+        ]
+      }
+    },
+    "difficulte": 2,
+    "notions": [
+      "Méthode 11.2.4 (Méthode de variation de la constante)",
+      "Théorème 11.2.1 (Résolution de l’équation y′ = a(x)y (a continue))",
+      "Théorème 11.2.8 (Théorème de Cauchy-Lipschitz pour les équations linéaires d’ordre 1)"
+    ],
+    "references_notions": {
+      "Méthode 11.2.4 (Méthode de variation de la constante)": "11.2.4",
+      "Théorème 11.2.1 (Résolution de l’équation y′ = a(x)y (a continue))": "11.2.1",
+      "Théorème 11.2.8 (Théorème de Cauchy-Lipschitz pour les équations linéaires d’ordre 1)": "11.2.8"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Soient b et c deux applications continues de ℝ dans ℝ. On considère l’équation différentielle (E) : y′ + b(x)y = c(x).\n1. Résoudre (E) à l’aide d’intégrales.\n2. Soit T ∈ ℝ^*_{+}. On suppose que b et c sont T-périodiques.\n (a) Montrer qu’une solution y de (E) est T-périodique si et seulement si y(0) = y(T)\n (b) Montrer que (E) possède une unique solution T-périodique si et seulement si ∫₀^T b(t) dt ≠ 0.",
+      "etapes": [
+        {
+          "objectif": "Résolution générale de l'équation y' + b(x)y = c(x) à l'aide d'intégrales",
+          "question": "Déterminer la solution générale de l’équation différentielle y′ + b(x)y = c(x) où b et c sont continues sur ℝ, en utilisant des intégrales.",
+          "indice": "Chercher d'abord la solution de l'équation homogène puis utiliser la méthode de variation de la constante.",
+          "reponse": "La solution générale de l’équation y′ + b(x)y = c(x) est y(t) = e^{-B(t)} \\left[ \\int_{0}^{t} c(x) e^{B(x)} dx + \\lambda \\right], où B(t) = \\int_{0}^t b(s) ds et \\lambda \\in \\mathbb{R}."
+        },
+        {
+          "objectif": "Caractérisation des solutions T-périodiques via la condition y(0) = y(T)",
+          "question": "Soit T > 0. Montrer qu’une solution y de (E) est T-périodique si et seulement si y(0) = y(T).",
+          "indice": "Considérer la fonction z(t) = y(t + T) et utiliser l’unicité des solutions du problème de Cauchy pour une équation différentielle du premier ordre.",
+          "reponse": "On a z(t) = y(t+T) est aussi solution de (E) ; z(0) = y(T) = y(0), donc par le théorème de Cauchy-Lipschitz l’unicité implique z = y. Ainsi y est T-périodique \\iff y(0) = y(T)."
+        },
+        {
+          "objectif": "Condition d’unicité des solutions T-périodiques",
+          "question": "Montrer que (E) possède une unique solution T-périodique si et seulement si \\int_{0}^{T} b(t) dt \\neq 0.",
+          "indice": "Exprimer y(T) et y(0), puis étudier l’équation y(T) = y(0) pour la constante d’intégration \\lambda dans la formule générale de la solution.",
+          "reponse": "On a y(T) = \\lambda e^{-B(T)} + e^{-B(T)} \\int_{0}^{T} c(t) e^{B(t)} dt,\n     y(0) = \\lambda e^{-B(0)}.\n     L’unicité de la solution T-périodique équivaut à y(T) = y(0) avoir une unique solution en \\lambda,\n     soit (e^{-B(T)} - e^{-B(0)})\\lambda = e^{-B(T)} \\int_{0}^{T} c(t) e^{B(t)} dt.\n     Donc unicité \\iff e^{-B(T)} - e^{-B(0)} \\neq 0, \n     c’est-à-dire B(T) \\neq B(0), soit \\int_{0}^{T} b(t) dt \\neq 0."
+        }
+      ],
+      "empreinte": "49f635b27611366254eb8557cceb6770bda82114b7bfa2a382ef3f338f587fb3",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:35.128737+00:00"
+    }
+  },
+  {
+    "identifiant": "14.9",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Résoudre (E) : f ′′(x) + f(−x) = x + cos x",
+    "corrige": "Soit f solution : Alors (1) : f ′′(x) + f(−x) = x + cos x et (2) : f ′′(−x) + f(x) = −x + cos x et on obtient\n(1) + (2) : [f ′′(x) + f ′′(−x)] + [f(x) + f(−x)] = 2 cos x et (1) −(2) : [f ′′(x) −f ′′(−x)] + [f(−x) −f(x)] = 2x.\nPosons ainsi g(x) = f(x) −f(−x), impaire et h(x) = f(x) + f(−x), paire. On a alors :\n(E1) : h + h′′ = 2 cos x\n(E2) : g′′ −g = 2x\n(H1) ⇔∃α1, β1 ∈R, h(x) = α1 cos x + β1 sin x et de plus, x 7→x sin x est solution particulière de (E1) donc\n(E1) ⇔∃α1, β1 ∈R, ∀x ∈R, h(x) = α1 cos x + (β1 + x) sin x.\n(H2) ⇔∃α2, β2 ∈R, g(x) = α2 cosh x + β2 sinh x, de plus, x 7→−2x est solution particulière de (E2) donc\n(E2) ⇔g(x) = α2 cosh x + β2 sinh x −2x.\nOr par déﬁnition, h est paire, donc x 7→α1 cos x + (β1 + x) sin x est paire, donc β1 = 0. De même, g est impaire, donc\nx 7→α2 cosh x + β2 sinh x −2x est impaire, donc α2 = 0.\nOn a maintenant f(x) = f(x) + g(x)\n2\n= 1\n2(β2 sinh x −2x + α1 cos x + x sin x).\nLa réciproque est à vériﬁer, on aurait pu cependant raisonner par équivalences si on avait montré que la décomposition\nde f est une somme d’une fonction paire et impaire est unique, ce qui se montre aisément (cf. chapitre 1).",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 42,
+        "imprimee": 36
+      },
+      "corrige": {
+        "pdf": 175,
+        "imprimee": 169
+      }
+    },
+    "difficulte": 4,
+    "notions": [
+      "Définition 11.1.1 (Équation différentielle linéaire)",
+      "Proposition 11.1.3 (Principe de superposition)",
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)",
+      "Proposition 11.3.8 (Solutions particulières pour un second membre Q(x)eλx, admis)"
+    ],
+    "references_notions": {
+      "Définition 11.1.1 (Équation différentielle linéaire)": "11.1.1",
+      "Proposition 11.1.3 (Principe de superposition)": "11.1.3",
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))": "11.3.1",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)": "11.3.7",
+      "Proposition 11.3.8 (Solutions particulières pour un second membre Q(x)eλx, admis)": "11.3.8"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Résoudre (E) : f''(x) + f(−x) = x + cos x",
+      "etapes": [
+        {
+          "objectif": "Obtention d’un système en exploitant la symétrie de l’équation",
+          "question": "Donner un système d’équations en considérant ce que devient (E) si on remplace x par −x.",
+          "indice": "Calculez f''(−x) + f(x) ; puis additionnez et soustrayez avec (E).",
+          "reponse": "On considère f''(−x) + f(x) = −x + cos x. En ajoutant et en soustrayant les équations pour x et −x, on obtient deux nouvelles équations :\n[f''(x) + f''(−x)] + [f(x) + f(−x)] = 2 cos x (somme)\n[f''(x) − f''(−x)] + [f(−x) − f(x)] = 2x (différence)."
+        },
+        {
+          "objectif": "Décomposition en parties paire et impaire",
+          "question": "Définir des fonctions paires et impaires à partir de f et exprimer les équations précédentes en fonction de celles-ci.",
+          "indice": "Posez h(x) = f(x) + f(−x) et g(x) = f(x) − f(−x).",
+          "reponse": "On pose h(x) = f(x) + f(−x) (fonction paire) et g(x) = f(x) − f(−x) (fonction impaire). Les équations deviennent :\nh''(x) + h(x) = 2 cos x\net\ng''(x) − g(x) = 2x."
+        },
+        {
+          "objectif": "Résolution de l’équation pour la partie paire h(x)",
+          "question": "Résoudre l’équation différentielle linéaire h''(x) + h(x) = 2 cos x.",
+          "indice": "Cherchez la solution générale de l’homogène, puis une solution particulière.",
+          "reponse": "L’équation homogène h''(x) + h(x) = 0 a pour solutions α₁ cos x + β₁ sin x. Une solution particulière de l’équation complète est x sin x. Finalement, h(x) = α₁ cos x + (β₁ + x) sin x."
+        },
+        {
+          "objectif": "Résolution de l’équation pour la partie impaire g(x)",
+          "question": "Résoudre l’équation différentielle g''(x) − g(x) = 2x.",
+          "indice": "L’équation homogène admet des solutions en cosh x et sinh x.",
+          "reponse": "L’équation homogène a pour solutions α₂ cosh x + β₂ sinh x. Une solution particulière est −2x, donc g(x) = α₂ cosh x + β₂ sinh x − 2x."
+        },
+        {
+          "objectif": "Restriction des coefficients par condition de parité/impairité",
+          "question": "Déterminer les conditions sur les constantes α₁, β₁, α₂, β₂ en utilisant la parité de h et l’impairité de g.",
+          "indice": "Testez la parité pour chaque fonction, puis déduisez les valeurs des constantes.",
+          "reponse": "h est paire donc β₁ doit être nul. g est impaire donc α₂ doit être nul."
+        },
+        {
+          "objectif": "Formule générale de la solution f(x)",
+          "question": "Exprimer f(x) en fonction de h(x) et g(x).",
+          "indice": "f(x) = [h(x) + g(x)] / 2.",
+          "reponse": "f(x) = ½ (β₂ sinh x − 2x + α₁ cos x + x sin x)."
+        },
+        {
+          "objectif": "Contrôle de la validité de l’expression",
+          "question": "Vérifier que toute fonction de la forme obtenue précédemment est bien solution de l’équation initiale (E).",
+          "indice": "Faites remarquer que la somme d’une paire et d’une impaire donne toute fonction, et que la décomposition est unique.",
+          "reponse": "La réciproque est vérifiée car toute fonction se décompose de façon unique en somme d'une paire et d'une impaire, ce qui garantit que toute expression de la forme trouvée fournit des solutions de (E)."
+        }
+      ],
+      "empreinte": "0fb225b81e3ebf1ba1a895e4164730cb7afa9af5e76d62ba9208a366c3a743df",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:38.318741+00:00"
+    }
+  },
+  {
+    "identifiant": "14.10",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Soit λ ∈R.\nDéterminer les applications f de classe C 1 de R dans R, telles que pour tout x ∈R, f ′(x) = f(λ −x).",
+    "corrige": "Soit f solution, alors f ′ est également C 1. Donc f ′′(x) = −f ′(λ −x). De plus, x 7−→λ −x est une involution\ndonc f ′′(x) = −f(x) ⇔(E) : f ′′(x) + f(x) = 0 ⇔∃X, ϕ ∈R, ∀x ∈R, f(x) = X cos(x + ϕ). Alors il vient\nf ′(x) = X cos\n\u0010\nx + ϕ + π\n2\n\u0011\n.\n0 est une solution triviale du problème, c’est pourquoi on considère X̸ = 0 :\ncos\n\u0010\nx + ϕ + π\n2\n\u0011\n= cos(λ −x + ϕ)\nen x = 0\ncos\n\u0010\nϕ + π\n2\n\u0011\n= cos(λ + ϕ)\nϕ + π\n2 ≡λ + ϕ [2π]\nλ ≡π\n2\n[2π]\nou ϕ ≡−λ\n2 −π\n4\n[π]\nCela ﬁxe la valeur de λ pour une valeur donnée de x, il faut s’assurer que cette valeur de λ fonctionne pour tout\nx ∈R : il suﬃt de trouver un contre-exemple pour montrer que cela ne fonctionne pas.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 42,
+        "imprimee": 36
+      },
+      "corrige": {
+        "pdf": 175,
+        "imprimee": 169
+      }
+    },
+    "difficulte": 4,
+    "notions": [
+      "Définition 11.1.1 (Équation différentielle linéaire)",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)"
+    ],
+    "references_notions": {
+      "Définition 11.1.1 (Équation différentielle linéaire)": "11.1.1",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)": "11.3.7"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Soit λ ∈ ℝ. Déterminer les applications f de classe C¹ de ℝ dans ℝ, telles que pour tout x ∈ ℝ,\nf '(x) = f(λ - x).",
+      "etapes": [
+        {
+          "objectif": "Trouver une équation différentielle vérifiée par f",
+          "question": "Soit f de classe C¹ telle que f '(x) = f(λ - x) pour tout x ∈ ℝ. Exprimez f ''(x) en fonction de f et de ses dérivées.",
+          "indice": "Dérivez l’égalité f '(x) = f(λ - x) pour obtenir une équation sur f ''(x).",
+          "reponse": "f '(x) = f(λ - x) donc en dérivant par rapport à x, f ''(x) = -f '(λ - x). Mais puisque f '(λ - x) = f(λ - (λ - x)) = f(x), donc f ''(x) = -f(x)."
+        },
+        {
+          "objectif": "Caractériser l’ensemble des solutions de l’équation trouvée",
+          "question": "Identifiez l’espace des fonctions f vérifiant f ''(x) + f(x) = 0.",
+          "indice": "C’est l’équation différentielle linéaire y '' + y = 0.",
+          "reponse": "L’ensemble des solutions est donné par f(x) = A cos(x) + B sin(x) (ou encore f(x) = X cos(x+φ)), pour A,B ∈ ℝ (ou X, φ ∈ ℝ)."
+        },
+        {
+          "objectif": "Relier la condition initiale à l’éventuelle contrainte sur λ",
+          "question": "Utilisez la condition f '(x) = f(λ - x) pour relier les constantes d’intégration (ou X, φ) à λ.",
+          "indice": "Utiliser l’expression des dérivées et imposer l’égalité pour tous x.",
+          "reponse": "On a f(x) = X cos(x + φ), donc f '(x) = -X sin(x + φ) = X cos(x + φ + π/2). La condition devient X cos(x + φ + π/2) = X cos(λ - x + φ) pour tout x ∈ ℝ."
+        },
+        {
+          "objectif": "Déduire la contrainte sur λ pour qu’il y ait des solutions non nulles",
+          "question": "Quelles sont les valeurs possibles de λ pour satisfaire X cos(x + φ + π/2) = X cos(λ - x + φ) partout ?",
+          "indice": "Comparer les arguments des cosinus. Il doit y avoir égalité des fonctions sur ℝ.",
+          "reponse": "On doit avoir x + φ + π/2 ≡ λ - x + φ [2π] pour tout x, ce qui n’est possible que si λ ≡ π [2π] et φ quelconque, mais cela n’est pas réalisable pour tout x ∈ ℝ."
+        },
+        {
+          "objectif": "Analyser la solution nulle",
+          "question": "La solution triviale f = 0 convient-elle toujours ?",
+          "indice": "Vérifiez la condition initiale pour f identiquement nulle.",
+          "reponse": "Oui, f ≡ 0 vérifie toujours f '(x) = f(λ - x)."
+        },
+        {
+          "objectif": "Conclusion sur l’existence de solutions non nulles",
+          "question": "Peut-il exister d’autres solutions non nulles pour une valeur de λ quelconque ?",
+          "indice": "Vérifiez s’il existe (ou non) des X ≠ 0 et φ vérifiant la condition pour tout x.",
+          "reponse": "Il n’existe pas de solutions non nulles pour une valeur arbitraire de λ, car l’égalité ne peut être vraie pour tout x sauf pour X = 0, c’est-à-dire que seule la solution nulle convient en général."
+        }
+      ],
+      "empreinte": "583127a9d98cbed3033d8b9bee050d5a8cc8e1edd1144547e1c1f280d5efa697",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:39.121863+00:00"
+    }
+  },
+  {
+    "identifiant": "14.11",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Résoudre l’équation diﬀérentielle (E) : x2y′′ + xy′ −4y + 4x2 = 0.\nOn pourra utiliser le changement de variable suivant :\nt = ln |x|\nOn précisera quelles sont les solutions déﬁnies sur R en entier.",
+    "corrige": "Posons t = ln |x|, sur R∗\n+, t = ln(x) ⇔et = x. On pose z(t) = y(x) = y(et) i.e. y(x) = z(ln x).\ny′(x) = y′(ln x)\nx\n= z′(ln x)\nx\ny′′(x) = −1\nx2 z′(ln x) + 1\nx2 z′′(ln x)\nDonc (E) ⇔x2× 1\nx2 (z′′(ln x) −z′(ln x))+xz′(ln x)\nx\n−4z(ln x)+4x2 = 0 ⇔z′′(ln x) −4z(ln x) = −4x2 ⇔z′′(t) −4z(t) = −4 e2t\n(H) ⇔∃u, v ∈R, z(t) = u e2t +v e−2t.\nPour (E), une solution particulière est de la forme t 7→λt e2t, et on trouve λ = −1 (il suﬃt de remplacer y et ses\ndérivées par l’expression de cette fonction).\n(E) ⇔∃u, v ∈R, ∀t ∈R, z(t) = u e2t +v e−2t −t e2t\n⇔∀x ∈R∗\n+, y(x) = ux2 + v\nx2 + x2 ln |x|\nUne telle forme d’équation s’appelle équation d’Euler, elles ont la forme générale suivante :\nn\nX\nk=0\nxny(n) = f(x), où\nn ∈N∗, f ∈C 0. On pose alors encore le même changement de variable.\nCependant ici, les solutions sur R en entier sont la fonction identiquement nulle, en eﬀet, la fonction x 7→x2 ln x\nn’est pas deux fois dérivable en 0 donc le raccordemment n’est pas possible. On le montre au moyen d’un développe-\nment limité à l’ordre 2 sur la fonction : f : x 7−→\n®\nx2 ln |x|\nsi x̸ = 0\n0\nsi x = 0",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 42,
+        "imprimee": 36
+      },
+      "corrige": {
+        "pdf": [
+          175,
+          176
+        ],
+        "imprimee": [
+          169,
+          170
+        ]
+      }
+    },
+    "difficulte": 3,
+    "notions": [
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))",
+      "Proposition 11.3.8 (Solutions particulières pour un second membre Q(x)eλx, admis)"
+    ],
+    "references_notions": {
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))": "11.3.1",
+      "Proposition 11.3.8 (Solutions particulières pour un second membre Q(x)eλx, admis)": "11.3.8"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Résoudre l’équation diﬀérentielle (E) :\n\nx^2 y'' + x y' -4y + 4x^2 = 0.\n\nOn pourra utiliser le changement de variable suivant : t = ln|x|.\n\nOn précisera quelles sont les solutions déﬁnies sur ℝ en entier.",
+      "etapes": [
+        {
+          "objectif": "Changer la variable pour simplifier l’équation d’Euler",
+          "question": "Effectuez le changement de variable t = ln|x| et exprimez y', y'' en termes de t et de z(t) = y(x).",
+          "indice": "Posez z(t) = y(e^t), exprimez dérivées de y en fonction de t puis substituez dans (E).",
+          "reponse": "On pose t = ln|x| donc x = e^t. En posant z(t) = y(x) = y(e^t), on a :\ny'(x) = z'(ln x)/x, y''(x) = (z''(ln x) - z'(ln x))/x^2.\nOn substitue dans (E) :\nx^2 y'' + x y' -4y + 4x^2 = [z''(ln x) - z'(ln x)] + z'(ln x) - 4 z(ln x) + 4x^2 = z''(ln x) - 4z(ln x) + 4x^2 = 0, soit\nz''(t) - 4z(t) = -4 e^{2t}."
+        },
+        {
+          "objectif": "Résoudre l’équation homogène associée",
+          "question": "Résolvez l’équation homogène z''(t) - 4z(t) = 0.",
+          "indice": "Utilisez la méthode du polynôme caractéristique.",
+          "reponse": "Le polynôme caractéristique est r^2 - 4 = 0, d'où r = 2 ou r = -2. Donc, les solutions générales de l’équation homogène sont z_H(t) = u e^{2t} + v e^{-2t}, avec u, v ∈ ℝ."
+        },
+        {
+          "objectif": "Trouver une solution particulière de l’équation complète",
+          "question": "Trouvez une solution particulière de z''(t) - 4z(t) = -4e^{2t}.",
+          "indice": "Recherchez une solution particulière sous la forme t ↦ λ t e^{2t}.",
+          "reponse": "On cherche une solution particulière sous la forme z_P(t) = λ t e^{2t}. En calculant z_P'', on obtient :\nz_P''(t) = 4λ t e^{2t} + 4λ e^{2t}.\nDonc z_P''(t) - 4z_P(t) = 4λ e^{2t}. On souhaite l’égalité 4λ e^{2t} = -4 e^{2t} ⇒ λ = -1. Ainsi, z_P(t) = -t e^{2t}."
+        },
+        {
+          "objectif": "Déduire la solution générale de z(t) puis de y(x) sur ℝ∗+",
+          "question": "Exprimez la solution générale y(x) sur ℝ∗+ à partir de celles de z(t).",
+          "indice": "Utilisez que t = ln x et z(t) = y(x).",
+          "reponse": "La solution générale est z(t) = u e^{2t} + v e^{-2t} - t e^{2t}. Donc, pour x > 0, t = ln x :\ny(x) = u (x^2) + v (1/x^2) + x^2 ln x."
+        },
+        {
+          "objectif": "Discuter l’extension des solutions sur tout ℝ",
+          "question": "Quelles sont les solutions de (E) qui sont définies sur tout ℝ ?",
+          "indice": "Examinez la régularité de x^2 ln|x| et ses dérivées en x=0.",
+          "reponse": "La fonction y(x) = x^2 ln|x| n’est pas deux fois dérivable en 0, donc il n’est pas possible de recoller les solutions pour obtenir une solution deux fois dérivable sur tout ℝ ; la seule solution définie sur ℝ tout entier est donc la fonction nulle."
+        }
+      ],
+      "empreinte": "f7f22919004c42a5ee2e35990fa7ba3ecc4e222d8f0b237e4a4afdf7be750107",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:39.900563+00:00"
+    }
+  },
+  {
+    "identifiant": "14.12",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Déterminer les applications f : R −→R, continues, telles que, pour tout x ∈R, f(x) = x2 +\nZ x\n0\ntf(x −t) dt.",
+    "corrige": "Posons u = x −t alors :\n(E) ⇔f(x) = x2 +\nZ x\n0\n(x −u)f(u)du\n= x2 + x\nZ x\n0\nf(u)du −\nZ x\n0\nuf(u)du\nPar hypothèse, f ∈C 1(R), donc elle admet une primitive et sa primitive est également C 1 d’après la relation fonc-\ntionnelle. Posons g une primitive seconde (primitive de la primitive) de f tel que g(0) = g′(0) = 0. On a alors\n(E) ⇔g′′(x) = x2 + xg′(x) −[tg′(t)]x\n0 +\nZ x\n0\ng′(t) dt\n= x2 + xg′(x) −xg′(x) + g(x)\n= x2 + g(x)\nAlors (H) ⇔g′′ = g ⇔∃A, B ∈R, g(x) = A cosh(x) + B sinh(x)\nUne solution particulière est donc de la forme t 7→ax2 +bx+c et on trouve les coeﬃcients suivants :\n\n\n\n\n\na\n= −1\nb\n= g′(0) = 0\nc\n= −2\n,\ndonc g0(x) = −x2 −2 = −(x2 + 2).\nFinalement,\n(E) ⇔g′(x) = A sinh x + B cosh x −2x\net g(0) = 0\n⇔g′′(x) = A cosh x + B sinh x −2\net\n®g(0)\n= 0\ng′(0)\n= B = 0\n⇔f(x) = 2 sinh x −2\nRappel : Si a, b: R −→R ∈C 1, a = b ⇔(a′ = b′ ∧a(0) = b(0)) car a(x) = a(0) +\nR x\n0 a′(t) dt.",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 42,
+        "imprimee": 36
+      },
+      "corrige": {
+        "pdf": 176,
+        "imprimee": 170
+      }
+    },
+    "difficulte": 5,
+    "notions": [
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)",
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))"
+    ],
+    "references_notions": {
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)": "11.3.7",
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))": "11.3.1"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Déterminer les applications f : \\mathbb{R} \\to \\mathbb{R}, continues, telles que, pour tout x \\in \\mathbb{R},\n\\[f(x) = x^2 + \\int_0^x t f(x-t)\\,dt.\\]",
+      "etapes": [
+        {
+          "objectif": "Changer de variable dans l'intégrale pour simplifier l'expression.",
+          "question": "Procédez à un changement de variable adéquat dans l'intégrale \\( \\int_0^x t f(x-t) dt \\). Quelle nouvelle forme obtient-on ?",
+          "indice": "Pensez à poser \\( u = x - t \\), ce qui implique \\( du = -dt \\).",
+          "reponse": "En posant \\( u = x - t \\), on a \\( t = x - u \\), lorsque \\( t = 0 \\), \\( u = x \\), et lorsque \\( t = x \\), \\( u = 0 \\). Donc :\n\\[\n\\int_0^x t f(x-t) dt = \\int_x^0 (x-u)f(u)(-du) = \\int_0^x (x-u)f(u) du\n\\]\nD'où :\n\\[\nf(x) = x^2 + \\int_0^x (x-u)f(u)du\n\\]"
+        },
+        {
+          "objectif": "Décomposer l'intégrale pour obtenir une équation fonctionnelle.",
+          "question": "Exprimez \\( \\int_0^x (x-u)f(u) du \\) en termes de \\( \\int_0^x f(u) du \\) et \\( \\int_0^x u f(u) du \\). Quelle équation fonctionnelle en déduit-on pour \\( f \\) ?",
+          "indice": "Développez \\( (x-u)f(u) = x f(u) - u f(u) \\) dans l'intégrale.",
+          "reponse": "\\[\n\\int_0^x (x-u)f(u) du = x\\int_0^x f(u) du - \\int_0^x u f(u) du\n\\]\nDonc l'équation devient :\n\\[\nf(x) = x^2 + x \\int_0^x f(u) du - \\int_0^x u f(u) du\n\\]"
+        },
+        {
+          "objectif": "Introduire une fonction primitive double de f pour obtenir une équation différentielle.",
+          "question": "En posant \\( g \\) une seconde primitive de \\( f \\) telle que \\( g(0) = g'(0) = 0 \\), exprimez chaque terme de l'équation précédente à l'aide de \\( g \\) et de ses dérivées.",
+          "indice": "Rappelez-vous que \\( g''(x) = f(x) \\), \\( g'(x) = \\int_0^x f(u) du \\), \\( g(x) = \\int_0^x g'(t)dt \\), et \\( \\int_0^x u f(u) du = [u g'(u)]_0^x - \\int_0^x g'(u) du \\) par intégration par parties.",
+          "reponse": "On a :\n- \\( g''(x) = f(x) \\)\n- \\( g'(x) = \\int_0^x f(u) du \\)\n- \\( \\int_0^x u f(u) du = [u g'(u)]_0^x - \\int_0^x g'(u) du = x g'(x) - g(x) \\)\n\nL'équation devient donc :\n\\[\ng''(x) = x^2 + x g'(x) - (x g'(x) - g(x)) = x^2 + g(x)\n\\]\nAutrement dit :\n\\[\ng''(x) - g(x) = x^2\n\\]"
+        },
+        {
+          "objectif": "Résoudre l'équation différentielle linéaire d'ordre 2 obtenue.",
+          "question": "Résolvez l'équation différentielle \\( g''(x) - g(x) = x^2 \\).",
+          "indice": "La solution générale est la somme de la solution générale de l'équation homogène et d'une solution particulière du second membre.",
+          "reponse": "L'équation homogène associée est \\( g''(x) - g(x) = 0 \\), de solutions générales \\( A\\cosh x + B \\sinh x \\). Pour le second membre \\( x^2 \\), on cherche une solution particulière de la forme \\( ax^2 + bx + c \\), et en calculant on trouve que \\( a = -1, b = 0, c = -2 \\).\n\nFinalement :\n\\[\ng(x) = A\\cosh x + B \\sinh x - x^2 - 2\n\\]"
+        },
+        {
+          "objectif": "Exprimer f en fonction de g et déterminer les constantes d'intégration.",
+          "question": "En déduire l'expression de \\( f(x) \\) et déterminer les constantes en tenant compte des conditions initiales sur g.",
+          "indice": "On a \\( f(x) = g''(x) \\) et les conditions \\( g(0) = 0, g'(0) = 0 \\). Calculez \\( g''(x) \\), \\( g(0) \\) et \\( g'(0) \\) pour déterminer \\( A \\) et \\( B \\).",
+          "reponse": "\\[\ng''(x) = A \\cosh x + B \\sinh x - 2 \\Rightarrow f(x) = A \\cosh x + B \\sinh x - 2\n\\]\nOr :\n- \\( g(0) = A - 2 = 0 \\implies A = 2 \\)\n- \\( g'(x) = A \\sinh x + B \\cosh x - 2x \\Rightarrow g'(0) = B = 0 \\)\nDonc :\n\\[\nf(x) = 2 \\cosh x - 2\n\\]"
+        }
+      ],
+      "empreinte": "576b775c8906742c4a1da34e810d0078b8529931175e08ae12136b8e4506c0f4",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:42.273755+00:00"
+    }
+  },
+  {
+    "identifiant": "14.13",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "On souhaite résoudre le problème de Cauchy suivant :\ny′′ + |y| = 0 avec y(0) = a et y′(0) = 0\nOn admettra qu’il possède une unique solution déﬁnie sur R que l’on notera y.\n1. Montrer que pour tout x ∈R, y(x) ≤a.\n2. Déterminer y lorsque a ≤0.\nPour la suite, on suppose que a > 0.\n3. Montrer que y s’annule en exactement deux points b−< 0 et b+ > 0.\n4. Achever la résolution de l’exercice.",
+    "corrige": "1. ∀x ∈R, y(x)\nT RI1\n=\ny(0) + xy′(0) +\nZ x\n0\n(x −t)y′′(t) dt. Or ∀x ∈R, y′′(x) ≤0, donc si x > 0, y(x) ≤y(0) = a, de\nmême si x < 0.\n2.\n\n\n\n\n\ny′′ −y\n= 0\ny′(0)\n= 0\ny(0)\n= a\n⇔y(x) = a cosh x\n3. Faire un schéma. Soit b = inf{x ∈R∗\n+ / y(x) ≤0}. L’ensemble considéré est non-vide, car sinon, ∀x ∈R∗\n+, y(x) >\n0 donc y(x) = a cos x > 0 .\nSupposons maintenant que y(b) < 0, alors d’après le théorème des valeurs intermédiaires, il existe x ∈]0, b[ (car\n1. Taylor-Young avec reste intégral\nb est l’inf) tel que y(x) = 0 car b est la borne inférieure. Donc y(b) ≥0, et même y(b) = 0 car y est continue.\n∀x ∈[0, b], y(x) ≥0, donc ∀x ∈[0, b], y(x) = a cos x. Donc b = π\n2 et y′(b) = a.\nDonc ∀x > b, y(x)\nT RI1\n=\ny(b)\n|{z}\n= 0\n+ y′(b)(x −b)\n|\n{z\n}\n≥0\n+\nZ x\nb\n(x −t)y′′(t) dt\n|\n{z\n}\n≥0\n, donc b est l’unique zéro de y sur R∗\n+.\ny est paire d’après l’énoncé. Donc y s’annule exactement en π\n2 et en −π\n2 .\n4. •\nSur\ni\n−π\n2 ; π\n2\nh\n, y(x) = a cos x\n•\nSur\nhπ\n2 ; +∞\nh\n, y(x) = A cosh x + B sinh x = −a sinh(x −b) = −a sinh\n\u0010\nx + π\n2\n\u0011\n(car y′(b) = −a et y(b) = 0)\nFinalement :\ny : x 7−→\n\n\n\n\n\n\n\n\n\n\n\na sinh\n\u0010π\n2 −x\n\u0011\nsi x ≥π\n2\na cos x\nsi |x| ≤π\n2\na sinh\n\u0010\nx + π\n2\n\u0011\nsi x ≤−π\n2",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 42,
+        "imprimee": 36
+      },
+      "corrige": {
+        "pdf": [
+          176,
+          177
+        ],
+        "imprimee": [
+          170,
+          171
+        ]
+      }
+    },
+    "difficulte": 5,
+    "notions": [
+      "Définition 11.1.1 (Équation différentielle linéaire)",
+      "Théorème 11.1.2 (Structure de l’ensemble des solutions)",
+      "Théorème 11.2.10 (Résolution d’une équation linéaire y′ = ay + b à coefficients constants)",
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)"
+    ],
+    "references_notions": {
+      "Définition 11.1.1 (Équation différentielle linéaire)": "11.1.1",
+      "Théorème 11.1.2 (Structure de l’ensemble des solutions)": "11.1.2",
+      "Théorème 11.2.10 (Résolution d’une équation linéaire y′ = ay + b à coefficients constants)": "11.2.10",
+      "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))": "11.3.1",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)": "11.3.7"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "On souhaite résoudre le problème de Cauchy suivant :\ny'' + |y| = 0, avec y(0) = a et y'(0) = 0. On admettra qu’il possède une unique solution définie sur ℝ, que l’on notera y.\n1. Montrer que pour tout x ∈ ℝ, y(x) ≤ a.\n2. Déterminer y lorsque a ≤ 0.\nPour la suite, on suppose que a > 0.\n3. Montrer que y s’annule en exactement deux points b− < 0 et b+ > 0.\n4. Achever la résolution de l’exercice.",
+      "etapes": [
+        {
+          "objectif": "Majoration de la solution sur ℝ",
+          "question": "Montrer que, pour tout x ∈ ℝ, on a y(x) ≤ a.",
+          "indice": "Utiliser la formule de Taylor-Young avec reste intégral pour y autour de 0 et l'inégalité y''(x) ≤ 0 au vu de l'équation.",
+          "reponse": "On écrit la forme de Taylor-Young avec reste intégral : y(x) = y(0) + x y'(0) + ∫₀ˣ (x-t) y''(t) dt. Or, pour tout x, y''(x) = -|y(x)| ≤ 0 donc l'intégrale est négative, et les conditions initiales donnent y(0)=a, y'(0)=0. Donc y(x) ≤ a pour tout x ∈ ℝ."
+        },
+        {
+          "objectif": "Résolution explicite dans le cas a ≤ 0",
+          "question": "Déterminer explicitement la solution y lorsque a ≤ 0.",
+          "indice": "Lorsque a ≤ 0, on attend que y(x) ≤ 0 donc |y(x)| = -y(x), ce qui donne une équation linéaire à coefficients constants.",
+          "reponse": "Pour a ≤ 0, on a y(x) ≤ 0 pour tout x donc |y(x)| = -y(x), l'équation devient y'' - y = 0 avec conditions y(0)=a, y'(0)=0. Sa solution est y(x) = a cosh x."
+        },
+        {
+          "objectif": "Existence et unicité des zéros",
+          "question": "Dans le cas a > 0, montrer que y s’annule en exactement deux points b− < 0 et b+ > 0.",
+          "indice": "Montrer que y(x) devient nul pour la première fois en un certain b>0 en utilisant la continuité et l'étude de signe. Utiliser la parité éventuelle de y pour obtenir le zéro négatif.",
+          "reponse": "Pour a > 0, on définit b = inf{x>0 | y(x) ≤ 0}. Ce b existe car sinon y(x) > 0 pour tout x > 0, ce qui contredirait le comportement d'une solution bornée par cosinus. Montrer par continuité que y(b)=0 (théorème des valeurs intermédiaires). Sur [0, b], y(x) ≥ 0 donc y(x) = a cos x, ce qui impose b=π/2, et par symétrie y est paire donc l'autre zéro est b−=−π/2."
+        },
+        {
+          "objectif": "Description complète de la solution suivant les régions de ℝ",
+          "question": "Déterminer l'expression explicite de y sur chaque intervalle en fonction de x, selon les cas a > 0 et a ≤ 0.",
+          "indice": "Pour |x|<π/2 utiliser la solution trigonométrique, pour |x|>π/2 utiliser les conditions de raccordement (valeur et dérivée) pour trouver la solution sur chaque morceau.",
+          "reponse": "Lorsque a > 0, on a :\n- Pour x ∈ [−π/2, π/2], y(x) = a cos x.\n- Pour x ≥ π/2, y(x) = a sinh(π/2 - x).\n- Pour x ≤ −π/2, y(x) = a sinh(x + π/2). Lorsque a ≤ 0, y(x) = a cosh x pour tout x."
+        }
+      ],
+      "empreinte": "2ff2636ee16e7a90ef6ee569541b07c8034443577c7ca0155de19593e371a0d6",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:44.237086+00:00"
+    }
+  },
+  {
+    "identifiant": "14.14",
+    "chapitre": "14 — Équations différentielles linéaires",
+    "enonce": "Le but de l’exercice est de déterminer les applications f : R −→R continues, non identiquement nulles, s’annulant\nen au moins un point et telles que\n∀(x, y) ∈R2, f(x + y) + f(x −y) = 2f(x)f(y)\n1. Soit f une solution. Montrer que f est paire, puis qu’elle admet une primitive F impaire.\n2. Montrer qu’il existe x0 ∈R tel que\n∀y ∈R, f(y) = F(x0 + y) + F(x0 −y)\n2F(x0)\n.\nEn déduire que f est de classe C ∞\n3. Montrer qu’il existe µ tel que ∀x ∈R, F ′′(x) = µF(x) .\n4. Achever la résolution de l’exercice.",
+    "corrige": "1. Prenons x = y = 0 : 2f(0) = 2f(0)2 ⇔f(0) = f(0)2 ⇒f(0) = 1 ou f(0) = 0. f(0) = 0 ⇒f = 0, car\n∀x, 2f(x) = 0 : c’est faux, donc f(0) = 1.\nPosons x = 0 et y = x : f(x) + f(−x) = 2f(x)f(0) = 2f(x) donc f(−x) = f(x) : f est bien paire.\nNotons F la primitive de f s’annulant en 0.\nZ x\n0\nf(t) dt = F(x)\n=\nZ x\n0\nf(−t) dt\n= −\nZ x\n0\n−f(−t) dt = −\u0002F(−t)\u0003x\n0\n= −F(−x)\nDonc F est bien impaire. On aurait pu procéder avec le changement de variables u = −t.\n2. Soit y ∈R :\nf(x + y) + f(x −y) = 2f(x)f(y)\nZ x\n0\nf(t + y) dt +\nZ x\n0\nf(t −y) dt =\nZ x\n0\n2f(y)f(t) dt\n\u0002F(t + y)\u0003x\n0 + \u0002F(t −y)\u0003x\n0 = 2f(y)F(t)\nF(x + y)\u0018\u0018\u0018\n−F(y) + F(x −y)\u0018\u0018\u0018\u0018\n−F(−y) = 2f(y)F(x)\nf̸ = 0 donc il existe x0 ∈R tel que F(x0)̸ = 0, et ainsi\nF(x0 + y) + F(x0 −y)\n2F(x0)\n= f(y)\nPar récurrence, à l’aide de la relation fonctionnelle juste établie, on a que f est de classe C ∞.\n3.\nF(x + y) + F(x −y) = 2F(x)f(y)\nF ′(x + y) −F ′(x −y) = 2F(x)f ′(y)\n(car d\ndy)\nF ′′(x + y) + F ′′(x −y) = 2F(x)f ′′(y)\nAvec y = 0, on a 2F ′′(x) = 2F(x)f ′′(0) = µF(x) avec µ = f ′′(0).\n4. Considérons (E) : F ′′(x) −µF(x) = 0\n1er cas : µ = 0 :\nF ′′(x) = 0 donc f ′(x) = 0 et f(x) = b ∈R or f(0) = 1 donc f = 1, or f s’annule au moins une fois .\n2e cas : µ > 0, µ = a2 :\n(E) ⇔F ′′ −a2F = 0, on a χ(X) = X2 −a2 = (X −a)(X + a) donc il existe c1, c2 ∈R, F(x) = c1 cosh(ax) +\nc2 sinh(ax). F(0) = 0 donc c1 = 0 donc F(x) = c2 sinh(ax). Ensuite f(x) = F ′(x) = c2a cosh(ax) et f(0) = 1\ndonc c2a = 1 donc f(x) = cosh(ax)̸ = 0, ∀x\n3e cas : µ < 0, µ = (ai)2 :\nF(x) = c1 cos(ax) + c2 sin(ax), de même F(0) = 0 donc c1 = 0 et F ′(x) = c2a cos(ax) = f(x), f(0) = 1 donc\nac2 = 1, donc f(x) = sin(ax).\nLa réciproque est à vériﬁer (s’aider de formules trigonométriques).",
+    "page_source": {
+      "fichier": "data/poly.pdf",
+      "enonce": {
+        "pdf": 42,
+        "imprimee": 36
+      },
+      "corrige": {
+        "pdf": [
+          177,
+          178
+        ],
+        "imprimee": [
+          171,
+          172
+        ]
+      }
+    },
+    "difficulte": 5,
+    "notions": [
+      "Terminologie 11.3.4 (polynôme caractéristique)",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)"
+    ],
+    "references_notions": {
+      "Terminologie 11.3.4 (polynôme caractéristique)": "11.3.4",
+      "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)": "11.3.7"
+    },
+    "preparation": {
+      "exploitable": true,
+      "motif": "",
+      "enonce": "Le but de l’exercice est de déterminer les applications f : \\mathbb{R} \\to \\mathbb{R} continues, non identiquement nulles, s’annulant en au moins un point et telles que\n\\[ \\forall (x, y) \\in \\mathbb{R}^2, \\ f(x+y) + f(x-y) = 2f(x)f(y) \\]\n1. Soit f une solution. Montrer que f est paire, puis qu’elle admet une primitive F impaire.\n2. Montrer qu’il existe x_0 \\in \\mathbb{R} tel que\n\\[ \\forall y \\in \\mathbb{R}, \\ f(y) = \\frac{F(x_0 + y) + F(x_0 - y)}{2F(x_0)} \\]\nEn déduire que f est de classe C^\\infty.\n3. Montrer qu’il existe \\mu tel que \\forall x \\in \\mathbb{R}, \\ F''(x) = \\mu F(x) .\n4. Achever la résolution de l’exercice.",
+      "etapes": [
+        {
+          "objectif": "Montrer que f est paire et admet une primitive impaire.",
+          "question": "Soit f une solution de l'équation. Montrer que f est paire (f(-x) = f(x)) et que f admet une primitive F impaire (F(-x) = -F(x) avec F(0)=0).",
+          "indice": "Regarder les cas particuliers x = 0, puis x = 0, y = x. Intégrer f sur [0, x] puis utiliser un changement de variables.",
+          "reponse": "En posant x = y = 0, on obtient 2f(0) = 2(f(0))^2, donc f(0) = 0 ou f(0) = 1. Si f(0) = 0, alors pour tout x, 2f(x) = 0 donc f = 0, absurde car f \\neq 0. Donc f(0) = 1. En posant x = 0 puis y = x : f(x) + f(-x) = 2f(x)f(0) = 2f(x), donc f(-x) = f(x) et f est paire. Pour F primitive de f s'annulant en 0: \\( F(x) = \\int_0^x f(t)dt \\). Par changement de variable t \\mapsto -t, F(x) = -F(-x), donc F est impaire."
+        },
+        {
+          "objectif": "Exprimer f à l'aide de F et montrer sa régularité.",
+          "question": "Montrer qu’il existe x_0 \\in \\mathbb{R} tel que \\[ \\forall y \\in \\mathbb{R}, \\ f(y) = \\frac{F(x_0 + y) + F(x_0 - y)}{2F(x_0)} \\] et en déduire que f est \\mathcal{C}^\\infty.",
+          "indice": "Intégrer l'identité fonctionnelle satisfaite par f. Utiliser F(x_0) \\neq 0.",
+          "reponse": "En intégrant l'équation fonctionnelle puis en réarrangeant, on obtient F(x + y) + F(x - y) = 2f(y)F(x) pour tout x, y. Si F(x_0) \\neq 0 (possible car f \\not\\equiv 0), alors \\( f(y) = \\frac{F(x_0 + y) + F(x_0 - y)}{2F(x_0)} \\). La formule se propage par récurrence et montre que f est de classe \\mathcal{C}^\\infty."
+        },
+        {
+          "objectif": "Trouver l'équation différentielle satisfaite par F.",
+          "question": "Montrer qu'il existe \\mu \\in \\mathbb{R} tel que pour tout x, \\( F''(x) = \\mu F(x) \\).",
+          "indice": "Dériver deux fois l'identité satisfaite par F par rapport à y, puis prendre y = 0.",
+          "reponse": "En dérivant F(x + y) + F(x - y) = 2F(x)f(y) deux fois par rapport à y, et en posant y = 0, on obtient 2F''(x) = 2F(x)f''(0). Donc F''(x) = \\mu F(x) avec \\mu = f''(0)."
+        },
+        {
+          "objectif": "Établir toutes les solutions de l'équation différentielle et relier à f.",
+          "question": "Résoudre complètement l’exercice : déduire toutes les applications f continues, non identiquement nulles, solution de l’énoncé.",
+          "indice": "Décomposer selon le signe de \\mu. Utiliser la forme des solutions de l’équation \\( F''(x) = \\mu F(x) \\), puis l'expression de f comme dérivée de F.",
+          "reponse": "Si \\mu = 0, alors F'' = 0 \\Rightarrow F(x) = bx. Comme F(0) = 0, donc F(x) = bx. Mais alors f(x) = b, or f(0)=1 impose b=1. Or f(x) = 1 n'a pas de racine, contrariant l'énoncé. Si \\mu > 0, on a F(x) = c_2 \\sinh(ax), donc f(x) = c_2 a \\cosh(ax). Avec f(0) = 1, c_2 a = 1. Mais \\cosh(ax) \\neq 0 tout le temps donc pas de racine. Si \\mu < 0, poser \\mu = -a^2, alors F(x) = c_2 \\sin(ax), donc f(x) = c_2 a \\cos(ax). Avec f(0)=1, c_2 a =1, donc f(x) = \\cos(ax) qui s'annule pour certains x. À la fin, il reste seulement les fonctions f(x) = \\cos(ax) et leurs opposées comme solutions."
+        }
+      ],
+      "empreinte": "091f2eb2ef33ade74aed4792c53ce8fe2c407b8ac165e4563bcdff7f4a8390a3",
+      "modele": "gpt-4.1",
+      "date": "2026-09-27T18:59:49.006635+00:00"
+    }
   }
 ]

@@ -1,0 +1,2855 @@
+{
+  "version": 1,
+  "statut": "a_verifier",
+  "chapitre": "11 — Équations différentielles linéaires",
+  "pdf_sha256": "5d65cbf4715450ebac3307bf0b0d0e510422c9ccbd17d45f957fc9d1099d4d7c",
+  "pages_pdf": [
+    69,
+    76
+  ],
+  "introductions": [
+    {
+      "section": "I — Équations différentielles linéaires",
+      "lignes": [
+        {
+          "page_pdf": 69,
+          "texte": "11"
+        },
+        {
+          "page_pdf": 69,
+          "texte": "Équations différentielles linéaires"
+        },
+        {
+          "page_pdf": 69,
+          "texte": "Ce chapitre a vocation à justifier les techniques de résolution des équations différentielles, admises en"
+        },
+        {
+          "page_pdf": 69,
+          "texte": "physique. Nous nous limitons à l’étude de certaines équations différentielles linéaires. Les autres types"
+        },
+        {
+          "page_pdf": 69,
+          "texte": "ne peuvent en général pas se résoudre explicitement, à moins de pouvoir se ramener à des équations"
+        },
+        {
+          "page_pdf": 69,
+          "texte": "différentielles linéaires. Cela n’empêche pas de pouvoir donner des conditions d’existence et d’unicité, et"
+        },
+        {
+          "page_pdf": 69,
+          "texte": "de savoir étudier les solutions de ces équations différentielles, mais la problématique de résolution explicite"
+        },
+        {
+          "page_pdf": 69,
+          "texte": "qui nous occupe dans ce chapitre est absente dans ce contexte. Les fonctions considérées peuvent être à"
+        },
+        {
+          "page_pdf": 69,
+          "texte": "valeurs réelles ou complexes. On notera K = R ou C suivant la situation."
+        }
+      ]
+    },
+    {
+      "section": "II.2 — Solutions de l’équation homogène",
+      "lignes": [
+        {
+          "page_pdf": 70,
+          "texte": "On notera K = R ou C."
+        },
+        {
+          "page_pdf": 70,
+          "texte": "Nous nous intéressons ici aux équations linéaires d’ordre 1 sur un intervalle I, dont la forme générale est :"
+        },
+        {
+          "page_pdf": 70,
+          "texte": "a1(x)y′ + a0(x)y = β(x), où a0 et a1 sont des fonctions d’une variable réelle, à valeurs dans K."
+        },
+        {
+          "page_pdf": 70,
+          "texte": "On se restreint ici au cas où la fonction a1 ne s’annule pas sur l’intervalle I considéré, et où les fonctions"
+        },
+        {
+          "page_pdf": 70,
+          "texte": "a1, a0 et β sont continues, à valeurs dans K. Ainsi, en divisant par a1 et en isolant le terme y′, on est"
+        },
+        {
+          "page_pdf": 70,
+          "texte": "ramené à une équation « sous forme normale » (ou « forme résolue ») : y′ = a(x)y + b(x), où a et b sont"
+        },
+        {
+          "page_pdf": 70,
+          "texte": "continues à valeurs dans K."
+        },
+        {
+          "page_pdf": 70,
+          "texte": "Nous allons étudier l’ensemble des solutions d’une équation de ce type, à l’aide de deux « quadratures »"
+        },
+        {
+          "page_pdf": 70,
+          "texte": "(c’est-à-dire deux primitivations). Les méthodes mises en oeuvre sont à connaître, car ce sont elles qui"
+        },
+        {
+          "page_pdf": 70,
+          "texte": "vous permettront de résoudre explicitement une équation différentielle."
+        },
+        {
+          "page_pdf": 70,
+          "texte": "Au passage, cette étude nous permettra de constater que le théorème de Cauchy-Lispschitz est bien valide"
+        },
+        {
+          "page_pdf": 70,
+          "texte": "dans cette situation : ce théorème affirme, sous certaines conditions, l’existence et l’unicité d’une solution,"
+        },
+        {
+          "page_pdf": 70,
+          "texte": "vérifiant des conditions initiales données."
+        },
+        {
+          "page_pdf": 70,
+          "texte": "Le théorème de structure et le théorème de superposition s’appliquent à cette situation. On peut donc se"
+        },
+        {
+          "page_pdf": 70,
+          "texte": "contenter d’étudier l’équation homogène, et de trouver une solution particulière."
+        }
+      ]
+    },
+    {
+      "section": "II.3 — Recherche d’une solution particulière de y′ = a(x)y + b(x)",
+      "lignes": [
+        {
+          "page_pdf": 71,
+          "texte": "Pour commencer, fractionner éventuellement le problème en problèmes plus simples par le principe de"
+        },
+        {
+          "page_pdf": 71,
+          "texte": "superposition énoncé plus haut. On suppose cette première étape effectuée, et on cherche une solution"
+        },
+        {
+          "page_pdf": 71,
+          "texte": "particulière de l’équation y′ = a(x)y + b(x)."
+        },
+        {
+          "page_pdf": 71,
+          "texte": "En premier lieu, essayez de DEVINER une solution particulière. Vous pouvez par exemple pour cela vous"
+        },
+        {
+          "page_pdf": 71,
+          "texte": "aider de l’homogénéité. Vous pouvez aussi rechercher une solution constante ou polynomiale."
+        },
+        {
+          "page_pdf": 71,
+          "texte": "Mais n’y perdez pas trop de temps : s’il n’y a pas de solution évidente qui vous saute aux yeux, voici une"
+        },
+        {
+          "page_pdf": 71,
+          "texte": "méthode efficace pour trouver une solution particulière (au moins sous forme intégrale) à partir d’une"
+        },
+        {
+          "page_pdf": 71,
+          "texte": "solution de l’équation homogène :"
+        }
+      ]
+    },
+    {
+      "section": "II.4 — Problème de Cauchy associé à une EDL du premier ordre",
+      "lignes": [
+        {
+          "page_pdf": 72,
+          "texte": "Nous pouvons maintenant résoudre le problème de Cauchy associé à une EDL du premier ordre :"
+        }
+      ]
+    },
+    {
+      "section": "II.5 — Problèmes de raccordement (ou recollement)",
+      "lignes": [
+        {
+          "page_pdf": 72,
+          "texte": "Lorsqu’on cherche à résoudre une équation différentielle a(x)y′ +b(x)y = c(x), on se ramène à la situation"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "précédente en divisant par a(x). Si a ne s’annule pas sur I, cela ne pose pas de problème. Mais il peut"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "arriver que a s’annule."
+        },
+        {
+          "page_pdf": 72,
+          "texte": "Si par exemple a s’annule en un nombre fini de points x1 < · · · < xn, cela définit des intervalles"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "I1, I2, . . . , In+1 ouverts en x1, . . . , xn, et dont l’union fait I \\ {x1, . . . , xn}"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "On peut résoudre l’équation sur chaque intervalle selon la méthode précédente, puis essayer de prolonger"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "les fonctions obtenues sur chaque intervalle, en définissant des valeurs adéquates en x1, . . . , xn. Ainsi, la"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "solution générale sur I s’obtiendra en raccordant des solutions sur chaque Ik selon des valeurs de y(xk)."
+        },
+        {
+          "page_pdf": 72,
+          "texte": "Pour qu’on puisse affirmer qu’on obtient ainsi une solution de l’équation différentielle sur I tout entier,"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "la fonction que l’on cherche à définir sur I entier doit être dérivable sur I (pour que l’ED ait un sens,"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "même si a(x) s’annule en un des points particulier), donc en particulier, elle doit être continue. Il faut"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "donc procéder de la façon suivante :"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "• Raccorder les solutions par continuité aux points xi. Ainsi, les deux branches à raccorder en xi"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "doivent avoir même limite pour que ce soit possible. Cela contraint souvent les constantes laissées"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "indéterminées lors de la résolution de l’ED."
+        },
+        {
+          "page_pdf": 72,
+          "texte": "• Vérifier que la fonction ainsi obtenue par prolongement par continuité est dérivable aux points de"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "raccordement et que sa dérivée vérifie bien l’ED."
+        }
+      ]
+    },
+    {
+      "section": "II.6 — Résolution des EDL d’ordre 1 à coefficients constants",
+      "lignes": [
+        {
+          "page_pdf": 72,
+          "texte": "Du fait de son importance pratique, on isole dans le résultat suivant la résolution complète du cas d’une"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "équation y = ay+b dans le cas où a et b sont constants (réels ou complexes). Ce théorème est un corollaire"
+        },
+        {
+          "page_pdf": 72,
+          "texte": "immédiat des résultats des sections précédentes."
+        }
+      ]
+    },
+    {
+      "section": "III.2 — Résolution de l’équation homogène",
+      "lignes": [
+        {
+          "page_pdf": 73,
+          "texte": "L’outil matriciel permet de se ramener à une équation différentielle matricielle d’ordre 1 (en introdui-"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "sant comme nouvelles fonctions la dérivée de y), qui s’étudie comme plus haut, mais nécessite quelques"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "connaissances supplémentaires sur le calcul matriciel (notamment la définition de l’exponentielle de ma-"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "trices)."
+        },
+        {
+          "page_pdf": 73,
+          "texte": "En attendant d’avoir ces outils, nous nous contentons d’une étude dans un cas beaucoup moins général,"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "celui où tous les coefficients de l’équation sont constants, dans R ou C. Par commodité, on note K = R ou"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "C, selon le contexte dans lequel on se place, pour éviter d’avoir à distinguer les deux cas dans les énoncés."
+        },
+        {
+          "page_pdf": 73,
+          "texte": "Si le coefficient du terme en y′′ est nul, on est ramené à l’étude d’une équation d’ordre 1. On peut donc"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "supposer que ce coefficient est non nul, et en divisant l’équation par ce coefficient, on est ramené à l’étude"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "d’une équation de la forme suivante :"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "y′′ + ay′ + by = f(x) où a, b ∈K et f continue à valeurs dans K."
+        },
+        {
+          "page_pdf": 73,
+          "texte": "Dans cette situation encore, on peut :"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "1. utiliser le théorème de structure de l’ensemble des solutions, qui nous dit qu’on peut se contenter de"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "la résolution du système homogène y′′ + ax + by = 0, et de la recherche d’une solution particulière"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "2. utiliser le principe de superposition pour ramener la recherche des solutions particulières au cas"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "de fonctions f les plus simples possibles."
+        },
+        {
+          "page_pdf": 73,
+          "texte": "La méthode ci-dessous est importante en soi, même si l’utilisation directe du théorème qu’on en déduit"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "est plus efficace. Cependant, le deuxième point de cette méthode se généralise au cas d’équations linéaires"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "d’ordre 2 à coefficients non constants, à condition d’avoir réussi à trouver une solution particulière de"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "l’équation homogène (ce qui constitue alors souvent le point délicat de la résolution). C’est une situa-"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "tion plus générale s’adaptant au cas d’équations différentielles linéaires du second ordre à coefficients"
+        },
+        {
+          "page_pdf": 73,
+          "texte": "quelconques, homogènes ou non."
+        }
+      ]
+    },
+    {
+      "section": "III.3 — Solution générale du système non homogène",
+      "lignes": [
+        {
+          "page_pdf": 75,
+          "texte": "Comme pour le cas d’EDL de degré 1, la première étape est l’utilisation du principe de superposition"
+        },
+        {
+          "page_pdf": 75,
+          "texte": "pour se ramener à des études plus simples."
+        },
+        {
+          "page_pdf": 75,
+          "texte": "Pour les EDL d’ordre 1, comme dans le cas des équations d’ordre 1, il existe une méthode dite « de"
+        },
+        {
+          "page_pdf": 75,
+          "texte": "variation des constantes » pour trouver une solution particulière, mais elle est plus délicate à mettre en"
+        },
+        {
+          "page_pdf": 75,
+          "texte": "oeuvre. Comme elle n’est pas au programme, nous nous limitons à l’étude de cas particuliers intervenant"
+        },
+        {
+          "page_pdf": 75,
+          "texte": "souvent en physique."
+        }
+      ]
+    }
+  ],
+  "avertissement": "Texte PDF brut : indices, exposants et fractions à relire, sauf passages marqués transcription_relue.",
+  "passages": [
+    {
+      "identifiant": "11.1.1",
+      "titre": "Définition 11.1.1 (Équation différentielle linéaire)",
+      "type": "définition",
+      "section": "I — Équations différentielles linéaires",
+      "contexte": "11\nÉquations différentielles linéaires\nCe chapitre a vocation à justifier les techniques de résolution des équations différentielles, admises en\nphysique. Nous nous limitons à l’étude de certaines équations différentielles linéaires. Les autres types\nne peuvent en général pas se résoudre explicitement, à moins de pouvoir se ramener à des équations\ndifférentielles linéaires. Cela n’empêche pas de pouvoir donner des conditions d’existence et d’unicité, et\nde savoir étudier les solutions de ces équations différentielles, mais la problématique de résolution explicite\nqui nous occupe dans ce chapitre est absente dans ce contexte. Les fonctions considérées peuvent être à\nvaleurs réelles ou complexes. On notera K = R ou C suivant la situation.",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          69
+        ],
+        "imprimee": [
+          67
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 69,
+          "bbox": [
+            60.480098724365234,
+            428.8927307128906,
+            307.6951904296875,
+            440.11065673828125
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            60.480098724365234,
+            445.8222351074219,
+            504.3243103027344,
+            456.91064453125
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            60.47918701171875,
+            459.6222229003906,
+            115.56158447265625,
+            470.7006530761719
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            192.1191864013672,
+            470.3480224609375,
+            372.59844970703125,
+            491.4642333984375
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            60.47979736328125,
+            492.9824523925781,
+            504.33489990234375,
+            505.500732421875
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            60.479888916015625,
+            506.7824401855469,
+            475.4499206542969,
+            517.870849609375
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            56.639312744140625,
+            541.3422241210938,
+            509.77996826171875,
+            553.1237182617188
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            56.63934326171875,
+            555.022216796875,
+            510.2023010253906,
+            567.5405883789062
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            56.63897705078125,
+            568.822265625,
+            323.99591064453125,
+            579.9107055664062
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            56.63880920410156,
+            582.5023193359375,
+            275.8489074707031,
+            593.580810546875
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            56.63880920410156,
+            596.3023681640625,
+            510.1678161621094,
+            607.380859375
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            56.6387939453125,
+            609.982421875,
+            429.6953430175781,
+            621.0609130859375
+          ]
+        }
+      ],
+      "texte_brut": "Une équation différentielle linéaire d’ordre r d’une fonction inconnue y est une équation différentielle\nde la forme :\na0(x)y + a1(x)y′ + · · · + ar(x)y(r) = b(x),\noù ar n’est pas la fonction nulle, et les ai sont des fonctions à valeurs réelles ou complexes, et y une\nfonction définie sur un sous-ensemble de R (souvent à déterminer), à valeurs dans K = R ou C.\nOn définit de la même manière une équation différentielle linéaire d’ordre r de plusieurs variables y1, . . . , yp\ncomme une relation affine à coefficients fonctionnels entre les dérivées des yi jusqu’à l’ordre r (au moins\nl’un des coefficients d’un des termes d’ordre r étant non nul).\nOn définit aussi les systèmes d’équations linéaires.\nOn étudie de façon directe le cas d’équations linéaires d’ordres 1 et 2, mais auparavant, on se sert de la\ndescription générale pour donner un résultat de structure de l’ensemble des solutions.",
+      "texte": "Une équation différentielle linéaire d'ordre $r$ est de la forme $\\sum_{k=0}^r a_k(x)y^{(k)}(x)=b(x)$, où $a_r$ n'est pas identiquement nulle. Les coefficients et l'inconnue sont à valeurs dans $\\mathbb K=\\mathbb R$ ou $\\mathbb C$. On définit de même les équations à plusieurs fonctions inconnues et les systèmes linéaires par des relations affines entre leurs dérivées.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.1.2",
+      "titre": "Théorème 11.1.2 (Structure de l’ensemble des solutions)",
+      "type": "théorème",
+      "section": "I — Équations différentielles linéaires",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          69,
+          70
+        ],
+        "imprimee": [
+          67,
+          68
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 69,
+          "bbox": [
+            60.480098724365234,
+            636.3726806640625,
+            343.2593994140625,
+            647.5906372070312
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            60.480098724365234,
+            650.7081298828125,
+            504.41412353515625,
+            671.34423828125
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            60.48039245605469,
+            666.8926391601562,
+            127.37918090820312,
+            678.0707397460938
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            60.48044967651367,
+            680.5723876953125,
+            402.46051025390625,
+            698.823974609375
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            254.9999542236328,
+            705.5480346679688,
+            309.8401184082031,
+            722.5841674804688
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            60.48046875,
+            727.9723510742188,
+            77.58363342285156,
+            739.1504516601562
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            80.4003677368164,
+            741.7723999023438,
+            365.1841735839844,
+            760.0239868164062
+          ]
+        },
+        {
+          "page_pdf": 69,
+          "bbox": [
+            196.92037963867188,
+            762.5479736328125,
+            397.800048828125,
+            783.6641845703125
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            108.72000122070312,
+            78.89259338378906,
+            255.44851684570312,
+            97.14414978027344
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            88.80012512207031,
+            92.69258117675781,
+            371.3745422363281,
+            110.94413757324219
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            88.79976654052734,
+            106.22969818115234,
+            532.7212524414062,
+            124.74412536621094
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            88.80001831054688,
+            116.57270812988281,
+            176.45851135253906,
+            138.4242401123047
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            95.03980255126953,
+            158.77273559570312,
+            206.7140350341797,
+            169.99066162109375
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            104.99996185302734,
+            174.1420440673828,
+            448.9286804199219,
+            192.30393981933594
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            533.63916015625,
+            175.267822265625,
+            538.6204833984375,
+            185.23046875
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            85.0801010131836,
+            192.62220764160156,
+            538.496337890625,
+            203.71063232421875
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            85.079833984375,
+            206.4221954345703,
+            186.21823120117188,
+            217.5006561279297
+          ]
+        }
+      ],
+      "texte_brut": "Soit (E) : a0(x)y + a1(x)y′ + · · · + ar(x)y(r) = b(x) une équation différentielle linéaire à résoudre sur\nun intervalle I.\nS’il n’est pas vide, l’ensemble S des solutions de (E) s’exprime sous la forme :\nS = S0 + y0,\noù :\n• S0 est l’ensemble des solutions de l’équation homogène associée\n(EH) : a0(x)y + a1(x)y′ + · · · + ar(x)y(r) = 0;\n• y0 est une solution particulière.\nDe plus, S0 est alors non vide et stable par combinaison linéaire.\nOn dit que S0 est un espace vectoriel (sous-espace vectoriel de RI) et que S est un sous-espace affine\nde RI dirigé par S0.\n⊳Éléments de preuve.\nPar linéarité de la dérivation, justifier que y vérifie (E) ssi y −y0 vérifie (EH).\n⊲\nLa recherche d’une solution particulière peut se faire en plusieurs temps, si b se décompose en somme de\nfonctions plus simples :",
+      "texte": "Sur un intervalle $I$, si $y_p$ est une solution particulière de $L(y)=b$, l'ensemble des solutions est $S=y_p+S_0$, où $S_0=\\{y:L(y)=0\\}$ est un espace vectoriel. Éléments de preuve : par linéarité, $L(y)=b$ équivaut à $L(y-y_p)=0$ ; la fonction nulle et toute combinaison linéaire de solutions homogènes appartiennent à $S_0$.",
+      "transcription_relue": true,
+      "contient_preuve": true
+    },
+    {
+      "identifiant": "11.1.3",
+      "titre": "Proposition 11.1.3 (Principe de superposition)",
+      "type": "proposition",
+      "section": "I — Équations différentielles linéaires",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          70
+        ],
+        "imprimee": [
+          68
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 70,
+          "bbox": [
+            88.80000305175781,
+            232.57272338867188,
+            322.0110168457031,
+            243.7906494140625
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            88.80000305175781,
+            249.4125518798828,
+            499.63653564453125,
+            262.03045654296875
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            108.71966552734375,
+            260.7081298828125,
+            463.8253479003906,
+            281.34423828125
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            108.7198486328125,
+            274.50811767578125,
+            466.8583984375,
+            295.14422607421875
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            88.79986572265625,
+            290.5723571777344,
+            306.2979736328125,
+            303.190673828125
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            95.03980255126953,
+            329.7727355957031,
+            206.7140350341797,
+            340.99066162109375
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            104.99996185302734,
+            345.1420593261719,
+            314.6607666015625,
+            356.2204895019531
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            533.6409301757812,
+            346.267822265625,
+            538.6222534179688,
+            356.23046875
+          ]
+        }
+      ],
+      "texte_brut": "Si b = b1 + b2, pour trouver une solution particulière y0 de l’équation (E), il suffit de trouver :\n• une solution particulière y1 de (E1) : a0(x)y + a1(x)y′ + · · · + ar(x)y(r) = b1(x)\n• une solution particulière y2 de (E2) : a0(x)y + a1(x)y′ + · · · + ar(x)y(r) = b2(x).\nUne solution particulière de (E) est alors y1 + y2.\n⊳Éléments de preuve.\nVérification facile, par linéarité de la dérivation.\n⊲",
+      "texte": "Si $b=b_1+b_2$ et si $L(y_1)=b_1$, $L(y_2)=b_2$, alors $y_1+y_2$ est une solution particulière de $L(y)=b$. Éléments de preuve : $L(y_1+y_2)=L(y_1)+L(y_2)=b_1+b_2$ par linéarité de la dérivation.",
+      "transcription_relue": true,
+      "contient_preuve": true
+    },
+    {
+      "identifiant": "11.2.1",
+      "titre": "Théorème 11.2.1 (Résolution de l’équation y′ = a(x)y (a continue))",
+      "type": "théorème",
+      "section": "II.2 — Solutions de l’équation homogène",
+      "contexte": "On notera K = R ou C.\nNous nous intéressons ici aux équations linéaires d’ordre 1 sur un intervalle I, dont la forme générale est :\na1(x)y′ + a0(x)y = β(x), où a0 et a1 sont des fonctions d’une variable réelle, à valeurs dans K.\nOn se restreint ici au cas où la fonction a1 ne s’annule pas sur l’intervalle I considéré, et où les fonctions\na1, a0 et β sont continues, à valeurs dans K. Ainsi, en divisant par a1 et en isolant le terme y′, on est\nramené à une équation « sous forme normale » (ou « forme résolue ») : y′ = a(x)y + b(x), où a et b sont\ncontinues à valeurs dans K.\nNous allons étudier l’ensemble des solutions d’une équation de ce type, à l’aide de deux « quadratures »\n(c’est-à-dire deux primitivations). Les méthodes mises en oeuvre sont à connaître, car ce sont elles qui\nvous permettront de résoudre explicitement une équation différentielle.\nAu passage, cette étude nous permettra de constater que le théorème de Cauchy-Lispschitz est bien valide\ndans cette situation : ce théorème affirme, sous certaines conditions, l’existence et l’unicité d’une solution,\nvérifiant des conditions initiales données.\nLe théorème de structure et le théorème de superposition s’appliquent à cette situation. On peut donc se\ncontenter d’étudier l’équation homogène, et de trouver une solution particulière.",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          70,
+          71
+        ],
+        "imprimee": [
+          68,
+          69
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 70,
+          "bbox": [
+            88.80000305175781,
+            691.3802490234375,
+            428.1770324707031,
+            705.0706787109375
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            88.7994384765625,
+            708.187744140625,
+            371.2188720703125,
+            722.2918701171875
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            242.51943969726562,
+            733.5894775390625,
+            379.0790710449219,
+            752.5840454101562
+          ]
+        },
+        {
+          "page_pdf": 70,
+          "bbox": [
+            88.7994384765625,
+            757.9722900390625,
+            416.1048278808594,
+            769.150390625
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            66.5999984741211,
+            74.2927474975586,
+            178.39413452148438,
+            85.51068115234375
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            76.5601577758789,
+            86.4222640991211,
+            238.20947265625,
+            101.65215301513672
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            505.19989013671875,
+            91.14801788330078,
+            510.18121337890625,
+            101.11065673828125
+          ]
+        }
+      ],
+      "texte_brut": "L’ensemble des solutions de l’équation homogène y′ = a(x)y est :\nS0 = {y : x 7→CeA(x), C ∈K},\noù A est une primitive de la fonction (continue) a, et C est une constante.\n⊳Éléments de preuve.\nPoser z(x) = y(x)e−A(x) et dériver z.\n⊲",
+      "texte": "Si $a:I\\to\\mathbb K$ est continue et $A$ une primitive de $a$, les solutions de $y'=a(x)y$ sur l'intervalle $I$ sont exactement $y(x)=Ce^{A(x)}$, $C\\in\\mathbb K$. Éléments de preuve : poser $z=ye^{-A}$ ; alors $z'=e^{-A}(y'-ay)$, donc $z$ est constante si et seulement si $y$ est solution.",
+      "transcription_relue": true,
+      "contient_preuve": true
+    },
+    {
+      "identifiant": "11.2.2",
+      "titre": "Remarque 11.2.2 (Comment retrouver cette formule si on l’a oubliée)",
+      "type": "remarque",
+      "section": "II.2 — Solutions de l’équation homogène",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          71
+        ],
+        "imprimee": [
+          69
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 71,
+          "bbox": [
+            60.480098724365234,
+            123.2527084350586,
+            409.8123474121094,
+            134.47064208984375
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            80.40008544921875,
+            140.0623321533203,
+            504.1942138671875,
+            158.22422790527344
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            90.36018371582031,
+            151.9750518798828,
+            346.9522705078125,
+            166.50059509277344
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            341.760009765625,
+            155.42213439941406,
+            383.2894592285156,
+            169.99066162109375
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            80.39984130859375,
+            167.9347686767578,
+            173.1916046142578,
+            189.6641082763672
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            168.1199951171875,
+            171.50209045410156,
+            504.38848876953125,
+            189.6639862060547
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            90.36041259765625,
+            185.1822052001953,
+            270.340087890625,
+            196.2606658935547
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            80.40025329589844,
+            198.98219299316406,
+            504.4225158691406,
+            217.1440887451172
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            90.36041259765625,
+            212.66188049316406,
+            268.57012939453125,
+            223.75030517578125
+          ]
+        }
+      ],
+      "texte_brut": "• Au brouillon, on s’autorise des divisions par y (rigoureusement incorrect si on n’a pas justifié\nque la fonction ne s’annule pas !) L’équation s’écrit alors y′\ny = a(x).\n• On reconnait en y′\ny la dérivée de ln |y| (appelée dérivée logarithmique de y). On primitive, on\npasse à l’exponentielle et le tour est joué.\n• Au propre, il est préférable d’utiliser directement la formule du cours, pour éviter les problèmes\nde justification issus de la division par y.",
+      "texte": "• Au brouillon, on s’autorise des divisions par y (rigoureusement incorrect si on n’a pas justifié\nque la fonction ne s’annule pas !) L’équation s’écrit alors y′\ny = a(x).\n• On reconnait en y′\ny la dérivée de ln |y| (appelée dérivée logarithmique de y). On primitive, on\npasse à l’exponentielle et le tour est joué.\n• Au propre, il est préférable d’utiliser directement la formule du cours, pour éviter les problèmes\nde justification issus de la division par y.",
+      "transcription_relue": false,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.2.3",
+      "titre": "Exemples 11.2.3",
+      "type": "exemple",
+      "section": "II.2 — Solutions de l’équation homogène",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          71
+        ],
+        "imprimee": [
+          69
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 71,
+          "bbox": [
+            60.480098724365234,
+            252.25271606445312,
+            141.4480743408203,
+            263.47064208984375
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            77.5198974609375,
+            266.7080078125,
+            241.46630859375,
+            280.8121337890625
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            77.51937103271484,
+            282.7420349121094,
+            290.2792053222656,
+            297.971923828125
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            286.1994934082031,
+            286.3420104980469,
+            321.7217102050781,
+            299.8204650878906
+          ]
+        }
+      ],
+      "texte_brut": "1. Résolution de y′ = ay (a constant)\n2. Résolution de y′ = yxα sur R si α ⩾0, sur R∗\n+ sinon.",
+      "texte": "1. Résolution de y′ = ay (a constant)\n2. Résolution de y′ = yxα sur R si α ⩾0, sur R∗\n+ sinon.",
+      "transcription_relue": false,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.2.4",
+      "titre": "Méthode 11.2.4 (Méthode de variation de la constante)",
+      "type": "méthode",
+      "section": "II.3 — Recherche d’une solution particulière de y′ = a(x)y + b(x)",
+      "contexte": "Pour commencer, fractionner éventuellement le problème en problèmes plus simples par le principe de\nsuperposition énoncé plus haut. On suppose cette première étape effectuée, et on cherche une solution\nparticulière de l’équation y′ = a(x)y + b(x).\nEn premier lieu, essayez de DEVINER une solution particulière. Vous pouvez par exemple pour cela vous\naider de l’homogénéité. Vous pouvez aussi rechercher une solution constante ou polynomiale.\nMais n’y perdez pas trop de temps : s’il n’y a pas de solution évidente qui vous saute aux yeux, voici une\nméthode efficace pour trouver une solution particulière (au moins sous forme intégrale) à partir d’une\nsolution de l’équation homogène :",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          71
+        ],
+        "imprimee": [
+          69
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 71,
+          "bbox": [
+            60.480098724365234,
+            483.1327209472656,
+            338.1963195800781,
+            494.35064697265625
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            77.5198974609375,
+            499.70928955078125,
+            504.3443298339844,
+            518.1038208007812
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            90.36056518554688,
+            510.1418762207031,
+            504.44720458984375,
+            531.90380859375
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            90.36065673828125,
+            527.4219970703125,
+            136.4805145263672,
+            538.50048828125
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            77.52045440673828,
+            544.7020874023438,
+            453.62408447265625,
+            562.864013671875
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            242.7603759765625,
+            572.827880859375,
+            274.62103271484375,
+            582.79052734375
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            277.3201599121094,
+            566.2415161132812,
+            282.84942626953125,
+            596.2190551757812
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            288.9603576660156,
+            568.6278686523438,
+            351.8396911621094,
+            582.79052734375
+          ]
+        }
+      ],
+      "texte_brut": "1. Les solutions de l’équation homogène étant de la forme x 7→CeA(x), on recherche une solution\nparticulière de l’équation non homogène sous la forme x 7→C(x)eA(x) (on « rend la constante\nvariable »)\n2. En remplaçant dans l’équation différentielle, x 7→C(x) s’obtient par primitivation :\nC(x) =\nZ\nb(x)e−A(x) dx.",
+      "texte": "Pour $y'=a(x)y+b(x)$, avec $a,b$ continues sur un intervalle et $A'=a$, rechercher $y=C(x)e^{A(x)}$. Substitution : $C'=be^{-A}$ ; on obtient $C$ par primitivation. Ajouter à une solution particulière toutes les solutions de l'équation homogène.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.2.5",
+      "titre": "Exemples 11.2.5",
+      "type": "exemple",
+      "section": "II.3 — Recherche d’une solution particulière de y′ = a(x)y + b(x)",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          71
+        ],
+        "imprimee": [
+          69
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 71,
+          "bbox": [
+            60.480098724365234,
+            622.9327392578125,
+            141.4480743408203,
+            634.1506958007812
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            77.5198974609375,
+            637.2681274414062,
+            269.8730773925781,
+            651.3722534179688
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            77.52005004882812,
+            654.4282836914062,
+            168.19810485839844,
+            675.064453125
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            164.0399932861328,
+            656.6694946289062,
+            256.79974365234375,
+            671.4706420898438
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            252.7200469970703,
+            662.7894287109375,
+            258.83612060546875,
+            669.7633056640625
+          ]
+        }
+      ],
+      "texte_brut": "1. Résoudre y′ = 2y + sin(x) + ex + x sur R\n2. Résoudre y′ = −y\nx + Arctan(x) sur R∗\n+",
+      "texte": "1. Résoudre $y'=2y+\\sin x+e^x+x$ sur $\\mathbb R$. 2. Résoudre $y'=-y/x+\\arctan x$ sur $\\mathbb R_+^*$.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.2.6",
+      "titre": "Remarque 11.2.6",
+      "type": "remarque",
+      "section": "II.3 — Recherche d’une solution particulière de y′ = a(x)y + b(x)",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          71
+        ],
+        "imprimee": [
+          69
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 71,
+          "bbox": [
+            60.480098724365234,
+            698.052734375,
+            145.17352294921875,
+            709.2706909179688
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            60.480098724365234,
+            714.8619384765625,
+            504.3145751953125,
+            725.9404296875
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            60.4801025390625,
+            728.6619262695312,
+            504.3162536621094,
+            739.7404174804688
+          ]
+        },
+        {
+          "page_pdf": 71,
+          "bbox": [
+            60.48008728027344,
+            742.342041015625,
+            139.07501220703125,
+            753.4205322265625
+          ]
+        }
+      ],
+      "texte_brut": "Comme dit plus haut, et j’insiste dessus, il n’est pas toujours nécessaire d’employer la méthode de\nvariation de la constante pour trouver une solution particulière : parfois elle est suffisamment évidente\npour être devinée.",
+      "texte": "Comme dit plus haut, et j’insiste dessus, il n’est pas toujours nécessaire d’employer la méthode de\nvariation de la constante pour trouver une solution particulière : parfois elle est suffisamment évidente\npour être devinée.",
+      "transcription_relue": false,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.2.7",
+      "titre": "Exemples 11.2.7",
+      "type": "exemple",
+      "section": "II.3 — Recherche d’une solution particulière de y′ = a(x)y + b(x)",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          72
+        ],
+        "imprimee": [
+          70
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 72,
+          "bbox": [
+            88.80000305175781,
+            78.97274017333984,
+            169.76797485351562,
+            90.190673828125
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            105.960205078125,
+            90.18824005126953,
+            367.3938903808594,
+            113.94425964355469
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            362.6400146484375,
+            93.30817413330078,
+            489.9697570800781,
+            113.71063232421875
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            105.96014404296875,
+            110.90230560302734,
+            514.0896606445312,
+            132.66416931152344
+          ]
+        }
+      ],
+      "texte_brut": "1. Si a et b sont constants, la fonction constante égale à −b\na est solution de y′ = ay + b.\n2. La fonction y : x 7→ceαx est solution de y′ = ay + beαx, où c vérifie l’équation αc = ac + b.",
+      "texte": "1. Si $a,b$ sont constants et $a\\ne0$, la constante $-b/a$ résout $y'=ay+b$. 2. Pour $y'=ay+be^{\\alpha x}$, chercher $y=ce^{\\alpha x}$ : le coefficient doit satisfaire $(\\alpha-a)c=b$. Note de relecture : la condition $a\\ne0$, nécessaire à la division, est implicite dans le premier exemple du PDF.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.2.8",
+      "titre": "Théorème 11.2.8 (Théorème de Cauchy-Lipschitz pour les équations linéaires d’ordre 1)",
+      "type": "théorème",
+      "section": "II.4 — Problème de Cauchy associé à une EDL du premier ordre",
+      "contexte": "Nous pouvons maintenant résoudre le problème de Cauchy associé à une EDL du premier ordre :",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          72
+        ],
+        "imprimee": [
+          70
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 72,
+          "bbox": [
+            88.80000305175781,
+            206.41275024414062,
+            529.8377075195312,
+            217.63067626953125
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            88.79998779296875,
+            223.13270568847656,
+            532.7386474609375,
+            241.38426208496094
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            88.80010986328125,
+            234.42822265625,
+            532.6980590820312,
+            248.53233337402344
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            88.79962158203125,
+            250.61280822753906,
+            137.69802856445312,
+            262.4835205078125
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            95.03980255126953,
+            291.9727478027344,
+            206.7140350341797,
+            303.190673828125
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            104.99996185302734,
+            307.8221740722656,
+            538.6087646484375,
+            318.9006042480469
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            104.99996948242188,
+            321.5022888183594,
+            281.40948486328125,
+            333.2833557128906
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            533.639892578125,
+            322.6280517578125,
+            538.6212158203125,
+            332.5906982421875
+          ]
+        }
+      ],
+      "texte_brut": "Soit a et b deux fonctions continues sur un intervalle I, à valeurs dans K = R ou C. Soit (x0, y0) ∈I×K.\nAlors il existe une et une seule solution y de l’équation différentielle y′ = a(x)y + b(x) telle que\ny(x0) = y0.\n⊳Éléments de preuve.\nÀ partir du théorème de structure, et de la forme de la solution homogène, voir quelle condition sur\nle coefficient inconnu impose y(x0) = y0.\n⊲",
+      "texte": "Si $a,b:I\\to\\mathbb K$ sont continues sur un intervalle $I$, pour tout $(x_0,y_0)\\in I\\times\\mathbb K$, il existe une unique solution de $y'=ay+b$ telle que $y(x_0)=y_0$. Éléments de preuve : une solution générale est $y_p+Ce^A$ ; la condition initiale impose l'unique constante $C=(y_0-y_p(x_0))e^{-A(x_0)}$.",
+      "transcription_relue": true,
+      "contient_preuve": true
+    },
+    {
+      "identifiant": "11.2.9",
+      "titre": "Exemple 11.2.9",
+      "type": "exemple",
+      "section": "II.5 — Problèmes de raccordement (ou recollement)",
+      "contexte": "Lorsqu’on cherche à résoudre une équation différentielle a(x)y′ +b(x)y = c(x), on se ramène à la situation\nprécédente en divisant par a(x). Si a ne s’annule pas sur I, cela ne pose pas de problème. Mais il peut\narriver que a s’annule.\nSi par exemple a s’annule en un nombre fini de points x1 < · · · < xn, cela définit des intervalles\nI1, I2, . . . , In+1 ouverts en x1, . . . , xn, et dont l’union fait I \\ {x1, . . . , xn}\nOn peut résoudre l’équation sur chaque intervalle selon la méthode précédente, puis essayer de prolonger\nles fonctions obtenues sur chaque intervalle, en définissant des valeurs adéquates en x1, . . . , xn. Ainsi, la\nsolution générale sur I s’obtiendra en raccordant des solutions sur chaque Ik selon des valeurs de y(xk).\nPour qu’on puisse affirmer qu’on obtient ainsi une solution de l’équation différentielle sur I tout entier,\nla fonction que l’on cherche à définir sur I entier doit être dérivable sur I (pour que l’ED ait un sens,\nmême si a(x) s’annule en un des points particulier), donc en particulier, elle doit être continue. Il faut\ndonc procéder de la façon suivante :\n• Raccorder les solutions par continuité aux points xi. Ainsi, les deux branches à raccorder en xi\ndoivent avoir même limite pour que ce soit possible. Cela contraint souvent les constantes laissées\nindéterminées lors de la résolution de l’ED.\n• Vérifier que la fonction ainsi obtenue par prolongement par continuité est dérivable aux points de\nraccordement et que sa dérivée vérifie bien l’ED.",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          72
+        ],
+        "imprimee": [
+          70
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 72,
+          "bbox": [
+            88.80000305175781,
+            626.292724609375,
+            165.32275390625,
+            637.5106811523438
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            88.80000305175781,
+            643.102294921875,
+            324.3436279296875,
+            654.1807861328125
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            105.96011352539062,
+            660.3824462890625,
+            113.7709732055664,
+            671.4609375
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            118.68001556396484,
+            659.9617919921875,
+            128.6426544189453,
+            689.9393310546875
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            128.63999938964844,
+            657.7880859375,
+            166.04119873046875,
+            678.5441284179688
+          ]
+        },
+        {
+          "page_pdf": 72,
+          "bbox": [
+            105.95989990234375,
+            675.0681762695312,
+            153.72903442382812,
+            689.1723022460938
+          ]
+        }
+      ],
+      "texte_brut": "Résoudre sur R les équations différentielles suivantes :\n1.\np\n|x|y′ = y\n2. xy′ = y.",
+      "texte": "Résoudre sur $\\mathbb R$ : 1. $\\sqrt{|x|}\\,y'=y$. 2. $xy'=y$. Résoudre sur les intervalles où le coefficient de $y'$ ne s'annule pas ; raccorder par continuité, vérifier la dérivabilité puis l'équation aux points de raccordement.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.2.10",
+      "titre": "Théorème 11.2.10 (Résolution d’une équation linéaire y′ = ay + b à coefficients constants)",
+      "type": "théorème",
+      "section": "II.6 — Résolution des EDL d’ordre 1 à coefficients constants",
+      "contexte": "Du fait de son importance pratique, on isole dans le résultat suivant la résolution complète du cas d’une\néquation y = ay+b dans le cas où a et b sont constants (réels ou complexes). Ce théorème est un corollaire\nimmédiat des résultats des sections précédentes.",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          73
+        ],
+        "imprimee": [
+          71
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 73,
+          "bbox": [
+            60.480098724365234,
+            77.22055053710938,
+            512.5545043945312,
+            90.7906494140625
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            60.479522705078125,
+            93.90814971923828,
+            504.55328369140625,
+            108.01226043701172
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            60.47930908203125,
+            110.09266662597656,
+            79.01980590820312,
+            121.270751953125
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            204.9593048095703,
+            126.66791534423828,
+            222.18035888671875,
+            143.7040252685547
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            224.9991912841797,
+            119.60196685791016,
+            232.47117614746094,
+            149.5795440673828
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            232.43902587890625,
+            119.94800567626953,
+            306.91290283203125,
+            143.7040252685547
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            302.1600036621094,
+            126.66779327392578,
+            311.3993225097656,
+            143.47064208984375
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            320.15924072265625,
+            126.19673919677734,
+            347.9408264160156,
+            143.7039031982422
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            347.9998474121094,
+            119.60184478759766,
+            355.4718322753906,
+            149.5794219970703
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            357.1197814941406,
+            126.66779327392578,
+            359.8794250488281,
+            136.63043212890625
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            60.479766845703125,
+            149.4523468017578,
+            310.5007629394531,
+            162.0706787109375
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            213.72012329101562,
+            178.50799560546875,
+            245.64251708984375,
+            195.5441131591797
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            248.40017700195312,
+            164.4677734375,
+            261.6741638183594,
+            201.41920471191406
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            256.9200134277344,
+            178.5081787109375,
+            284.4080505371094,
+            195.3106689453125
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            284.8801574707031,
+            171.44174194335938,
+            292.212646484375,
+            201.41932678222656
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            293.8801574707031,
+            171.7882080078125,
+            346.6341857910156,
+            195.5442352294922
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            341.8800048828125,
+            178.5081787109375,
+            351.1197204589844,
+            195.3106689453125
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            66.5999984741211,
+            228.13272094726562,
+            178.39413452148438,
+            239.35064697265625
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            76.5601577758789,
+            243.62245178222656,
+            253.185546875,
+            254.70091247558594
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            505.2001647949219,
+            244.74822998046875,
+            510.1814880371094,
+            254.71087646484375
+          ]
+        }
+      ],
+      "texte_brut": "Soit a et b deux éléments de K = R ou C. L’ensemble des solutions de l’équation différentielle y′ = ay+b\nest :\nS =\n\u001a\ny : x 7→Ceax −b\na,\nC ∈K\n\u001b\n,\nEn particulier, l’unique solution telle que y(x0) = y0 est :\ny : x 7→\n\u0012 b\na + y0\n\u0013\nea(x−x0) −b\na.\n⊳Éléments de preuve.\nApplication simple du théorème général.\n⊲",
+      "texte": "Pour $a,b\\in\\mathbb K$, $a\\ne0$, les solutions de $y'=ay+b$ sont $y(x)=Ce^{ax}-b/a$. Celle vérifiant $y(x_0)=y_0$ est $y(x)=(y_0+b/a)e^{a(x-x_0)}-b/a$. Éléments de preuve : appliquer la structure affine avec la solution particulière constante $-b/a$. Note de relecture : le PDF omet la condition $a\\ne0$. Si $a=0$, l'équation est $y'=b$ et $y(x)=y_0+b(x-x_0)$.",
+      "transcription_relue": true,
+      "contient_preuve": true
+    },
+    {
+      "identifiant": "11.3.1",
+      "titre": "Méthode 11.3.1 (Recherche des solutions de y′′ + a(x)y′ + b(x)y = f(x))",
+      "type": "méthode",
+      "section": "III.2 — Résolution de l’équation homogène",
+      "contexte": "L’outil matriciel permet de se ramener à une équation différentielle matricielle d’ordre 1 (en introdui-\nsant comme nouvelles fonctions la dérivée de y), qui s’étudie comme plus haut, mais nécessite quelques\nconnaissances supplémentaires sur le calcul matriciel (notamment la définition de l’exponentielle de ma-\ntrices).\nEn attendant d’avoir ces outils, nous nous contentons d’une étude dans un cas beaucoup moins général,\ncelui où tous les coefficients de l’équation sont constants, dans R ou C. Par commodité, on note K = R ou\nC, selon le contexte dans lequel on se place, pour éviter d’avoir à distinguer les deux cas dans les énoncés.\nSi le coefficient du terme en y′′ est nul, on est ramené à l’étude d’une équation d’ordre 1. On peut donc\nsupposer que ce coefficient est non nul, et en divisant l’équation par ce coefficient, on est ramené à l’étude\nd’une équation de la forme suivante :\ny′′ + ay′ + by = f(x) où a, b ∈K et f continue à valeurs dans K.\nDans cette situation encore, on peut :\n1. utiliser le théorème de structure de l’ensemble des solutions, qui nous dit qu’on peut se contenter de\nla résolution du système homogène y′′ + ax + by = 0, et de la recherche d’une solution particulière\n2. utiliser le principe de superposition pour ramener la recherche des solutions particulières au cas\nde fonctions f les plus simples possibles.\nLa méthode ci-dessous est importante en soi, même si l’utilisation directe du théorème qu’on en déduit\nest plus efficace. Cependant, le deuxième point de cette méthode se généralise au cas d’équations linéaires\nd’ordre 2 à coefficients non constants, à condition d’avoir réussi à trouver une solution particulière de\nl’équation homogène (ce qui constitue alors souvent le point délicat de la résolution). C’est une situa-\ntion plus générale s’adaptant au cas d’équations différentielles linéaires du second ordre à coefficients\nquelconques, homogènes ou non.",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          73,
+          74
+        ],
+        "imprimee": [
+          71,
+          72
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 73,
+          "bbox": [
+            60.480098724365234,
+            702.5406494140625,
+            425.0533142089844,
+            716.2306518554688
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            60.480010986328125,
+            721.8223266601562,
+            462.1159973144531,
+            732.9008178710938
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            80.40000915527344,
+            735.269775390625,
+            503.9524230957031,
+            753.7842407226562
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            90.35980224609375,
+            749.3024291992188,
+            504.32476806640625,
+            760.3809204101562
+          ]
+        },
+        {
+          "page_pdf": 73,
+          "bbox": [
+            90.35980224609375,
+            763.1024169921875,
+            168.84519958496094,
+            775.6207885742188
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            108.72000122070312,
+            79.70223236083984,
+            452.2658996582031,
+            97.86412048339844
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            263.63995361328125,
+            102.6296615600586,
+            276.254638671875,
+            114.49217987060547
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            273.6000671386719,
+            100.38800811767578,
+            387.59967041015625,
+            116.20348358154297
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            108.72003173828125,
+            123.50215911865234,
+            532.8102416992188,
+            145.26402282714844
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.67965698242188,
+            140.78224182128906,
+            532.6286010742188,
+            151.86070251464844
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.67965698242188,
+            154.5822296142578,
+            244.05992126464844,
+            165.6606903076172
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            108.71949768066406,
+            168.26234436035156,
+            383.0372314453125,
+            186.4242401123047
+          ]
+        }
+      ],
+      "texte_brut": "Cette méthode nécessite la connaissance d’une solution particulière de l’équation homogène.\n• Soit y0 une solution particulière de l’équation homogène y′′+a(x)y′+b(x)y = 0. On pose y = y0z\n(changement de fonction ; remarquez qu’il s’agit encore d’une variation de constante, puisque\nKy0 est solution).\n• Vérifier que z vérifie l’équation (en tout point en lequel y0 ne s’annule pas) :\n2y′\n0z′ + y0z′′ + ay0z′ = f(x).\n• Résoudre l’équation différentielle d’ordre 1 d’inconnue z′ et primitiver encore pour obtenir z.\nComme il y a deux quadratures, on obtient deux paramètres sur chaque intervalle : l’espace des\nsolutions est de dimension 2.\n• Attention aux éventuels raccordements à faire si y0 s’annule.",
+      "texte": "Pour $y''+a(x)y'+b(x)y=f(x)$, connaissant une solution $y_0$ de l'homogène, poser $y=y_0z$. Sur un intervalle où $y_0\\ne0$, on obtient $y_0z''+(2y_0'+ay_0)z'=f$. Résoudre l'équation du premier ordre en $z'$, puis primitiver pour obtenir $z$. On obtient deux constantes ; vérifier les raccordements si $y_0$ s'annule.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.3.2",
+      "titre": "Exemples 11.3.2",
+      "type": "exemple",
+      "section": "III.2 — Résolution de l’équation homogène",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          74
+        ],
+        "imprimee": [
+          72
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 74,
+          "bbox": [
+            88.80000305175781,
+            209.41275024414062,
+            169.76797485351562,
+            220.63067626953125
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            108.71990203857422,
+            226.3422393798828,
+            532.67236328125,
+            244.50413513183594
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.6800537109375,
+            240.02235412597656,
+            207.45654296875,
+            251.10081481933594
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            108.71989440917969,
+            253.8223419189453,
+            532.787353515625,
+            271.9842529296875
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.68011474609375,
+            267.5326843261719,
+            532.7688598632812,
+            278.71075439453125
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.67996215820312,
+            281.3024597167969,
+            532.7510986328125,
+            292.3808898925781
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.67996215820312,
+            295.1024475097656,
+            509.0147705078125,
+            306.1808776855469
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            85.0799560546875,
+            332.6622619628906,
+            511.5458984375,
+            343.7406921386719
+          ]
+        }
+      ],
+      "texte_brut": "• Il peut arriver qu’une solution soit évidente, mais pas les autres. La méthode ci-dessus est\nadaptée dans ce cas.\n• Si les coefficients a et b sont polynomiaux, on peut espérer trouver une solution polynomiale\n(ce n’est pas systématiquement possible). Essayer de déterminer a priori le degré du polynôme\npar un argument sur le coefficient dominant, puis écrire l’ED avec les coefficients du polynôme\nà déterminer. On trouve alors l’ensemble de toutes les solutions par la méthode ci-dessus.\nOn obtient, par application de cette méthode, en recherchant d’abord une solution exponentielle :",
+      "texte": "• Il peut arriver qu’une solution soit évidente, mais pas les autres. La méthode ci-dessus est\nadaptée dans ce cas.\n• Si les coefficients a et b sont polynomiaux, on peut espérer trouver une solution polynomiale\n(ce n’est pas systématiquement possible). Essayer de déterminer a priori le degré du polynôme\npar un argument sur le coefficient dominant, puis écrire l’ED avec les coefficients du polynôme\nà déterminer. On trouve alors l’ensemble de toutes les solutions par la méthode ci-dessus.\nOn obtient, par application de cette méthode, en recherchant d’abord une solution exponentielle :",
+      "transcription_relue": false,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.3.3",
+      "titre": "Théorème 11.3.3",
+      "type": "théorème",
+      "section": "III.2 — Résolution de l’équation homogène",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          74
+        ],
+        "imprimee": [
+          72
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 74,
+          "bbox": [
+            88.80000305175781,
+            360.9727478027344,
+            172.17701721191406,
+            372.190673828125
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            88.80000305175781,
+            375.4280090332031,
+            532.62060546875,
+            389.5321350097656
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            88.79965209960938,
+            389.1081237792969,
+            164.22021484375,
+            403.2122497558594
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            198.2395477294922,
+            404.6018981933594,
+            206.2594757080078,
+            434.5794982910156
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            206.27978515625,
+            403.6280517578125,
+            371.8211975097656,
+            424.2641906738281
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            381.95977783203125,
+            406.01263427734375,
+            419.22125244140625,
+            424.2641906738281
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            206.2800750732422,
+            422.3095397949219,
+            364.62109375,
+            440.823974609375
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            381.95965576171875,
+            422.5724182128906,
+            422.0392150878906,
+            433.75048828125
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            88.799560546875,
+            442.3497314453125,
+            532.5791625976562,
+            455.1106262207031
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            88.79931640625,
+            456.2926940917969,
+            360.92132568359375,
+            467.47076416015625
+          ]
+        }
+      ],
+      "texte_brut": "Soit a et b des nombres complexes. L’ensemble des solutions à valeurs complexes de l’équation y′′ +\nay′ + by = 0 est :\n(\nS0 = {y : x 7→cer1x + der2x, c, d ∈C}\nsi ∆̸ = 0\nS0 = {y : x 7→(c + dx)erx, c, d ∈C}\nsi ∆= 0,\noù ∆est le discriminant du polynôme X2+aX +b, et où r1 et r2 sont les racines (réelles ou complexes)\nde ce polynôme (notée simplement r, en cas de racine double).",
+      "texte": "Pour $a,b\\in\\mathbb C$, poser $P(X)=X^2+aX+b$ et $\\Delta=a^2-4b$. Si $\\Delta\\ne0$, les solutions complexes de $y''+ay'+by=0$ sont $ce^{r_1x}+de^{r_2x}$ où $r_1,r_2$ sont les racines de $P$. Si $\\Delta=0$, elles sont $(c+dx)e^{rx}$, $r=-a/2$. Dans les deux cas $c,d\\in\\mathbb C$.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.3.4",
+      "titre": "Terminologie 11.3.4 (polynôme caractéristique)",
+      "type": "terminologie",
+      "section": "III.2 — Résolution de l’équation homogène",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          74
+        ],
+        "imprimee": [
+          72
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 74,
+          "bbox": [
+            88.80000305175781,
+            498.73272705078125,
+            325.2335510253906,
+            509.9506530761719
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            88.80000305175781,
+            515.3092651367188,
+            532.6887817382812,
+            527.1718139648438
+          ]
+        }
+      ],
+      "texte_brut": "Le polynôme X2+aX+b est appelé polynôme caractéristique de l’équation différentielle y′′+ay′+by = 0.",
+      "texte": "Le polynôme $P(X)=X^2+aX+b$ est appelé polynôme caractéristique de $y''+ay'+by=0$.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.3.5",
+      "titre": "Remarques 11.3.5",
+      "type": "remarque",
+      "section": "III.2 — Résolution de l’équation homogène",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          74
+        ],
+        "imprimee": [
+          72
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 74,
+          "bbox": [
+            88.80000305175781,
+            558.8526611328125,
+            177.93824768066406,
+            570.0706176757812
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            105.960205078125,
+            575.7822265625,
+            532.8126220703125,
+            593.9441528320312
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.67990112304688,
+            589.4619140625,
+            532.6525268554688,
+            601.9805908203125
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.67999267578125,
+            603.2619018554688,
+            532.7340087890625,
+            614.3403930664062
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.68000793457031,
+            616.9420166015625,
+            346.67724609375,
+            628.0205078125
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            105.9601058959961,
+            634.2221069335938,
+            532.6513061523438,
+            645.310546875
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.68051147460938,
+            647.9022216796875,
+            438.1138000488281,
+            658.980712890625
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            105.96051025390625,
+            665.06201171875,
+            532.704833984375,
+            676.1405029296875
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            118.68052673339844,
+            678.8619995117188,
+            290.5093078613281,
+            689.9404907226562
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            85.08052825927734,
+            716.4222412109375,
+            538.509765625,
+            727.5106811523438
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            85.08090209960938,
+            730.2222290039062,
+            538.6474609375,
+            741.3106689453125
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            85.0810546875,
+            744.022216796875,
+            538.5997924804688,
+            755.1007080078125
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            85.08106994628906,
+            757.7023315429688,
+            538.6160278320312,
+            768.7808227539062
+          ]
+        },
+        {
+          "page_pdf": 74,
+          "bbox": [
+            85.0810546875,
+            771.5023193359375,
+            111.80652618408203,
+            782.580810546875
+          ]
+        }
+      ],
+      "texte_brut": "1. Si ∆̸ = 0, la première étape de la méthode exposée pour trouver ces solutions nous fournissait\ndéjà la totalité des solutions (puisqu’on pouvait choisir indifféremment r1 ou r2 et puisque\nl’ensemble des solutions est stable par combinaison linéaire). La deuxième étape sert dans ce cas\nseulement à prouver qu’il n’y a pas d’autre solution.\n2. Dans le cas où ∆= 0, la deuxième étape nous fournit une solution que la première étape ne\nnous permettait pas d’obtenir. La méthode trouve là toute sa pertinence.\n3. La méthode exposée ci-dessus est aussi valable pour des coefficients variables, à partir du moment\noù on connait une solution particulière.\nMême si les coefficients a et b sont réels, il peut arriver que l’expression obtenue au bout fasse intervenir des\nexponentielles complexes (cas où ∆< 0). La solution générale obtenue est alors une fonction à valeurs\ncomplexes. Parmi celles-ci, certaines sont à valeurs réelles. On est souvent intéressé par ces fonctions\nspécifiquement. Voici un résultat permettant de retrouver facilement l’ensemble des solutions à valeurs\nréelles",
+      "texte": "1. Si ∆̸ = 0, la première étape de la méthode exposée pour trouver ces solutions nous fournissait\ndéjà la totalité des solutions (puisqu’on pouvait choisir indifféremment r1 ou r2 et puisque\nl’ensemble des solutions est stable par combinaison linéaire). La deuxième étape sert dans ce cas\nseulement à prouver qu’il n’y a pas d’autre solution.\n2. Dans le cas où ∆= 0, la deuxième étape nous fournit une solution que la première étape ne\nnous permettait pas d’obtenir. La méthode trouve là toute sa pertinence.\n3. La méthode exposée ci-dessus est aussi valable pour des coefficients variables, à partir du moment\noù on connait une solution particulière.\nMême si les coefficients a et b sont réels, il peut arriver que l’expression obtenue au bout fasse intervenir des\nexponentielles complexes (cas où ∆< 0). La solution générale obtenue est alors une fonction à valeurs\ncomplexes. Parmi celles-ci, certaines sont à valeurs réelles. On est souvent intéressé par ces fonctions\nspécifiquement. Voici un résultat permettant de retrouver facilement l’ensemble des solutions à valeurs\nréelles",
+      "transcription_relue": false,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.3.6",
+      "titre": "Proposition 11.3.6 (Passer des solutions complexes aux solutions réelles)",
+      "type": "proposition",
+      "section": "III.2 — Résolution de l’équation homogène",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          75
+        ],
+        "imprimee": [
+          73
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 75,
+          "bbox": [
+            60.480098724365234,
+            79.57271575927734,
+            424.1044616699219,
+            90.7906494140625
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            60.4801025390625,
+            96.14974212646484,
+            504.2663269042969,
+            114.54423522949219
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            60.480194091796875,
+            110.09266662597656,
+            489.0859680175781,
+            128.34422302246094
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            232.56033325195312,
+            134.9478759765625,
+            332.2796936035156,
+            151.98399353027344
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            66.5999984741211,
+            178.09274291992188,
+            178.39413452148438,
+            189.3106689453125
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            76.5601577758789,
+            193.5824737548828,
+            171.70802307128906,
+            204.6609344482422
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            81.5999984741211,
+            207.2621612548828,
+            510.2681884765625,
+            225.42405700683594
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            91.56015014648438,
+            220.94227600097656,
+            178.44412231445312,
+            232.02073669433594
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            81.59999084472656,
+            234.7422637939453,
+            390.4731750488281,
+            252.90415954589844
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            505.2002258300781,
+            249.54815673828125,
+            510.1815490722656,
+            259.51080322265625
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            56.639801025390625,
+            266.9022521972656,
+            133.9325714111328,
+            277.9806823730469
+          ]
+        }
+      ],
+      "texte_brut": "Soit y′′+ay′+by = 0 une équation différentielle linéaire à coefficients constants réels. Soit SC l’ensemble\nde toutes ses solutions à valeurs complexes et SR l’ensemble des solutions à valeurs réelles. Alors :\nSR = {Re(y) | y ∈SC}.\n⊳Éléments de preuve.\nPar double-inclusion :\n• Par définition de la dérivation de fonctions à valeurs complexes, si y est solution, Re(y) aussi, et\nest à valeurs réelles.\n• Une solution réelle est aussi dans SC et est partie réelle d’elle-même.\n⊲\nOn obtient alors :",
+      "texte": "Si $a,b$ sont réels, l'ensemble $S_{\\mathbb R}$ des solutions réelles de $y''+ay'+by=0$ est $\\{\\operatorname{Re}y:y\\in S_{\\mathbb C}\\}$. Éléments de preuve : la partie réelle commute à la dérivation et aux multiplications par les coefficients réels ; réciproquement une solution réelle est une solution complexe égale à sa propre partie réelle.",
+      "transcription_relue": true,
+      "contient_preuve": true
+    },
+    {
+      "identifiant": "11.3.7",
+      "titre": "Théorème 11.3.7 (Expression des solutions réelles de y′′ + ay′ + by = 0)",
+      "type": "théorème",
+      "section": "III.2 — Résolution de l’équation homogène",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          75
+        ],
+        "imprimee": [
+          73
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 75,
+          "bbox": [
+            60.480098724365234,
+            290.9405822753906,
+            421.21282958984375,
+            304.51068115234375
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            60.479522705078125,
+            307.748046875,
+            504.32720947265625,
+            322.75048828125
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            60.479461669921875,
+            323.8127136230469,
+            397.0445251464844,
+            336.4306335449219
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            80.39927673339844,
+            335.2281188964844,
+            301.4976501464844,
+            355.8642578125
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            80.39912414550781,
+            348.908203125,
+            294.1776428222656,
+            369.66424560546875
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            80.39910888671875,
+            366.3082275390625,
+            112.37996673583984,
+            383.3443603515625
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            115.19918823242188,
+            365.2418518066406,
+            121.00740814208984,
+            395.2194519042969
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            121.07926940917969,
+            362.7082214355469,
+            319.7272644042969,
+            395.2194519042969
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            323.2792053222656,
+            365.0928039550781,
+            363.65765380859375,
+            376.2708740234375
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            90.359130859375,
+            378.8927917480469,
+            315.41705322265625,
+            397.14434814453125
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            56.638519287109375,
+            412.9422607421875,
+            510.2650451660156,
+            424.0306701660156
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            56.6390380859375,
+            426.74224853515625,
+            129.23995971679688,
+            437.8206787109375
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            217.19903564453125,
+            439.6282043457031,
+            251.13941955566406,
+            463.3842468261719
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            246.0,
+            453.1880187988281,
+            250.9813232421875,
+            463.1506652832031
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            272.1601867675781,
+            445.2220153808594,
+            280.4723205566406,
+            456.3004455566406
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            300.3601989746094,
+            446.3477783203125,
+            317.4613342285156,
+            456.3104248046875
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            321.48016357421875,
+            431.5879821777344,
+            329.779052734375,
+            448.6241149902344
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            329.760009765625,
+            439.6280212402344,
+            345.85888671875,
+            456.6641540527344
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            331.0799865722656,
+            453.1880187988281,
+            336.0613098144531,
+            463.1506652832031
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            347.039794921875,
+            446.3477783203125,
+            349.7994384765625,
+            456.3104248046875
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            56.639801025390625,
+            464.5419006347656,
+            337.449462890625,
+            475.63031005859375
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            157.43983459472656,
+            488.8278503417969,
+            179.46087646484375,
+            505.8639831542969
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            182.2801055908203,
+            487.64154052734375,
+            188.08831787109375,
+            517.619140625
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            188.0398712158203,
+            484.6278381347656,
+            350.8081970214844,
+            517.6190795898438
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            372.4800720214844,
+            488.82781982421875,
+            409.5600891113281,
+            498.79046630859375
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            56.639434814453125,
+            510.7418518066406,
+            104.27765655517578,
+            521.8203125
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            131.15972900390625,
+            525.6676025390625,
+            153.18038940429688,
+            542.7037353515625
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            155.99961853027344,
+            521.6016845703125,
+            162.63473510742188,
+            551.5792236328125
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            162.59962463378906,
+            521.4675903320312,
+            377.19500732421875,
+            551.5791625976562
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            398.7598876953125,
+            525.6675415039062,
+            435.83990478515625,
+            535.6301879882812
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            56.639251708984375,
+            545.0616455078125,
+            510.41351318359375,
+            557.580322265625
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            56.639434814453125,
+            558.8616333007812,
+            163.18162536621094,
+            569.9401245117188
+          ]
+        }
+      ],
+      "texte_brut": "Soit ∆le discriminant du polynôme caractéristique X2 + aX + b = 0 et r1 et r2 ses racines réelles ou\ncomplexes (r = r1 = r2 si ∆= 0). Alors, l’ensemble des solutions réelles est :\n• SR = {x 7→cer1x + der2x | (c, d) ∈R2} si ∆> 0 ;\n• SR = {x 7→(cx + d)erx | (c, d) ∈R2} si ∆= 0 ;\n• SR =\n\b\nx 7→eαx (c cos (ωx) + d sin (ωx)) | (c, d) ∈R2\nsi ∆< 0,\noù α et ω sont tels que r1 = α −i ω et r2 = α + i ω.\nDans le cas où ∆< 0, la valeur de α est unique, mais ω n’est unique qu’au signe près. On peut par\nexemple choisir :\nα = −a\n2\net\nω =\n√\n−∆\n2\n.\nOn peut aussi réexprimer les solutions en regroupant sin et cos :\nSR =\n\b\nx 7→Aeαx cos (ωx −φ) | (A, φ) ∈R2\n(∆< 0),\nou encore :\nSR =\nn\nx 7→Aeα(x−x0) cos (ω(x −x0) −φ) | (A, φ) ∈R2o\n(∆< 0),\nforme qui peut être plus adaptée si les conditions initiales sont données en x0 (vous pouvez réexprimer\nde même les autres cas).",
+      "texte": "Pour $a,b\\in\\mathbb R$, poser $\\Delta=a^2-4b$. Si $\\Delta>0$, les solutions réelles sont $ce^{r_1x}+de^{r_2x}$. Si $\\Delta=0$, elles sont $(cx+d)e^{rx}$. Si $\\Delta<0$, elles sont $e^{\\alpha x}(c\\cos(\\omega x)+d\\sin(\\omega x))$, avec $\\alpha=-a/2$, $\\omega=\\sqrt{-\\Delta}/2$. Les constantes $c,d$ sont réelles. Dans le dernier cas on peut aussi écrire $Ae^{\\alpha x}\\cos(\\omega x-\\varphi)$, ou une forme décalée en $x-x_0$ adaptée aux conditions initiales.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.3.8",
+      "titre": "Proposition 11.3.8 (Solutions particulières pour un second membre Q(x)eλx, admis)",
+      "type": "proposition",
+      "section": "III.3 — Solution générale du système non homogène",
+      "contexte": "Comme pour le cas d’EDL de degré 1, la première étape est l’utilisation du principe de superposition\npour se ramener à des études plus simples.\nPour les EDL d’ordre 1, comme dans le cas des équations d’ordre 1, il existe une méthode dite « de\nvariation des constantes » pour trouver une solution particulière, mais elle est plus délicate à mettre en\noeuvre. Comme elle n’est pas au programme, nous nous limitons à l’étude de cas particuliers intervenant\nsouvent en physique.",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          75,
+          76
+        ],
+        "imprimee": [
+          73,
+          74
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 75,
+          "bbox": [
+            60.480098724365234,
+            704.6957397460938,
+            481.5741271972656,
+            716.2306518554688
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            60.480194091796875,
+            719.34814453125,
+            504.3260803222656,
+            739.9842529296875
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            60.4805908203125,
+            735.5326538085938,
+            504.3465881347656,
+            746.7107543945312
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            60.480804443359375,
+            749.2127685546875,
+            201.309814453125,
+            760.390869140625
+          ]
+        },
+        {
+          "page_pdf": 75,
+          "bbox": [
+            237.60069274902344,
+            762.2698364257812,
+            327.1205139160156,
+            775.6307373046875
+          ]
+        },
+        {
+          "page_pdf": 76,
+          "bbox": [
+            88.80000305175781,
+            78.89259338378906,
+            532.7268676757812,
+            90.0706787109375
+          ]
+        },
+        {
+          "page_pdf": 76,
+          "bbox": [
+            88.7998046875,
+            92.69258117675781,
+            134.2276153564453,
+            103.87066650390625
+          ]
+        },
+        {
+          "page_pdf": 76,
+          "bbox": [
+            85.07988739013672,
+            127.3420639038086,
+            538.5165405273438,
+            138.42051696777344
+          ]
+        },
+        {
+          "page_pdf": 76,
+          "bbox": [
+            85.07989501953125,
+            141.0221710205078,
+            308.6321105957031,
+            152.1006317138672
+          ]
+        },
+        {
+          "page_pdf": 76,
+          "bbox": [
+            85.07989501953125,
+            154.82215881347656,
+            538.6369018554688,
+            165.90061950683594
+          ]
+        },
+        {
+          "page_pdf": 76,
+          "bbox": [
+            85.07989501953125,
+            168.6221466064453,
+            515.7479248046875,
+            179.7006072998047
+          ]
+        }
+      ],
+      "texte_brut": "Soit Q ∈C[X], et l’équation différentielle (E) : y′′ + ay′ + by = Q(x)eλx. Soit P le polynôme caracté-\nristique de l’équation (E), et m la multiplicité de λ comme racine de P. Alors, il existe une solution\nparticulière de (E) de la forme :\nyP (x) = xmR(x)eλx,\noù R est un polynôme de même degré que Q. Ce résultat reste valide pour des équations d’ordre plus\nimportant.\nAdmettre ce théorème n’est pas gênant puisque son seul intérêt est pratique. Il suffira de se rendre compte\nqu’en pratique, il fournit une méthode qui aboutit !\nToute résolution avec un second membre d’une autre forme est hors-programme. On pourra néanmoins\nremarquer que la méthode 11.3.1 permet de se ramener dans tous les cas à une équation d’ordre 1.",
+      "texte": "Résultat admis. Pour $y''+ay'+by=Q(x)e^{\\lambda x}$, avec $Q\\in\\mathbb C[X]$ non nul, si $m$ est la multiplicité de $\\lambda$ dans le polynôme caractéristique ($m=0$ si ce n'est pas une racine), il existe une solution particulière $x^mR(x)e^{\\lambda x}$ où $\\deg R=\\deg Q$. Le résultat s'étend aux ordres supérieurs. Note : pour $Q=0$, prendre la solution nulle ; le degré du polynôme nul n'intervient pas.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.3.9",
+      "titre": "Exemples 11.3.9",
+      "type": "exemple",
+      "section": "III.3 — Solution générale du système non homogène",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          76
+        ],
+        "imprimee": [
+          74
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 76,
+          "bbox": [
+            88.80000305175781,
+            194.89273071289062,
+            169.76797485351562,
+            206.11065673828125
+          ]
+        },
+        {
+          "page_pdf": 76,
+          "bbox": [
+            105.960205078125,
+            209.2281494140625,
+            273.85003662109375,
+            223.33226013183594
+          ]
+        },
+        {
+          "page_pdf": 76,
+          "bbox": [
+            105.96041870117188,
+            226.387939453125,
+            284.8893127441406,
+            240.49205017089844
+          ]
+        }
+      ],
+      "texte_brut": "1. Résoudre sur R : y′′ + 2y′ + y = ex.\n2. Résoudre sur R : y′′ + y′ + y = sin(x).",
+      "texte": "Résoudre sur $\\mathbb R$ : 1. $y''+2y'+y=e^x$. 2. $y''+y'+y=\\sin x$.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    },
+    {
+      "identifiant": "11.3.10",
+      "titre": "Théorème 11.3.10 (Théorème de Cauchy-Lipschitz pour les EDL d’ordre 2 (admis))",
+      "type": "théorème",
+      "section": "III.4 — Problème de Cauchy",
+      "contexte": "",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          76
+        ],
+        "imprimee": [
+          74
+        ]
+      },
+      "regions_source": [
+        {
+          "page_pdf": 76,
+          "bbox": [
+            88.80000305175781,
+            299.0527648925781,
+            508.23529052734375,
+            310.27069091796875
+          ]
+        },
+        {
+          "page_pdf": 76,
+          "bbox": [
+            88.79998779296875,
+            315.7496643066406,
+            532.7147827148438,
+            335.583984375
+          ]
+        },
+        {
+          "page_pdf": 76,
+          "bbox": [
+            88.79998779296875,
+            327.1877136230469,
+            490.8586730957031,
+            342.1905822753906
+          ]
+        }
+      ],
+      "texte_brut": "Soit I un intervalle de R, x0 ∈I et (y0, y1) ∈R2. Soit f une fonction continue sur I. Alors il existe\nune unique solution y de l’équation y′′ + ay′ + by = f(x) telle que y(x0) = y0 et y′(x0) = y1.",
+      "texte": "Résultat admis. Soient $a,b\\in\\mathbb R$ constants, $I$ un intervalle réel, $f:I\\to\\mathbb R$ continue, $x_0\\in I$ et $(y_0,y_1)\\in\\mathbb R^2$. Il existe une unique solution de $y''+ay'+by=f(x)$ telle que $y(x_0)=y_0$ et $y'(x_0)=y_1$.",
+      "transcription_relue": true,
+      "contient_preuve": false
+    }
+  ]
+}

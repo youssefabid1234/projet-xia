@@ -9,6 +9,8 @@ RACINE = Path(__file__).resolve().parents[1]
 
 CHAPITRE_SERIES = "17 — Série de réels ou de complexes"
 NOM_SERIES = "Séries numériques"
+NOM_EDL = "Équations différentielles linéaires"
+CHAPITRE_EDL = "14 — " + NOM_EDL
 # Le cours indexé (chapitre 16 du polycopié de cours) et les exercices
 # (chapitre 17 du recueil) portent des numéros différents : même notion.
 FORMES_SERIES = {"series", "series numeriques", "serie de reels ou de complexes", "series de reels ou de complexes"}
@@ -19,6 +21,11 @@ COLLES = {
         "nom": NOM_SERIES,
         "index": RACINE / "data" / "cours_index.json",
         "questions": RACINE / "data" / "questions_cours.json",
+    },
+    CHAPITRE_EDL: {
+        "nom": NOM_EDL,
+        "index": RACINE / "data" / "cours_edl_index.json",
+        "questions": RACINE / "data" / "questions_cours_edl.json",
     },
 }
 
@@ -41,10 +48,14 @@ def est_series(chapitre):
 
 
 def nom_chapitre(chapitre):
+    if isinstance(chapitre, str) and normaliser(chapitre) in {normaliser(NOM_EDL), "edl"}:
+        return NOM_EDL
     return NOM_SERIES if est_series(chapitre) else chapitre
 
 
 def chapitre_catalogue(chapitre):
+    if nom_chapitre(chapitre) == NOM_EDL:
+        return CHAPITRE_EDL
     return CHAPITRE_SERIES if est_series(chapitre) else chapitre
 
 

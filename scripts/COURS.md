@@ -1,5 +1,34 @@
 # Séries numériques
 
+## Équations différentielles linéaires
+
+Même chaîne d'extraction, relecture, embeddings et préparation : chapitre 14
+du recueil (PDF 41–42 et corrigés 172–178), chapitre 11 du cours (PDF 69–76,
+pages imprimées 67–74). Les fichiers des séries sont conservés séparément.
+
+```powershell
+.venv/Scripts/python.exe -X utf8 scripts/extract_chapitre.py --chapitre 14 --enonces 41 42 --corriges 172 178 --titre 'Équations différentielles linéaires'
+.venv/Scripts/python.exe -X utf8 scripts/index_cours.py --pages 69 76 --chapitre '11 — Équations différentielles linéaires' --passages data/cours_edl_passages.json --output data/cours_edl_index.json --apercu data/cours_edl_apercu.md --transcriptions scripts/transcriptions/cours_edl.json
+.venv/Scripts/python.exe -X utf8 -m scripts.preparer_cours_edl
+# Après modification de la relecture, relancer l'extraction du cours ci-dessus.
+.venv/Scripts/python.exe -X utf8 scripts/index_cours.py --embed --passages data/cours_edl_passages.json --output data/cours_edl_index.json --apercu data/cours_edl_apercu.md --transcriptions scripts/transcriptions/cours_edl.json
+.venv/Scripts/python.exe -X utf8 -m scripts.preparer_catalogue --chapitre 14
+.venv/Scripts/python.exe -X utf8 -m scripts.verifier_enonces --chapitre 14 --modele gpt-4.1
+.venv/Scripts/python.exe -X utf8 -m unittest app.test_edl
+```
+
+Les trois commandes d'indexation et de préparation utilisent l'API OpenAI.
+Les 23 passages sont indexés avec `text-embedding-3-small` (1536 dimensions).
+18 passages disposent d'une reformulation relue en LaTeX ; le texte PDF brut,
+les coordonnées et les introductions restent conservés. Les restrictions
+nécessaires aux divisions (notamment le cas `a=0`) sont signalées explicitement
+dans les notes de relecture. La banque contient les réponses aux applications,
+construites à partir des exemples ; les résultats admis ne sont pas demandés
+en démonstration. Les exercices bruts et leur audit restent distincts du cache
+de vérification et de leurs étapes préparées.
+
+## Procédure des séries
+
 Depuis la racine du projet (PowerShell), extraction locale sans appel API :
 
 ```powershell
