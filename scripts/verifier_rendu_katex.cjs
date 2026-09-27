@@ -18,7 +18,8 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
     return res.end(pages[req.url]);
   }
-  const assets = {"/static/colle.css": "text/css", "/static/colle.js": "application/javascript"};
+  const assets = {"/static/colle.css": "text/css", "/static/colle.js": "application/javascript",
+    "/static/tableau.js": "application/javascript", "/static/modalites.js": "application/javascript"};
   if (assets[req.url]) {
     res.writeHead(200, {"Content-Type": assets[req.url]});
     return res.end(fs.readFileSync(path.join(root, "app/web", req.url)));

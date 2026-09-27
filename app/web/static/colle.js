@@ -113,7 +113,7 @@ function afficher() {
   const enCours = Boolean(donnees.etat);
   $("accueil").hidden = enCours;
   $("colle").hidden = !enCours;
-  if (!enCours) return afficherAccueil();
+  if (!enCours) { window.modalites?.reinitialiser(); return afficherAccueil(); }
   $("fil").replaceChildren();
   for (const m of donnees.messages) bulle(m.role, m.texte, m);
   majEtat(donnees.etat);
@@ -171,6 +171,7 @@ function majEtat(etat) {
   finMinuteur = finie ? null : Date.now() + etat.temps_restant * 1000;
   $("minuteur").hidden = finie;
   tic();
+  window.modalites?.etat(etat);
 }
 
 function tic() {
@@ -180,6 +181,7 @@ function tic() {
   $("minuteur-temps").textContent = reste ? texte : "Temps écoulé";
   $("minuteur").classList.toggle("fini", !reste);
   $("terminer").classList.toggle("urgent", !reste);
+  if (!reste) window.modalites?.expiration();
   if (!reste && !occupe && !donnees.etat?.terminee) terminer(true);
 }
 setInterval(tic, 1000);
@@ -226,6 +228,7 @@ async function resynchroniser() {
 function occuper(etat) {
   occupe = etat;
   for (const id of ["envoyer", "terminer"]) $(id).disabled = etat;
+  window.modalites?.occuper(etat);
 }
 
 async function suivreColleur(url, corps, {apresErreur} = {}) {
@@ -269,7 +272,7 @@ async function envoyer(evenement) {
   evenement?.preventDefault();
   const zone = $("message");
   const texte = zone.value.trim();
-  if (!texte || occupe) return;
+  if (!texte || occupe || (window.modalites && !window.modalites.peutEnvoyer())) return;
   alerte(null);
   occuper(true);
   zone.value = "";
@@ -289,7 +292,7 @@ async function envoyer(evenement) {
 
 async function demarrer(index, bouton) {
   if (occupe) return;
-  occupe = true;
+  occuper(true);
   bouton.disabled = true;
   bouton.textContent = "Le colleur prépare la colle…";
   try {
@@ -302,7 +305,7 @@ async function demarrer(index, bouton) {
     bouton.textContent = "Réessayer";
     window.alert(exc.message);
   }
-  occupe = false;
+  occuper(false);
 }
 
 async function terminer(automatique = false) {

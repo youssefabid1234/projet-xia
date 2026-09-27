@@ -224,4 +224,14 @@ def create_app(config=None):
             liberer()
         return jsonify(etat_public(None))
 
+    from app.web.modalites import creer_modalites
+
+    def etat_pour_modalite():
+        with verrou:
+            if utilisateur() in occupes:
+                return None
+        actif = examinateur_actif()
+        return actif.colle.etat() if actif else None
+
+    app.register_blueprint(creer_modalites(etat_pour_modalite))
     return app

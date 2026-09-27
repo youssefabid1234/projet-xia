@@ -1,0 +1,6 @@
+{
+  "texte": "1 + 1 = 3\n\nJe ne sais pas justifier.",
+  "erreur_mathematique_conservee": true,
+  "phrase_conservee": true,
+  "appels_vision": 1
+}

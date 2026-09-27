@@ -10,6 +10,8 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
   <script defer src="{{ url_for('static', filename='colle.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='tableau.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='modalites.js') }}"></script>
 </head>
 <body>
 <header class="barre">
@@ -46,9 +48,35 @@
 
   <section id="colle" class="colle" hidden>
     <ol id="etapes" class="etapes" aria-label="Étapes de la colle"></ol>
+    <div class="modalites-audio" aria-label="Lecture du colleur">
+      <button type="button" id="lecture-audio" class="bouton-secondaire" aria-pressed="false" disabled>Activer la lecture audio</button>
+      <button type="button" id="audio-relire" class="bouton-secondaire" hidden>Relire la consigne</button>
+      <button type="button" id="audio-arreter" class="bouton-secondaire" hidden>Arrêter la lecture</button>
+      <span id="audio-statut" role="status" class="doux petit"></span>
+    </div>
     <div id="fil" class="fil" role="log" aria-live="polite" aria-label="Dialogue avec le colleur"></div>
     <p id="alerte" class="alerte" role="alert" hidden></p>
     <form id="saisie" class="saisie" autocomplete="off">
+      <div class="choix-modalites" role="group" aria-label="Mode de saisie pour cette réponse">
+        <button type="button" data-modalite="clavier" class="bouton-secondaire" aria-pressed="true">Clavier</button>
+        <button type="button" data-modalite="manuscrit" class="bouton-secondaire" aria-pressed="false" disabled>Manuscrit</button>
+        <button type="button" data-modalite="dictee" class="bouton-secondaire" aria-pressed="false" disabled>Dicter</button>
+      </div>
+      <div id="saisie-manuscrite" hidden>
+        <p class="doux petit" id="tableau-aide">Écrivez au stylet, au doigt ou à la souris. Transcrivez, puis relisez le brouillon avant de l’envoyer.</p>
+        <canvas id="tableau" aria-label="Tableau de saisie manuscrite" aria-describedby="tableau-aide"></canvas>
+        <div class="outils-modalites">
+          <button type="button" id="tableau-annuler" class="bouton-secondaire">Annuler le trait</button>
+          <button type="button" id="tableau-effacer" class="bouton-secondaire">Effacer</button>
+          <button type="button" id="tableau-transcrire" class="bouton-secondaire">Transcrire le tableau</button>
+        </div>
+      </div>
+      <div id="saisie-orale" class="outils-modalites" hidden>
+        <button type="button" id="dicter" class="bouton-secondaire">Commencer la dictée</button>
+        <button type="button" id="dictee-fin" class="bouton-secondaire" hidden>Arrêter et transcrire</button>
+      </div>
+      <p id="modalites-statut" class="doux petit" role="status"></p>
+      <button type="button" id="modalite-annuler" class="bouton-secondaire" hidden>Annuler la saisie en cours</button>
       <label for="message" class="sr">Votre réponse</label>
       <textarea id="message" rows="3" maxlength="6000" placeholder="Votre réponse avec vos mots… (formules possibles entre $…$)"></textarea>
       <div id="apercu" class="apercu" hidden aria-label="Aperçu des formules"></div>

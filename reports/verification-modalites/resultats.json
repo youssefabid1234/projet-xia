@@ -1,0 +1,16 @@
+{
+  "resultats": [
+    "Clavier par défaut, un seul POST même avec double soumission",
+    "Manuscrit : aucun envoi après pause, PNG sur demande, brouillon puis envoi unique",
+    "Brouillon modifié et annulation : résultat tardif écarté sans envoi",
+    "Changement de question pendant transcription : ancien résultat ignoré",
+    "Micro refusé : aucune soumission audio, clavier immédiatement utilisable",
+    "Erreur réseau de conversion : brouillon conservé et clavier utilisable",
+    "Micro Chrome + AudioWorklet : WAV mono 24 kHz final, aucun fragment réseau ni envoi implicite",
+    "Audio : consignes publiques seules, étape révélée sans doublon, correction et bilan exclus, diffusion progressive intacte",
+    "Rechargement : audio désactivé, aucune relecture de l’historique",
+    "Expiration pendant conversion : bilan normal, résultat ignoré, aucun délai ajouté au chronomètre",
+    "Mobile sans débordement ; services optionnels absents : clavier fonctionnel"
+  ],
+  "erreurs": []
+}

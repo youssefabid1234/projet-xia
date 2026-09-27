@@ -123,3 +123,12 @@ button:disabled { opacity: .55; cursor: not-allowed; }
   .msg.eleve { max-width: 95%; }
   .etapes li { min-width: 0; font-size: .7rem; padding: 5px 6px; overflow-wrap: anywhere; hyphens: auto; }
 }
+/* Canaux optionnels de communication, indépendants du rendu des messages. */
+.modalites-audio, .choix-modalites, .outils-modalites {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: .65rem 0;
+}
+.choix-modalites [aria-pressed="true"] { outline: 2px solid currentColor; outline-offset: 1px; }
+#tableau { display: block; width: 100%; aspect-ratio: 2 / 1; background: white;
+  border: 1px solid #9aa8a2; border-radius: 8px; touch-action: none; cursor: crosshair; }
+#modalites-statut:empty, #audio-statut:empty { display: none; }
+.modalites-audio button, .choix-modalites button, .outils-modalites button { min-height: 44px; }
