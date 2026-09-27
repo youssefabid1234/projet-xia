@@ -1,0 +1,160 @@
+{
+  "nom": "eleve",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "97ddc24fa91a40b59150dcdeaefa8f43": {
+      "id": "97ddc24fa91a40b59150dcdeaefa8f43",
+      "exercice_id": "cours-84c5ce7431374c2eaa6fbee87173fa0d",
+      "enonce": "Définition : Soit (u_n)_{n\\in\\mathbb{N}} une suite de réels ou complexes. La série de terme général u_n, notée \\sum_{n\\geq 0} u_n, ou plus simplement \\sum u_n, est la suite (S_n)_{n\\in\\mathbb{N}} des sommes partielles de la suite (u_n), à savoir :\n\nS_n = \\sum_{k=0}^n u_k.\n\nS_n est appelée somme partielle (d'ordre n) de la série \\sum u_n, et u_n est appelé terme général de la série \\sum u_n.",
+      "session": "04c337c3d05e4e6fba7bfa3710b77151",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 2,
+      "tentatives": 2,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "concept",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+        "Une série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+        "Il faut que les sommes partielles admettent une limite finie, pas seulement que les termes tendent vers zéro."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+          "verdict": "incorrecte",
+          "type_erreur": "concept",
+          "explication": "L'élève fait une confusion fondamentale en affirmant qu'une série converge lorsque ses sommes partielles tendent vers plus l'infini. La convergence d'une série implique que les sommes partielles tendent vers un nombre réel fini, et non vers l'infini. Il est important de clarifier la définition de la convergence des séries.",
+          "etape_resolution": 1
+        },
+        {
+          "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.\nUne série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+          "verdict": "incorrecte",
+          "type_erreur": "concept",
+          "explication": "L'élève confond les conditions de convergence des séries. Une série converge si et seulement si les sommes partielles tendent vers une limite finie. Le terme général tendant vers zéro est nécessaire mais pas suffisant pour la convergence. Il serait utile de revoir les critères de convergence.",
+          "etape_resolution": 1
+        }
+      ],
+      "source": "16.1.1",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          139,
+          140
+        ],
+        "imprimee": [
+          137,
+          138
+        ]
+      },
+      "nature": "definition",
+      "parcours_version": 1,
+      "etape_resolution": 0,
+      "acquise": false,
+      "etapes_resolution": [
+        {
+          "objectif": "definition",
+          "question": "Définition : Soit (u_n)_{n\\in\\mathbb{N}} une suite de réels ou complexes. La série de terme général u_n, notée \\sum_{n\\geq 0} u_n, ou plus simplement \\sum u_n, est la suite (S_n)_{n\\in\\mathbb{N}} des sommes partielles de la suite (u_n), à savoir :\n\nS_n = \\sum_{k=0}^n u_k.\n\nS_n est appelée somme partielle (d'ordre n) de la série \\sum u_n, et u_n est appelé terme général de la série \\sum u_n.",
+          "reponse": "(i) Soit $(u_n)_{n\\in\\mathbb N}$ une suite de réels ou complexes. La série de terme général $u_n$, notée $\\sum_{n\\geq 0} u_n$, ou plus simplement $\\sum u_n$, est, avec l’abus mentionné dans l’introduction du chapitre, la suite $(S_n)_{n\\in\\mathbb N}$ des sommes partielles de la suite $(u_n)$, à savoir :\n\n$$S_n=\\sum_{k=0}^{n}u_k.$$\n\n(ii) $S_n$ est appelé somme partielle (d’ordre $n$) de la série $\\sum u_n$, et $u_n$ est appelé terme général de la série $\\sum u_n$.",
+          "reference": "Définition 16.1.1, page PDF 139, 140",
+          "indice": "Appuyez-vous sur les hypothèses et la conclusion de Définition 16.1.1, page PDF 139, 140.",
+          "numero": 1,
+          "tentatives": 2,
+          "insuffisantes": 2,
+          "indices_donnes": 2,
+          "demandes_aide": 0,
+          "statut": "terminee",
+          "franchissement": "donnee_par_agent",
+          "acquise": false,
+          "reponses": [
+            "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+            "Une série converge dès que son terme général tend vers zéro : cette condition suffit toujours."
+          ],
+          "evaluations": [
+            {
+              "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+              "verdict": "incorrecte",
+              "type_erreur": "concept",
+              "explication": "L'élève fait une confusion fondamentale en affirmant qu'une série converge lorsque ses sommes partielles tendent vers plus l'infini. La convergence d'une série implique que les sommes partielles tendent vers un nombre réel fini, et non vers l'infini. Il est important de clarifier la définition de la convergence des séries."
+            },
+            {
+              "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.\nUne série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+              "verdict": "incorrecte",
+              "type_erreur": "concept",
+              "explication": "L'élève confond les conditions de convergence des séries. Une série converge si et seulement si les sommes partielles tendent vers une limite finie. Le terme général tendant vers zéro est nécessaire mais pas suffisant pour la convergence. Il serait utile de revoir les critères de convergence."
+            }
+          ],
+          "reformulation": "Il faut que les sommes partielles admettent une limite finie, pas seulement que les termes tendent vers zéro."
+        }
+      ],
+      "cloturee": true,
+      "decision": {
+        "action": "changer_exercice",
+        "acquise": false,
+        "raison": "Toutes les étapes ont été parcourues."
+      }
+    },
+    "8433d00061be4e2582ea16e2879bfb50": {
+      "id": "8433d00061be4e2582ea16e2879bfb50",
+      "exercice_id": "cours-9636520f699a449ca2b2c3acc7251930",
+      "enonce": "Théorème : Si la série \\sum u_n converge, alors le terme général u_n tend vers 0. En revanche, si le terme général u_n ne tend pas vers 0, la série \\sum u_n diverge. Cette condition est nécessaire mais pas suffisante pour la convergence d'une série.",
+      "session": "04c337c3d05e4e6fba7bfa3710b77151",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 0,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "non_determinable",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [],
+      "evaluations": [],
+      "source": "16.1.12",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          141,
+          142
+        ],
+        "imprimee": [
+          139,
+          140
+        ]
+      },
+      "nature": "theoreme",
+      "parcours_version": 1,
+      "etape_resolution": 0,
+      "acquise": false,
+      "etapes_resolution": [
+        {
+          "objectif": "theoreme",
+          "question": "Théorème : Si la série \\sum u_n converge, alors le terme général u_n tend vers 0. En revanche, si le terme général u_n ne tend pas vers 0, la série \\sum u_n diverge. Cette condition est nécessaire mais pas suffisante pour la convergence d'une série.",
+          "reponse": "Si P un converge, alors (un)n∈N tend vers 0. De manière équivalente, si (un)n∈N ne tend pas vers 0,\nalors P un diverge.\n⊳Éléments de preuve.\nÉcrire un = Sn −Sn−1.\n⊲",
+          "reference": "Théorème 16.1.12, page PDF 141, 142",
+          "indice": "Appuyez-vous sur les hypothèses et la conclusion de Théorème 16.1.12, page PDF 141, 142.",
+          "numero": 1,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "en_cours",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        }
+      ]
+    }
+  }
+}

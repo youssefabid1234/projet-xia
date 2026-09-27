@@ -1,0 +1,36 @@
+2026-09-27 13:55:20,065 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:55:20] "GET /inscription HTTP/1.1" 200 -
+2026-09-27 13:55:20,429 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:55:20] "[32mPOST /inscription HTTP/1.1[0m" 302 -
+2026-09-27 13:55:20,477 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:55:20] "GET / HTTP/1.1" 200 -
+2026-09-27 13:55:24,983 INFO app.chronometrage TEMPS etape echange=6beea745ca07 etape=dialogue_openai secondes=3.752 statut=ok
+2026-09-27 13:55:24,987 DEBUG app.agent Réponse tuteur :  ; outils : [('chercher_dans_cours', '{"question":"définition série convergente"}')]
+2026-09-27 13:55:25,785 INFO app.chronometrage TEMPS etape echange=6beea745ca07 etape=recherche_cours secondes=0.798 statut=ok
+2026-09-27 13:55:26,778 INFO app.chronometrage TEMPS etape echange=6beea745ca07 etape=dialogue_openai secondes=0.990 statut=ok
+2026-09-27 13:55:26,780 DEBUG app.agent Réponse tuteur :  ; outils : [('preparer_tache', '{"chapitre":"Series numeriques","enonce":"Donnez-moi la définition d\'une série convergente.","source":"16.1.5","nature":"definition"}')]
+2026-09-27 13:55:27,727 INFO app.chronometrage TEMPS etape echange=6beea745ca07 etape=dialogue_openai secondes=0.904 statut=ok
+2026-09-27 13:55:27,727 DEBUG app.agent Réponse tuteur : Commençons par le cours. Donnez-moi la définition d'une série convergente. ; outils : []
+2026-09-27 13:55:27,731 INFO app.chronometrage TEMPS echange {"id": "6beea745ca07", "appels": [{"etape": "dialogue_openai", "secondes": 3.751587300095707, "statut": "ok"}, {"etape": "recherche_cours", "secondes": 0.7975334001239389, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 0.9895770999137312, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 0.9042851000558585, "statut": "ok"}], "statut": "ok", "total_secondes": 7.238895, "autres_secondes": 0.795912, "repartition": {"dialogue_openai": {"appels": 3, "secondes": 5.64545, "pourcentage": 77.99}, "recherche_cours": {"appels": 1, "secondes": 0.797533, "pourcentage": 11.02}, "evaluation_pipelex": {"appels": 0, "secondes": 0, "pourcentage": 0.0}, "progression": {"appels": 0, "secondes": 0, "pourcentage": 0.0}}}
+2026-09-27 13:55:27,733 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:55:27] "[32mPOST / HTTP/1.1[0m" 302 -
+2026-09-27 13:55:27,765 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:55:27] "GET / HTTP/1.1" 200 -
+2026-09-27 13:55:56,813 INFO app.chronometrage TEMPS etape echange=728de0cdcf5f etape=evaluation_pipelex secondes=8.648 statut=ok
+2026-09-27 13:55:57,839 INFO app.chronometrage TEMPS etape echange=728de0cdcf5f etape=dialogue_openai secondes=0.970 statut=ok
+2026-09-27 13:55:57,839 DEBUG app.agent Réponse tuteur :  ; outils : [('chercher_dans_cours', '{"question":"définition convergence absolue"}')]
+2026-09-27 13:55:58,043 INFO app.chronometrage TEMPS etape echange=728de0cdcf5f etape=recherche_cours secondes=0.203 statut=ok
+2026-09-27 13:55:59,008 INFO app.chronometrage TEMPS etape echange=728de0cdcf5f etape=dialogue_openai secondes=0.963 statut=ok
+2026-09-27 13:55:59,009 DEBUG app.agent Réponse tuteur :  ; outils : [('preparer_tache', '{"chapitre":"Series numeriques","enonce":"Donnez-moi la définition de la convergence absolue d\'une série.","source":"16.2.3","nature":"definition"}')]
+2026-09-27 13:55:59,977 INFO app.chronometrage TEMPS etape echange=728de0cdcf5f etape=dialogue_openai secondes=0.945 statut=ok
+2026-09-27 13:55:59,977 DEBUG app.agent Réponse tuteur : Donnez-moi la définition de la convergence absolue d'une série. ; outils : []
+2026-09-27 13:55:59,981 INFO app.chronometrage TEMPS echange {"id": "728de0cdcf5f", "appels": [{"etape": "evaluation_pipelex", "secondes": 8.647978000110015, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 0.9698422998189926, "statut": "ok"}, {"etape": "recherche_cours", "secondes": 0.20341479987837374, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 0.9631297998130322, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 0.9454550000373274, "statut": "ok"}], "statut": "ok", "total_secondes": 12.868067, "autres_secondes": 1.138247, "repartition": {"dialogue_openai": {"appels": 3, "secondes": 2.878427, "pourcentage": 22.37}, "recherche_cours": {"appels": 1, "secondes": 0.203415, "pourcentage": 1.58}, "evaluation_pipelex": {"appels": 1, "secondes": 8.647978, "pourcentage": 67.2}, "progression": {"appels": 0, "secondes": 0, "pourcentage": 0.0}}}
+2026-09-27 13:55:59,982 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:55:59] "[32mPOST / HTTP/1.1[0m" 302 -
+2026-09-27 13:56:00,005 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:56:00] "GET / HTTP/1.1" 200 -
+2026-09-27 13:56:41,230 INFO app.chronometrage TEMPS etape echange=57dc8567723d etape=evaluation_pipelex secondes=8.561 statut=ok
+2026-09-27 13:56:42,237 INFO app.chronometrage TEMPS etape echange=57dc8567723d etape=dialogue_openai secondes=0.938 statut=ok
+2026-09-27 13:56:42,238 DEBUG app.agent Réponse tuteur :  ; outils : [('chercher_dans_cours', '{"question":"théorème convergence absolue entraîne convergence"}')]
+2026-09-27 13:56:42,596 INFO app.chronometrage TEMPS etape echange=57dc8567723d etape=recherche_cours secondes=0.357 statut=ok
+2026-09-27 13:56:43,990 INFO app.chronometrage TEMPS etape echange=57dc8567723d etape=dialogue_openai secondes=1.393 statut=ok
+2026-09-27 13:56:43,990 DEBUG app.agent Réponse tuteur :  ; outils : [('preparer_tache', '{"chapitre":"Series numeriques","enonce":"Énoncez le théorème qui affirme que toute série absolument convergente est convergente.","source":"16.2.4","nature":"theoreme"}')]
+2026-09-27 13:56:45,086 INFO app.chronometrage TEMPS etape echange=57dc8567723d etape=dialogue_openai secondes=1.072 statut=ok
+2026-09-27 13:56:45,087 DEBUG app.agent Réponse tuteur : Commençons par le cours.
+Énoncez le théorème qui affirme que toute série absolument convergente est convergente. ; outils : []
+2026-09-27 13:56:45,091 INFO app.chronometrage TEMPS echange {"id": "57dc8567723d", "appels": [{"etape": "evaluation_pipelex", "secondes": 8.560721499845386, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 0.9378064000047743, "statut": "ok"}, {"etape": "recherche_cours", "secondes": 0.3569421998690814, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 1.3927383001428097, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 1.0719157999847084, "statut": "ok"}], "statut": "ok", "total_secondes": 13.486428, "autres_secondes": 1.166304, "repartition": {"dialogue_openai": {"appels": 3, "secondes": 3.402461, "pourcentage": 25.23}, "recherche_cours": {"appels": 1, "secondes": 0.356942, "pourcentage": 2.65}, "evaluation_pipelex": {"appels": 1, "secondes": 8.560721, "pourcentage": 63.48}, "progression": {"appels": 0, "secondes": 0, "pourcentage": 0.0}}}
+2026-09-27 13:56:45,092 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:56:45] "[32mPOST / HTTP/1.1[0m" 302 -
+2026-09-27 13:56:45,129 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:56:45] "GET / HTTP/1.1" 200 -

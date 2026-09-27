@@ -1,0 +1,165 @@
+{
+  "nom": "eleve",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "89671fdc21744c009be9f2dfb58287fb": {
+      "id": "89671fdc21744c009be9f2dfb58287fb",
+      "exercice_id": "17.6",
+      "enonce": "Grâce à une comparaison entre série et intégrale, déterminer un équivalent de\n$$\\sum_{k=2}^n \\ln k.$$\nEn déduire la nature de la série de terme général\n$$u_n = \\left( \\sum_{k=2}^n \\ln k \\right)^{-1}.$$",
+      "session": "6e79be947c1444a8a416bf8de9613149",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "exercices",
+      "indices_demandes": 0,
+      "indices_donnes": 2,
+      "tentatives": 2,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "hors_sujet",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+        "Je confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+        "Pour \\( k \\in \\llbracket 2, n \\rrbracket \\) et \\( t \\in [k-1, k] \\), la fonction \\( \\ln \\) étant croissante sur \\( \\mathbb{R}^+ \\), on a :\n\\[\n\\ln t \\leq \\ln k \\leq \\ln t + 1.\n\\]\nIntégrons ces inégalités sur l'intervalle \\([k-1,k]\\) :\n\\[\n\\int_{k-1}^k \\ln t \\,dt \\leq \\int_{k-1}^k \\ln k \\,dt \\leq \\int_{k-1}^k (\\ln t + 1) \\,dt.\n\\]\nComme \\( \\ln k \\) est constant en fonction de \\( t \\), on obtient :\n\\[\n\\int_{k-1}^k \\ln t \\, dt \\leq \\ln k \\leq \\int_{k-1}^k \\ln t \\, dt + \\int_{k-1}^k 1 \\, dt = \\int_{k-1}^k \\ln t \\, dt + 1.\n\\]\nEn sommant de \\( k=2 \\) à \\( n \\) :\n\\[\n\\sum_{k=2}^n \\int_{k-1}^k \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\sum_{k=2}^n \\left( \\int_{k-1}^k \\ln t \\, dt +1 \\right)\n\\]\nCe qui donne :\n\\[\n\\int_1^n \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\int_1^n \\ln t \\, dt + (n -1).\n\\]"
+      ],
+      "evaluations": [
+        {
+          "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+          "verdict": "incorrecte",
+          "type_erreur": "hors_sujet",
+          "explication": "La réponse de l'élève ne répond pas à la question posée. Il n'y a pas de démarche mathématique liée à la sommation de ln k ni à l'encadrement par les intégrales. Une piste de correction consisterait à poser clairement les inégalités impliquant la fonction ln et à intégrer sur les intervalles appropriés.",
+          "etape_resolution": 1
+        },
+        {
+          "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.\nJe confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+          "verdict": "incorrecte",
+          "type_erreur": "hors_sujet",
+          "explication": "La réponse de l'élève ne traite pas de la question posée concernant l'encadrement de la somme par des intégrales. Elle semble hors sujet, car elle affirme des résultats sans rapport avec le problème mathématique demandé. Il faudrait se concentrer sur l'application des intégrales pour établir l'encadrement des logarithmes.",
+          "etape_resolution": 1
+        }
+      ],
+      "parcours_version": 1,
+      "etape_resolution": 1,
+      "acquise": false,
+      "etapes_resolution": [
+        {
+          "objectif": "Encadrer la somme par des intégrales",
+          "question": "Montrer que la somme \\(\\sum_{k=2}^n \\ln k\\) est encadrée par deux intégrales en utilisant le fait que \\(\\ln\\) est croissante.",
+          "indice": "Utiliser l'inégalité \\( \\ln t \\leq \\ln k \\leq \\ln t + 1 \\) pour \\( t \\in [k-1,k] \\).",
+          "reponse": "Pour \\( k \\in \\llbracket 2, n \\rrbracket \\) et \\( t \\in [k-1, k] \\), la fonction \\( \\ln \\) étant croissante sur \\( \\mathbb{R}^+ \\), on a :\n\\[\n\\ln t \\leq \\ln k \\leq \\ln t + 1.\n\\]\nIntégrons ces inégalités sur l'intervalle \\([k-1,k]\\) :\n\\[\n\\int_{k-1}^k \\ln t \\,dt \\leq \\int_{k-1}^k \\ln k \\,dt \\leq \\int_{k-1}^k (\\ln t + 1) \\,dt.\n\\]\nComme \\( \\ln k \\) est constant en fonction de \\( t \\), on obtient :\n\\[\n\\int_{k-1}^k \\ln t \\, dt \\leq \\ln k \\leq \\int_{k-1}^k \\ln t \\, dt + \\int_{k-1}^k 1 \\, dt = \\int_{k-1}^k \\ln t \\, dt + 1.\n\\]\nEn sommant de \\( k=2 \\) à \\( n \\) :\n\\[\n\\sum_{k=2}^n \\int_{k-1}^k \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\sum_{k=2}^n \\left( \\int_{k-1}^k \\ln t \\, dt +1 \\right)\n\\]\nCe qui donne :\n\\[\n\\int_1^n \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\int_1^n \\ln t \\, dt + (n -1).\n\\]",
+          "numero": 1,
+          "tentatives": 2,
+          "insuffisantes": 2,
+          "indices_donnes": 2,
+          "demandes_aide": 0,
+          "statut": "terminee",
+          "franchissement": "donnee_par_agent",
+          "acquise": false,
+          "reponses": [
+            "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+            "Je confirme que 0 est égal à 1, et que tous les résultats valent moins 999."
+          ],
+          "evaluations": [
+            {
+              "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+              "verdict": "incorrecte",
+              "type_erreur": "hors_sujet",
+              "explication": "La réponse de l'élève ne répond pas à la question posée. Il n'y a pas de démarche mathématique liée à la sommation de ln k ni à l'encadrement par les intégrales. Une piste de correction consisterait à poser clairement les inégalités impliquant la fonction ln et à intégrer sur les intervalles appropriés."
+            },
+            {
+              "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.\nJe confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+              "verdict": "incorrecte",
+              "type_erreur": "hors_sujet",
+              "explication": "La réponse de l'élève ne traite pas de la question posée concernant l'encadrement de la somme par des intégrales. Elle semble hors sujet, car elle affirme des résultats sans rapport avec le problème mathématique demandé. Il faudrait se concentrer sur l'application des intégrales pour établir l'encadrement des logarithmes."
+            }
+          ],
+          "reformulation": "Pour \\( k \\in \\llbracket 2, n \\rrbracket \\) et \\( t \\in [k-1, k] \\), la fonction \\( \\ln \\) étant croissante sur \\( \\mathbb{R}^+ \\), on a :\n\\[\n\\ln t \\leq \\ln k \\leq \\ln t + 1.\n\\]\nIntégrons ces inégalités sur l'intervalle \\([k-1,k]\\) :\n\\[\n\\int_{k-1}^k \\ln t \\,dt \\leq \\int_{k-1}^k \\ln k \\,dt \\leq \\int_{k-1}^k (\\ln t + 1) \\,dt.\n\\]\nComme \\( \\ln k \\) est constant en fonction de \\( t \\), on obtient :\n\\[\n\\int_{k-1}^k \\ln t \\, dt \\leq \\ln k \\leq \\int_{k-1}^k \\ln t \\, dt + \\int_{k-1}^k 1 \\, dt = \\int_{k-1}^k \\ln t \\, dt + 1.\n\\]\nEn sommant de \\( k=2 \\) à \\( n \\) :\n\\[\n\\sum_{k=2}^n \\int_{k-1}^k \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\sum_{k=2}^n \\left( \\int_{k-1}^k \\ln t \\, dt +1 \\right)\n\\]\nCe qui donne :\n\\[\n\\int_1^n \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\int_1^n \\ln t \\, dt + (n -1).\n\\]"
+        },
+        {
+          "objectif": "Exprimer les intégrales \\( \\int \\ln t \\, dt \\) par une primitive explicite",
+          "question": "Calculer \\( \\int_1^n \\ln t \\, dt \\) et \\( \\int_2^{n+1} \\ln t \\, dt \\) en utilisant la primitive explicite.",
+          "indice": "Utiliser la primitive \\( t \\ln t - t \\).",
+          "reponse": "La primitive de \\( \\ln t \\) est \\( t \\ln t - t + C \\).\n\nAinsi :\n\\[\n\\int_1^n \\ln t \\, dt = [t \\ln t - t]_1^n = n \\ln n - n - (1 \\cdot \\ln 1 - 1) = n \\ln n - n + 1.\n\\]\nDe même :\n\\[\n\\int_2^{n+1} \\ln t \\, dt = [(n+1) \\ln (n+1) - (n+1)] - [2 \\ln 2 - 2] = (n+1) \\ln (n+1) - (n+1) - 2 \\ln 2 + 2.\n\\]",
+          "numero": 2,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "en_cours",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        },
+        {
+          "objectif": "Établir les inégalités encadrant la somme \\( \\sum_{k=2}^n \\ln k \\)",
+          "question": "Utiliser les intégrales calculées pour obtenir un encadrement précis de la somme.",
+          "indice": "Utiliser l'encadrement précédemment trouvé avec les valeurs des intégrales.",
+          "reponse": "D'après l'encadrement obtenu :\n\\[\n\\int_1^n \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\int_2^{n+1} \\ln t \\, dt + (n -1).\n\\]\nEn remplaçant par les expressions explicites :\n\\[\nn \\ln n - n + 1 \\leq \\sum_{k=2}^n \\ln k \\leq (n+1) \\ln (n+1) - (n+1) - 2 \\ln 2 + 2 + (n -1).\n\\]\nSimplifions la borne supérieure :\n\\[\n(n+1) \\ln (n+1) - (n+1) - 2 \\ln 2 + 2 + n -1 = (n+1) \\ln (n+1) - 1 - 2 \\ln 2 + 1 + n = (n+1) \\ln (n+1) + n - 2 \\ln 2.\n\\]\nCe qui donne finalement :\n\\[\nn \\ln n - n + 1 \\leq \\sum_{k=2}^n \\ln k \\leq (n+1) \\ln (n+1) + n - 2 \\ln 2.\n\\]",
+          "numero": 3,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "a_venir",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        },
+        {
+          "objectif": "Déduire l'équivalent de la somme \\( \\sum_{k=2}^n \\ln k \\)",
+          "question": "Utiliser le principe des gendarmes pour trouver un équivalent simple de la somme.",
+          "indice": "Comparer les deux encadrements divisés par \\( n \\ln n \\).",
+          "reponse": "Divisons les deux encadrements par \\( n \\ln n \\) :\n\\[\n\\frac{n \\ln n - n + 1}{n \\ln n} \\leq \\frac{\\sum_{k=2}^n \\ln k}{n \\ln n} \\leq \\frac{(n+1) \\ln (n+1) + n - 2 \\ln 2}{n \\ln n}.\n\\]\nPour \\( n \\to +\\infty \\) :\n- \\( \\frac{n}{n \\ln n} = \\frac{1}{\\ln n} \\to 0 \\)\n- \\( \\frac{1}{n \\ln n} \\to 0 \\)\n- \\( \\frac{(n+1) \\ln (n+1)}{n \\ln n} \\to 1 \\) car \\( \\frac{n+1}{n} \\to 1 \\) et \\( \\frac{\\ln (n+1)}{\\ln n} \\to 1 \\)\n- \\( \\frac{n}{n \\ln n} = \\frac{1}{\\ln n} \\to 0 \\)\n- \\( \\frac{2 \\ln 2}{n \\ln n} \\to 0 \\)\n\nDonc par le principe des gendarmes :\n\\[\n\\frac{\\sum_{k=2}^n \\ln k}{n \\ln n} \\to 1.\n\\]\nOn en déduit que :\n\\[\n\\sum_{k=2}^n \\ln k \\sim n \\ln n.\n\\]",
+          "numero": 4,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "a_venir",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        },
+        {
+          "objectif": "Trouver l'équivalent de la suite \\( u_n = \\left(\\sum_{k=2}^n \\ln k\\right)^{-1} \\)",
+          "question": "En déduire un équivalent simple pour \\( u_n \\).",
+          "indice": "Utiliser l'équivalent précédent pour inverser la somme.",
+          "reponse": "On a \\( u_n = \\left( \\sum_{k=2}^n \\ln k \\right)^{-1} \\).\n\nPuisque \\( \\sum_{k=2}^n \\ln k \\sim n \\ln n \\), on obtient :\n\\[\nu_n \\sim \\frac{1}{n \\ln n}.\n\\]\nDe plus, comme \\( n \\ln n > 0 \\) pour \\( n \\geq 2 \\), on a \\( u_n \\geq 0.\\) ",
+          "numero": 5,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "a_venir",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        },
+        {
+          "objectif": "Étudier la nature de la série \\( \\sum u_n \\)",
+          "question": "Déterminer la convergence ou divergence de la série \\( \\sum_{n=2}^{+\\infty} u_n \\) en utilisant l'équivalent trouvé.",
+          "indice": "Comparer avec la série \\( \\sum 1/(n \\ln n) \\) et l'intégrale correspondante.",
+          "reponse": "D'après l'équivalent, la nature de \\( \\sum u_n \\) est la même que celle de :\n\\[\n\\sum_{n=2}^{+\\infty} \\frac{1}{n \\ln n}.\n\\]\nOn sait que la série \\( \\sum 1/(n \\ln n) \\) est comparable à l'intégrale :\n\\[\n\\int_2^{+\\infty} \\frac{dt}{t \\ln t}.\n\\]\nCette intégrale s'écrit :\n\\[\n\\int_2^{N} \\frac{dt}{t \\ln t} = [\\ln(\\ln t)]_2^{N} = \\ln(\\ln N) - \\ln(\\ln 2).\n\\]\nQuand \\( N \\to +\\infty \\), \\( \\ln(\\ln N) \\to +\\infty \\), donc l'intégrale diverge.\nPar conséquent, la série \\( \\sum u_n \\) diverge aussi.",
+          "numero": 6,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "a_venir",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        }
+      ]
+    }
+  }
+}

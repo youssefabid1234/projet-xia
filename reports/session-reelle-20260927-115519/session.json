@@ -1,0 +1,45 @@
+[
+  {
+    "route": "/inscription",
+    "action": null,
+    "message": null,
+    "statut": 200,
+    "dialogue": []
+  },
+  {
+    "route": "/",
+    "action": "chapitre",
+    "message": null,
+    "statut": 200,
+    "dialogue": [
+      "Chapitre sélectionné : Series numeriques",
+      "Donnez-moi la définition d'une série convergente."
+    ]
+  },
+  {
+    "route": "/",
+    "action": null,
+    "message": "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+    "statut": 200,
+    "dialogue": [
+      "Chapitre sélectionné : Series numeriques",
+      "Donnez-moi la définition d'une série convergente.",
+      "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+      "Réponse correcte. Donnez-moi la définition de la convergence absolue d'une série."
+    ]
+  },
+  {
+    "route": "/",
+    "action": null,
+    "message": "Une serie de terme general u_n est absolument convergente si la serie de terme general |u_n| converge. Pour une suite reelle ou complexe, la convergence absolue implique la convergence de la serie de terme general u_n.",
+    "statut": 200,
+    "dialogue": [
+      "Chapitre sélectionné : Series numeriques",
+      "Donnez-moi la définition d'une série convergente.",
+      "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+      "Réponse correcte. Donnez-moi la définition de la convergence absolue d'une série.",
+      "Une serie de terme general u_n est absolument convergente si la serie de terme general |u_n| converge. Pour une suite reelle ou complexe, la convergence absolue implique la convergence de la serie de terme general u_n.",
+      "Réponse correcte. Énoncez le théorème qui affirme que toute série absolument convergente est convergente."
+    ]
+  }
+]

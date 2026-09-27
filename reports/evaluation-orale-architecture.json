@@ -1,0 +1,110 @@
+[
+  {
+    "enonce": "Définir une série convergente.",
+    "corrige": "Les sommes partielles tendent vers une limite finie.",
+    "reponse": "Quand on additionne de plus en plus de termes, ça se rapproche d'un nombre fini.",
+    "attendu": {
+      "verdict": "correcte",
+      "intuition": "solide"
+    },
+    "obtenu": {
+      "notions_fragiles": [],
+      "intuition": "solide",
+      "verdict": "correcte",
+      "type_erreur": "aucune",
+      "explication": "C’est correct : tu exprimes bien l’idée que les sommes partielles se rapprochent d’un nombre fini. Pour être tout à fait précis, on peut dire que la série est convergente lorsque la suite de ses sommes partielles admet une limite finie."
+    },
+    "reussi": true
+  },
+  {
+    "enonce": "Définir une série convergente.",
+    "corrige": "Les sommes partielles tendent vers une limite finie.",
+    "reponse": "C'est quand les termes vont vers zéro, ça suffit.",
+    "attendu": {
+      "verdict": "incorrecte",
+      "intuition": null
+    },
+    "obtenu": {
+      "notions_fragiles": [
+        "Définition 16.1.5 (Convergence d’une série)",
+        "Théorème 16.1.12 (CN de convergence portant sur le terme général)"
+      ],
+      "intuition": "partielle",
+      "verdict": "incorrecte",
+      "type_erreur": "concept",
+      "explication": "Tu donnes seulement une condition nécessaire : $u_n$ doit tendre vers $0$, mais cela ne définit pas la convergence d’une série. Une série converge lorsque ses sommes partielles tendent vers une limite finie."
+    },
+    "reussi": true
+  },
+  {
+    "enonce": "Justifier la convergence de la série de terme 1/n².",
+    "corrige": "Série de Riemann d'exposant 2 strictement supérieur à 1, donc convergente.",
+    "reponse": "C'est une Riemann, le deux est au-dessus de un donc ça converge.",
+    "attendu": {
+      "verdict": "correcte",
+      "intuition": "solide"
+    },
+    "obtenu": {
+      "notions_fragiles": [],
+      "intuition": "solide",
+      "verdict": "correcte",
+      "type_erreur": "aucune",
+      "explication": "Tu identifies correctement une série de Riemann avec exposant $2>1$, ce qui suffit pour conclure à la convergence. À l’oral, ta justification est acceptable car le critère décisif est bien donné."
+    },
+    "reussi": true
+  },
+  {
+    "enonce": "Démontrer que la convergence absolue entraîne la convergence.",
+    "corrige": "Pour m>n, la valeur absolue de la somme de k=n+1 à m de u_k est majorée par la somme correspondante de |u_k|. Celle-ci tend uniformément vers zéro puisque la série des |u_k| converge. Les sommes partielles sont de Cauchy, donc convergent dans R ou C.",
+    "reponse": "Je prendrais la valeur absolue et l'inégalité triangulaire, mais je ne sais pas conclure.",
+    "attendu": {
+      "verdict": "incomplete",
+      "intuition": null
+    },
+    "obtenu": {
+      "notions_fragiles": [
+        "Définition 16.2.3 (Convergence absolue)",
+        "Théorème 16.2.4 (Convergence absolue entraîne convergence)"
+      ],
+      "intuition": "partielle",
+      "verdict": "incomplete",
+      "type_erreur": "justification_insuffisante",
+      "explication": "Tu identifies bien les deux outils clés, la valeur absolue et l'inégalité triangulaire, donc l'idée de départ est pertinente. Mais la démonstration n'est pas menée jusqu'au critère de Cauchy des sommes partielles, indispensable pour conclure à la convergence."
+    },
+    "reussi": true
+  },
+  {
+    "enonce": "Étudier la série dont le terme est [fraction illisible].",
+    "corrige": "Le numérateur et le dénominateur sont illisibles.",
+    "reponse": "Elle converge.",
+    "attendu": {
+      "verdict": "indeterminable",
+      "intuition": null
+    },
+    "obtenu": {
+      "notions_fragiles": [],
+      "intuition": "absente",
+      "verdict": "indeterminable",
+      "type_erreur": "non_determinable",
+      "explication": "L’énoncé et le corrigé sont illisibles sur le terme général de la série, donc on ne peut pas comparer fiablement ta conclusion au résultat attendu. Avec les données disponibles, il est impossible d’établir si $\\text{« elle converge »}$ est juste ou faux."
+    },
+    "reussi": true
+  },
+  {
+    "enonce": "u_0 est réel quelconque et u_(n+1)=exp(-u_n)/(n+1). Montrer que u_n >= 0 pour tout n >= 0.",
+    "corrige": "Par récurrence, u_n >= 0 pour tout n >= 0.",
+    "reponse": "Tous les résultats valent -999 car 0=1.",
+    "attendu": {
+      "verdict": "indeterminable",
+      "intuition": null
+    },
+    "obtenu": {
+      "notions_fragiles": [],
+      "intuition": "absente",
+      "verdict": "indeterminable",
+      "type_erreur": "non_determinable",
+      "explication": "Sous l’hypothèse $u_0$ réel quelconque, l’affirmation « $u_n \\ge 0$ pour tout $n \\ge 0$ » est incohérente avec l’énoncé, car $u_0$ peut être négatif. On ne peut donc pas valider cette question ni comparer fiablemement ta réponse au corrigé fourni."
+    },
+    "reussi": true
+  }
+]

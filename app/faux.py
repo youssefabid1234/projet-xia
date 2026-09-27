@@ -6,7 +6,8 @@ from types import SimpleNamespace
 
 from app.services import Services
 
-EVALUATION_PAR_DEFAUT = {"verdict": "incomplete", "type_erreur": "reponse_incomplete", "explication": "Il manque un élément."}
+EVALUATION_PAR_DEFAUT = {"verdict": "incomplete", "type_erreur": "reponse_incomplete", "explication": "Il manque un élément.",
+                       "intuition": "partielle", "progression": "stagne", "notions_fragiles": []}
 
 
 class FauxFlux:
@@ -34,11 +35,12 @@ class FauxOpenAI:
     Pour un flux, un couple (texte, exception) simule une panne en cours de diffusion.
     """
 
-    def __init__(self, intentions=(), evaluations=(), textes=(), verifications=()):
+    def __init__(self, intentions=(), evaluations=(), textes=(), verifications=(), plans=()):
         self.intentions = list(intentions)
         self.evaluations = list(evaluations)
         self.textes = list(textes)
         self.verifications = list(verifications)
+        self.plans = list(plans)
         self.appels = []
         self.delai = 0  # secondes d'attente simulées avant chaque réponse
         self.responses = SimpleNamespace(create=self._creer)
@@ -65,6 +67,9 @@ class FauxOpenAI:
             contenu = self._suivant(self.evaluations, EVALUATION_PAR_DEFAUT)
         elif nom == "verification_exercice":
             contenu = self._suivant(self.verifications, {"exploitable": False, "enonce": "", "corrige": ""})
+        elif nom == "plan_resolution":
+            contenu = self._suivant(self.plans, {"exploitable": True, "etapes": [
+                {"objectif": "Résoudre", "question": "Justifiez votre réponse.", "indice": "Reprenez la définition.", "reponse": "Solution de test."}]})
         else:
             raise AssertionError(f"Format inattendu : {nom}")
         return SimpleNamespace(output_text=json.dumps(contenu, ensure_ascii=False), status="completed")

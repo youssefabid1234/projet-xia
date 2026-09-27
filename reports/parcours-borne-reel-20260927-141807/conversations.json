@@ -1,0 +1,42 @@
+[
+  {
+    "scenario": "cours",
+    "eleve": "Chapitre sélectionné : Series numeriques",
+    "tuteur": "Donnez la définition de : Définition 16.1.5 (Convergence d’une série)."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+    "tuteur": "Tu identifies bien que la convergence d’une série se lit sur les sommes partielles, mais elles doivent tendre vers une limite finie, pas vers $+\u0000infty$. Une série dont les sommes partielles tendent vers $+\u0000infty$ est divergente.\n\nIndice : Reprenez « Définition 16.1.5 (Convergence d’une série) », référence 16.1.5, page PDF [140].\n\nDonnez la définition de : Définition 16.1.5 (Convergence d’une série)."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Une série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+    "tuteur": "Tu donnes une propriété nécessaire, pas la définition : $u_n \\to 0$ ne suffit pas à assurer la convergence d’une série. La définition porte sur la suite des sommes partielles, qui doit admettre une limite finie.\n\nIndice : Appuyez-vous sur les hypothèses et la conclusion de Définition 16.1.5, page PDF 140.\n\nVoici la réponse de cette étape :\n\n(i) On dit que la série $\\sum u_n$ de terme général $u_n$ converge si la suite $(S_n)_{n\\in\\mathbb N}$ de ses sommes partielles admet une limite finie. On note alors\n\n$$\\sum_{n=0}^{+\\infty}u_n=\\lim_{n\\to+\\infty}S_n.$$\n\nCette quantité est appelée somme de la série de terme général $u_n$.\n\n(ii) Une série non convergente est dite divergente.\n\n(iii) Soit $\\sum_{n\\in\\mathbb N}u_n$ une série convergente, et soit $n\\in\\mathbb N$. Le $n$-ième reste de la série est :\n\n$$r_n=\\sum_{k=n+1}^{+\\infty}u_k=\\sum_{k=0}^{+\\infty}u_k-S_n.$$\n\n(iv) La nature de la série $\\sum u_n$ est le fait d’être convergente ou divergente.\n\nRéférence : Définition 16.1.5, page PDF 140.\n\nReformulez brièvement l'idée essentielle avec vos mots ; nous passerons ensuite à la suite."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Il faut que les sommes partielles admettent une limite finie, pas seulement que les termes tendent vers zéro.",
+    "tuteur": "Énoncez, avec ses hypothèses, le résultat : Théorème 16.2.2 (Théorème de comparaison des séries à termes positifs, TCSTP)."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Chapitre sélectionné : Series numeriques",
+    "tuteur": "Soit (u_n) une suite de réels positifs telle que \\( \\sum u_n \\) converge. Déterminer la nature de \\( \\sum \\sqrt{u_{2n} u_n} \\).\n\nPlan de résolution :\n1. Utiliser une inégalité pour comparer \\( \\sum u_{2n} \\) à \\( \\sum u_n \\)\n2. Montrer que les termes \\( \\sqrt{u_{2n} u_n} \\) sont positifs et bornés par Cauchy-Schwarz.\n3. Utiliser les majorations pour conclure à la convergence de la série \\( \\sum \\sqrt{u_{2n} u_n} \\).\n\nÉtape 1/3 — Utiliser une inégalité pour comparer \\( \\sum u_{2n} \\) à \\( \\sum u_n \\)\n\nMontrer que la série \\( \\sum u_{2n} \\) converge en utilisant \\( \\sum u_n \\)."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+    "tuteur": "La réponse n’a aucun lien avec la question : elle ne montre pas que $\\sum u_{2n}$ converge à partir de $\\sum u_n$. Il fallait exploiter que les sommes partielles vérifient $\\sum_{k=0}^n u_{2k} \\le \\sum_{k=0}^{2n} u_k$.\n\nIndice : Reprenez « Proposition 16.2.1 (Convergence dans R d’une série à termes positifs) », référence 16.2.1, page PDF [142].\n\nÉtape 1/3 — Utiliser une inégalité pour comparer \\( \\sum u_{2n} \\) à \\( \\sum u_n \\)\n\nMontrer que la série \\( \\sum u_{2n} \\) converge en utilisant \\( \\sum u_n \\)."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Je confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+    "tuteur": "La réponse ne traite pas la question : il fallait relier les sommes partielles de $\\sum u_{2n}$ à celles de $\\sum u_n$. Il faut utiliser que, pour tout $n$, $\\sum_{k=0}^n u_{2k} \\leq \\sum_{k=0}^{2n} u_k$ puisque les termes sont positifs.\n\nIndice : Comparer les sommes partielles de \\( \\sum u_{2n} \\) à celles de \\( \\sum u_n \\) en utilisant la positivité.\n\nVoici la réponse de cette étape :\n\nLa série \\( \\sum u_{2n} \\) est convergente car, pour tout n, \\( \\sum_{k=0}^{n} u_{2k} \\leq \\sum_{k=0}^{2n} u_k \\), donc \\( \\sum u_{2n} \\) converge puisque \\( \\sum u_n \\) converge.\n\nReformulez brièvement l'idée essentielle avec vos mots ; nous passerons ensuite à la suite."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "La série \\( \\sum u_{2n} \\) est convergente car, pour tout n, \\( \\sum_{k=0}^{n} u_{2k} \\leq \\sum_{k=0}^{2n} u_k \\), donc \\( \\sum u_{2n} \\) converge puisque \\( \\sum u_n \\) converge.",
+    "tuteur": "Étape 2/3 — Montrer que les termes \\( \\sqrt{u_{2n} u_n} \\) sont positifs et bornés par Cauchy-Schwarz.\n\nMajorons la somme partielle \\( \\sum_{k=0}^n \\sqrt{u_{2k} u_k} \\) en utilisant l’inégalité de Cauchy-Schwarz."
+  }
+]

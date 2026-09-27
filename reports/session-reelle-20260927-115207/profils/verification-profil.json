@@ -1,0 +1,133 @@
+{
+  "nom": "verification-profil",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "597b66348a2940f59d4ce5953c353ca6": {
+      "id": "597b66348a2940f59d4ce5953c353ca6",
+      "exercice_id": "cours-c181508bcd264f408c2fc3a60e08bd74",
+      "enonce": "Donnez-moi la définition d'une série convergente.",
+      "session": "de13337dcd1849b29da28bf1da818c90",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 0,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "aucune",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie."
+      ],
+      "evaluations": [
+        {
+          "reponse": "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+          "verdict": "correcte",
+          "type_erreur": "aucune",
+          "explication": "La réponse reprend correctement la définition attendue : la série converge lorsque la suite de ses sommes partielles $S_n$ admet une limite finie. Elle précise aussi à juste titre que cette limite est la somme de la série."
+        }
+      ],
+      "source": "16.1.5",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          140
+        ],
+        "imprimee": [
+          138
+        ]
+      },
+      "nature": "definition",
+      "acquise": true,
+      "cloturee": true,
+      "decision": {
+        "action": "approfondir",
+        "acquise": true,
+        "raison": "Réponse correcte enregistrée par le serveur."
+      }
+    },
+    "d44dc9a00e754ccd81b8f4437ec1116a": {
+      "id": "d44dc9a00e754ccd81b8f4437ec1116a",
+      "exercice_id": "cours-a82c6070fc924c29865a7f094f6c614e",
+      "enonce": "Énoncez le théorème qui lie convergence absolue et convergence simple d'une série.",
+      "session": "de13337dcd1849b29da28bf1da818c90",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 0,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "aucune",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Soit (u_n) une suite de nombres reels ou complexes. Si la serie de terme general |u_n| converge, alors la serie de terme general u_n converge. De plus, la valeur absolue de sa somme est inferieure ou egale a la somme des |u_n|."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Soit (u_n) une suite de nombres reels ou complexes. Si la serie de terme general |u_n| converge, alors la serie de terme general u_n converge. De plus, la valeur absolue de sa somme est inferieure ou egale a la somme des |u_n|.",
+          "verdict": "correcte",
+          "type_erreur": "aucune",
+          "explication": "La réponse énonce correctement que la convergence de la série de terme général $|u_n|$ entraîne la convergence de la série de terme général $u_n$, pour des termes réels ou complexes. L’inégalité sur la valeur absolue de la somme est également vraie et constitue un complément pertinent."
+        }
+      ],
+      "source": "16.2.4",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          143
+        ],
+        "imprimee": [
+          141
+        ]
+      },
+      "nature": "theoreme",
+      "acquise": true,
+      "cloturee": true,
+      "decision": {
+        "action": "avancer",
+        "acquise": true,
+        "raison": "Réponse correcte enregistrée par le serveur."
+      }
+    },
+    "5d697bf704ac446cab4266b18d15cd0f": {
+      "id": "5d697bf704ac446cab4266b18d15cd0f",
+      "exercice_id": "cours-f5007f8d33124d9cb649ddcbc45a93d0",
+      "enonce": "Démontrez que toute série absolument convergente est convergente.",
+      "session": "de13337dcd1849b29da28bf1da818c90",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "demonstration",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 0,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "non_determinable",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [],
+      "evaluations": [],
+      "source": "16.2.4",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          143
+        ],
+        "imprimee": [
+          141
+        ]
+      },
+      "nature": "demonstration"
+    }
+  }
+}

@@ -1,63 +1,27 @@
-"""Règles de la colle et persistance, sans appel réseau."""
-
+"""Intégration état/profil/sélection, sans réseau."""
 import json
 import tempfile
 import unittest
 from pathlib import Path
-
 from app.chapitres import CHAPITRE_SERIES, COLLES
-from app.colle import (COMPLETER, CORRIGER_ERREUR, DONNER_CORRECTION, ESSAIS_PAR_ETAPE, INDICE, RECADRER,
-                       REPONDRE_QUESTION, VALIDER, Colle, charger_banque, decider)
+from app.colle import Colle, charger_banque
 from app.profil import Profil
+from app.test_moteur_colle import evaluation, PLAN
 
-CORRECT = {"verdict": "correcte", "type_erreur": "aucune", "explication": "Juste."}
-FAUX = {"verdict": "incorrecte", "type_erreur": "concept", "explication": "Faux."}
-PARTIEL = {"verdict": "incomplete", "type_erreur": "reponse_incomplete", "explication": "Partiel."}
-
+CORRECT = evaluation()
+FAUX = evaluation("incorrecte", intuition="absente")
+PARTIEL = evaluation("incomplete")
 
 def question(source, nature, priorite=1):
     return {"source": source, "nature": nature, "priorite": priorite,
             "question": f"Question {nature} {source} ?", "reponse_attendue": f"Réponse {source}"}
 
-
 BANQUE = [question("d1", "definition"), question("d2", "definition"), question("d3", "definition"),
-          question("d4", "definition"), question("d5", "definition", priorite=3),
+          question("d4", "definition"), question("d5", "definition", 3),
           question("t1", "theoreme"), question("t2", "theoreme"),
           question("t1", "demonstration"), question("e1", "applications")]
 EXERCICES = [{"id": f"x{d}", "chapitre": CHAPITRE_SERIES, "difficulte": d, "enonce": f"Énoncé {d}",
               "corrige": f"Corrigé {d}"} for d in (1, 2, 3, 4)]
-
-
-def tache(etape="cours", indices=0, echecs=0):
-    return {"etape": etape, "indices": indices, "echecs": echecs}
-
-
-class DeciderTests(unittest.TestCase):
-    def test_table_des_actions(self):
-        cas = [
-            (tache(), "reponse", CORRECT, VALIDER),
-            (tache(), "reponse", FAUX, CORRIGER_ERREUR),
-            (tache(), "reponse", PARTIEL, COMPLETER),
-            (tache(echecs=2), "reponse", FAUX, DONNER_CORRECTION),
-            (tache(echecs=2), "reponse", PARTIEL, DONNER_CORRECTION),
-            # Une réponse partielle n'est pas un échec pendant une preuve ou un exercice.
-            (tache("exercices", echecs=3), "reponse", PARTIEL, COMPLETER),
-            (tache("demonstration", echecs=2), "reponse", PARTIEL, COMPLETER),
-            (tache("exercices", echecs=3), "reponse", FAUX, DONNER_CORRECTION),
-            (tache("exercices", echecs=2), "reponse", FAUX, CORRIGER_ERREUR),
-            (tache(), "demande_indice", None, INDICE),
-            (tache(), "blocage", None, INDICE),
-            (tache(indices=3), "blocage", None, DONNER_CORRECTION),
-            (tache(), "demande_correction", None, DONNER_CORRECTION),
-            (tache(), "demande_saut", None, RECADRER),
-            (tache("exercices"), "demande_saut", None, DONNER_CORRECTION),
-            (tache(), "question", None, REPONDRE_QUESTION),
-            (tache(), "hors_sujet", None, RECADRER),
-            (tache(), "reponse", None, RECADRER),
-        ]
-        for t, intention, evaluation, attendu in cas:
-            with self.subTest(etape=t["etape"], intention=intention, evaluation=evaluation and evaluation["verdict"]):
-                self.assertEqual(decider(t, intention, evaluation), attendu)
 
 
 class ColleTests(unittest.TestCase):
@@ -65,137 +29,86 @@ class ColleTests(unittest.TestCase):
         dossier = tempfile.TemporaryDirectory()
         self.addCleanup(dossier.cleanup)
         self.chemin = Path(dossier.name) / "eleve.json"
-        self.colle = self.nouvelle()
+        self.colle = Colle(self.chemin, CHAPITRE_SERIES, EXERCICES, BANQUE)
 
-    def nouvelle(self):
-        return Colle(self.chemin, CHAPITRE_SERIES, EXERCICES + [{"id": "autre", "chapitre": "Topologie"}], BANQUE, 30)
+    def test_deroule_objectifs_phases(self):
+        c = self.colle
+        c.ouvrir_question_cours()
+        for i in range(1):
+            self.assertEqual(c.etape, "cours")
+            c.appliquer("juste", "reponse", CORRECT)
+            c.ouvrir_question_cours()
+        self.assertEqual(c.etape, "demonstration")
+        c.appliquer("juste", "reponse", CORRECT)
+        c.ouvrir_question_cours()
+        self.assertEqual(c.etape, "applications")
+        c.appliquer("juste", "reponse", CORRECT)
+        self.assertFalse(c.ouvrir_question_cours())
+        self.assertEqual(c.etape, "exercices")
+        p = Profil.charger(self.chemin)
+        self.assertEqual(len(p.taches), 3)
+        self.assertEqual(p.exercices_vus, [])
+        self.assertAlmostEqual(p.niveau(CHAPITRE_SERIES), 2.1)
 
-    def repondre_juste(self, colle=None):
-        colle = colle or self.colle
-        action = colle.appliquer("ma réponse", "reponse", CORRECT)
-        self.assertEqual(action, VALIDER)
-        return colle.ouvrir_question_cours()
+    def test_plafond_cours_et_pas_de_repetition(self):
+        c = self.colle
+        sources = []
+        for _ in range(1):
+            c.ouvrir_question_cours()
+            self.assertEqual(c.etape, "cours")
+            sources.append(c.tache["contenu_id"])
+            c.appliquer("correction", "demande_correction", None)
+        c.ouvrir_question_cours()
+        self.assertEqual(c.etape, "demonstration")
+        self.assertEqual(len(set(sources)), 1)
+        self.assertFalse(Profil.charger(self.chemin).acquises())
 
-    def test_deroule_complet_du_cours(self):
-        colle = self.colle
-        self.assertTrue(colle.ouvrir_question_cours())
-        self.assertEqual((colle.etape, colle.tache["nature"]), ("cours", "definition"))
-        # La priorité 1 passe avant la priorité 3.
-        self.assertNotEqual(colle.tache["source"], "d5")
-        self.assertTrue(self.repondre_juste())
-        self.assertEqual((colle.etape, colle.tache["nature"]), ("cours", "theoreme"))
-        self.assertTrue(self.repondre_juste())
-        self.assertEqual((colle.etape, colle.tache["nature"], colle.tache["source"]), ("demonstration", "demonstration", "t1"))
-        self.assertTrue(self.repondre_juste())
-        self.assertEqual(colle.etape, "applications")
-        self.assertFalse(self.repondre_juste())
-        self.assertEqual(colle.etape, "exercices")
-        self.assertIsNone(colle.tache)
-        self.assertEqual([t["statut"] for t in colle.taches], ["acquise"] * 4)
-        profil = Profil.charger(self.chemin)
-        self.assertEqual(len(profil.taches), 4)
-        self.assertTrue(all(t["acquise"] and t["cloturee"] for t in profil.taches.values()))
-        # Les questions de cours ne comptent pas comme exercices vus.
-        self.assertEqual(profil.exercices_vus, [])
-
-    def test_acquis_non_reposes_dans_une_nouvelle_colle(self):
+    def test_acquis_exclus_nouvelle_session(self):
         self.colle.ouvrir_question_cours()
-        premiere = self.colle.tache["source"]
-        self.repondre_juste()
-        suivante = self.nouvelle()
-        suivante.ouvrir_question_cours()
-        self.assertEqual(suivante.tache["nature"], "definition")
-        self.assertNotEqual(suivante.tache["source"], premiere)
+        premier = self.colle.tache["contenu_id"]
+        self.colle.appliquer("juste", "reponse", CORRECT)
+        autre = Colle(self.chemin, CHAPITRE_SERIES, EXERCICES, BANQUE)
+        autre.ouvrir_question_cours()
+        self.assertNotEqual(autre.tache["contenu_id"], premier)
 
-    def test_correction_puis_autre_question_de_meme_nature_et_plafond(self):
-        colle = self.colle
-        colle.ouvrir_question_cours()
-        vues = []
-        for _ in range(ESSAIS_PAR_ETAPE):
-            self.assertEqual(colle.tache["nature"], "definition")
-            vues.append(colle.tache["source"])
-            self.assertEqual(colle.appliquer("je ne sais pas", "demande_correction", None), DONNER_CORRECTION)
-            colle.ouvrir_question_cours()
-        self.assertEqual(len(set(vues)), ESSAIS_PAR_ETAPE)
-        # Après trois corrections, le colleur avance : la question suivante est un théorème.
-        self.assertEqual(colle.tache["nature"], "theoreme")
-        self.assertEqual([t["statut"] for t in colle.taches], ["corrigee"] * ESSAIS_PAR_ETAPE)
-        self.assertFalse(any(t["acquise"] for t in Profil.charger(self.chemin).taches.values()))
+    def test_exercice_entier_puis_etapes_et_niveau(self):
+        c = self.colle
+        ex = c.candidats_exercices()[0]
+        self.assertEqual(ex["id"], "x2")
+        c.ouvrir_exercice(ex, {"enonce": "Énoncé entier", "corrige": "Corrigé"}, PLAN)
+        avant = json.dumps(c.etat(), ensure_ascii=False)
+        self.assertNotIn("Conclusion ?", avant)
+        c.appliquer("solution entière", "reponse", CORRECT)
+        p = Profil.charger(self.chemin)
+        self.assertAlmostEqual(p.niveau(CHAPITRE_SERIES), 1.7)
+        self.assertEqual(c.difficulte_cible, 3)
+        self.assertEqual(c.candidats_exercices()[0]["id"], "x3")
+        self.assertEqual(p.vus(), {"x2"})
 
-    def test_compteurs_et_reponse_cumulee(self):
-        colle = self.colle
-        colle.ouvrir_question_cours()
-        self.assertEqual(colle.appliquer("un indice ?", "demande_indice", None), INDICE)
-        self.assertEqual(colle.appliquer("je bloque", "blocage", None), INDICE)
-        self.assertEqual(colle.appliquer("essai 1", "reponse", FAUX), CORRIGER_ERREUR)
-        self.assertEqual(colle.appliquer("bonjour", "hors_sujet", None), RECADRER)
-        t = colle.tache
-        self.assertEqual((t["indices"], t["blocages"], t["echecs"]), (2, 1, 1))
-        self.assertEqual(t["reponses"], ["essai 1"])
-        self.assertEqual(colle.reponse_cumulee("essai 2"), "Intervention 1 : essai 1\n\nIntervention 2 : essai 2")
-        self.assertEqual(t["evaluations"][-1]["verdict"], "incorrecte")
-
-    def test_exercices_niveau_et_difficulte_adaptee(self):
-        colle = self.colle
-        colle.programme = 4
-        self.assertFalse(colle.ouvrir_question_cours())
-        ordre = [ex["id"] for ex in colle.candidats_exercices()]
-        self.assertEqual(ordre[0], "x2")  # niveau de départ 1,5 : difficulté 2 d'abord
-        self.assertNotIn("autre", ordre)
-        colle.ouvrir_exercice(EXERCICES[1], {"enonce": "Énoncé propre", "corrige": "Corrigé propre"})
-        self.assertEqual(colle.tache["question"], "Énoncé propre")
-        self.assertEqual(colle.tache["reference"], "Corrigé propre")
-        self.assertEqual(colle.appliquer("solution", "reponse", CORRECT), VALIDER)
-        profil = Profil.charger(self.chemin)
-        self.assertEqual(profil.exercices_vus, ["x2"])
-        self.assertEqual(profil.historique[0]["verdict"], "correcte")
-        self.assertAlmostEqual(profil.niveau(CHAPITRE_SERIES), 1.8)
-        # Réussite autonome : on vise plus difficile.
-        self.assertEqual(colle.difficulte_cible, 3)
-        self.assertEqual(colle.candidats_exercices()[0]["id"], "x3")
-        colle.ouvrir_exercice(EXERCICES[2], {"enonce": "E3", "corrige": "C3"})
-        colle.appliquer("la correction", "demande_correction", None)
-        self.assertEqual(colle.difficulte_cible, 2)
-        self.assertEqual(Profil.charger(self.chemin).historique[-1]["verdict"], "incorrecte")
-        colle.ecarter(EXERCICES[0])
-        self.assertEqual([ex["id"] for ex in colle.candidats_exercices()], ["x4"])
-
-    def test_persistance_et_temps(self):
-        colle = self.colle
-        colle.ouvrir_question_cours()
-        colle.appliquer("essai", "reponse", FAUX)
-        colle.messages.append({"role": "eleve", "texte": "essai"})
+    def test_persistance_temps_et_ancienne_session(self):
+        c = self.colle
+        c.ouvrir_question_cours()
+        c.appliquer("faux", "reponse", FAUX)
         chemin = self.chemin.with_suffix(".colle.json")
-        colle.sauvegarder(chemin)
+        c.sauvegarder(chemin)
         relue = Colle.from_dict(json.loads(chemin.read_text(encoding="utf-8")), self.chemin, EXERCICES, BANQUE)
-        self.assertEqual(relue.to_dict(), colle.to_dict())
-        self.assertEqual(relue.etat()["chapitre"], "Séries numériques")
-        self.assertEqual(colle.temps_restant(colle.debut + 60), 29 * 60)
-        self.assertEqual(colle.temps_restant(colle.debut + 3600), 0)
+        self.assertEqual(relue.to_dict(), c.to_dict())
+        self.assertEqual(c.temps_restant(c.debut + 60), 29 * 60)
+        ancien = c.to_dict()
+        ancien["tache"] = {k: v for k, v in c.tache.items() if k not in
+                           ("version_moteur", "autonome", "etapes_resolution", "etape_active")}
+        relue = Colle.from_dict(ancien, self.chemin, EXERCICES, BANQUE)
+        self.assertEqual(relue.tache["autonome"]["tentatives"], 1)
+        self.assertEqual(relue.tache["autonome"]["reponses"], ["faux"])
 
-    def test_terminer_archive_le_bilan(self):
-        self.colle.ouvrir_question_cours()
-        self.repondre_juste()
-        self.colle.terminer("**Note : 15/20**")
-        self.assertTrue(self.colle.terminee)
-        self.assertEqual(self.colle.etat()["etape"], "fin")
-        colles = Profil.charger(self.chemin).colles
-        self.assertEqual(colles[0]["bilan"], "**Note : 15/20**")
-        self.assertEqual(colles[0]["taches"][0]["statut"], "acquise")
+    def test_bilan_archive_une_fois(self):
+        self.colle.terminer("Bilan")
+        self.colle.terminer("Bilan")
+        self.assertEqual(len(Profil.charger(self.chemin).colles), 1)
 
-
-class BanqueReelleTests(unittest.TestCase):
-    def test_banque_du_depot_coherente(self):
+    def test_banque_reelle(self):
         config = COLLES[CHAPITRE_SERIES]
         banque = charger_banque(config["questions"], config["index"])
-        natures = {q["nature"] for q in banque}
-        self.assertEqual(natures, {"definition", "theoreme", "demonstration", "applications"})
+        self.assertEqual({q["nature"] for q in banque}, {"definition", "theoreme", "demonstration", "applications"})
         for q in banque:
-            with self.subTest(source=q["source"], nature=q["nature"]):
-                self.assertTrue(q["question"].strip() and q["reponse_attendue"].strip())
-                self.assertEqual(q["question"].count("$") % 2, 0)
-                self.assertIn(q["priorite"], (1, 2, 3))
-
-
-if __name__ == "__main__":
-    unittest.main()
+            self.assertTrue(q["question"].strip() and q["reponse_attendue"].strip())

@@ -1,0 +1,22 @@
+[
+  {
+    "scenario": "cours",
+    "eleve": "Chapitre sélectionné : Series numeriques",
+    "tuteur": "Donnez la définition de la convergence absolue d'une série."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+    "tuteur": "Cette réponse reste insuffisante. Indice : Appuyez-vous sur les hypothèses et la conclusion de Définition 16.2.3, page PDF 143.\n\nDonnez la définition de la convergence absolue d'une série."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Une série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+    "tuteur": "Indice : Appuyez-vous sur les hypothèses et la conclusion de Définition 16.2.3, page PDF 143.\n\nVoici la réponse de cette étape :\n\nOn dit que P un converge absolument si la série P |un| est convergente.\nComme l’indique bien la terminologie, nous avons :\n\nRéférence : Définition 16.2.3, page PDF 143.\n\nReformulez brièvement l'idée essentielle avec vos mots ; nous passerons ensuite à la suite."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Il faut que les sommes partielles admettent une limite finie, pas seulement que les termes tendent vers zéro.",
+    "tuteur": "Énoncez le théorème qui lie convergence absolue et convergence d'une série, avec ses hypothèses."
+  }
+]

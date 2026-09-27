@@ -1,0 +1,42 @@
+[
+  {
+    "scenario": "cours",
+    "eleve": "Chapitre sélectionné : Series numeriques",
+    "tuteur": "Définition : Soit (u_n)_{n\\in\\mathbb{N}} une suite de réels ou complexes. La série de terme général u_n, notée \\sum_{n\\geq 0} u_n, ou plus simplement \\sum u_n, est la suite (S_n)_{n\\in\\mathbb{N}} des sommes partielles de la suite (u_n), à savoir :\n\nS_n = \\sum_{k=0}^n u_k.\n\nS_n est appelée somme partielle (d'ordre n) de la série \\sum u_n, et u_n est appelé terme général de la série \\sum u_n."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+    "tuteur": "Cette réponse reste insuffisante. Indice : Appuyez-vous sur les hypothèses et la conclusion de Définition 16.1.1, page PDF 139, 140.\n\nDéfinition : Soit (u_n)_{n\\in\\mathbb{N}} une suite de réels ou complexes. La série de terme général u_n, notée \\sum_{n\\geq 0} u_n, ou plus simplement \\sum u_n, est la suite (S_n)_{n\\in\\mathbb{N}} des sommes partielles de la suite (u_n), à savoir :\n\nS_n = \\sum_{k=0}^n u_k.\n\nS_n est appelée somme partielle (d'ordre n) de la série \\sum u_n, et u_n est appelé terme général de la série \\sum u_n."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Une série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+    "tuteur": "Indice : Appuyez-vous sur les hypothèses et la conclusion de Définition 16.1.1, page PDF 139, 140.\n\nVoici la réponse de cette étape :\n\n(i) Soit $(u_n)_{n\\in\\mathbb N}$ une suite de réels ou complexes. La série de terme général $u_n$, notée $\\sum_{n\\geq 0} u_n$, ou plus simplement $\\sum u_n$, est, avec l’abus mentionné dans l’introduction du chapitre, la suite $(S_n)_{n\\in\\mathbb N}$ des sommes partielles de la suite $(u_n)$, à savoir :\n\n$$S_n=\\sum_{k=0}^{n}u_k.$$\n\n(ii) $S_n$ est appelé somme partielle (d’ordre $n$) de la série $\\sum u_n$, et $u_n$ est appelé terme général de la série $\\sum u_n$.\n\nRéférence : Définition 16.1.1, page PDF 139, 140.\n\nReformulez brièvement l'idée essentielle avec vos mots ; nous passerons ensuite à la suite."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Il faut que les sommes partielles admettent une limite finie, pas seulement que les termes tendent vers zéro.",
+    "tuteur": "Théorème : Si la série \\sum u_n converge, alors le terme général u_n tend vers 0. En revanche, si le terme général u_n ne tend pas vers 0, la série \\sum u_n diverge. Cette condition est nécessaire mais pas suffisante pour la convergence d'une série."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Chapitre sélectionné : Series numeriques",
+    "tuteur": "Grâce à une comparaison entre série et intégrale, déterminer un équivalent de\n$$\\sum_{k=2}^n \\ln k.$$\nEn déduire la nature de la série de terme général\n$$u_n = \\left( \\sum_{k=2}^n \\ln k \\right)^{-1}.$$\n\nPlan de résolution :\n1. Encadrer la somme par des intégrales\n2. Exprimer les intégrales \\( \\int \\ln t \\, dt \\) par une primitive explicite\n3. Établir les inégalités encadrant la somme \\( \\sum_{k=2}^n \\ln k \\)\n4. Déduire l'équivalent de la somme \\( \\sum_{k=2}^n \\ln k \\)\n5. Trouver l'équivalent de la suite \\( u_n = \\left(\\sum_{k=2}^n \\ln k\\right)^{-1} \\)\n6. Étudier la nature de la série \\( \\sum u_n \\)\n\nÉtape 1/6 — Encadrer la somme par des intégrales\n\nMontrer que la somme \\(\\sum_{k=2}^n \\ln k\\) est encadrée par deux intégrales en utilisant le fait que \\(\\ln\\) est croissante."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+    "tuteur": "Cette réponse reste insuffisante. Indice : Utiliser l'inégalité \\( \\ln t \\leq \\ln k \\leq \\ln t + 1 \\) pour \\( t \\in [k-1,k] \\).\n\nÉtape 1/6 — Encadrer la somme par des intégrales\n\nMontrer que la somme \\(\\sum_{k=2}^n \\ln k\\) est encadrée par deux intégrales en utilisant le fait que \\(\\ln\\) est croissante."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Je confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+    "tuteur": "Indice : Utiliser l'inégalité \\( \\ln t \\leq \\ln k \\leq \\ln t + 1 \\) pour \\( t \\in [k-1,k] \\).\n\nVoici la réponse de cette étape :\n\nPour \\( k \\in \\llbracket 2, n \\rrbracket \\) et \\( t \\in [k-1, k] \\), la fonction \\( \\ln \\) étant croissante sur \\( \\mathbb{R}^+ \\), on a :\n\\[\n\\ln t \\leq \\ln k \\leq \\ln t + 1.\n\\]\nIntégrons ces inégalités sur l'intervalle \\([k-1,k]\\) :\n\\[\n\\int_{k-1}^k \\ln t \\,dt \\leq \\int_{k-1}^k \\ln k \\,dt \\leq \\int_{k-1}^k (\\ln t + 1) \\,dt.\n\\]\nComme \\( \\ln k \\) est constant en fonction de \\( t \\), on obtient :\n\\[\n\\int_{k-1}^k \\ln t \\, dt \\leq \\ln k \\leq \\int_{k-1}^k \\ln t \\, dt + \\int_{k-1}^k 1 \\, dt = \\int_{k-1}^k \\ln t \\, dt + 1.\n\\]\nEn sommant de \\( k=2 \\) à \\( n \\) :\n\\[\n\\sum_{k=2}^n \\int_{k-1}^k \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\sum_{k=2}^n \\left( \\int_{k-1}^k \\ln t \\, dt +1 \\right)\n\\]\nCe qui donne :\n\\[\n\\int_1^n \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\int_1^n \\ln t \\, dt + (n -1).\n\\]\n\nReformulez brièvement l'idée essentielle avec vos mots ; nous passerons ensuite à la suite."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Pour \\( k \\in \\llbracket 2, n \\rrbracket \\) et \\( t \\in [k-1, k] \\), la fonction \\( \\ln \\) étant croissante sur \\( \\mathbb{R}^+ \\), on a :\n\\[\n\\ln t \\leq \\ln k \\leq \\ln t + 1.\n\\]\nIntégrons ces inégalités sur l'intervalle \\([k-1,k]\\) :\n\\[\n\\int_{k-1}^k \\ln t \\,dt \\leq \\int_{k-1}^k \\ln k \\,dt \\leq \\int_{k-1}^k (\\ln t + 1) \\,dt.\n\\]\nComme \\( \\ln k \\) est constant en fonction de \\( t \\), on obtient :\n\\[\n\\int_{k-1}^k \\ln t \\, dt \\leq \\ln k \\leq \\int_{k-1}^k \\ln t \\, dt + \\int_{k-1}^k 1 \\, dt = \\int_{k-1}^k \\ln t \\, dt + 1.\n\\]\nEn sommant de \\( k=2 \\) à \\( n \\) :\n\\[\n\\sum_{k=2}^n \\int_{k-1}^k \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\sum_{k=2}^n \\left( \\int_{k-1}^k \\ln t \\, dt +1 \\right)\n\\]\nCe qui donne :\n\\[\n\\int_1^n \\ln t \\, dt \\leq \\sum_{k=2}^n \\ln k \\leq \\int_1^n \\ln t \\, dt + (n -1).\n\\]",
+    "tuteur": "Étape 2/6 — Exprimer les intégrales \\( \\int \\ln t \\, dt \\) par une primitive explicite\n\nCalculer \\( \\int_1^n \\ln t \\, dt \\) et \\( \\int_2^{n+1} \\ln t \\, dt \\) en utilisant la primitive explicite."
+  }
+]

@@ -1,0 +1,133 @@
+{
+  "nom": "verification-profil",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "eb12ee9a6de746f5ae39fbacb601988d": {
+      "id": "eb12ee9a6de746f5ae39fbacb601988d",
+      "exercice_id": "cours-26feee7ac8654350819dfc7ee598de97",
+      "enonce": "Donnez-moi la définition d'une série convergente.",
+      "session": "e906fc6cbd7d4442aaf23bfad9fa09f4",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 0,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "aucune",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie."
+      ],
+      "evaluations": [
+        {
+          "reponse": "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+          "verdict": "correcte",
+          "type_erreur": "aucune",
+          "explication": "La réponse de l'élève définit correctement la convergence d'une série, en mentionnant que la suite des sommes partielles doit admettre une limite finie. Cela correspond exactement à la définition attendue."
+        }
+      ],
+      "source": "16.1.5",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          140
+        ],
+        "imprimee": [
+          138
+        ]
+      },
+      "nature": "definition",
+      "acquise": true,
+      "cloturee": true,
+      "decision": {
+        "action": "approfondir",
+        "acquise": true,
+        "raison": "Réponse correcte enregistrée par le serveur."
+      }
+    },
+    "d9b1435ec2074a489f62625542b4d482": {
+      "id": "d9b1435ec2074a489f62625542b4d482",
+      "exercice_id": "cours-f1bfc28c53364ec4921f0af0209b49c3",
+      "enonce": "Donnez-moi la définition de la convergence absolue d'une série.",
+      "session": "e906fc6cbd7d4442aaf23bfad9fa09f4",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 0,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "aucune",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Une serie de terme general u_n est absolument convergente si la serie de terme general |u_n| converge. Pour une suite reelle ou complexe, la convergence absolue implique la convergence de la serie de terme general u_n."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Une serie de terme general u_n est absolument convergente si la serie de terme general |u_n| converge. Pour une suite reelle ou complexe, la convergence absolue implique la convergence de la serie de terme general u_n.",
+          "verdict": "correcte",
+          "type_erreur": "aucune",
+          "explication": "L'élève a correctement défini la convergence absolue d'une série, en précisant que c'est la convergence de la série des valeurs absolues des termes. Ce détail est en accord avec la définition standard."
+        }
+      ],
+      "source": "16.2.3",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          143
+        ],
+        "imprimee": [
+          141
+        ]
+      },
+      "nature": "definition",
+      "acquise": true,
+      "cloturee": true,
+      "decision": {
+        "action": "approfondir",
+        "acquise": true,
+        "raison": "Réponse correcte enregistrée par le serveur."
+      }
+    },
+    "13dbe8afc83d436f976169d2b11bc346": {
+      "id": "13dbe8afc83d436f976169d2b11bc346",
+      "exercice_id": "cours-b51016433a7b42aeaa67d033fae364e3",
+      "enonce": "Énoncez le théorème qui affirme que toute série absolument convergente est convergente.",
+      "session": "e906fc6cbd7d4442aaf23bfad9fa09f4",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 0,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "non_determinable",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [],
+      "evaluations": [],
+      "source": "16.2.4",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          143
+        ],
+        "imprimee": [
+          141
+        ]
+      },
+      "nature": "theoreme"
+    }
+  }
+}

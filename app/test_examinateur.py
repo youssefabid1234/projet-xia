@@ -16,6 +16,8 @@ from app.examinateur import Examinateur
 from app.faux import FauxOpenAI, ServicesSimples
 from app.profil import Profil
 from app.test_colle import BANQUE, CORRECT, EXERCICES, FAUX
+from app.test_moteur_colle import PLAN, evaluation
+from app.moteur_colle import element_actif
 
 
 class CacheSimule:
@@ -68,7 +70,7 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(types[-2:], ["question", "etat"])
         self.assertEqual(self.texte(evts), "Exact : c'est la bonne définition.")
         self.assertEqual(evts[-2]["question"]["texte"], self.colle.tache["question"])
-        self.assertEqual(self.colle.tache["nature"], "theoreme")
+        self.assertEqual(self.colle.etape, "demonstration")
         self.assertEqual([m["role"] for m in self.colle.messages], ["colleur", "eleve", "colleur"])
         self.assertEqual(self.colle.messages[1]["texte"], "Ma définition")
         # La référence est donnée au colleur en consigne privée, jamais diffusée telle quelle.
@@ -85,13 +87,14 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
         self.client.textes = ["Pensez aux sommes partielles."]
         question = self.colle.tache["question"]
         evts = await evenements(self.examinateur.tour("Un indice ?"))
-        self.assertEqual(evts[1]["action"], "indice")
+        self.assertEqual(evts[1]["action"], "donner_indice")
         self.assertIsNone(evts[1]["verdict"])
         self.assertEqual(self.colle.tache["indices"], 1)
         self.assertEqual(self.colle.tache["reponses"], [])
         self.assertEqual(self.colle.tache["question"], question)
         self.assertNotIn("question", [e["type"] for e in evts])
-        self.assertIn("indice n°1", self.client.appels_flux()[0]["input"][-1]["content"])
+        self.assertIn("indice ciblé", self.client.appels_flux()[0]["input"][-1]["content"])
+        self.assertFalse(any(a.get("text", {}).get("format", {}).get("name") == "evaluation" for a in self.client.appels))
 
     async def test_panne_d_analyse_ne_modifie_rien(self):
         self.client.intentions = [APIConnectionError(request=httpx.Request("POST", "https://example.test"))]
@@ -127,8 +130,7 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("Hors du cours extrait :", consigne)
 
     async def test_passage_aux_exercices_avec_cache_et_ecart(self):
-        self.colle.programme = 3  # dernière étape du cours : l'application
-        self.colle.essais_etape = 0
+        self.colle.etape = "applications"
         self.colle.tache = None
         self.colle.ouvrir_question_cours()
         self.cache.resultats = {"x2": None, "x1": {"enonce": "Énoncé 1 propre", "corrige": "Corrigé 1 propre"}}
@@ -139,7 +141,7 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
         question = next(e for e in evts if e["type"] == "question")["question"]
         self.assertEqual(question["texte"], "Énoncé 1 propre")
         self.assertEqual(question["libelle"], "Exercices · difficulté 1/5")
-        self.assertEqual(self.cache.demandes[:2], ["x2", "x1"])
+        self.assertEqual(self.cache.demandes[:3], ["x2", "x3", "x1"])
         self.assertIn("x2", self.colle.ecartes)
         self.assertEqual(self.colle.tache["reference"], "Corrigé 1 propre")
 
@@ -150,21 +152,34 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
         evts = await evenements(self.examinateur.tour("Ma définition"))
         self.assertNotIn("question", [e["type"] for e in evts])
         self.assertIn("Le temps est écoulé", self.texte(evts))
+        self.assertTrue(self.colle.terminee)
         self.assertIsNone(self.colle.tache)
+        self.assertEqual(self.client.appels, [])
         suite = await evenements(self.examinateur.tour("Encore ?"))
         self.assertEqual(suite[-1]["type"], "erreur")
+
+    async def test_ancien_exercice_refuse_ne_bloque_pas_la_reprise(self):
+        self.colle.ouvrir_exercice(EXERCICES[0], {"enonce": "ancien", "corrige": "illisible"}, PLAN)
+        self.colle.tache["etapes_resolution"] = []
+        self.client.plans = [{"exploitable": False, "etapes": []}]
+        self.cache.resultats = {"x2": {"enonce": "nouveau", "corrige": "corrigé"}}
+        evts = await evenements(self.examinateur.tour("ancienne réponse"))
+        self.assertIn("sans pénalité", self.texte(evts))
+        self.assertEqual(self.colle.tache["source"], "x2")
+        self.assertFalse(self.chemin.exists())
 
     async def test_bilan_diffuse_puis_archive(self):
         self.client.intentions = ["reponse"]
         self.client.evaluations = [CORRECT]
         await evenements(self.examinateur.tour("Ma définition"))
-        self.client.textes = ["**Note : 16/20**\n\n**Points forts** Le cours."]
+        self.client.textes = ["**Points forts** Le cours."]
         evts = await evenements(self.examinateur.bilan())
-        self.assertIn("**Note : 16/20**", self.texte(evts))
+        self.assertIn("**Note : 20/20**", self.texte(evts))
         self.assertTrue(evts[-1]["etat"]["terminee"])
-        donnees = json.loads(self.client.appels_flux()[-1]["input"][0]["content"])
-        self.assertEqual([q["resultat"] for q in donnees["questions"]], ["acquise", "en cours (non terminée)"])
-        self.assertEqual(Profil.charger(self.chemin).colles[0]["bilan"], "**Note : 16/20**\n\n**Points forts** Le cours.")
+        self.assertIn("100 %", self.texte(evts))
+        self.assertIn("interrompue", self.texte(evts))
+        self.assertEqual(Profil.charger(self.chemin).colles[0]["bilan"], self.texte(evts).strip())
+        self.assertEqual(len(self.client.appels_flux()), 1)
         self.assertTrue(self.colle.messages[-1]["bilan"])
         # Un second appel renvoie le bilan enregistré, sans nouvel appel au modèle.
         nombre = len(self.client.appels)
@@ -176,6 +191,52 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
             evts = await evenements(self.examinateur.tour(message))
             self.assertEqual([e["type"] for e in evts], ["erreur"])
         self.assertEqual(self.client.appels, [])
+
+    async def test_exercice_guide_correction_et_confidentialite(self):
+        self.colle.ouvrir_exercice(EXERCICES[0], {"enonce": "ENTIER", "corrige": "CORRIGE_ENTIER_PRIVE"}, PLAN)
+        identifiant = self.colle.tache["id"]
+        self.client.intentions = ["blocage", "reponse", "reponse", "reponse"]
+        self.client.evaluations = [FAUX, FAUX, CORRECT]
+        evts = await evenements(self.examinateur.tour("bloqué"))
+        self.assertNotIn("Conclusion ?", json.dumps(evts))
+        self.assertNotIn("CORRIGE_ENTIER_PRIVE", json.dumps(evts))
+        await evenements(self.examinateur.tour("faux"))
+        evts = await evenements(self.examinateur.tour("encore faux"))
+        self.assertIn("Conclusion ?", self.texte(evts))
+        self.assertEqual(self.colle.tache["id"], identifiant)
+        self.assertEqual(element_actif(self.colle.tache)["tentatives"], 0)
+        self.assertNotIn("2", element_actif(self.colle.tache)["reponses"])
+        await evenements(self.examinateur.tour("4"))
+        archive = Profil.charger(self.chemin).taches[identifiant]
+        self.assertFalse(archive["acquise"])
+        self.assertLessEqual(archive["score"], .25)
+        appels = [a for a in self.client.appels if a.get("text", {}).get("format", {}).get("name") == "evaluation"]
+        self.assertEqual(len(appels), 3)
+        self.assertNotIn("CORRIGE_ENTIER_PRIVE", appels[0]["input"][0]["content"])
+        self.assertNotIn("encore faux", appels[-1]["input"][0]["content"])
+
+    async def test_indetermination_sans_essai_et_reussite_etape(self):
+        self.colle.ouvrir_exercice(EXERCICES[0], {"enonce": "ENTIER", "corrige": "C"}, PLAN)
+        self.client.intentions = ["blocage", "reponse", "reponse"]
+        self.client.evaluations = [evaluation("indeterminable"), CORRECT]
+        await evenements(self.examinateur.tour("aide"))
+        await evenements(self.examinateur.tour("?"))
+        self.assertEqual(element_actif(self.colle.tache)["tentatives"], 0)
+        await evenements(self.examinateur.tour("2"))
+        self.assertEqual(self.colle.tache["etape_active"], 1)
+        self.assertFalse(self.chemin.exists())
+
+    async def test_panne_preparation_reessayable_sans_fin_prematuree(self):
+        self.colle.etape = "exercices"
+        self.colle.tache = None
+        self.cache.resultats = {"x2": ValueError("panne"), "x1": None, "x3": None, "x4": None}
+        with self.assertLogs("app.examinateur", level="WARNING"):
+            evts = await evenements(self.examinateur.tour("continuer"))
+        self.assertEqual(evts[-1]["type"], "erreur")
+        self.assertNotIn("x2", self.colle.ecartes)
+        self.cache.resultats["x2"] = {"enonce": "E", "corrige": "C"}
+        evts = await evenements(self.examinateur.tour("réessayer"))
+        self.assertIn("question", [e["type"] for e in evts])
 
     @patch.dict(os.environ, {"COLLE_EVALUATEUR": "pipelex"})
     async def test_mode_pipelex_evalue_seulement_les_reponses(self):

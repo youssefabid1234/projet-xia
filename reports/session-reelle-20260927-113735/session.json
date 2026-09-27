@@ -1,0 +1,29 @@
+[
+  {
+    "route": "/inscription",
+    "action": null,
+    "message": null,
+    "statut": 200,
+    "dialogue": []
+  },
+  {
+    "route": "/",
+    "action": "chapitre",
+    "message": null,
+    "statut": 200,
+    "dialogue": [
+      "Chapitre sélectionné : Series numeriques",
+      "Donnez-moi la définition d'une série convergente."
+    ]
+  },
+  {
+    "route": "/",
+    "action": null,
+    "message": "Une serie converge si son terme general tend vers zero. C'est ma reponse finale.",
+    "statut": 502,
+    "dialogue": [
+      "Chapitre sélectionné : Series numeriques",
+      "Donnez-moi la définition d'une série convergente."
+    ]
+  }
+]

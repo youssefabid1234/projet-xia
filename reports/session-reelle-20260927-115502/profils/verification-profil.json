@@ -1,0 +1,57 @@
+{
+  "nom": "verification-profil",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "e4c461ff83084f97afb10c5419e12e6e": {
+      "id": "e4c461ff83084f97afb10c5419e12e6e",
+      "exercice_id": "cours-7832644358c04704bafa8bc3ccc38270",
+      "enonce": "Donnez-moi la définition d'une série convergente.",
+      "session": "d7174601adb94e29b320f6479d80c2ba",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 1,
+      "rappels_cours": 0,
+      "intuition_initiale": "mauvaise définition confond u_n→0 avec convergence",
+      "type_erreur": "concept",
+      "notions": [
+        "convergence de série",
+        "suite des sommes partielles"
+      ],
+      "erreur_a_reformuler": true,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Une serie converge si son terme general tend vers zero. C'est ma reponse finale."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Une serie converge si son terme general tend vers zero. C'est ma reponse finale.",
+          "verdict": "incorrecte",
+          "type_erreur": "concept",
+          "explication": "La réponse de l'élève contient une définition incorrecte de la convergence d'une série. Une série converge lorsque la suite de ses sommes partielles tend vers une limite finie, ce qui n'est pas mentionné. Une piste de correction serait de préciser cette notion de sommes partielles."
+        }
+      ],
+      "source": "16.1.5",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          140
+        ],
+        "imprimee": [
+          138
+        ]
+      },
+      "nature": "definition",
+      "decision": {
+        "action": "approfondir",
+        "acquise": false,
+        "raison": "La définition donnée est incorrecte : elle confond la condition nécessaire u_n→0 avec la convergence de la série, qui porte sur les sommes partielles. L’erreur n’a pas été reformulée par l’élève et aucune vérification autonome complémentaire n’a encore été réussie."
+      },
+      "cloturee": false
+    }
+  }
+}

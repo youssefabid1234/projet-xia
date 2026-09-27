@@ -1,0 +1,16 @@
+{
+  "profil": "faible",
+  "sessions": 4,
+  "echanges_max": 20,
+  "compte": "audit-longitudinal",
+  "modele_eleve": "gpt-4.1-mini",
+  "instructions_eleve": "Tu joues uniquement le rôle d'un élève français de prépa dans un test réel de tuteur.\nÉcris uniquement le prochain message de l'élève, sans étiquette, sans décrire le test.\nRéponds précisément à la dernière question du tuteur. Ne pose pas de nouveau problème.\nTu n'as accès qu'à la conversation visible, jamais aux corrigés privés ni au profil serveur.\nRespecte le comportement demandé pour ce tour :\n- erronee : fais une tentative plausible contenant une erreur mathématique réelle ; pas un refus.\n- partielle : propose une piste ou une réponse incomplète, en laissant une hypothèse ou justification importante.\n- indice : indique ce que tu as essayé et demande un petit indice, sans fournir la solution.\n- correcte_apres_aide : utilise l'aide reçue pour répondre correctement à la question précise, en mots simples ; si elle reste hors de portée donne un progrès partiel.\n- correcte : fournis une réponse juste et une justification complète, vérifie les hypothèses et calculs.\nSi le tuteur demande de reformuler une erreur, traite cette demande en priorité, avec le degré de compréhension demandé.\nLe profil faible hésite, apprend progressivement grâce aux indices et reste bref ; il ne devient pas expert après une correction.\nLe profil moyen répond juste environ une fois sur deux. Le profil fort maîtrise presque tout et justifie rigoureusement.\nN'invente pas de connaissance d'une session précédente non fournie. N'exige pas d'être déclaré correct.\n",
+  "cycle": [
+    "erronee",
+    "partielle",
+    "indice",
+    "correcte_apres_aide"
+  ],
+  "comptage": "E1 = choix du chapitre et réponse du tuteur ; E2..E20 = message élève et réponse du tuteur",
+  "seuil": "Premier exercice strictement avant E10 (E1..E9) ; application et catalogue distingués."
+}

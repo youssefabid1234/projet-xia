@@ -1,0 +1,45 @@
+[
+  {
+    "route": "/inscription",
+    "action": null,
+    "message": null,
+    "statut": 200,
+    "dialogue": []
+  },
+  {
+    "route": "/",
+    "action": "chapitre",
+    "message": null,
+    "statut": 200,
+    "dialogue": [
+      "Chapitre sélectionné : Series numeriques",
+      "Donnez-moi la définition d'une série convergente."
+    ]
+  },
+  {
+    "route": "/",
+    "action": null,
+    "message": "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+    "statut": 200,
+    "dialogue": [
+      "Chapitre sélectionné : Series numeriques",
+      "Donnez-moi la définition d'une série convergente.",
+      "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+      "Réponse correcte. Donnez-moi l'énoncé du théorème établissant que toute série absolument convergente est convergente."
+    ]
+  },
+  {
+    "route": "/",
+    "action": null,
+    "message": "Soit (u_n) une suite de nombres reels ou complexes. Si la serie de terme general |u_n| converge, alors la serie de terme general u_n converge. De plus, la valeur absolue de sa somme est inferieure ou egale a la somme des |u_n|.",
+    "statut": 200,
+    "dialogue": [
+      "Chapitre sélectionné : Series numeriques",
+      "Donnez-moi la définition d'une série convergente.",
+      "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+      "Réponse correcte. Donnez-moi l'énoncé du théorème établissant que toute série absolument convergente est convergente.",
+      "Soit (u_n) une suite de nombres reels ou complexes. Si la serie de terme general |u_n| converge, alors la serie de terme general u_n converge. De plus, la valeur absolue de sa somme est inferieure ou egale a la somme des |u_n|.",
+      "Réponse correcte. Donnez-moi une démonstration du théorème établissant que toute série absolument convergente est convergente."
+    ]
+  }
+]

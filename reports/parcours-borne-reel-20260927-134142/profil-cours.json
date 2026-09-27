@@ -1,0 +1,156 @@
+{
+  "nom": "eleve",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "8618a00ff47b42ed9befbbc5da98ec51": {
+      "id": "8618a00ff47b42ed9befbbc5da98ec51",
+      "exercice_id": "cours-7f604894a6d941909692c9f3c8e0fc98",
+      "enonce": "Donnez la définition de la convergence absolue d'une série.",
+      "session": "fbcc5da31aa14eb1acae3a52cd5af66f",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 2,
+      "tentatives": 2,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "concept",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+        "Une série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+        "Il faut que les sommes partielles admettent une limite finie, pas seulement que les termes tendent vers zéro."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+          "verdict": "incorrecte",
+          "type_erreur": "concept",
+          "explication": "L'élève confond la convergence d'une série avec la convergence absolue. Pour rappeler, une série converge absolument si la série des valeurs absolues de ses termes converge, ce qui n'est pas décrit ici. Une précision sur cette définition est nécessaire.",
+          "etape_resolution": 1
+        },
+        {
+          "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.\nUne série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+          "verdict": "incorrecte",
+          "type_erreur": "concept",
+          "explication": "L'élève confond la définition de la convergence d'une série avec celle de la convergence absolue. Une série converge absolument lorsque la série des valeurs absolues de ses termes est convergente, ce qui n'est pas mentionné ici. Il serait bon de préciser cette condition pour corriger la définition.",
+          "etape_resolution": 1
+        }
+      ],
+      "source": "16.2.3",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          143
+        ],
+        "imprimee": [
+          141
+        ]
+      },
+      "nature": "definition",
+      "parcours_version": 1,
+      "etape_resolution": 0,
+      "acquise": false,
+      "etapes_resolution": [
+        {
+          "objectif": "definition",
+          "question": "Donnez la définition de la convergence absolue d'une série.",
+          "reponse": "On dit que P un converge absolument si la série P |un| est convergente.\nComme l’indique bien la terminologie, nous avons :",
+          "reference": "Définition 16.2.3, page PDF 143",
+          "indice": "Appuyez-vous sur les hypothèses et la conclusion de Définition 16.2.3, page PDF 143.",
+          "numero": 1,
+          "tentatives": 2,
+          "insuffisantes": 2,
+          "indices_donnes": 2,
+          "demandes_aide": 0,
+          "statut": "terminee",
+          "franchissement": "donnee_par_agent",
+          "acquise": false,
+          "reponses": [
+            "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+            "Une série converge dès que son terme général tend vers zéro : cette condition suffit toujours."
+          ],
+          "evaluations": [
+            {
+              "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+              "verdict": "incorrecte",
+              "type_erreur": "concept",
+              "explication": "L'élève confond la convergence d'une série avec la convergence absolue. Pour rappeler, une série converge absolument si la série des valeurs absolues de ses termes converge, ce qui n'est pas décrit ici. Une précision sur cette définition est nécessaire."
+            },
+            {
+              "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.\nUne série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+              "verdict": "incorrecte",
+              "type_erreur": "concept",
+              "explication": "L'élève confond la définition de la convergence d'une série avec celle de la convergence absolue. Une série converge absolument lorsque la série des valeurs absolues de ses termes est convergente, ce qui n'est pas mentionné ici. Il serait bon de préciser cette condition pour corriger la définition."
+            }
+          ],
+          "reformulation": "Il faut que les sommes partielles admettent une limite finie, pas seulement que les termes tendent vers zéro."
+        }
+      ],
+      "cloturee": true,
+      "decision": {
+        "action": "changer_exercice",
+        "acquise": false,
+        "raison": "Toutes les étapes ont été parcourues."
+      }
+    },
+    "3bc8651bbac640e9ba5d2a67cc0b3a36": {
+      "id": "3bc8651bbac640e9ba5d2a67cc0b3a36",
+      "exercice_id": "cours-ea319c1b8e254a518e93c6d517009926",
+      "enonce": "Énoncez le théorème qui lie convergence absolue et convergence d'une série, avec ses hypothèses.",
+      "session": "fbcc5da31aa14eb1acae3a52cd5af66f",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 0,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "non_determinable",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [],
+      "evaluations": [],
+      "source": "16.2.4",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          143
+        ],
+        "imprimee": [
+          141
+        ]
+      },
+      "nature": "theoreme",
+      "parcours_version": 1,
+      "etape_resolution": 0,
+      "acquise": false,
+      "etapes_resolution": [
+        {
+          "objectif": "theoreme",
+          "question": "Énoncez le théorème qui lie convergence absolue et convergence d'une série, avec ses hypothèses.",
+          "reponse": "Toute série réelle ou complexe absolument convergente est convergente.\n⊳Éléments de preuve.\nRappel : pour une série réelle, décomposer en partie positive et partie négative, et utiliser 0 ⩽x+ ⩽|x|\net le TCSTP. Pour les séries complexes, décomposer en partie réelle et partie imaginaire.\n⊲\nC’est cette propriété qui permet bien souvent de ramener l’étude d’une série quelconque à l’étude d’une\nsérie à termes positifs. Ce n’est malheureusement pas toujours possible :",
+          "reference": "Théorème 16.2.4, page PDF 143",
+          "indice": "Appuyez-vous sur les hypothèses et la conclusion de Théorème 16.2.4, page PDF 143.",
+          "numero": 1,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "en_cours",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        }
+      ]
+    }
+  }
+}

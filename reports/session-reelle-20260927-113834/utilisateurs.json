@@ -1,0 +1,5 @@
+{
+  "verification-profil": {
+    "mot_de_passe": "scrypt:32768:8:1$Sdel62AUX0aAXF1e$c983545b95f4cb7c17af6016f56b55f97b07206118a8e264a9bfdae3a49cc39564f10090d92fe80ec22d985e5a2cd0c2f94fcf8f2528cfe882f3de1b1282e15c"
+  }
+}

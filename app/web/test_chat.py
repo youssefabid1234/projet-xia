@@ -11,6 +11,8 @@ from app.chapitres import CHAPITRE_SERIES
 from app.faux import FauxOpenAI, FauxServices
 from app.profil import Profil
 from app.test_colle import BANQUE, CORRECT
+from app.colle import Colle
+from app.test_moteur_colle import PLAN, evaluation
 
 EXERCICES = [{"id": "17.1", "chapitre": CHAPITRE_SERIES, "enonce": "Question", "corrige": "Réponse", "difficulte": 1},
              {"id": "2.1", "chapitre": "2 — Dérivation et Intégration", "enonce": "Autre", "difficulte": 1}]
@@ -109,7 +111,8 @@ class ChatTests(unittest.TestCase):
             etat = client.get("/api/etat").get_json()
         self.assertEqual([m["role"] for m in etat["messages"]], ["colleur", "eleve", "colleur"])
         self.assertEqual(etat["messages"][0]["question"]["texte"], question)
-        self.assertEqual(etat["etat"]["tache"]["nature"], "theoreme")
+        self.assertEqual(etat["etat"]["etape"], "demonstration")
+        self.assertNotEqual(etat["etat"]["tache"]["question"], question)
 
     def test_contenu_echappe_dans_la_page(self):
         self.demarrer()
@@ -146,19 +149,61 @@ class ChatTests(unittest.TestCase):
 
     def test_bilan_puis_nouvelle_colle(self):
         self.demarrer()
-        self.openai.textes = ["**Note : 12/20**"]
+        self.openai.evaluations = [CORRECT]
+        self.flux(self.api("/api/message", {"message": "réponse juste"}))
+        self.openai.textes = ["Les idées du cours sont comprises."]
         evenements = self.flux(self.api("/api/bilan"))
         self.assertTrue(evenements[-1]["etat"]["terminee"])
         profil = Profil.charger(self.root / "profils" / "test.json")
-        self.assertEqual(profil.colles[0]["bilan"], "**Note : 12/20**")
+        self.assertIn("**Note : 20/20**", profil.colles[0]["bilan"])
+        self.assertIn("100 %", profil.colles[0]["bilan"])
         accueil = self.api("/api/nouvelle").get_json()
         self.assertIsNone(accueil["etat"])
-        self.assertIn("12/20", accueil["anciennes"][0]["bilan"])
+        self.assertIn("20/20", accueil["anciennes"][0]["bilan"])
         self.assertFalse((self.root / "profils" / "test.colle.json").exists())
         self.assertEqual(self.api("/api/colle", {"chapitre": 0}).status_code, 200)
 
     def test_ancienne_interface_toujours_disponible(self):
         self.assertEqual(self.client.get("/classique").status_code, 200)
+
+    def test_exercice_reconnexion_compteurs_et_plan_prive(self):
+        chemin = self.root / "profils" / "test.json"
+        c = Colle(chemin, CHAPITRE_SERIES, EXERCICES, BANQUE)
+        c.ouvrir_exercice(EXERCICES[0], {"enonce": "ENTIER", "corrige": "CORRIGE_PRIVE"}, PLAN)
+        c.sauvegarder(chemin.with_suffix(".colle.json"))
+        public = self.client.get("/api/etat").get_json()
+        self.assertNotIn("CORRIGE_PRIVE", json.dumps(public))
+        self.assertNotIn("Conclusion ?", json.dumps(public))
+        self.openai.intentions = ["blocage", "reponse"]
+        self.openai.evaluations = [evaluation("incorrecte")]
+        self.flux(self.api("/api/message", {"message": "aide"}))
+        self.flux(self.api("/api/message", {"message": "faux"}))
+        autre_app = self.creer_app()
+        with autre_app.test_client() as client:
+            with client.session_transaction() as session:
+                session["utilisateur"] = "test"
+                session["csrf"] = "jeton"
+            public = client.get("/api/etat").get_json()
+            self.assertEqual(public["etat"]["tache"]["tentatives"], 1)
+            self.assertNotIn("Conclusion ?", json.dumps(public))
+            self.openai.intentions = ["reponse", "reponse"]
+            self.openai.evaluations = [evaluation("incorrecte"), CORRECT]
+            evts = self.flux(self.api("/api/message", {"message": "encore faux"}, client=client))
+            self.assertEqual(evts[-1]["etat"]["tache"]["etape_resolution"], 2)
+            self.assertEqual(evts[-1]["etat"]["tache"]["tentatives"], 0)
+            self.flux(self.api("/api/message", {"message": "4"}, client=client))
+        p = Profil.charger(chemin)
+        self.assertEqual(len(p.taches), 1)
+        archive = next(iter(p.taches.values()))
+        self.assertFalse(archive["acquise"])
+        self.assertLessEqual(archive["score"], .25)
+
+    def test_bilan_sans_travail_ne_fabrique_pas_de_note(self):
+        self.demarrer()
+        evts = self.flux(self.api("/api/bilan"))
+        texte = "".join(e["texte"] for e in evts if e["type"] == "texte")
+        self.assertIn("pas de note", texte)
+        self.assertFalse(self.openai.appels)
 
 
 if __name__ == "__main__":

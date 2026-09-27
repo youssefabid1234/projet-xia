@@ -1,0 +1,42 @@
+[
+  {
+    "scenario": "cours",
+    "eleve": "Chapitre sélectionné : Series numeriques",
+    "tuteur": "Donnez la définition de : Définition 16.1.5 (Convergence d’une série)."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+    "tuteur": "L’idée de passer par les sommes partielles est pertinente, mais la définition est fausse : pour converger, elles doivent tendre vers une limite finie, pas vers $+\u0000infty$. Corrige en disant qu’une série converge si la suite de ses sommes partielles admet une limite finie.\n\nIndice : Reprenez « Définition 16.1.5 (Convergence d’une série) », référence 16.1.5, page PDF [140].\n\nDonnez la définition de : Définition 16.1.5 (Convergence d’une série)."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Une série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+    "tuteur": "Tu donnes une condition nécessaire, mais faussement présentée comme suffisante. La convergence d’une série se définit par la limite finie de ses sommes partielles, pas par le seul fait que $u_n$ tende vers $0$.\n\nIndice : Appuyez-vous sur les hypothèses et la conclusion de Définition 16.1.5, page PDF 140.\n\nVoici la réponse de cette étape :\n\n(i) On dit que la série $\\sum u_n$ de terme général $u_n$ converge si la suite $(S_n)_{n\\in\\mathbb N}$ de ses sommes partielles admet une limite finie. On note alors\n\n$$\\sum_{n=0}^{+\\infty}u_n=\\lim_{n\\to+\\infty}S_n.$$\n\nCette quantité est appelée somme de la série de terme général $u_n$.\n\n(ii) Une série non convergente est dite divergente.\n\n(iii) Soit $\\sum_{n\\in\\mathbb N}u_n$ une série convergente, et soit $n\\in\\mathbb N$. Le $n$-ième reste de la série est :\n\n$$r_n=\\sum_{k=n+1}^{+\\infty}u_k=\\sum_{k=0}^{+\\infty}u_k-S_n.$$\n\n(iv) La nature de la série $\\sum u_n$ est le fait d’être convergente ou divergente.\n\nRéférence : Définition 16.1.5, page PDF 140.\n\nReformulez brièvement l'idée essentielle avec vos mots ; nous passerons ensuite à la suite."
+  },
+  {
+    "scenario": "cours",
+    "eleve": "Il faut que les sommes partielles admettent une limite finie, pas seulement que les termes tendent vers zéro.",
+    "tuteur": "Énoncez, avec ses hypothèses, le résultat : Théorème 16.2.2 (Théorème de comparaison des séries à termes positifs, TCSTP)."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Chapitre sélectionné : Series numeriques",
+    "tuteur": "Soit la suite (u_n) définie pour u_0 \\in \\mathbb{R} et, pour tout n \\in \\mathbb{N}, u_{n+1} = \\frac{1}{n+1} e^{-u_n}. On considère la série \\sum u_n. Déterminer la nature de cette série.\n\nPlan de résolution :\n1. Montrer la positivité de la suite (u_n).\n2. Comparer u_{n+1} à une suite de référence et étudier le comportement asymptotique.\n3. Déterminer l'équivalent de u_n.\n4. Conclure sur la nature de la série \\sum u_n.\n\nÉtape 1/4 — Montrer la positivité de la suite (u_n).\n\nMontrer que pour tout n \\in \\mathbb{N}, u_n \\geq 0."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+    "tuteur": "La réponse ne traite pas la question $u_n \\geq 0$ et n’apporte aucun argument exploitable sur la suite. Pour corriger, il faut partir de la définition $u_{n+1} = \\frac{1}{n+1} exp(-u_n)$ et justifier que ce terme est toujours positif, par exemple par récurrence.\n\nLa question porte uniquement sur ce point : Montrer que pour tout n \\in \\mathbb{N}, u_n \\geq 0."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Je confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+    "tuteur": "La réponse ne traite pas la question demandée : elle ne montre pas que $u_n \\geq 0$ pour tout $n$. Il faut partir de la définition de la suite et raisonner par récurrence en utilisant que $exp(x)$ est toujours positif.\n\nIndice : Utiliser une récurrence basée sur la définition de la suite.\n\nVoici la réponse de cette étape :\n\nPar récurrence, on montre que \\forall n \\in \\mathbb{N}, u_n \\geq 0.\n\nReformulez brièvement l'idée essentielle avec vos mots ; nous passerons ensuite à la suite."
+  },
+  {
+    "scenario": "exercice ciblé",
+    "eleve": "Par récurrence, on montre que \\forall n \\in \\mathbb{N}, u_n \\geq 0.",
+    "tuteur": "Étape 2/4 — Comparer u_{n+1} à une suite de référence et étudier le comportement asymptotique.\n\nMontrer que pour n \\geq 1, e^{-u_n} \\leq 1, puis en déduire une inégalité pour u_{n+1}."
+  }
+]

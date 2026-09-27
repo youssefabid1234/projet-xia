@@ -1,0 +1,59 @@
+{
+  "nom": "verification-profil",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "c79f2aa7ae0f45cb868e00056f55cf30": {
+      "id": "c79f2aa7ae0f45cb868e00056f55cf30",
+      "exercice_id": "cours-97a032ca5bf54e0bb42f2b69cc35d550",
+      "enonce": "Donnez-moi la définition d'une série convergente.",
+      "session": "78ed4d233f7f48e5898334d95dabfa3c",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 1,
+      "rappels_cours": 0,
+      "intuition_initiale": "l'élève pense à la condition nécessaire u_n → 0 comme définition",
+      "type_erreur": "non_determinable",
+      "notions": [
+        "série convergente",
+        "termes généraux",
+        "limites",
+        "sommes partielles"
+      ],
+      "erreur_a_reformuler": true,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Une serie converge si son terme general tend vers zero. C'est ma reponse finale."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Une serie converge si son terme general tend vers zero. C'est ma reponse finale.",
+          "verdict": "incorrecte",
+          "type_erreur": "non_determinable",
+          "explication": "La condition $u_n \\to 0$ est nécessaire mais ne suffit pas à définir la convergence d'une série. Il faut définir la convergence par l'existence d'une limite finie de la suite des sommes partielles $S_n$."
+        }
+      ],
+      "source": "16.1.5",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          140
+        ],
+        "imprimee": [
+          138
+        ]
+      },
+      "nature": "definition",
+      "decision": {
+        "action": "approfondir",
+        "acquise": false,
+        "raison": "La définition donnée est incorrecte : u_n→0 est une condition nécessaire, non suffisante. De plus, l’erreur n’a pas été reformulée par l’élève ; il faut vérifier de façon autonome la définition via les sommes partielles avant toute progression."
+      },
+      "cloturee": false
+    }
+  }
+}

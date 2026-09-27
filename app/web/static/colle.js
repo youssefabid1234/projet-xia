@@ -180,6 +180,7 @@ function tic() {
   $("minuteur-temps").textContent = reste ? texte : "Temps écoulé";
   $("minuteur").classList.toggle("fini", !reste);
   $("terminer").classList.toggle("urgent", !reste);
+  if (!reste && !occupe && !donnees.etat?.terminee) terminer(true);
 }
 setInterval(tic, 1000);
 
@@ -304,9 +305,9 @@ async function demarrer(index, bouton) {
   occupe = false;
 }
 
-async function terminer() {
+async function terminer(automatique = false) {
   if (occupe) return;
-  if (!donnees.etat?.terminee && !window.confirm("Terminer la colle et obtenir votre bilan ?")) return;
+  if (!automatique && !donnees.etat?.terminee && !window.confirm("Terminer la colle et obtenir votre bilan ?")) return;
   alerte(null);
   occuper(true);
   await suivreColleur("/api/bilan", {});
@@ -342,7 +343,7 @@ $("message").addEventListener("input", majApercu);
 $("message").addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey && !e.isComposing) envoyer(e);
 });
-$("terminer").addEventListener("click", terminer);
+$("terminer").addEventListener("click", () => terminer());
 $("nouvelle").addEventListener("click", nouvelle);
 
 window.addEventListener("load", () => {

@@ -1,0 +1,54 @@
+{
+  "nom": "verification-profil",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "b55ec5b5d89d43a0a5286c8920f3401a": {
+      "id": "b55ec5b5d89d43a0a5286c8920f3401a",
+      "exercice_id": "cours-92f6f3c2eada4f86a25e0eae5b05992a",
+      "enonce": "Donnez-moi la définition d'une série convergente.",
+      "session": "3a6632f409ed4186b1f9cdc59773e0c1",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 0,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "concept",
+      "notions": [],
+      "erreur_a_reformuler": true,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Une serie converge si son terme general tend vers zero. C'est ma reponse finale."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Une serie converge si son terme general tend vers zero. C'est ma reponse finale.",
+          "verdict": "incorrecte",
+          "type_erreur": "concept",
+          "explication": "La tendance du terme général vers $0$ est une condition nécessaire, mais elle ne définit pas la convergence d'une série et n'est pas suffisante. Il faut définir la convergence par l'existence d'une limite finie de la suite des sommes partielles."
+        }
+      ],
+      "source": "16.1.5",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          140
+        ],
+        "imprimee": [
+          138
+        ]
+      },
+      "nature": "definition",
+      "decision": {
+        "action": "approfondir",
+        "acquise": false,
+        "raison": "La seule réponse à la question de cours est incorrecte : elle confond la condition nécessaire $u_n\\to0$ avec la définition, qui repose sur la convergence des sommes partielles. L’erreur conceptuelle n’a pas été reformulée par l’élève ; aucune vérification autonome correcte ne permet d’établir l’acquisition."
+      },
+      "cloturee": false
+    }
+  }
+}

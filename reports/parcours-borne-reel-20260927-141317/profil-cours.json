@@ -1,0 +1,188 @@
+{
+  "nom": "eleve",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "fd9c7e431de844d78ebd9da0784b15ff": {
+      "id": "fd9c7e431de844d78ebd9da0784b15ff",
+      "exercice_id": "cours-d31a8a7f1f8449018a07954f6e25d04a",
+      "enonce": "Donnez la définition de : Définition 16.1.5 (Convergence d’une série).",
+      "corrige_source": "(i) On dit que la série $\\sum u_n$ de terme général $u_n$ converge si la suite $(S_n)_{n\\in\\mathbb N}$ de ses sommes partielles admet une limite finie. On note alors\n\n$$\\sum_{n=0}^{+\\infty}u_n=\\lim_{n\\to+\\infty}S_n.$$\n\nCette quantité est appelée somme de la série de terme général $u_n$.\n\n(ii) Une série non convergente est dite divergente.\n\n(iii) Soit $\\sum_{n\\in\\mathbb N}u_n$ une série convergente, et soit $n\\in\\mathbb N$. Le $n$-ième reste de la série est :\n\n$$r_n=\\sum_{k=n+1}^{+\\infty}u_k=\\sum_{k=0}^{+\\infty}u_k-S_n.$$\n\n(iv) La nature de la série $\\sum u_n$ est le fait d’être convergente ou divergente.",
+      "session": "bc14f307149f474e83cbfc9c30e83d42",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 2,
+      "tentatives": 2,
+      "rappels_cours": 1,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "concept",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+        "Une série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+        "Il faut que les sommes partielles admettent une limite finie, pas seulement que les termes tendent vers zéro."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+          "notions_fragiles": [
+            "Définition 16.1.5 (Convergence d’une série)"
+          ],
+          "intuition": "partielle",
+          "verdict": "incorrecte",
+          "type_erreur": "concept",
+          "explication": "L’idée de passer par les sommes partielles est pertinente, mais la définition est fausse : pour converger, elles doivent tendre vers une limite finie, pas vers $+\u0000infty$. Corrige en disant qu’une série converge si la suite de ses sommes partielles admet une limite finie.",
+          "etape_resolution": 1,
+          "score": 0.185
+        },
+        {
+          "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.\nUne série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+          "notions_fragiles": [
+            "Définition 16.1.5 (Convergence d’une série)",
+            "Théorème 16.1.12 (CN de convergence portant sur le terme général)"
+          ],
+          "intuition": "absente",
+          "verdict": "incorrecte",
+          "type_erreur": "concept",
+          "explication": "Tu donnes une condition nécessaire, mais faussement présentée comme suffisante. La convergence d’une série se définit par la limite finie de ses sommes partielles, pas par le seul fait que $u_n$ tende vers $0$.",
+          "etape_resolution": 1,
+          "score": 0.0277
+        }
+      ],
+      "source": "16.1.5",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          140
+        ],
+        "imprimee": [
+          138
+        ]
+      },
+      "nature": "definition",
+      "parcours_version": 1,
+      "etape_resolution": 0,
+      "acquise": false,
+      "etapes_resolution": [
+        {
+          "objectif": "definition",
+          "question": "Donnez la définition de : Définition 16.1.5 (Convergence d’une série).",
+          "reponse": "(i) On dit que la série $\\sum u_n$ de terme général $u_n$ converge si la suite $(S_n)_{n\\in\\mathbb N}$ de ses sommes partielles admet une limite finie. On note alors\n\n$$\\sum_{n=0}^{+\\infty}u_n=\\lim_{n\\to+\\infty}S_n.$$\n\nCette quantité est appelée somme de la série de terme général $u_n$.\n\n(ii) Une série non convergente est dite divergente.\n\n(iii) Soit $\\sum_{n\\in\\mathbb N}u_n$ une série convergente, et soit $n\\in\\mathbb N$. Le $n$-ième reste de la série est :\n\n$$r_n=\\sum_{k=n+1}^{+\\infty}u_k=\\sum_{k=0}^{+\\infty}u_k-S_n.$$\n\n(iv) La nature de la série $\\sum u_n$ est le fait d’être convergente ou divergente.",
+          "reference": "Définition 16.1.5, page PDF 140",
+          "indice": "Appuyez-vous sur les hypothèses et la conclusion de Définition 16.1.5, page PDF 140.",
+          "numero": 1,
+          "tentatives": 2,
+          "insuffisantes": 2,
+          "indices_donnes": 2,
+          "demandes_aide": 0,
+          "statut": "terminee",
+          "franchissement": "donnee_par_agent",
+          "acquise": false,
+          "reponses": [
+            "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+            "Une série converge dès que son terme général tend vers zéro : cette condition suffit toujours."
+          ],
+          "evaluations": [
+            {
+              "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.",
+              "notions_fragiles": [
+                "Définition 16.1.5 (Convergence d’une série)"
+              ],
+              "intuition": "partielle",
+              "verdict": "incorrecte",
+              "type_erreur": "concept",
+              "explication": "L’idée de passer par les sommes partielles est pertinente, mais la définition est fausse : pour converger, elles doivent tendre vers une limite finie, pas vers $+\u0000infty$. Corrige en disant qu’une série converge si la suite de ses sommes partielles admet une limite finie.",
+              "score": 0.185
+            },
+            {
+              "reponse": "Une série converge lorsque ses sommes partielles tendent vers plus l'infini.\nUne série converge dès que son terme général tend vers zéro : cette condition suffit toujours.",
+              "notions_fragiles": [
+                "Définition 16.1.5 (Convergence d’une série)",
+                "Théorème 16.1.12 (CN de convergence portant sur le terme général)"
+              ],
+              "intuition": "absente",
+              "verdict": "incorrecte",
+              "type_erreur": "concept",
+              "explication": "Tu donnes une condition nécessaire, mais faussement présentée comme suffisante. La convergence d’une série se définit par la limite finie de ses sommes partielles, pas par le seul fait que $u_n$ tende vers $0$.",
+              "score": 0.0277
+            }
+          ],
+          "score": 0.0277,
+          "decision": {
+            "action": "donner_reponse"
+          },
+          "indices_recus": [
+            "Reprenez « Définition 16.1.5 (Convergence d’une série) », référence 16.1.5, page PDF [140].",
+            "Appuyez-vous sur les hypothèses et la conclusion de Définition 16.1.5, page PDF 140."
+          ],
+          "reformulation": "Il faut que les sommes partielles admettent une limite finie, pas seulement que les termes tendent vers zéro."
+        }
+      ],
+      "cloturee": true,
+      "decision": {
+        "action": "changer_exercice",
+        "acquise": false,
+        "raison": "Toutes les étapes ont été parcourues."
+      }
+    },
+    "3ecd41bf8e0c4685833a13036562e981": {
+      "id": "3ecd41bf8e0c4685833a13036562e981",
+      "exercice_id": "cours-6ccbd94f7d7e46348620e848afc38131",
+      "enonce": "Énoncez, avec ses hypothèses, le résultat : Théorème 16.2.2 (Théorème de comparaison des séries à termes positifs, TCSTP).",
+      "corrige_source": "Soit P un et P vn deux séries à termes positifs telles qu’il existe N ∈N tel que pour tout n ⩾N,\n0 ⩽un ⩽vn. Alors :\n1. si P vn converge, P un converge aussi ;\n2. si P un diverge, P vn diverge aussi.\nDe plus, si la divergence est grossière pour P un, elle l’est aussi pour P vn.\n⊳Éléments de preuve.\nLa propriété précédente auquelle on ajoute l’information de majoration apportée par la convergence\nde P vn.\n⊲\nLe deuxième point (si on omet le cas de divergence grossière) n’est évidemment rien de plus que la\ncontraposée du premier.\nIl faut bien comprendre qu’une série P un est la somme de plein de un : si les un (positifs) sont suffisam-\nment petits la somme ne grossit pas trop vite et converge ; si les un ne deviennent pas assez vite petits,\nen revanche, la somme grossit trop vite et diverge.\nAinsi, une inégalité du type 0 ⩽un ⩽vn permet de contrôler la taille des éléments que l’on somme.\nSi P vn converge, cela signifie que les vn restent assez petits, donc les un aussi. Inversement, si P un\ndiverge, cela signifie que les un ne deviennent pas petits assez vite, donc les vn non plus !",
+      "session": "bc14f307149f474e83cbfc9c30e83d42",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 0,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "non_determinable",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [],
+      "evaluations": [],
+      "source": "16.2.2",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          143
+        ],
+        "imprimee": [
+          141
+        ]
+      },
+      "nature": "theoreme",
+      "parcours_version": 1,
+      "etape_resolution": 0,
+      "acquise": false,
+      "etapes_resolution": [
+        {
+          "objectif": "theoreme",
+          "question": "Énoncez, avec ses hypothèses, le résultat : Théorème 16.2.2 (Théorème de comparaison des séries à termes positifs, TCSTP).",
+          "reponse": "Soit P un et P vn deux séries à termes positifs telles qu’il existe N ∈N tel que pour tout n ⩾N,\n0 ⩽un ⩽vn. Alors :\n1. si P vn converge, P un converge aussi ;\n2. si P un diverge, P vn diverge aussi.\nDe plus, si la divergence est grossière pour P un, elle l’est aussi pour P vn.\n⊳Éléments de preuve.\nLa propriété précédente auquelle on ajoute l’information de majoration apportée par la convergence\nde P vn.\n⊲\nLe deuxième point (si on omet le cas de divergence grossière) n’est évidemment rien de plus que la\ncontraposée du premier.\nIl faut bien comprendre qu’une série P un est la somme de plein de un : si les un (positifs) sont suffisam-\nment petits la somme ne grossit pas trop vite et converge ; si les un ne deviennent pas assez vite petits,\nen revanche, la somme grossit trop vite et diverge.\nAinsi, une inégalité du type 0 ⩽un ⩽vn permet de contrôler la taille des éléments que l’on somme.\nSi P vn converge, cela signifie que les vn restent assez petits, donc les un aussi. Inversement, si P un\ndiverge, cela signifie que les un ne deviennent pas petits assez vite, donc les vn non plus !",
+          "reference": "Théorème 16.2.2, page PDF 143",
+          "indice": "Appuyez-vous sur les hypothèses et la conclusion de Théorème 16.2.2, page PDF 143.",
+          "numero": 1,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "en_cours",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        }
+      ]
+    }
+  }
+}

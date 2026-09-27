@@ -30,11 +30,74 @@ class Profil:
         self.historique = []
         self.taches = {}
         self.colles = []
+        self.notions = {}
 
     def niveau(self, chapitre):
         return self.niveaux.get(chapitre, NIVEAU_DEPART)
 
+    def fixer_niveau(self, chapitre, niveau):
+        self.niveaux[chapitre] = max(NIVEAU_MIN, min(NIVEAU_MAX, niveau))
+
+    def fragilites(self, chapitre):
+        return dict(self.notions.get(chapitre, {}))
+
+    def notions_fragiles(self, seuil=2, chapitre=None):
+        compte = self.fragilites(chapitre) if chapitre is not None else {}
+        if chapitre is None:
+            for notions in self.notions.values():
+                for notion, nombre in notions.items():
+                    compte[notion] = compte.get(notion, 0) + nombre
+        return sorted((n for n in compte if compte[n] >= seuil), key=lambda n: (-compte[n], n))
+
+    def signaler_notion_fragile(self, notion, chapitre):
+        compte = self.notions.setdefault(chapitre, {})
+        compte[notion] = compte.get(notion, 0) + 1
+
+    def consolider_notion(self, notion, chapitre):
+        compte = self.notions.setdefault(chapitre, {})
+        compte[notion] = max(0, compte.get(notion, 0) - 1)
+
+    def acquises(self, chapitre=None):
+        return {t.get("contenu_id", f"{t.get('nature')}:{t.get('source')}") for t in self.taches.values()
+                if t.get("acquise") and (chapitre is None or t.get("chapitre") == chapitre)}
+
+    def vus(self):
+        return set(self.exercices_vus)
+
+    def marquer(self, tache, chapitre, session=None):
+        """Clôture idempotente : un identifiant de tentative ne compte qu'une fois."""
+        from copy import deepcopy
+        if tache["id"] in self.taches:
+            return False
+        enregistrement = deepcopy(tache)
+        enregistrement.update(chapitre=chapitre, session=session, cloturee=True)
+        if tache.get("reponse_donnee_par_agent"):
+            enregistrement["acquise"] = False
+        self.taches[tache["id"]] = enregistrement
+        evaluations = [e for e in tache.get("evaluations", []) if e["verdict"] != "indeterminable"]
+        erreurs = [e for e in evaluations if e["verdict"] != "correcte"]
+        for ev in erreurs:
+            for notion in set(ev.get("notions_fragiles", [])):
+                self.signaler_notion_fragile(notion, chapitre)
+        if enregistrement.get("acquise") and not tache.get("indices", 0) and not erreurs:
+            for notion in set(tache.get("notions", [])):
+                self.consolider_notion(notion, chapitre)
+        score = tache.get("score")
+        if score is not None:
+            self.fixer_niveau(chapitre, self.niveau(chapitre) + .4 * (score - .5))
+        if tache["nature"] == "exercice":
+            source = tache["source"]
+            if source not in self.exercices_vus:
+                self.exercices_vus.append(source)
+            dernier = evaluations[-1] if evaluations else {}
+            self.historique.append({"exercice": source, "chapitre": chapitre, "score": score,
+                "verdict": dernier.get("verdict", "indeterminable"),
+                "type_erreur": dernier.get("type_erreur", "non_determinable")})
+        return True
+
     def enregistrer(self, id_exercice, chapitre, verdict, type_erreur):
+        if verdict == "indeterminable":
+            return
         actuel = self.niveau(chapitre)
         nouveau = actuel + GAINS.get(verdict, 0.0)
         self.niveaux[chapitre] = max(NIVEAU_MIN, min(NIVEAU_MAX, nouveau))
@@ -66,6 +129,7 @@ class Profil:
             "historique": self.historique,
             "taches": self.taches,
             "colles": self.colles,
+            "notions": self.notions,
         }
 
     @classmethod
@@ -76,6 +140,7 @@ class Profil:
         profil.historique = donnees.get("historique", [])
         profil.taches = donnees.get("taches", {})
         profil.colles = donnees.get("colles", [])
+        profil.notions = donnees.get("notions", {})
         return profil
 
     def sauvegarder(self, chemin):

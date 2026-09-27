@@ -1,0 +1,31 @@
+[
+  {
+    "route": "/inscription",
+    "action": null,
+    "message": null,
+    "statut": 200,
+    "dialogue": []
+  },
+  {
+    "route": "/",
+    "action": "chapitre",
+    "message": null,
+    "statut": 200,
+    "dialogue": [
+      "Chapitre sélectionné : Series numeriques",
+      "Donnez-moi la définition d'une série convergente."
+    ]
+  },
+  {
+    "route": "/",
+    "action": null,
+    "message": "Une serie converge si son terme general tend vers zero. C'est ma reponse finale.",
+    "statut": 200,
+    "dialogue": [
+      "Chapitre sélectionné : Series numeriques",
+      "Donnez-moi la définition d'une série convergente.",
+      "Une serie converge si son terme general tend vers zero. C'est ma reponse finale.",
+      "La définition que vous avez donnée est incorrecte : la convergence d'une série ne se caractérise pas par la seule tendance du terme général vers zéro. \n\nPouvez-vous reformuler votre erreur en précisant ce que vous comprenez par « convergence d'une série » en lien avec les sommes partielles ? Qu'est-ce que la suite des sommes partielles ?"
+    ]
+  }
+]

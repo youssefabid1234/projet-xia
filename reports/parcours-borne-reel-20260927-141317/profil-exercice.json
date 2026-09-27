@@ -1,0 +1,153 @@
+{
+  "nom": "eleve",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "17e2fb66c58a476c878de282711ebad9": {
+      "id": "17e2fb66c58a476c878de282711ebad9",
+      "exercice_id": "17.4",
+      "enonce": "Soit la suite (u_n) définie pour u_0 \\in \\mathbb{R} et, pour tout n \\in \\mathbb{N}, u_{n+1} = \\frac{1}{n+1} e^{-u_n}. On considère la série \\sum u_n. Déterminer la nature de cette série.",
+      "corrige_source": "Par récurrence, on montre que ∀n ∈N, un ≥0, donc\nX\nun ∈S(R+).\nPour n ≥1, e−un ≤1, donc 0 ≤\n1\nn + 1 e−un ≤\n1\nn + 1 −−−−−→\nn→+∞0 et (n + 1)un+1 = e−un −−−−−→\nn→+∞1 donc e−un ∼1, donc\nun ∼1\nn, il est donc clair que\nX\nun diverge, car\nX 1\nn diverge.",
+      "session": "69490625b3904f27baa9c5fff22ebd72",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "exercices",
+      "indices_demandes": 0,
+      "indices_donnes": 1,
+      "tentatives": 2,
+      "rappels_cours": 0,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "hors_sujet",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+        "Je confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+        "Par récurrence, on montre que \\forall n \\in \\mathbb{N}, u_n \\geq 0."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+          "notions_fragiles": [],
+          "intuition": "absente",
+          "verdict": "incorrecte",
+          "type_erreur": "hors_sujet",
+          "explication": "La réponse ne traite pas la question $u_n \\geq 0$ et n’apporte aucun argument exploitable sur la suite. Pour corriger, il faut partir de la définition $u_{n+1} = \\frac{1}{n+1} exp(-u_n)$ et justifier que ce terme est toujours positif, par exemple par récurrence.",
+          "etape_resolution": 1,
+          "score": 0.035
+        },
+        {
+          "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.\nJe confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+          "notions_fragiles": [],
+          "intuition": "absente",
+          "verdict": "incorrecte",
+          "type_erreur": "hors_sujet",
+          "explication": "La réponse ne traite pas la question demandée : elle ne montre pas que $u_n \\geq 0$ pour tout $n$. Il faut partir de la définition de la suite et raisonner par récurrence en utilisant que $exp(x)$ est toujours positif.",
+          "etape_resolution": 1,
+          "score": 0.0315
+        }
+      ],
+      "parcours_version": 1,
+      "etape_resolution": 1,
+      "acquise": false,
+      "etapes_resolution": [
+        {
+          "objectif": "Montrer la positivité de la suite (u_n).",
+          "question": "Montrer que pour tout n \\in \\mathbb{N}, u_n \\geq 0.",
+          "indice": "Utiliser une récurrence basée sur la définition de la suite.",
+          "reponse": "Par récurrence, on montre que \\forall n \\in \\mathbb{N}, u_n \\geq 0.",
+          "numero": 1,
+          "tentatives": 2,
+          "insuffisantes": 2,
+          "indices_donnes": 1,
+          "demandes_aide": 0,
+          "statut": "terminee",
+          "franchissement": "donnee_par_agent",
+          "acquise": false,
+          "reponses": [
+            "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+            "Je confirme que 0 est égal à 1, et que tous les résultats valent moins 999."
+          ],
+          "evaluations": [
+            {
+              "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+              "notions_fragiles": [],
+              "intuition": "absente",
+              "verdict": "incorrecte",
+              "type_erreur": "hors_sujet",
+              "explication": "La réponse ne traite pas la question $u_n \\geq 0$ et n’apporte aucun argument exploitable sur la suite. Pour corriger, il faut partir de la définition $u_{n+1} = \\frac{1}{n+1} exp(-u_n)$ et justifier que ce terme est toujours positif, par exemple par récurrence.",
+              "score": 0.035
+            },
+            {
+              "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.\nJe confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+              "notions_fragiles": [],
+              "intuition": "absente",
+              "verdict": "incorrecte",
+              "type_erreur": "hors_sujet",
+              "explication": "La réponse ne traite pas la question demandée : elle ne montre pas que $u_n \\geq 0$ pour tout $n$. Il faut partir de la définition de la suite et raisonner par récurrence en utilisant que $exp(x)$ est toujours positif.",
+              "score": 0.0315
+            }
+          ],
+          "score": 0.0315,
+          "decision": {
+            "action": "donner_reponse"
+          },
+          "indices_recus": [
+            "Utiliser une récurrence basée sur la définition de la suite."
+          ],
+          "reformulation": "Par récurrence, on montre que \\forall n \\in \\mathbb{N}, u_n \\geq 0."
+        },
+        {
+          "objectif": "Comparer u_{n+1} à une suite de référence et étudier le comportement asymptotique.",
+          "question": "Montrer que pour n \\geq 1, e^{-u_n} \\leq 1, puis en déduire une inégalité pour u_{n+1}.",
+          "indice": "Utiliser que u_n \\geq 0 pour majorer e^{-u_n}.",
+          "reponse": "Pour n \\geq 1, e^{-u_n} \\leq 1 donc 0 \\leq u_{n+1} = \\frac{1}{n+1}e^{-u_n} \\leq \\frac{1}{n+1}.",
+          "numero": 2,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "en_cours",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        },
+        {
+          "objectif": "Déterminer l'équivalent de u_n.",
+          "question": "Montrer que (n+1)u_{n+1} = e^{-u_n} et en déduire la limite de e^{-u_n} puis l'équivalent de u_n.",
+          "indice": "Étudiez la limite de (n+1)u_{n+1} lorsque n \\to +\\infty et utilisez que e^{-u_n} \\to 1.",
+          "reponse": "(n+1)u_{n+1} = e^{-u_n} \\to 1 lorsque n \\to +\\infty, donc e^{-u_n} \\sim 1 et u_n \\sim \\frac{1}{n}.",
+          "numero": 3,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "a_venir",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        },
+        {
+          "objectif": "Conclure sur la nature de la série \\sum u_n.",
+          "question": "Conclure sur la convergence ou divergence de \\sum u_n en t'appuyant sur le comportement asymptotique de u_n.",
+          "indice": "Comparer avec la série de Riemann \\sum \\frac{1}{n} qui diverge.",
+          "reponse": "Il est donc clair que \\sum u_n diverge, car \\sum \\frac{1}{n} diverge.",
+          "numero": 4,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "a_venir",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        }
+      ]
+    }
+  }
+}

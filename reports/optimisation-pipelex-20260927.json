@@ -1,0 +1,520 @@
+{
+  "initial": [
+    {
+      "session": "session-reelle-20260927-114527",
+      "message": "Une serie converge si son terme general tend vers zero. C'est ma reponse finale.",
+      "http": 200,
+      "id": "37fbbbe9e082",
+      "appels": [
+        {
+          "etape": "evaluation_pipelex",
+          "secondes": 8.96737730014138,
+          "statut": "ok"
+        },
+        {
+          "etape": "progression",
+          "secondes": 12.150590999983251,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.3562710001133382,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.1643896999303252,
+          "statut": "ok"
+        }
+      ],
+      "statut": "ok",
+      "total_secondes": 24.528319,
+      "autres_secondes": 0.88969,
+      "repartition": {
+        "dialogue_openai": {
+          "appels": 2,
+          "secondes": 2.520661,
+          "pourcentage": 10.28
+        },
+        "recherche_cours": {
+          "appels": 0,
+          "secondes": 0,
+          "pourcentage": 0.0
+        },
+        "evaluation_pipelex": {
+          "appels": 1,
+          "secondes": 8.967377,
+          "pourcentage": 36.56
+        },
+        "progression": {
+          "appels": 1,
+          "secondes": 12.150591,
+          "pourcentage": 49.54
+        }
+      }
+    },
+    {
+      "session": "session-reelle-20260927-113834",
+      "message": "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+      "http": 200,
+      "id": "8a94e2b5ae52",
+      "appels": [
+        {
+          "etape": "evaluation_pipelex",
+          "secondes": 7.282554700039327,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.0357204000465572,
+          "statut": "ok"
+        },
+        {
+          "etape": "recherche_cours",
+          "secondes": 0.24894839990884066,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 0.9437945000827312,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 0.8866405000444502,
+          "statut": "ok"
+        }
+      ],
+      "statut": "ok",
+      "total_secondes": 11.061067,
+      "autres_secondes": 0.663409,
+      "repartition": {
+        "dialogue_openai": {
+          "appels": 3,
+          "secondes": 2.866155,
+          "pourcentage": 25.91
+        },
+        "recherche_cours": {
+          "appels": 1,
+          "secondes": 0.248948,
+          "pourcentage": 2.25
+        },
+        "evaluation_pipelex": {
+          "appels": 1,
+          "secondes": 7.282555,
+          "pourcentage": 65.84
+        },
+        "progression": {
+          "appels": 0,
+          "secondes": 0,
+          "pourcentage": 0.0
+        }
+      }
+    },
+    {
+      "session": "session-reelle-20260927-113834",
+      "message": "Soit (u_n) une suite de nombres reels ou complexes. Si la serie de terme general |u_n| converge, alors la serie de terme general u_n converge. De plus, la valeur absolue de sa somme est inferieure ou egale a la somme des |u_n|.",
+      "http": 200,
+      "id": "79efb54cbde5",
+      "appels": [
+        {
+          "etape": "evaluation_pipelex",
+          "secondes": 8.546899599954486,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.0862136001233011,
+          "statut": "ok"
+        },
+        {
+          "etape": "recherche_cours",
+          "secondes": 0.1825746998656541,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.0495404000394046,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 0.8250172000844032,
+          "statut": "ok"
+        }
+      ],
+      "statut": "ok",
+      "total_secondes": 12.377859,
+      "autres_secondes": 0.687614,
+      "repartition": {
+        "dialogue_openai": {
+          "appels": 3,
+          "secondes": 2.960771,
+          "pourcentage": 23.92
+        },
+        "recherche_cours": {
+          "appels": 1,
+          "secondes": 0.182575,
+          "pourcentage": 1.48
+        },
+        "evaluation_pipelex": {
+          "appels": 1,
+          "secondes": 8.5469,
+          "pourcentage": 69.05
+        },
+        "progression": {
+          "appels": 0,
+          "secondes": 0,
+          "pourcentage": 0.0
+        }
+      }
+    }
+  ],
+  "gpt-5.6-luna": [
+    {
+      "session": "session-reelle-20260927-115146",
+      "message": "Une serie converge si son terme general tend vers zero. C'est ma reponse finale.",
+      "http": 200,
+      "id": "4439561c61d9",
+      "appels": [
+        {
+          "etape": "evaluation_pipelex",
+          "secondes": 13.977939700009301,
+          "statut": "ok"
+        },
+        {
+          "etape": "progression",
+          "secondes": 9.755763200111687,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.2574879999738187,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.0546290001366287,
+          "statut": "ok"
+        }
+      ],
+      "statut": "ok",
+      "total_secondes": 27.113795,
+      "autres_secondes": 1.067975,
+      "repartition": {
+        "dialogue_openai": {
+          "appels": 2,
+          "secondes": 2.312117,
+          "pourcentage": 8.53
+        },
+        "recherche_cours": {
+          "appels": 0,
+          "secondes": 0,
+          "pourcentage": 0.0
+        },
+        "evaluation_pipelex": {
+          "appels": 1,
+          "secondes": 13.97794,
+          "pourcentage": 51.55
+        },
+        "progression": {
+          "appels": 1,
+          "secondes": 9.755763,
+          "pourcentage": 35.98
+        }
+      }
+    },
+    {
+      "session": "session-reelle-20260927-115207",
+      "message": "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+      "http": 200,
+      "id": "1df199c17347",
+      "appels": [
+        {
+          "etape": "evaluation_pipelex",
+          "secondes": 19.152989499969408,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.2902617999352515,
+          "statut": "ok"
+        },
+        {
+          "etape": "recherche_cours",
+          "secondes": 0.45334300003014505,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.7337802001275122,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.5193159999325871,
+          "statut": "ok"
+        }
+      ],
+      "statut": "ok",
+      "total_secondes": 25.172765,
+      "autres_secondes": 1.023074,
+      "repartition": {
+        "dialogue_openai": {
+          "appels": 3,
+          "secondes": 4.543358,
+          "pourcentage": 18.05
+        },
+        "recherche_cours": {
+          "appels": 1,
+          "secondes": 0.453343,
+          "pourcentage": 1.8
+        },
+        "evaluation_pipelex": {
+          "appels": 1,
+          "secondes": 19.152989,
+          "pourcentage": 76.09
+        },
+        "progression": {
+          "appels": 0,
+          "secondes": 0,
+          "pourcentage": 0.0
+        }
+      }
+    },
+    {
+      "session": "session-reelle-20260927-115207",
+      "message": "Soit (u_n) une suite de nombres reels ou complexes. Si la serie de terme general |u_n| converge, alors la serie de terme general u_n converge. De plus, la valeur absolue de sa somme est inferieure ou egale a la somme des |u_n|.",
+      "http": 200,
+      "id": "5ad436fdd11e",
+      "appels": [
+        {
+          "etape": "evaluation_pipelex",
+          "secondes": 27.358428200008348,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.3743461999110878,
+          "statut": "ok"
+        },
+        {
+          "etape": "recherche_cours",
+          "secondes": 0.24288939987309277,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 2.68584579997696,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 2.2183509999886155,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.366137299919501,
+          "statut": "ok"
+        }
+      ],
+      "statut": "ok",
+      "total_secondes": 36.524505,
+      "autres_secondes": 1.278508,
+      "repartition": {
+        "dialogue_openai": {
+          "appels": 4,
+          "secondes": 7.64468,
+          "pourcentage": 20.93
+        },
+        "recherche_cours": {
+          "appels": 1,
+          "secondes": 0.242889,
+          "pourcentage": 0.67
+        },
+        "evaluation_pipelex": {
+          "appels": 1,
+          "secondes": 27.358428,
+          "pourcentage": 74.9
+        },
+        "progression": {
+          "appels": 0,
+          "secondes": 0,
+          "pourcentage": 0.0
+        }
+      }
+    }
+  ],
+  "gpt-4o-mini": [
+    {
+      "session": "session-reelle-20260927-115502",
+      "message": "Une serie converge si son terme general tend vers zero. C'est ma reponse finale.",
+      "http": 200,
+      "id": "d88aafc0f12a",
+      "appels": [
+        {
+          "etape": "evaluation_pipelex",
+          "secondes": 6.8594059001188725,
+          "statut": "ok"
+        },
+        {
+          "etape": "progression",
+          "secondes": 13.727670700056478,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.2265212000347674,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.0162818999961019,
+          "statut": "ok"
+        }
+      ],
+      "statut": "ok",
+      "total_secondes": 23.917785,
+      "autres_secondes": 1.087905,
+      "repartition": {
+        "dialogue_openai": {
+          "appels": 2,
+          "secondes": 2.242803,
+          "pourcentage": 9.38
+        },
+        "recherche_cours": {
+          "appels": 0,
+          "secondes": 0,
+          "pourcentage": 0.0
+        },
+        "evaluation_pipelex": {
+          "appels": 1,
+          "secondes": 6.859406,
+          "pourcentage": 28.68
+        },
+        "progression": {
+          "appels": 1,
+          "secondes": 13.727671,
+          "pourcentage": 57.4
+        }
+      }
+    },
+    {
+      "session": "session-reelle-20260927-115519",
+      "message": "La serie de terme general u_n converge lorsque la suite S_n = somme des u_k pour k de 0 a n admet une limite finie. Cette limite est la somme de la serie.",
+      "http": 200,
+      "id": "728de0cdcf5f",
+      "appels": [
+        {
+          "etape": "evaluation_pipelex",
+          "secondes": 8.647978000110015,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 0.9698422998189926,
+          "statut": "ok"
+        },
+        {
+          "etape": "recherche_cours",
+          "secondes": 0.20341479987837374,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 0.9631297998130322,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 0.9454550000373274,
+          "statut": "ok"
+        }
+      ],
+      "statut": "ok",
+      "total_secondes": 12.868067,
+      "autres_secondes": 1.138247,
+      "repartition": {
+        "dialogue_openai": {
+          "appels": 3,
+          "secondes": 2.878427,
+          "pourcentage": 22.37
+        },
+        "recherche_cours": {
+          "appels": 1,
+          "secondes": 0.203415,
+          "pourcentage": 1.58
+        },
+        "evaluation_pipelex": {
+          "appels": 1,
+          "secondes": 8.647978,
+          "pourcentage": 67.2
+        },
+        "progression": {
+          "appels": 0,
+          "secondes": 0,
+          "pourcentage": 0.0
+        }
+      }
+    },
+    {
+      "session": "session-reelle-20260927-115519",
+      "message": "Une serie de terme general u_n est absolument convergente si la serie de terme general |u_n| converge. Pour une suite reelle ou complexe, la convergence absolue implique la convergence de la serie de terme general u_n.",
+      "http": 200,
+      "id": "57dc8567723d",
+      "appels": [
+        {
+          "etape": "evaluation_pipelex",
+          "secondes": 8.560721499845386,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 0.9378064000047743,
+          "statut": "ok"
+        },
+        {
+          "etape": "recherche_cours",
+          "secondes": 0.3569421998690814,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.3927383001428097,
+          "statut": "ok"
+        },
+        {
+          "etape": "dialogue_openai",
+          "secondes": 1.0719157999847084,
+          "statut": "ok"
+        }
+      ],
+      "statut": "ok",
+      "total_secondes": 13.486428,
+      "autres_secondes": 1.166304,
+      "repartition": {
+        "dialogue_openai": {
+          "appels": 3,
+          "secondes": 3.402461,
+          "pourcentage": 25.23
+        },
+        "recherche_cours": {
+          "appels": 1,
+          "secondes": 0.356942,
+          "pourcentage": 2.65
+        },
+        "evaluation_pipelex": {
+          "appels": 1,
+          "secondes": 8.560721,
+          "pourcentage": 63.48
+        },
+        "progression": {
+          "appels": 0,
+          "secondes": 0,
+          "pourcentage": 0.0
+        }
+      }
+    }
+  ]
+}

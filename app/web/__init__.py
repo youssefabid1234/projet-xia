@@ -17,6 +17,7 @@ from app.examinateur import Examinateur, prechauffer
 from app.profil import Profil, charger_exercices, choisir_exercice
 from app.services import services as services_partages
 from app.web.auth import auth
+from app.texte_eleve import texte_eleve, message_eleve
 
 VERDICTS = {
     "correcte": "Réponse correcte",
@@ -110,9 +111,9 @@ def create_app(config=None):
         return {
             "chapitres": [{"index": i, "nom": nom_chapitre(c)} for i, c in enumerate(chapitres())],
             "duree": app.config["DUREE_COLLE"],
-            "anciennes": [{"chapitre": nom_chapitre(c["chapitre"]), "debut": c["debut"], "bilan": c["bilan"]}
+            "anciennes": [{"chapitre": nom_chapitre(c["chapitre"]), "debut": c["debut"], "bilan": texte_eleve(c["bilan"] or "")}
                           for c in reversed(profil.colles[-5:])],
-            "messages": examinateur.colle.messages if examinateur else [],
+            "messages": [message_eleve(m) for m in examinateur.colle.messages] if examinateur else [],
             "etat": examinateur.colle.etat() if examinateur else None,
         }
 

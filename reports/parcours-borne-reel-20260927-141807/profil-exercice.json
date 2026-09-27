@@ -1,0 +1,148 @@
+{
+  "nom": "eleve",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "2c369608838e4336b7bd414123469d28": {
+      "id": "2c369608838e4336b7bd414123469d28",
+      "exercice_id": "17.5",
+      "enonce": "Soit (u_n) une suite de réels positifs telle que \\( \\sum u_n \\) converge. Déterminer la nature de \\( \\sum \\sqrt{u_{2n} u_n} \\).",
+      "corrige_source": "X\nu2n est convergente car\nn\nX\nk=0\nu2k ≤\n2n\nX\nk=0\nuk, donc\nX √u2nun ∈S(R+) et les sommes partielles sont majorées\nd’après l’inégalité de Cauchy-Schwartz :\nn\nX\nk=0\n√u2kuk ≤\nÃ\nn\nX\nk=0\nu2k\nÃ\nn\nX\nk=0\nuk\n≤\nÃ\nn\nX\nk=0\nuk\nÃ\n2n\nX\nk=0\nuk\n≤\nÃ\n+∞\nX\nk=0\nuk\nÃ\n+∞\nX\nk=0\nuk\nDonc la série\nX √u2nun est convergente.",
+      "session": "c02c2d4f0ecb4800a21b1f8808c83f44",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "exercices",
+      "indices_demandes": 0,
+      "indices_donnes": 2,
+      "tentatives": 2,
+      "rappels_cours": 1,
+      "intuition_initiale": "non_observee",
+      "type_erreur": "hors_sujet",
+      "notions": [],
+      "erreur_a_reformuler": false,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+        "Je confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+        "La série \\( \\sum u_{2n} \\) est convergente car, pour tout n, \\( \\sum_{k=0}^{n} u_{2k} \\leq \\sum_{k=0}^{2n} u_k \\), donc \\( \\sum u_{2n} \\) converge puisque \\( \\sum u_n \\) converge."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+          "notions_fragiles": [
+            "Proposition 16.2.1 (Convergence dans R d’une série à termes positifs)",
+            "Théorème 16.2.2 (Théorème de comparaison des séries à termes positifs, TCSTP)"
+          ],
+          "intuition": "absente",
+          "verdict": "incorrecte",
+          "type_erreur": "hors_sujet",
+          "explication": "La réponse n’a aucun lien avec la question : elle ne montre pas que $\\sum u_{2n}$ converge à partir de $\\sum u_n$. Il fallait exploiter que les sommes partielles vérifient $\\sum_{k=0}^n u_{2k} \\le \\sum_{k=0}^{2n} u_k$.",
+          "etape_resolution": 1,
+          "score": 0.035
+        },
+        {
+          "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.\nJe confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+          "notions_fragiles": [
+            "Proposition 16.2.1 (Convergence dans R d’une série à termes positifs)"
+          ],
+          "intuition": "absente",
+          "verdict": "incorrecte",
+          "type_erreur": "hors_sujet",
+          "explication": "La réponse ne traite pas la question : il fallait relier les sommes partielles de $\\sum u_{2n}$ à celles de $\\sum u_n$. Il faut utiliser que, pour tout $n$, $\\sum_{k=0}^n u_{2k} \\leq \\sum_{k=0}^{2n} u_k$ puisque les termes sont positifs.",
+          "etape_resolution": 1,
+          "score": 0.0277
+        }
+      ],
+      "parcours_version": 1,
+      "etape_resolution": 1,
+      "acquise": false,
+      "etapes_resolution": [
+        {
+          "objectif": "Utiliser une inégalité pour comparer \\( \\sum u_{2n} \\) à \\( \\sum u_n \\)",
+          "question": "Montrer que la série \\( \\sum u_{2n} \\) converge en utilisant \\( \\sum u_n \\).",
+          "indice": "Comparer les sommes partielles de \\( \\sum u_{2n} \\) à celles de \\( \\sum u_n \\) en utilisant la positivité.",
+          "reponse": "La série \\( \\sum u_{2n} \\) est convergente car, pour tout n, \\( \\sum_{k=0}^{n} u_{2k} \\leq \\sum_{k=0}^{2n} u_k \\), donc \\( \\sum u_{2n} \\) converge puisque \\( \\sum u_n \\) converge.",
+          "numero": 1,
+          "tentatives": 2,
+          "insuffisantes": 2,
+          "indices_donnes": 2,
+          "demandes_aide": 0,
+          "statut": "terminee",
+          "franchissement": "donnee_par_agent",
+          "acquise": false,
+          "reponses": [
+            "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+            "Je confirme que 0 est égal à 1, et que tous les résultats valent moins 999."
+          ],
+          "evaluations": [
+            {
+              "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.",
+              "notions_fragiles": [
+                "Proposition 16.2.1 (Convergence dans R d’une série à termes positifs)",
+                "Théorème 16.2.2 (Théorème de comparaison des séries à termes positifs, TCSTP)"
+              ],
+              "intuition": "absente",
+              "verdict": "incorrecte",
+              "type_erreur": "hors_sujet",
+              "explication": "La réponse n’a aucun lien avec la question : elle ne montre pas que $\\sum u_{2n}$ converge à partir de $\\sum u_n$. Il fallait exploiter que les sommes partielles vérifient $\\sum_{k=0}^n u_{2k} \\le \\sum_{k=0}^{2n} u_k$.",
+              "score": 0.035
+            },
+            {
+              "reponse": "Tous les résultats sont égaux à moins 999, car 0 est égal à 1.\nJe confirme que 0 est égal à 1, et que tous les résultats valent moins 999.",
+              "notions_fragiles": [
+                "Proposition 16.2.1 (Convergence dans R d’une série à termes positifs)"
+              ],
+              "intuition": "absente",
+              "verdict": "incorrecte",
+              "type_erreur": "hors_sujet",
+              "explication": "La réponse ne traite pas la question : il fallait relier les sommes partielles de $\\sum u_{2n}$ à celles de $\\sum u_n$. Il faut utiliser que, pour tout $n$, $\\sum_{k=0}^n u_{2k} \\leq \\sum_{k=0}^{2n} u_k$ puisque les termes sont positifs.",
+              "score": 0.0277
+            }
+          ],
+          "score": 0.0277,
+          "decision": {
+            "action": "donner_reponse"
+          },
+          "indices_recus": [
+            "Reprenez « Proposition 16.2.1 (Convergence dans R d’une série à termes positifs) », référence 16.2.1, page PDF [142].",
+            "Comparer les sommes partielles de \\( \\sum u_{2n} \\) à celles de \\( \\sum u_n \\) en utilisant la positivité."
+          ],
+          "reformulation": "La série \\( \\sum u_{2n} \\) est convergente car, pour tout n, \\( \\sum_{k=0}^{n} u_{2k} \\leq \\sum_{k=0}^{2n} u_k \\), donc \\( \\sum u_{2n} \\) converge puisque \\( \\sum u_n \\) converge."
+        },
+        {
+          "objectif": "Montrer que les termes \\( \\sqrt{u_{2n} u_n} \\) sont positifs et bornés par Cauchy-Schwarz.",
+          "question": "Majorons la somme partielle \\( \\sum_{k=0}^n \\sqrt{u_{2k} u_k} \\) en utilisant l’inégalité de Cauchy-Schwarz.",
+          "indice": "Écrire \\( \\sum_{k=0}^n \\sqrt{u_{2k} u_k} \\leq \\sqrt{ \\sum_{k=0}^n u_{2k} } \\sqrt{ \\sum_{k=0}^n u_k} \\).",
+          "reponse": "D’après l’inégalité de Cauchy-Schwarz, pour tout n, \\( \\sum_{k=0}^n \\sqrt{u_{2k} u_k} \\leq \\sqrt{ \\sum_{k=0}^n u_{2k} } \\sqrt{ \\sum_{k=0}^n u_k } \\).",
+          "numero": 2,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "en_cours",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        },
+        {
+          "objectif": "Utiliser les majorations pour conclure à la convergence de la série \\( \\sum \\sqrt{u_{2n} u_n} \\).",
+          "question": "À l’aide des estimations précédentes, conclure à la convergence de \\( \\sum \\sqrt{u_{2n} u_n} \\).",
+          "indice": "Les deux séries \\( \\sum u_{2n} \\) et \\( \\sum u_n \\) sont convergentes donc leur produit (racine) reste borné.",
+          "reponse": "Comme \\( \\sum_{k=0}^n u_{2k} \\leq \\sum_{k=0}^{2n} u_k \\leq \\sum_{k=0}^{+\\infty} u_k \\) et \\( \\sum_{k=0}^n u_k \\leq \\sum_{k=0}^{+\\infty} u_k \\), on en déduit \\( \\sum_{k=0}^n \\sqrt{u_{2k} u_k} \\leq \\sum_{k=0}^{+\\infty} u_k \\), ce qui montre que la suite des sommes partielles est majorée et donc que la série \\( \\sum \\sqrt{u_{2n} u_n} \\) est convergente.",
+          "numero": 3,
+          "tentatives": 0,
+          "insuffisantes": 0,
+          "indices_donnes": 0,
+          "demandes_aide": 0,
+          "statut": "a_venir",
+          "franchissement": null,
+          "acquise": false,
+          "reponses": [],
+          "evaluations": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,23 @@
+2026-09-27 13:51:47,019 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:51:47] "GET /inscription HTTP/1.1" 200 -
+2026-09-27 13:51:47,406 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:51:47] "[32mPOST /inscription HTTP/1.1[0m" 302 -
+2026-09-27 13:51:47,448 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:51:47] "GET / HTTP/1.1" 200 -
+2026-09-27 13:51:51,556 INFO app.chronometrage TEMPS etape echange=eeaea4861908 etape=dialogue_openai secondes=3.418 statut=ok
+2026-09-27 13:51:51,558 DEBUG app.agent Réponse tuteur :  ; outils : [('chercher_dans_cours', '{"question":"definition serie convergente"}')]
+2026-09-27 13:51:52,741 INFO app.chronometrage TEMPS etape echange=eeaea4861908 etape=recherche_cours secondes=1.182 statut=ok
+2026-09-27 13:51:54,207 INFO app.chronometrage TEMPS etape echange=eeaea4861908 etape=dialogue_openai secondes=1.463 statut=ok
+2026-09-27 13:51:54,207 DEBUG app.agent Réponse tuteur :  ; outils : [('preparer_tache', '{"chapitre":"Series numeriques","enonce":"Donnez-moi la définition d\'une série convergente.","source":"16.1.5","nature":"definition"}')]
+2026-09-27 13:51:55,254 INFO app.chronometrage TEMPS etape echange=eeaea4861908 etape=dialogue_openai secondes=1.026 statut=ok
+2026-09-27 13:51:55,255 DEBUG app.agent Réponse tuteur : Commençons par le cours.
+Donnez-moi la définition d'une série convergente. ; outils : []
+2026-09-27 13:51:55,257 INFO app.chronometrage TEMPS echange {"id": "eeaea4861908", "appels": [{"etape": "dialogue_openai", "secondes": 3.4183039001654834, "statut": "ok"}, {"etape": "recherche_cours", "secondes": 1.1821268999483436, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 1.463483100058511, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 1.02646639989689, "statut": "ok"}], "statut": "ok", "total_secondes": 7.765084, "autres_secondes": 0.674704, "repartition": {"dialogue_openai": {"appels": 3, "secondes": 5.908253, "pourcentage": 76.09}, "recherche_cours": {"appels": 1, "secondes": 1.182127, "pourcentage": 15.22}, "evaluation_pipelex": {"appels": 0, "secondes": 0, "pourcentage": 0.0}, "progression": {"appels": 0, "secondes": 0, "pourcentage": 0.0}}}
+2026-09-27 13:51:55,261 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:51:55] "[32mPOST / HTTP/1.1[0m" 302 -
+2026-09-27 13:51:55,290 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:51:55] "GET / HTTP/1.1" 200 -
+2026-09-27 13:52:28,727 INFO app.chronometrage TEMPS etape echange=4439561c61d9 etape=evaluation_pipelex secondes=13.978 statut=ok
+2026-09-27 13:52:38,518 INFO app.chronometrage TEMPS etape echange=4439561c61d9 etape=progression secondes=9.756 statut=ok
+2026-09-27 13:52:39,815 INFO app.chronometrage TEMPS etape echange=4439561c61d9 etape=dialogue_openai secondes=1.257 statut=ok
+2026-09-27 13:52:39,817 DEBUG app.agent Réponse tuteur :  ; outils : [('observer_tour', '{"tentative":"oui","indice_demande":"non","indice_donne":"non","rappel_cours":"non","intuition":"La réponse ne montre pas compréhension claire de la différence entre condition nécessaire et suffisante.","notions":"","blocage":"non","fini":"non","correction":"non","reformulation":"non"}')]
+2026-09-27 13:52:40,895 INFO app.chronometrage TEMPS etape echange=4439561c61d9 etape=dialogue_openai secondes=1.055 statut=ok
+2026-09-27 13:52:40,896 DEBUG app.agent Réponse tuteur : Votre définition donne une condition nécessaire (le terme général tend vers zéro), mais ce n’est pas une condition suffisante pour la convergence d’une série. Reformulez l’erreur que vous avez faite en précisant ce qu’on attend précisément dans la définition d’une série convergente. ; outils : []
+2026-09-27 13:52:40,900 INFO app.chronometrage TEMPS echange {"id": "4439561c61d9", "appels": [{"etape": "evaluation_pipelex", "secondes": 13.977939700009301, "statut": "ok"}, {"etape": "progression", "secondes": 9.755763200111687, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 1.2574879999738187, "statut": "ok"}, {"etape": "dialogue_openai", "secondes": 1.0546290001366287, "statut": "ok"}], "statut": "ok", "total_secondes": 27.113795, "autres_secondes": 1.067975, "repartition": {"dialogue_openai": {"appels": 2, "secondes": 2.312117, "pourcentage": 8.53}, "recherche_cours": {"appels": 0, "secondes": 0, "pourcentage": 0.0}, "evaluation_pipelex": {"appels": 1, "secondes": 13.97794, "pourcentage": 51.55}, "progression": {"appels": 1, "secondes": 9.755763, "pourcentage": 35.98}}}
+2026-09-27 13:52:40,903 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:52:40] "[32mPOST / HTTP/1.1[0m" 302 -
+2026-09-27 13:52:40,914 INFO werkzeug 127.0.0.1 - - [27/Sep/2026 13:52:40] "GET / HTTP/1.1" 200 -

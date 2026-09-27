@@ -1,0 +1,19 @@
+[
+  {
+    "echange": 1,
+    "eleve": "[Choix du chapitre : Séries numériques]",
+    "tuteur": "[Aucune réponse du tuteur]",
+    "comportement_eleve": null,
+    "http": 502,
+    "secondes_tuteur": 2.41,
+    "etape": "Questions de cours",
+    "profil_apres": {
+      "nom": "audit-longitudinal",
+      "niveaux": {},
+      "exercices_vus": [],
+      "historique": [],
+      "taches": {}
+    },
+    "dialogue_visible": []
+  }
+]

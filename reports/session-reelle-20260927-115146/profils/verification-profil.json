@@ -1,0 +1,54 @@
+{
+  "nom": "verification-profil",
+  "niveaux": {},
+  "exercices_vus": [],
+  "historique": [],
+  "taches": {
+    "2ce7f62b0c994f91a5a50edf32a90f47": {
+      "id": "2ce7f62b0c994f91a5a50edf32a90f47",
+      "exercice_id": "cours-31bcb8799aac47e5a22e2462a93c2ecb",
+      "enonce": "Donnez-moi la définition d'une série convergente.",
+      "session": "e0908689c63d4a01985ca9070e552b79",
+      "chapitre": "17 — Série de réels ou de complexes",
+      "etape": "cours",
+      "indices_demandes": 0,
+      "indices_donnes": 0,
+      "tentatives": 1,
+      "rappels_cours": 0,
+      "intuition_initiale": "La réponse ne montre pas compréhension claire de la différence entre condition nécessaire et suffisante.",
+      "type_erreur": "concept",
+      "notions": [],
+      "erreur_a_reformuler": true,
+      "erreur_reformulee": false,
+      "blocages": 0,
+      "echanges": [
+        "Une serie converge si son terme general tend vers zero. C'est ma reponse finale."
+      ],
+      "evaluations": [
+        {
+          "reponse": "Une serie converge si son terme general tend vers zero. C'est ma reponse finale.",
+          "verdict": "incorrecte",
+          "type_erreur": "concept",
+          "explication": "La réponse énonce seulement une condition nécessaire : pour qu’une série converge, son terme général tend vers zéro, mais cette condition n’est pas suffisante. Il faut définir la convergence par l’existence d’une limite finie de la suite des sommes partielles."
+        }
+      ],
+      "source": "16.1.5",
+      "page_source": {
+        "fichier": "data/cours/analyse.pdf",
+        "pdf": [
+          140
+        ],
+        "imprimee": [
+          138
+        ]
+      },
+      "nature": "definition",
+      "decision": {
+        "action": "approfondir",
+        "acquise": false,
+        "raison": "La définition donnée est incorrecte : elle confond la condition nécessaire « le terme général tend vers 0 » avec la convergence, qui se définit par la convergence de la suite des sommes partielles. L’erreur conceptuelle n’a pas été reformulée par l’élève ; il faut donc vérifier à nouveau, de façon autonome, la définition et la distinction entre condition nécessaire et suffisante."
+      },
+      "cloturee": false
+    }
+  }
+}

@@ -15,6 +15,8 @@ from functools import lru_cache
 from pathlib import Path
 
 from app.config import evaluateur, parametres_modele
+from app.moteur_colle import valider_evaluation
+from app.catalogue_pedagogique import notions_cours
 
 BUNDLE_DIR = Path(__file__).resolve().parent.parent / "methods" / "evaluation_maths_prepa"
 PIPE_CODE = "evaluation_maths_prepa.evaluer_reponse"
@@ -29,12 +31,11 @@ def fichiers_methode():
 
 
 def valider(evaluation):
-    if (not isinstance(evaluation, dict)
-            or evaluation.get("verdict") not in VERDICTS
-            or not isinstance(evaluation.get("type_erreur"), str)
-            or not isinstance(evaluation.get("explication"), str)):
-        raise ValueError("Format d'évaluation invalide.")
-    return {cle: evaluation[cle] for cle in ("verdict", "type_erreur", "explication")}
+    return valider_evaluation(evaluation, notions_cours())
+
+
+def contexte_json(contexte=None):
+    return json.dumps({**(contexte or {}), "notions_autorisees": list(notions_cours())}, ensure_ascii=False)
 
 
 def verifier_corrige(corrige):
@@ -42,13 +43,13 @@ def verifier_corrige(corrige):
         raise ValueError("Correction impossible : le corrigé du catalogue est absent ou vide.")
 
 
-async def evaluer_reponse(client, enonce: str, reponse: str, corrige: str, wait_options=None):
+async def evaluer_reponse(client, enonce: str, reponse: str, corrige: str, wait_options=None, *, contexte=None):
     """Exécution par l'API Pipelex (interface classique et tuteur en terminal)."""
     verifier_corrige(corrige)
     return await client.start_and_wait(
         pipe_code=PIPE_CODE,
         mthds_contents=[f.read_text(encoding="utf-8") for f in fichiers_methode()],
-        inputs={"enonce": enonce, "reponse_eleve": reponse, "corrige": corrige},
+        inputs={"enonce": enonce, "reponse_eleve": reponse, "corrige": corrige, "contexte": contexte_json(contexte)},
         wait_options=wait_options,
     )
 
@@ -65,6 +66,10 @@ def methode_locale():
         if isinstance(champ, str):
             champ = {"description": champ}
         propriete = {"type": "string", "description": champ.get("description", "")}
+        if champ.get("type") == "list":
+            if champ.get("item_type") != "text":
+                raise ValueError("Type de liste non pris en charge.")
+            propriete.update(type="array", items={"type": "string"})
         if "choices" in champ:
             propriete["enum"] = list(champ["choices"])
         proprietes[nom] = propriete
@@ -89,13 +94,13 @@ def rendre_prompt(methode, valeurs):
     return re.sub(r"@(\w+)", bloc, methode["prompt"])
 
 
-async def evaluer_localement(client, enonce, reponse, corrige):
+async def evaluer_localement(client, enonce, reponse, corrige, *, contexte=None):
     verifier_corrige(corrige)
     methode = methode_locale()
     resultat = await client.responses.create(
         **parametres_modele(0.1), instructions=methode["systeme"],
         input=[{"role": "user", "content": rendre_prompt(methode, {
-            "enonce": enonce, "reponse_eleve": reponse, "corrige": corrige})}],
+            "enonce": enonce, "reponse_eleve": reponse, "corrige": corrige, "contexte": contexte_json(contexte)})}],
         text={"format": methode["format"]}, store=False,
     )
     if resultat.status != "completed":
@@ -103,12 +108,12 @@ async def evaluer_localement(client, enonce, reponse, corrige):
     return valider(json.loads(resultat.output_text))
 
 
-async def evaluer(enonce, reponse, corrige, *, openai=None, pipelex=None, moteur=None):
+async def evaluer(enonce, reponse, corrige, *, openai=None, pipelex=None, moteur=None, contexte=None):
     """Évalue avec le moteur configuré ; les clients partagés sont réutilisés."""
     moteur = moteur or evaluateur()
     if moteur == "pipelex":
         from pipelex_sdk.runs import WaitForResultOptions
         resultat = await evaluer_reponse(pipelex, enonce, reponse, corrige,
-                                         WaitForResultOptions(interval_seconds=0.5, timeout_seconds=120))
+                                         WaitForResultOptions(interval_seconds=0.5, timeout_seconds=120), contexte=contexte)
         return valider(resultat.main_stuff)
-    return await evaluer_localement(openai, enonce, reponse, corrige)
+    return await evaluer_localement(openai, enonce, reponse, corrige, contexte=contexte)
