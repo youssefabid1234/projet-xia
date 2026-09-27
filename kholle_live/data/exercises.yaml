@@ -1,0 +1,110 @@
+- id: dl_ln_sin
+  demo: true
+  titre: DL de ln(1 + sin x)
+  tags: [DL, composition de DL, ordre de troncature]
+  enonce_latex: >-
+    Déterminer le développement limité à l'ordre $3$ en $0$ de $f(x)=\ln(1+\sin x)$.
+  enonce_oral: >-
+    Donnez-moi le développement limité à l'ordre trois, en zéro, de logarithme de un plus sinus de x.
+  definitions_sympy:
+    f(x): log(1+sin(x))
+  reponse:
+    lhs: log(1+sin(x))
+    rhs: x - x**2/2 + x**3/6
+    var: x
+    point: "0"
+    ordre: 3
+    latex: >-
+      f(x)=x-\frac{x^2}{2}+\frac{x^3}{6}+o(x^3)
+  pieges:
+    - >-
+      Tronquer ln(1+u) à l'ordre 2 : le coefficient de x^3 sort faux (-1/6 au lieu de 1/6) et le reste réel n'est qu'un o(x^2).
+    - >-
+      Oublier que u = sin x est équivalent à x : u^2 et u^3 contribuent en x^2 et x^3, donc il faut ln(1+u) à l'ordre 3.
+  indices:
+    - >-
+      Posez u = sin x. Comment se comporte u en zéro, et donc à quel ordre faut-il développer ln(1+u) ?
+    - >-
+      Comme u est équivalent à x, il faut ln(1+u) = u - u^2/2 + u^3/3 + o(u^3).
+    - >-
+      Calculez u^2 et u^3 à l'ordre 3 en x : u^2 = x^2 + o(x^3) et u^3 = x^3 + o(x^3).
+  questions_suivantes:
+    - question_orale: >-
+        En déduire la position de la courbe de f par rapport à sa tangente en zéro.
+      reponse: >-
+        f(x) - x = -x^2/2 + o(x^2) est négatif au voisinage de 0 : la courbe est localement sous sa tangente y = x, des deux côtés.
+      indices:
+        - >-
+          Que vaut f(x) moins x au voisinage de zéro ?
+        - >-
+          Le signe de f(x) - x près de zéro est celui de son premier terme non nul.
+  corrige_latex: >-
+    Avec $u=\sin x=x-\frac{x^3}{6}+o(x^3)$, on a $u\sim x$, donc on développe $\ln(1+u)=u-\frac{u^2}{2}+\frac{u^3}{3}+o(u^3)$. Or $u^2=x^2+o(x^3)$ et $u^3=x^3+o(x^3)$, d'où $f(x)=x-\frac{x^2}{2}+\left(\frac{1}{3}-\frac{1}{6}\right)x^3+o(x^3)=x-\frac{x^2}{2}+\frac{x^3}{6}+o(x^3)$.
+
+- id: dl_exp_sin
+  titre: DL de exp(sin x)
+  tags: [DL, composition de DL, ordre de troncature]
+  enonce_latex: >-
+    Déterminer le développement limité à l'ordre $3$ en $0$ de $g(x)=e^{\sin x}$.
+  enonce_oral: >-
+    Donnez-moi le développement limité à l'ordre trois, en zéro, de exponentielle de sinus de x.
+  definitions_sympy:
+    g(x): exp(sin(x))
+  reponse:
+    lhs: exp(sin(x))
+    rhs: 1 + x + x**2/2
+    var: x
+    point: "0"
+    ordre: 3
+    latex: >-
+      g(x)=1+x+\frac{x^2}{2}+o(x^3)
+  pieges:
+    - >-
+      Tronquer e^u à l'ordre 2 : on trouve -x^3/6 au lieu d'un coefficient nul.
+    - >-
+      Remplacer sin x par x trop tôt : on trouve +x^3/6.
+    - >-
+      Le coefficient de x^3 est nul : l'étudiant croit souvent s'être trompé, demandez-lui de justifier.
+  indices:
+    - >-
+      Posez u = sin x et rappelez le développement de e^u. À quel ordre ?
+    - >-
+      Il faut e^u = 1 + u + u^2/2 + u^3/6 + o(u^3).
+    - >-
+      Avec u^2 = x^2 + o(x^3) et u^3 = x^3 + o(x^3), regroupez les termes en x^3.
+  questions_suivantes:
+    - question_orale: >-
+        En déduire la limite en zéro de g(x) moins un moins x, le tout sur x carré.
+      reponse: "1/2"
+      indices:
+        - >-
+          Utilisez le développement que vous venez d'obtenir.
+  corrige_latex: >-
+    Avec $u=\sin x=x-\frac{x^3}{6}+o(x^3)$ : $e^u=1+u+\frac{u^2}{2}+\frac{u^3}{6}+o(u^3)=1+x-\frac{x^3}{6}+\frac{x^2}{2}+\frac{x^3}{6}+o(x^3)=1+x+\frac{x^2}{2}+o(x^3)$.
+
+- id: dl_cos_sin
+  titre: DL de cos(sin x)
+  tags: [DL, composition de DL, ordre de troncature]
+  enonce_latex: >-
+    Déterminer le développement limité à l'ordre $4$ en $0$ de $\cos(\sin x)$.
+  reponse:
+    latex: >-
+      \cos(\sin x)=1-\frac{x^2}{2}+\frac{5x^4}{24}+o(x^4)
+
+- id: dl_tan_quotient
+  titre: DL de tan x par quotient
+  tags: [DL, quotient de DL]
+  enonce_latex: >-
+    Retrouver le développement limité à l'ordre $3$ en $0$ de $\tan x$ à partir de ceux de $\sin$ et $\cos$.
+  reponse:
+    latex: >-
+      \tan x=x+\frac{x^3}{3}+o(x^3)
+
+- id: lim_inv_sin2
+  titre: Limite par DL
+  tags: [DL, limites par DL]
+  enonce_latex: >-
+    Déterminer $\lim_{x\to 0}\left(\frac{1}{\sin^2 x}-\frac{1}{x^2}\right)$.
+  reponse:
+    latex: >-
+      \frac{1}{3}

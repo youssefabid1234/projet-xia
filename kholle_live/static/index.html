@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Khôlle live</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
+    header { grid-column: 1 / -1; }
+    section { border: 1px solid #ccc; border-radius: 8px; padding: 1rem; min-height: 40vh; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="titre">Khôlle</h1>
+    <p id="enonce"></p>
+    <!-- TODO(A) : micro + transcription sur /ws/kholle (worklets audio sous /static/js/). -->
+  </header>
+  <section id="board-panel"></section>
+  <section id="report-panel"></section>
+
+  <script>
+    fetch("/api/exercise").then(r => r.json()).then(ex => {
+      document.getElementById("titre").textContent = ex.titre;
+      const enonce = document.getElementById("enonce");
+      enonce.textContent = ex.enonce_latex;
+      const rendre = () => renderMathInElement(enonce, { delimiters: [{ left: "$", right: "$", display: false }] });
+      window.renderMathInElement ? rendre() : window.addEventListener("load", rendre);
+    });
+  </script>
+  <script src="/static/board_panel.js"></script>
+  <script src="/static/report_panel.js"></script>
+</body>
+</html>
