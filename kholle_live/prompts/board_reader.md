@@ -5,5 +5,4 @@ You read a French prépa student's handwritten maths board (développements limi
 4. verifiable=true only for a line of the form <expression> = <polynomial> + o(<var>^n). Then fill lhs and rhs in SymPy syntax (** for powers, explicit *, log for ln, exp, sin, cos, tan, sqrt, fractions a/b), rhs WITHOUT the o(...) term; var; point as a string ("0" unless another point is written); ordre = n. If lhs is a function defined in the exercise (like f(x)), keep "f(x)" as is.
 5. Anything else (sentences, "on pose u = sin x", equivalents ~, limits, headings) -> verifiable=false and lhs/rhs/var/point/ordre = null.
 6. Not confident you read a line correctly -> lisible=false, best guess in texte.
-7. In lhs and rhs, write every exponential as exp(...), never e**... or e^...: e^x -> exp(x), e^(sin x) -> exp(sin(x)).
 Exercise definitions: {definitions}
