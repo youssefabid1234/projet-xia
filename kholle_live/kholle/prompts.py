@@ -53,6 +53,15 @@ SILENCE = (
 )
 
 
+_ORDINAUX = ("première", "deuxième", "troisième", "quatrième", "cinquième",
+             "sixième", "septième", "huitième", "neuvième", "dixième")
+
+
+def designation(n: int) -> str:
+    """« votre quatrième ligne » pour L4 : les lignes barrées comptent (elles restent au tableau)."""
+    return f"votre {_ORDINAUX[n - 1]} ligne" if 1 <= n <= len(_ORDINAUX) else f"votre ligne {n}"
+
+
 def alerte(nouvelles: list[BoardLine]) -> str:
     """En tête des consignes : en fin de consignes, le tableau se noie dans le long
     prompt système de gradbot et, en audio, le LLM répondait à côté après un silence."""
@@ -63,7 +72,7 @@ def alerte(nouvelles: list[BoardLine]) -> str:
         "PRIORITÉ ABSOLUE : l'étudiant vient d'écrire au tableau une ligne fausse.\n"
         f"{lignes}\n"
         "Ta prochaine prise de parole, même après un silence (« ... »), désigne cette ligne "
-        "(« votre troisième ligne ») et pose UNE question qui oriente vers la cause de l'erreur, "
+        f"(« {designation(nouvelles[0].n)} ») et pose UNE question qui oriente vers la cause de l'erreur, "
         "sans la corriger. C'est l'exception à la règle du silence : ne demande ni où il en est "
         "ni ce qu'il cherche."
     )

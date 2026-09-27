@@ -75,6 +75,7 @@ def test_consignes_tableau():
         "PRIORITÉ ABSOLUE : l'étudiant vient d'écrire au tableau une ligne fausse.\n"
         "- ligne 3 : « f(x) = x - x^2/2 - x^3/6 » (coefficient de x^3)\n"
     )
+    assert "(« votre troisième ligne »)" in consignes
 
     deja = prompts.erreurs(s.board_lines)
     assert deja == {"f(x) = x - x^2/2 - x^3/6"}
@@ -84,6 +85,9 @@ def test_consignes_tableau():
     s.board_lines = [ligne(4, "f(x)  =  x - x^2/2 - x^3/6", "faux")]
     assert prompts.rendre_tableau(s.board_lines, deja) == "L4 ✗ f(x)  =  x - x^2/2 - x^3/6"
     assert prompts.rendre_tableau(s.board_lines, deja) in prompts.build_instructions(s, deja)
+    # Une nouvelle erreur sous une ligne barrée : désignée par son numéro au tableau.
+    s.board_lines = [ligne(3, "f(x) = x - x^2/2 - x^3/6", "faux", barre=True), ligne(4, "f(x) = x + x^3/3", "faux")]
+    assert "(« votre quatrième ligne »)" in prompts.build_instructions(s, deja)
 
 
 # ── Outils ──────────────────────────────────────────────────
@@ -181,7 +185,8 @@ def fausse(monkeypatch):
     monkeypatch.setattr(gradbot, "run", f.run)
     monkeypatch.setattr(main.CONFIG.gradium, "api_key", pydantic.SecretStr("test"))
     monkeypatch.delenv("KHOLLEUR_VOICE_ID", raising=False)
-    monkeypatch.setenv("SILENCE_TIMEOUT_S", "12")
+    monkeypatch.delenv("SILENCE_TIMEOUT_S", raising=False)  # valeurs par défaut de main.silence_s
+    monkeypatch.delenv("SILENCE_ALERTE_S", raising=False)
     rapports = []
 
     async def faux_compte_rendu():
@@ -206,13 +211,15 @@ def test_kholle_vocale(fausse):
         cfg = fausse.config_initiale
         assert cfg.voice_id == gradbot.flagship_voice("Gaspard").voice_id
         assert cfg.language == gradbot.Lang.Fr and cfg.assistant_speaks_first
-        assert cfg.silence_timeout_s == 12.0
+        assert cfg.silence_timeout_s == 600.0  # l'étudiant qui écrit en silence réfléchit
         assert json.loads(cfg.llm_extra_config)["parallel_tool_calls"] is False
         assert [t.name for t in cfg.tools] == list(outils.EXECUTER)
         stt = json.loads(cfg.stt_extra_config)
         assert {"ln", "logarithme", "Logarithme", "cube"} <= set(stt["keywords"]["words"])
         assert "language" not in stt  # gradbot la met à « fr » ; ne pas l'écraser
         assert "Donnez-moi le développement limité" in cfg.instructions
+        assert "écrit en silence réfléchit" in cfg.instructions
+        assert "demande-lui ce qu'il fait" not in cfg.instructions
 
         # Transcription : répliques regroupées, relayées au navigateur.
         fausse.emettre("tts_text", text="Bonjour,", turn_idx=0, start_s=0.0, stop_s=0.4)
@@ -235,13 +242,13 @@ def test_kholle_vocale(fausse):
         attendre(lambda: len(fausse.configs) == 1)
         assert "NOUVELLE ERREUR L1 ✗" in fausse.configs[0].instructions
         assert fausse.configs[0].instructions.startswith("PRIORITÉ ABSOLUE")
-        assert fausse.configs[0].silence_timeout_s == 4.0  # question à la première pause
+        assert fausse.configs[0].silence_timeout_s == 60.0  # ligne fausse restée sans réponse
         # Le LLM démarre avec l'alerte : elle est retirée des consignes suivantes.
         fausse.emettre("event", event=SimpleNamespace(event_type="llm_started"))
         assert ws.receive_json() == {"type": "event", "event": "llm_started"}
         attendre(lambda: len(fausse.configs) == 2)
         assert not fausse.configs[1].instructions.startswith("PRIORITÉ ABSOLUE")
-        assert fausse.configs[1].silence_timeout_s == 12.0
+        assert fausse.configs[1].silence_timeout_s == 600.0
         fausse.emettre("event", event=SimpleNamespace(event_type="llm_started"))
         ws.receive_json()
         state.set_board([ligne(1, "f(x) = x - x^2/2 - x^3/6", "faux"), ligne(2, "donc", "?")])

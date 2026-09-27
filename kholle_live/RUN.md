@@ -35,10 +35,31 @@ Depuis `kholle_live`, serveur arrêté :
 | Vocabulaire favorisé | `main.VOCABULAIRE` (+ majuscule initiale) | `stt_extra_config.keywords` | ln, logarithme, sinus, cube, petit… |
 | `STT_KEYWORDS_BOOST` | `3` | `.env` | poids du vocabulaire (Gradium : -6 à 6, 3 recommandé) |
 | `STT_DELAY_FRAMES` | vide = `10` (0,8 s) | `.env` | contexte de la transcription avant d'écrire un mot |
-| `SILENCE_TIMEOUT_S` | `12` | `.env` | relance après un silence de l'étudiant (laisse réfléchir) |
-| `SILENCE_ALERTE_S` | `4` | `.env` | relance quand une nouvelle ligne fausse attend : la question vient à la première pause |
+| `SILENCE_TIMEOUT_S` | `600` | `.env` | relance après un silence de l'étudiant : 10 min, il écrit, il réfléchit |
+| `SILENCE_ALERTE_S` | `60` | `.env` | relance quand une nouvelle ligne fausse attend ; dès que l'étudiant parle (« Voilà. »), la question vient tout de suite |
 | Fin de tour | horizon 2 s, seuil 0,8 | codé en dur dans gradbot 0.2.0 | voir ci-dessous |
 | `flush_duration_s` | `0.5` (défaut) | `STT__FLUSH_DURATION_S` | silence envoyé pour vider la transcription |
+
+### Silences
+
+Un étudiant qui écrit en silence réfléchit : le khôlleur ne le relance pas avant 10 min
+(`SILENCE_TIMEOUT_S`), et le prompt (STYLE) lui interdit de relancer tant que l'étudiant ne parle pas,
+sauf pour une ligne fausse restée sans réponse : elle est signalée après 60 s de silence
+(`SILENCE_ALERTE_S`), ou dès que l'étudiant parle.
+
+Le silence se compte depuis la fin de la voix du khôlleur, pas depuis la ligne rouge : une ligne
+fausse écrite après 50 s de silence est signalée ~10 s plus tard. Vérifié dans le source de gradbot
+(`gradbot_lib/src/multiplex.rs`, gradbot_py 0.2.0) :
+- `silence_timeout_s` est un flottant sans borne, relu à chaque pas : 600 est pris tel quel ;
+- relance = `...` quand `temps STT - fin de la voix du khôlleur > silence_timeout_s`, au plus 5 fois
+  de suite (le compteur repart quand l'étudiant parle) ;
+- rien d'autre ne fait parler le khôlleur : une nouvelle config (tableau) ne déclenche rien, la voix
+  ouvre un flux par réplique, la transcription se reconnecte seule toutes les 5 min (limite Gradium)
+  sans rien dire, les résultats d'outils ne suivent que les appels du LLM lui-même.
+
+Conséquence pour le proxy de patience : une phrase inachevée retenue (« Donc je développe »)
+suivie d'un silence n'est plus relancée au bout de ~9 s (test (e) plus bas, mesuré avec l'ancien
+réglage de 12 s) ; le khôlleur attend que l'étudiant reprenne.
 
 ### Fin de tour
 
@@ -75,22 +96,43 @@ SERVEUR=127.0.0.1:8000 uv run python scripts/live_tests/scenario_demo.py 2
 ```
 
 Élève synthétique (voix Gradium) et tableau tapé, pas manuscrit : « Démo » -> prénom -> énoncé ->
-trois lignes écrites en parlant (ligne 3 fausse) -> ligne rouge -> question sur l'ordre ou le reste ->
-ligne 3 barrée, résultat juste ✓ -> `question_suivante` (tangente) -> « je suis bloqué » ->
-`donner_indice` niveau 1 -> bonne réponse -> `terminer_colle` -> compte-rendu, ligne 3
-« corrigée après question ». Écrit un compte-rendu dans `data/` : remise à zéro avant la démo.
+trois lignes écrites en parlant (ligne 3 fausse) -> l'étudiant attend la ligne rouge et dit « Voilà. » ->
+question sur l'ordre ou le reste -> ligne 3 barrée, résultat juste ✓ -> `question_suivante` (tangente) ->
+« je suis bloqué » -> `donner_indice` niveau 1 -> bonne réponse -> `terminer_colle` -> compte-rendu,
+ligne 3 « corrigée après question ». Écrit un compte-rendu dans `data/` : remise à zéro avant la démo.
 
-Deux passages de suite, 27/09 20:50, proxy de patience actif :
+Deux passages de suite, 27/09 21:51, proxy de patience actif, silences 600 s / 60 s :
 
 | Mesure | Passage 1 | Passage 2 |
 |---|---|---|
 | Scénario complet | réussi | réussi |
-| Stylet levé -> ligne rouge sur le portable | 4,5 s | 4,4 s |
-| Fin de parole de l'étudiant -> voix du khôlleur (médiane / max sur 8 répliques) | 1,8 / 2,1 s | 2,0 / 2,4 s |
-| `terminer_colle` -> compte-rendu prêt (moteur) | 15,8 s (Pipelex) | 13,2 s (Pipelex) |
+| Stylet levé -> ligne rouge sur le portable | 4,6 s | 4,5 s |
+| Fin de « Voilà. » -> question sur la ligne 3 | 1,7 s | 1,6 s |
+| Fin de parole de l'étudiant -> voix du khôlleur (médiane / max sur 9 répliques) | 2,0 / 2,9 s | 2,0 / 2,6 s |
+| `terminer_colle` -> compte-rendu prêt (moteur) | 14,0 s (Pipelex) | 19,1 s (repli OpenAI) |
 
 Stylet -> ligne rouge = 1,5 s d'attente + ~3 s de lecture (deux en parallèle) + 0,25 s de sondage
 en moyenne. Sur la vraie tablette, l'écriture manuscrite reste à chronométrer.
+
+## Relances après un silence
+
+```
+SERVEUR=127.0.0.1:8000 uv run python scripts/live_tests/silences.py
+```
+
+Une khôlle, élève synthétique, pas de compte-rendu. Deux exécutions le 27/09 ; la seconde, après
+le correctif du numéro de ligne (voir (iii)), réussit les quatre :
+
+| Test | Attendu | 1re exécution | 2e exécution |
+|---|---|---|---|
+| (i) deux lignes justes écrites en silence, 90 s | aucune relance | rien (ni voix ni appel LLM) | rien (ni voix ni appel LLM) |
+| (ii) ligne fausse écrite en silence (rouge à ~8 s) | question vers 60 s, pas avant | question à 60,2 s | question à 60,5 s |
+| (iii) nouvelle ligne fausse (L4, sous L3 barrée), rouge, « Voilà. » | question sur cette ligne en ~2 s | 1,8 s, mais « troisième ligne » | 2,3 s, « votre quatrième ligne » |
+| (iv) « Je ne vois pas. » | `donner_indice` | appelé (niveau 1) | appelé (niveau 1) |
+
+Silence de (ii) compté de la dernière voix du khôlleur au début de sa question, appel LLM et
+synthèse compris. (iii) : l'alerte citait « votre troisième ligne » en
+exemple quel que soit le numéro ; elle nomme maintenant la ligne fausse (`prompts.designation`).
 
 ### Transcription affichée
 

@@ -1,7 +1,7 @@
 """Scénario de la démo de bout en bout, avec l'élève synthétique (lane A).
 
 « Démo » -> prénom -> énoncé -> l'élève écrit trois lignes en parlant, la troisième fausse
--> ligne rouge -> à la pause suivante, question sur l'ordre ou le reste, sans la réponse
+-> il attend la ligne rouge et dit « Voilà. » -> question sur l'ordre ou le reste, sans la réponse
 -> ligne 3 barrée, résultat juste -> ✓ -> question_suivante (tangente) -> « je suis bloqué »
 -> donner_indice niveau 1 -> bonne réponse -> terminer_colle -> compte-rendu, avec l'erreur
 de la ligne 3 « corrigée après question ».
@@ -54,6 +54,7 @@ PHRASES = {
     "l1": "Je commence par le développement de sinus de x à l'ordre trois : x moins x cube sur six, plus petit o de x cube.",
     "l2": "Ensuite, logarithme de un plus u égale u moins u carré sur deux, plus petit o de u carré.",
     "l3": "Et je compose : logarithme de un plus sinus de x égale x moins x carré sur deux moins x cube sur six, plus petit o de x cube.",
+    "voila": "Voilà.",
     "reprise": "Ah oui, un reste en petit o de u carré ne suffit pas, il faut développer le logarithme à l'ordre trois. Je barre la troisième ligne.",
     "l4": "Avec plus u cube sur trois, j'obtiens x moins x carré sur deux plus x cube sur six, plus petit o de x cube.",
     "bloque": "Je suis bloqué, je ne vois pas comment faire.",
@@ -141,6 +142,15 @@ class Suivi:
                 return True
         return False
 
+    async def muet(self, calme: float = 1.5, delai: float = 30.0) -> None:
+        """Attend que le khôlleur se taise depuis `calme` s (qu'il ait parlé ou non)."""
+        fin = time.time() + delai
+        while time.time() < fin and self.t() - max((t for t, g, _ in self.evts if g == "audio"), default=0) <= calme:
+            await asyncio.sleep(0.2)
+
+    def dernier_audio(self) -> float:
+        return max((t for t, g, _ in self.evts if g == "audio"), default=0.0)
+
     async def attendre(self, condition, delai: float):
         fin = time.time() + delai
         while time.time() < fin:
@@ -148,6 +158,24 @@ class Suivi:
                 return r
             await asyncio.sleep(0.2)
         return None
+
+
+async def ecrire(http: httpx.AsyncClient, s: Suivi, lignes, nom, stylo_leve: float) -> dict:
+    """Envoi ATTENTE_MS après le stylet levé, puis attente de la lecture."""
+    image = png(lignes, nom)
+    await asyncio.sleep(max(0.0, stylo_leve + ATTENTE_MS / 1000 - s.t()))
+    envoi = s.t()
+    await http.post("/api/board", content=image, headers={"Content-Type": "image/png"})
+    await asyncio.sleep(0.3)
+    while True:
+        etat = (await http.get("/api/board/state")).json()
+        if not etat["lecture_en_cours"]:
+            break
+        await asyncio.sleep(0.1)
+    lu = s.t()
+    lignes_lues = [(l["n"], "barrée" if l["barre"] else l["verdict"], l["texte"]) for l in etat["lines"]]
+    log(f"TABLEAU {nom} lu {lu - envoi:.1f} s après l'envoi :", lignes_lues, etat["erreur"] or "")
+    return {"stylo": stylo_leve, "envoi": envoi, "lu": lu, "lignes": lignes_lues}
 
 
 async def passage(n: int, audio: dict, http: httpx.AsyncClient) -> dict:
@@ -185,23 +213,6 @@ async def passage(n: int, audio: dict, http: httpx.AsyncClient) -> dict:
             premier = s.premier_audio(fin)
             m["latences_parole_s"][cle] = round(premier - fin, 2) if premier and premier - fin < 8 else None
 
-        async def ecrire(lignes, nom, stylo_leve: float) -> dict:
-            """Envoi ATTENTE_MS après le stylet levé, puis attente de la lecture."""
-            image = png(lignes, nom)
-            await asyncio.sleep(max(0.0, stylo_leve + ATTENTE_MS / 1000 - s.t()))
-            envoi = s.t()
-            await http.post("/api/board", content=image, headers={"Content-Type": "image/png"})
-            await asyncio.sleep(0.3)
-            while True:
-                etat = (await http.get("/api/board/state")).json()
-                if not etat["lecture_en_cours"]:
-                    break
-                await asyncio.sleep(0.1)
-            lu = s.t()
-            lignes_lues = [(l["n"], "barrée" if l["barre"] else l["verdict"], l["texte"]) for l in etat["lines"]]
-            log(f"TABLEAU {nom} lu {lu - envoi:.1f} s après l'envoi :", lignes_lues, etat["erreur"] or "")
-            return {"stylo": stylo_leve, "envoi": envoi, "lu": lu, "lignes": lignes_lues}
-
         # Accueil, prénom, énoncé.
         ok = await s.calme(0, 30)
         etape("accueil", ok, dit=[r for _, r in s.repliques(0)])
@@ -212,16 +223,15 @@ async def passage(n: int, audio: dict, http: httpx.AsyncClient) -> dict:
 
         # Trois lignes écrites en parlant.
         fin = await dire("l1")
-        t1 = asyncio.create_task(ecrire([(L1, False)], "b1", fin))
+        t1 = asyncio.create_task(ecrire(http, s, [(L1, False)], "b1", fin))
         await s.calme(fin, 20)
         await t1
         fin = await dire("l2")
-        t2 = asyncio.create_task(ecrire([(L1, False), (L2, False)], "b2", fin))
+        t2 = asyncio.create_task(ecrire(http, s, [(L1, False), (L2, False)], "b2", fin))
         await s.calme(fin, 20)
         await t2
-        debut_l3 = s.t()
         fin_l3 = await dire("l3")
-        b3 = await ecrire([(L1, False), (L2, False), (L3, False)], "b3", fin_l3)
+        b3 = await ecrire(http, s, [(L1, False), (L2, False), (L3, False)], "b3", fin_l3)
         rouge = next((l for l in b3["lignes"] if l[0] == 3), None)
         rouge_ok = rouge is not None and rouge[1] == "faux"
         faux_ailleurs = [l for l in b3["lignes"] if l[0] != 3 and l[1] == "faux"]
@@ -229,31 +239,30 @@ async def passage(n: int, audio: dict, http: httpx.AsyncClient) -> dict:
         etape("ligne 3 rouge", rouge_ok and not faux_ailleurs, lignes=b3["lignes"],
               stylo_serveur_s=round(b3["lu"] - b3["stylo"], 2), avec_panneau_s=m["stylo_rouge_s"])
 
-        # À la pause suivante : une question sur la ligne 3 (ordre, reste), sans la réponse.
-        def question_l3():
-            for t, r in s.repliques(b3["lu"]):
-                if SUR_LA_LIGNE.search(r) or CAUSE.search(r):
-                    return t, r
-            return None
-
-        await s.attendre(question_l3, 30)
-        await s.calme(b3["lu"], 5)
-        avant_rouge = [r for _, r in s.repliques(fin_l3, b3["lu"])]
-        apres = s.repliques(b3["lu"])
-        q = question_l3()
+        # L'élève attend la ligne rouge (au plus un sondage du panneau), laisse le khôlleur finir,
+        # puis dit « Voilà. » : question sur la ligne 3 (ordre, reste) en ~2 s, sans la réponse.
+        await asyncio.sleep(PANNEAU_MS / 1000)
+        await s.muet()
+        rouge_vu = s.t()
+        fin_voila = await dire("voila")
+        await s.calme(fin_voila, 20)
+        voix = s.premier_audio(fin_voila)
+        apres = s.repliques(fin_voila)
         premiere = apres[0][1] if apres else None
-        etape("question sur la ligne 3", q and q[1] == premiere and not REPONSE.search(q[1]),
-              dit_avant_la_ligne_rouge=avant_rouge, dit=premiere,
-              rouge_vers_question_s=q and round(q[0] - b3["lu"], 1))
-        m["rouge_vers_question_s"] = q and round(q[0] - b3["lu"], 1)
-        await s.calme(b3["lu"], 20)
+        m["voila_vers_voix_s"] = voix and round(voix - fin_voila, 2)
+        etape("« Voilà. » -> question sur la ligne 3",
+              premiere and (SUR_LA_LIGNE.search(premiere) or CAUSE.search(premiere)) and not REPONSE.search(premiere)
+              and m["voila_vers_voix_s"] is not None and m["voila_vers_voix_s"] <= 2.5,
+              dit_avant_la_ligne_rouge=[r for _, r in s.repliques(fin_l3, b3["lu"])],
+              dit_entre_rouge_et_voila=[r for _, r in s.repliques(b3["lu"], rouge_vu)],
+              dit=premiere, voila_vers_voix_s=m["voila_vers_voix_s"])
 
         # Ligne 3 barrée, résultat juste.
         fin = await dire("reprise")
         await s.calme(fin, 20)
         debut = s.t()
         fin_l4 = await dire("l4")
-        b4 = await ecrire([(L1, False), (L2, False), (L3, True), (L4, False)], "b4", fin_l4)
+        b4 = await ecrire(http, s, [(L1, False), (L2, False), (L3, True), (L4, False)], "b4", fin_l4)
         l3 = next((l for l in b4["lignes"] if l[0] == 3), None)
         l4 = next((l for l in b4["lignes"] if l[0] == 4), None)
         etape("ligne 3 barrée, ligne 4 ✓", l3 and l3[1] == "barrée" and l4 and l4[1] == "ok", lignes=b4["lignes"])
@@ -330,7 +339,7 @@ async def main():
             if not e["ok"]:
                 log(f"   KO {nom} :", json.dumps(e, ensure_ascii=False))
         log(f"   stylet levé -> ligne rouge (portable) : {r.get('stylo_rouge_s')} s")
-        log(f"   ligne rouge -> question du khôlleur : {r.get('rouge_vers_question_s')} s")
+        log(f"   fin de « Voilà. » -> voix du khôlleur (question sur la ligne 3) : {r.get('voila_vers_voix_s')} s")
         log(f"   fin de parole -> voix du khôlleur : médiane {statistics.median(lat) if lat else None} s, "
             f"max {max(lat) if lat else None} s, {r['latences_parole_s']}")
         log(f"   terminer_colle -> compte-rendu prêt : {r.get('rapport_s')} s (affiché : {r.get('rapport_affiché_s')} s)")

@@ -109,11 +109,14 @@ def stt_config() -> str:
 
 
 def silence_s(alerte: bool) -> float:
-    """Relance après un silence : longue pour laisser réfléchir, courte quand une nouvelle
-    ligne fausse attend (la question vient à la première pause, pas 12 s plus tard)."""
+    """Relance après un silence de l'étudiant (compté depuis la fin de la voix du khôlleur).
+
+    Un étudiant qui écrit en silence réfléchit : pas de relance avant 10 min. Une nouvelle
+    ligne fausse restée sans réponse est signalée après 60 s de silence ; dès que l'étudiant
+    parle, le khôlleur la signale tout de suite (l'alerte est en tête des consignes)."""
     if alerte:
-        return float(os.environ.get("SILENCE_ALERTE_S", 4))
-    return float(os.environ.get("SILENCE_TIMEOUT_S", 12))
+        return float(os.environ.get("SILENCE_ALERTE_S", 60))
+    return float(os.environ.get("SILENCE_TIMEOUT_S", 600))
 
 
 def session_config(instructions: str, *, premiere: bool, alerte: bool = False) -> gradbot.SessionConfig:
