@@ -35,7 +35,8 @@ Depuis `kholle_live`, serveur arrêté :
 | Vocabulaire favorisé | `main.VOCABULAIRE` (+ majuscule initiale) | `stt_extra_config.keywords` | ln, logarithme, sinus, cube, petit… |
 | `STT_KEYWORDS_BOOST` | `3` | `.env` | poids du vocabulaire (Gradium : -6 à 6, 3 recommandé) |
 | `STT_DELAY_FRAMES` | vide = `10` (0,8 s) | `.env` | contexte de la transcription avant d'écrire un mot |
-| `SILENCE_TIMEOUT_S` | `10` | `.env` | relance après un silence de l'étudiant |
+| `SILENCE_TIMEOUT_S` | `12` | `.env` | relance après un silence de l'étudiant (laisse réfléchir) |
+| `SILENCE_ALERTE_S` | `4` | `.env` | relance quand une nouvelle ligne fausse attend : la question vient à la première pause |
 | Fin de tour | horizon 2 s, seuil 0,8 | codé en dur dans gradbot 0.2.0 | voir ci-dessous |
 | `flush_duration_s` | `0.5` (défaut) | `STT__FLUSH_DURATION_S` | silence envoyé pour vider la transcription |
 
@@ -50,8 +51,46 @@ Filet de sécurité dans `prompts/kholleur_system.md` (STYLE) : sur une phrase i
 dit seulement « Je vous écoute. » (0,4 s), puis se tait. Si l'étudiant reprend pendant qu'il parle,
 gradbot coupe le khôlleur.
 
-Pour une vraie patience : rendre le seuil réglable dans gradbot et recompiler (Rust), ou
-passer par un proxy LLM qui retient les phrases inachevées.
+La vraie patience vient du proxy (section « Proxy de patience ») : il retient la réponse du
+khôlleur à une phrase inachevée.
+
+### Tableau et compte-rendu : délais
+
+| Réglage | Valeur | Où | Pourquoi |
+|---|---|---|---|
+| Envoi après le stylet levé | `1500` ms | `ATTENTE_MS`, `static/board.html` | gardé : plus court, une ligne à moitié écrite part et sa lecture retarde celle de la ligne finie |
+| Seconde lecture (confirme les ✗) | lancée avec la première | `kholle/board_reader.py` | ligne fausse lue en ~3 s au lieu de 5,6 s |
+| Panneau du tableau (portable) | `500` ms | `PERIODE_MS`, `static/board_panel.js` | |
+| Panneau du compte-rendu | `500` ms | `PERIODE_MS`, `static/report_panel.js` | le compte-rendu s'affiche dès qu'il est prêt |
+| `PIPELEX_TIMEOUT_S` | `19` | `.env` | au-delà, le repli OpenAI (lancé en même temps) est pris |
+
+Fin de khôlle : si le khôlleur dit « … je rédige votre compte-rendu » sans appeler `terminer_colle`
+(vu en test avec gpt-4.1), le serveur termine lui-même : compte-rendu et fin de page.
+
+## Scénario de démo, de bout en bout
+
+```
+bash scripts/start_demo.sh                       # autre terminal
+SERVEUR=127.0.0.1:8000 uv run python scripts/live_tests/scenario_demo.py 2
+```
+
+Élève synthétique (voix Gradium) et tableau tapé, pas manuscrit : « Démo » -> prénom -> énoncé ->
+trois lignes écrites en parlant (ligne 3 fausse) -> ligne rouge -> question sur l'ordre ou le reste ->
+ligne 3 barrée, résultat juste ✓ -> `question_suivante` (tangente) -> « je suis bloqué » ->
+`donner_indice` niveau 1 -> bonne réponse -> `terminer_colle` -> compte-rendu, ligne 3
+« corrigée après question ». Écrit un compte-rendu dans `data/` : remise à zéro avant la démo.
+
+Deux passages de suite, 27/09 20:50, proxy de patience actif :
+
+| Mesure | Passage 1 | Passage 2 |
+|---|---|---|
+| Scénario complet | réussi | réussi |
+| Stylet levé -> ligne rouge sur le portable | 4,5 s | 4,4 s |
+| Fin de parole de l'étudiant -> voix du khôlleur (médiane / max sur 8 répliques) | 1,8 / 2,1 s | 2,0 / 2,4 s |
+| `terminer_colle` -> compte-rendu prêt (moteur) | 15,8 s (Pipelex) | 13,2 s (Pipelex) |
+
+Stylet -> ligne rouge = 1,5 s d'attente + ~3 s de lecture (deux en parallèle) + 0,25 s de sondage
+en moyenne. Sur la vraie tablette, l'écriture manuscrite reste à chronométrer.
 
 ### Transcription affichée
 
