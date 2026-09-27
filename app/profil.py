@@ -2,6 +2,7 @@
 
 import json
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 
 CHEMIN_EXERCICES = Path(__file__).parent.parent / "data" / "exercices.json"
 
@@ -30,6 +31,7 @@ class Profil:
         self.historique = []
         self.taches = {}
         self.projet_eleve = {}
+        self.bilans = {}
 
     def niveau(self, chapitre):
         return self.niveaux.get(chapitre, NIVEAU_DEPART)
@@ -66,6 +68,7 @@ class Profil:
             "historique": self.historique,
             "taches": self.taches,
             "projet_eleve": self.projet_eleve,
+            "bilans": self.bilans,
         }
 
     @classmethod
@@ -76,13 +79,21 @@ class Profil:
         profil.historique = donnees.get("historique", [])
         profil.taches = donnees.get("taches", {})
         profil.projet_eleve = donnees.get("projet_eleve", {})
+        profil.bilans = donnees.get("bilans", {})
         return profil
 
     def sauvegarder(self, chemin):
-        Path(chemin).write_text(
-            json.dumps(self.to_dict(), ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
+        chemin = Path(chemin)
+        temporaire = None
+        try:
+            with NamedTemporaryFile(mode="w", encoding="utf-8", dir=chemin.parent,
+                                    prefix=chemin.name + ".", suffix=".tmp", delete=False) as fichier:
+                temporaire = Path(fichier.name)
+                json.dump(self.to_dict(), fichier, ensure_ascii=False, indent=2)
+            temporaire.replace(chemin)
+        finally:
+            if temporaire is not None:
+                temporaire.unlink(missing_ok=True)
 
     @classmethod
     def charger(cls, chemin, nom_defaut="eleve"):
