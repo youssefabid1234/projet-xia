@@ -15,14 +15,17 @@
   {% include "compte.html" %}
   <header>
     <p class="eyebrow">MATHÉMATIQUES · PRÉPA SCIENTIFIQUE</p>
-    <h1>Votre colle de prépa.</h1>
-    <p class="muted">Cours, démonstration, applications, puis exercices : le tuteur guide la progression.</p>
+    <h1>{{ 'Reprise ciblée de votre erreur.' if revision else 'Votre colle de prépa.' }}</h1>
+    {% if revision %}
+    <p class="muted">Expliquez votre démarche et réagissez aux relances du colleur. Cette séance reprend un point de votre bilan.</p>
+    <a href="{{ url_for('voir_bilan', session_id=revision.bilan_id) }}">Bilan d’origine</a>
+    {% else %}<p class="muted">Cours, démonstration, applications, puis exercices : le tuteur guide la progression.</p>{% endif %}
     <a href="{{ url_for('index') }}">Ouvrir l’ancienne interface</a>
     <a href="{{ url_for('bilans') }}">Mes bilans</a>
   </header>
-  <p class="muted">Étape : {{ {"cours": "Questions de cours", "demonstration": "Démonstration", "applications": "Applications directes", "exercices": "Exercices du catalogue"}[etape] }}.</p>
+  <p class="muted">{{ 'Une question ciblée, puis son bilan.' if revision else 'Étape : ' ~ {"cours": "Questions de cours", "demonstration": "Démonstration", "applications": "Applications directes", "exercices": "Exercices du catalogue"}[etape] ~ '.' }}</p>
   <section class="card" aria-label="Discussion avec le tuteur" role="log">
-    <article class="chat-message assistant">
+    {% if not revision %}<article class="chat-message assistant">
       <h2>Tuteur</h2>
       <p>Choisissez votre chapitre</p>
       {% if not chapitre_selectionne %}
@@ -37,7 +40,7 @@
       </form>
       {% else %}<p class="muted">La banque d’exercices est vide pour le moment.</p>{% endif %}
       {% endif %}
-    </article>
+    </article>{% endif %}
     {% for item in messages %}
     <article class="chat-message {{ item.role }}" {% if loop.last %}id="last-message" tabindex="-1"{% endif %}>
       <h2>{{ 'Vous' if item.role == 'user' else 'Tuteur' }}</h2>
@@ -53,6 +56,7 @@
     <a href="{{ url_for('voir_bilan', session_id=bilan_id) }}">Voir mon bilan</a>
   </section>
   {% elif chapitre_selectionne %}
+  {% if not reprise_terminee %}
   <section class="card">
     <form method="post" id="chat-form">
       <input type="hidden" name="csrf" value="{{ session.csrf }}">
@@ -65,6 +69,7 @@
     </form>
 
   </section>
+  {% else %}<p role="status">Cette reprise est validée sur la question travaillée. Enregistrez le bilan pour retrouver la preuve de votre progression.</p>{% endif %}
   <form method="post">
     <input type="hidden" name="csrf" value="{{ session.csrf }}">
     <input type="hidden" name="tour" value="{{ session.tour }}">

@@ -22,6 +22,9 @@
        <strong>{{ bilan.compteurs.a_confirmer }}</strong> à confirmer ·
        <strong>{{ bilan.compteurs.non_evalue }}</strong> non évaluée(s)</p>
     {% if not bilan.points %}<p>Aucune question exploitable n’a encore été enregistrée pour cette séance.</p>{% endif %}
+    {% if bilan.compteurs.a_retravailler %}
+    <p><a class="button" href="{{ url_for('retravailler', session_id=bilan.session_id) }}">Retravailler mes erreurs</a></p>
+    {% endif %}
   </section>
   {% set titres = {'valide': 'Validé pendant la séance', 'a_retravailler': 'À retravailler', 'a_confirmer': 'À confirmer', 'non_evalue': 'Non évalué'} %}
   {% for point in bilan.points %}
@@ -37,6 +40,14 @@
       {% for reponse in point.reponses %}<p class="prose">{{ reponse }}</p>
       {% else %}<p>Aucune réponse enregistrée.</p>{% endfor %}
     </details>
+    {% if point.statut == 'a_retravailler' %}
+    {% set reprise = reprises.get(point.tache_id) %}
+    {% if reprise %}
+    <p>{{ 'Dernière reprise validée sur cette question.' if reprise.statut == 'validee' else 'Dernière reprise à poursuivre.' }} Le constat de la séance d’origine est conservé.</p>
+    {% if reprise.bilan_disponible %}<p><a href="{{ url_for('voir_bilan', session_id=reprise.session_id) }}">Voir le bilan de la reprise</a></p>{% endif %}
+    {% endif %}
+    <p><a href="{{ url_for('retravailler', session_id=bilan.session_id, tache_id=point.tache_id) }}">Retravailler cette question</a></p>
+    {% endif %}
   </section>
   {% endfor %}
   <section class="card math">
