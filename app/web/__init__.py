@@ -7,12 +7,15 @@ from collections import OrderedDict
 from pathlib import Path
 from threading import Lock
 
-from flask import Flask, g, redirect, render_template, request, session, url_for
+from flask import Flask, abort, g, redirect, render_template, request, session, url_for
 from pipelex_sdk.client import PipelexAPIClient
 
 from app.web.auth import auth, csrf_valide
 from app.evaluation import evaluer_reponse
 from app.agent import Agent
+from app.bilan import terminer_colle
+from app.cours import INDEX
+from app.revision import point_a_reprendre, preparer_reprise, reprises_du_bilan
 from app.chapitres import nom_chapitre
 from app.profil import GAINS, Profil, charger_exercices, choisir_exercice
 from app.projet_eleve import CHAMPS, FILIERES, lire_projet
@@ -46,6 +49,7 @@ def create_app(config=None):
         UTILISATEURS_PATH=ROOT / "data" / "utilisateurs.json",
         PROFILS_DIR=ROOT / "data" / "profils",
         EXERCICES_PATH=ROOT / "data" / "exercices.json",
+        COURS_INDEX_PATH=INDEX,
         MAX_CONTENT_LENGTH=64 * 1024,
         SESSION_COOKIE_SAMESITE="Lax",
     )
@@ -115,6 +119,20 @@ def create_app(config=None):
                     conversations.pop(identifiant)
                     session["conversation"] = secrets.token_urlsafe(32)
                     return redirect(url_for("chat"))
+                elif request.form.get("action") == "terminer":
+                    try:
+                        bilan = terminer_colle(g.profil_path, agent)
+                    except ValueError as exc:
+                        erreur, statut = str(exc), 400
+                    except OSError:
+                        app.logger.exception("Échec de sauvegarde du bilan")
+                        erreur, statut = "Le bilan n’a pas pu être sauvegardé. Réessayez.", 503
+                    else:
+                        return redirect(url_for("voir_bilan", session_id=bilan["session_id"]))
+                elif agent.session_colle in Profil.charger(g.profil_path).bilans:
+                    return redirect(url_for("voir_bilan", session_id=agent.session_colle))
+                elif agent.revision and agent.tache.get("cloturee"):
+                    erreur, statut = "Cette reprise est terminée. Enregistrez son bilan.", 409
                 elif selection and (agent.chapitre is not None or request.form.get("chapitre") not in choix):
                     erreur, statut = "Choix de chapitre indisponible.", 400
                 elif request.form.get("action") and not selection:
@@ -142,7 +160,88 @@ def create_app(config=None):
                         return redirect(url_for("chat"))
             return render_template("chat.html", messages=agent.messages, chapitres=list(map(nom_chapitre, agent.chapitres)),
                                    chapitre_selectionne=agent.chapitre is not None,
-                                   message=message, erreur=erreur, etape=agent.etape), statut
+                                   message=message, erreur=erreur, etape=agent.etape,
+                                   revision=agent.revision,
+                                   reprise_terminee=bool(agent.revision and agent.tache.get("cloturee")),
+                                   bilan_id=agent.session_colle if agent.session_colle in
+                                   Profil.charger(g.profil_path).bilans else None), statut
+
+    @app.get("/bilans")
+    def bilans():
+        with verrou:
+            anciens = sorted(Profil.charger(g.profil_path).bilans.values(),
+                             key=lambda b: b["fin"], reverse=True)
+        return render_template("bilans.html", bilans=anciens)
+
+    @app.get("/bilans/<session_id>")
+    def voir_bilan(session_id):
+        with verrou:
+            profil = Profil.charger(g.profil_path)
+            bilan = profil.bilans.get(session_id)
+        if bilan is None:
+            abort(404)
+        return render_template("bilan.html", bilan=bilan, reprises=reprises_du_bilan(profil, session_id))
+
+    @app.route("/bilans/<session_id>/retravailler", methods=["GET", "POST"])
+    def retravailler(session_id):
+        erreur, statut = None, 200
+        reflexion = request.form.get("reflexion", "")
+        with verrou:
+            profil = Profil.charger(g.profil_path)
+            bilan = profil.bilans.get(session_id)
+            if bilan is None:
+                abort(404)
+            identifiant_tache = (request.form if request.method == "POST" else request.args).get("tache_id")
+            if identifiant_tache is None:
+                identifiant_tache = next((p["tache_id"] for p in bilan["points"]
+                                          if p["statut"] == "a_retravailler"), None)
+            point = point_a_reprendre(profil, session_id, identifiant_tache)
+            if point is None:
+                abort(404)
+            session.setdefault("jeton_reprise", secrets.token_urlsafe(24))
+            if request.method == "POST":
+                jeton = request.form.get("jeton", "")
+                derniere = session.get("derniere_reprise", {})
+                if not secrets.compare_digest(request.form.get("csrf", "").encode(), session["csrf"].encode()):
+                    erreur, statut = "La session a expiré. Rechargez la page.", 400
+                elif jeton and jeton == derniere.get("jeton"):
+                    # Un double clic ne crée pas de seconde tâche ou d'appel API.
+                    if (session["utilisateur"], derniere["conversation"]) in conversations:
+                        session["conversation"] = derniere["conversation"]
+                        return redirect(url_for("chat"))
+                    erreur, statut = "Cette reprise a déjà été lancée. Consultez vos bilans ou rechargez la page.", 409
+                elif not secrets.compare_digest(jeton.encode(), session["jeton_reprise"].encode()):
+                    erreur, statut = "Cette demande a déjà été utilisée. Rechargez la page.", 409
+                elif not 1 <= len(reflexion.strip()) <= 2000:
+                    erreur, statut = "Expliquez ce que vous changez dans votre raisonnement (1 à 2 000 caractères).", 400
+                else:
+                    courant = conversations.get((session["utilisateur"], session.get("conversation")))
+                    if courant and courant["agent"].chapitre and courant["agent"].session_colle not in profil.bilans:
+                        erreur, statut = "Terminez la séance en cours et enregistrez son bilan avant cette reprise.", 409
+                    elif not all(os.environ.get(k, "").strip() for k in ("OPENAI_API_KEY", "PIPELEX_API_KEY")):
+                        erreur, statut = "La reprise nécessite les clés OpenAI et Pipelex sur le serveur.", 503
+                    else:
+                        agent = Agent(g.profil_path, charger_exercices(app.config["EXERCICES_PATH"]))
+                        try:
+                            asyncio.run(preparer_reprise(agent, session_id, identifiant_tache, reflexion,
+                                                        chemin_cours=app.config["COURS_INDEX_PATH"]))
+                        except ValueError as exc:
+                            erreur, statut = str(exc), 422
+                        except Exception:
+                            app.logger.exception("Échec de préparation de la reprise")
+                            erreur, statut = "La reprise est indisponible. Votre texte est conservé ; réessayez.", 503
+                        else:
+                            conversation = secrets.token_urlsafe(32)
+                            conversations[(session["utilisateur"], conversation)] = {
+                                "agent": agent, "tour": secrets.token_urlsafe(24)}
+                            if len(conversations) > 100:
+                                conversations.popitem(last=False)
+                            session["conversation"] = conversation
+                            session["derniere_reprise"] = {"jeton": jeton, "conversation": conversation}
+                            session["jeton_reprise"] = secrets.token_urlsafe(24)
+                            return redirect(url_for("chat"))
+        return render_template("retravailler.html", bilan=bilan, point=point,
+                               reflexion=reflexion, erreur=erreur), statut
 
     @app.route("/classique", methods=["GET", "POST"])
     def index():
