@@ -8,21 +8,7 @@
       "erreurs": []
     },
     {
-      "route": "/classique",
-      "width": 1280,
-      "formules": 5,
-      "fonts": 4,
-      "erreurs": []
-    },
-    {
       "route": "/chat",
-      "width": 390,
-      "formules": 5,
-      "fonts": 4,
-      "erreurs": []
-    },
-    {
-      "route": "/classique",
       "width": 390,
       "formules": 5,
       "fonts": 4,

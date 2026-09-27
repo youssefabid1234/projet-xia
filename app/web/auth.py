@@ -43,7 +43,7 @@ def authentifier():
         session.pop("utilisateur", None)
         if request.path.startswith("/api/"):
             return jsonify(erreur="Session expirée : reconnectez-vous."), 401
-        if request.endpoint not in ("auth.connexion", "auth.inscription", None):
+        if request.endpoint not in ("auth.connexion", "auth.inscription", "guide_kholle", "guide_concours", None):
             return redirect(url_for("auth.connexion"))
 
 

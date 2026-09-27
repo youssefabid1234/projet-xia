@@ -87,6 +87,58 @@ class ChatTests(unittest.TestCase):
         self.assertEqual(reponse.status_code, 401)
         self.assertIn("reconnectez-vous", reponse.get_json()["erreur"])
 
+    def test_guides_publics_sans_ouvrir_les_routes_privees(self):
+        anonyme = self.app.test_client()
+        for route in ("/reussir-sa-kholle", "/guide-concours"):
+            page = anonyme.get(route)
+            self.assertEqual(page.status_code, 200)
+            self.assertIn(b"guides.css", page.data)
+            self.assertNotIn(b"/mon-profil", page.data)
+            self.assertNotIn(b"/bilans", page.data)
+            self.assertEqual(anonyme.post(route).status_code, 405)
+        for nom in ("10-reflexes-oral-kholle.pdf", "guide-concours-oraux-2026.pdf"):
+            with anonyme.get("/static/guides/" + nom) as document:
+                self.assertEqual(document.status_code, 200)
+                self.assertEqual(document.mimetype, "application/pdf")
+                self.assertTrue(document.data.startswith(b"%PDF-"))
+        for nom in ("ens-psl.png", "polytechnique.png"):
+            with anonyme.get("/static/branding/" + nom) as image:
+                self.assertEqual(image.status_code, 200)
+                self.assertEqual(image.mimetype, "image/png")
+        self.assertEqual(anonyme.get("/").status_code, 302)
+        self.assertEqual(anonyme.get("/api/etat").status_code, 401)
+        self.assertFalse(self.openai.appels)
+
+    def test_guides_ne_modifient_ni_profil_ni_colle_en_cours(self):
+        chemin = self.root / "profils" / "test.json"
+        profil = Profil.charger(chemin)
+        profil.niveaux = {CHAPITRE_SERIES: 2.3}
+        profil.notions = {CHAPITRE_SERIES: {"convergence": 3}}
+        profil.exercices_vus = ["ancien-exercice"]
+        profil.historique = [{"exercice": "ancien-exercice", "type_erreur": "calcul"}]
+        profil.taches = {"ancienne": {"id": "ancienne", "chapitre": CHAPITRE_SERIES,
+                                      "nature": "exercice", "source": "ancien-exercice", "acquise": True}}
+        profil.colles = [{"id": "ancienne-colle", "chapitre": CHAPITRE_SERIES,
+                          "debut": 1, "bilan": "Ancien compte rendu", "taches": []}]
+        profil.sauvegarder(chemin)
+        self.demarrer()
+        avant = {p.name: p.read_bytes() for p in chemin.parent.glob("*.json")}
+        messages = self.client.get("/api/etat").get_json()["messages"]
+        appels = list(self.openai.appels)
+        for route in ("/reussir-sa-kholle", "/guide-concours", "/"):
+            self.assertEqual(self.client.get(route).status_code, 200)
+        self.assertEqual({p.name: p.read_bytes() for p in chemin.parent.glob("*.json")}, avant)
+        self.assertEqual(Profil.charger(chemin).to_dict(), profil.to_dict())
+        self.assertEqual(self.openai.appels, appels)
+        autre = self.creer_app().test_client()
+        with autre.session_transaction() as session:
+            session["utilisateur"] = "test"
+        self.assertEqual(autre.get("/api/etat").get_json()["messages"], messages)
+        copie = self.root / "copie-profil.json"
+        Profil.charger(chemin).sauvegarder(copie)
+        self.assertEqual(json.loads(copie.read_text(encoding="utf-8")),
+                         json.loads(chemin.read_text(encoding="utf-8")))
+
     def test_tour_complet_sauvegarde_et_reprise_apres_redemarrage(self):
         donnees = self.demarrer()
         question = donnees["messages"][0]["question"]["texte"]
@@ -163,8 +215,13 @@ class ChatTests(unittest.TestCase):
         self.assertFalse((self.root / "profils" / "test.colle.json").exists())
         self.assertEqual(self.api("/api/colle", {"chapitre": 0}).status_code, 200)
 
-    def test_ancienne_interface_toujours_disponible(self):
-        self.assertEqual(self.client.get("/classique").status_code, 200)
+    def test_ancienne_interface_retiree(self):
+        for client in (self.client, self.app.test_client()):
+            for method in (client.get, client.post):
+                self.assertEqual(method("/classique").status_code, 404)
+        page = self.client.get("/").get_data(as_text=True)
+        self.assertNotIn("/classique", page)
+        self.assertNotIn("Interface classique", page)
 
     def test_exercice_reconnexion_compteurs_et_plan_prive(self):
         chemin = self.root / "profils" / "test.json"

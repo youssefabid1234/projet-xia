@@ -2,8 +2,6 @@
 import json
 from flask import render_template
 from app.web import create_app
-from app.profil import Profil
-from app.chapitres import CHAPITRE_SERIES
 
 
 def pages():
@@ -16,11 +14,11 @@ def pages():
     app = create_app({"TESTING": True, "SECRET_KEY": "fixture"})
     with app.test_request_context("/"):
         return {
-            "/chat": render_template("chat.html", etape="exercices", chapitre_selectionne=True,
-                chapitres=[], messages=[{"role": "assistant", "content": texte}]),
-            "/classique": render_template("index.html", chapitre=CHAPITRE_SERIES,
-                chapitres=[CHAPITRE_SERIES], profil=Profil("fixture"),
-                exercice={"id": "fixture", "enonce": texte, "difficulte": 1}),
+            "/chat": render_template("chat.html", donnees={
+                "chapitres": [], "anciennes": [], "duree": 20,
+                "messages": [{"role": "colleur", "texte": texte}],
+                "etat": {"etape": "fin", "etapes": [], "resultats": [], "terminee": True},
+            }),
         }
 
 

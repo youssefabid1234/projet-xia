@@ -18,7 +18,7 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
     return res.end(pages[req.url]);
   }
-  const assets = {"/static/style.css": "text/css", "/static/app.js": "application/javascript"};
+  const assets = {"/static/colle.css": "text/css", "/static/colle.js": "application/javascript"};
   if (assets[req.url]) {
     res.writeHead(200, {"Content-Type": assets[req.url]});
     return res.end(fs.readFileSync(path.join(root, "app/web", req.url)));
@@ -57,9 +57,9 @@ const server = http.createServer((req, res) => {
     await fallback.route("https://cdn.jsdelivr.net/**", route => route.abort());
     await fallback.goto(base + "/chat");
     assert.equal(await fallback.locator("#math-warning").isVisible(), true);
-    assert.ok((await fallback.locator(".math").innerText()).includes("$\\frac{1}{n^2}$"));
+    assert.ok((await fallback.locator(".md").innerText()).includes("\\(\\frac{1}{n^2}\\)"));
     fs.writeFileSync(path.join(out, "resultats.json"), JSON.stringify({results, cdn_indisponible: "texte lisible et avertissement visible"}, null, 2));
-    console.log("KaTeX : 4 pages vérifiées, 5 formules par page, polices chargées, aucun débordement ; repli hors réseau vérifié.");
+    console.log("KaTeX : 2 formats vérifiés, 5 formules par page, polices chargées, aucun débordement ; repli hors réseau vérifié.");
   } finally {
     if (browser) await browser.close();
     server.close();

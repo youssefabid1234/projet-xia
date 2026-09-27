@@ -4,7 +4,6 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import AsyncMock, patch
 
 from werkzeug.security import check_password_hash
 
@@ -41,8 +40,7 @@ class AuthTests(unittest.TestCase):
         return client.post("/deconnexion", data={"csrf": self.csrf(client)})
 
     def test_protection(self):
-        for method, route in ((self.client.get, "/"), (self.client.get, "/classique"),
-                              (self.client.post, "/classique")):
+        for method, route in ((self.client.get, "/"),):
             response = method(route)
             self.assertEqual(response.status_code, 302)
             self.assertTrue(response.location.endswith("/connexion"))
@@ -64,7 +62,7 @@ class AuthTests(unittest.TestCase):
             self.assertNotIn("conversation", session)
         self.assertEqual(self.compte(self.client, route="/connexion", password="faux").status_code, 401)
         self.assertEqual(self.compte(self.client, route="/connexion").status_code, 302)
-        self.assertEqual(self.client.get("/classique").status_code, 200)
+        self.assertEqual(self.client.get("/").status_code, 200)
 
     def test_validation_et_doublons(self):
         self.client.get("/inscription")
@@ -79,21 +77,19 @@ class AuthTests(unittest.TestCase):
         self.assertEqual(self.compte(self.client, "ALICE").status_code, 409)
         self.assertEqual((self.root / "profils/alice.json").read_bytes(), avant)
 
-    @patch.dict("os.environ", {"PIPELEX_API_KEY": "test"})
-    @patch("app.web.corriger", new_callable=AsyncMock)
-    def test_profils_isoles_et_reconnexion(self, corriger):
-        corriger.return_value = {"verdict": "correcte", "type_erreur": "aucune", "explication": "2"}
+    def test_profils_isoles_et_reconnexion(self):
         self.compte(self.client)
         autre = self.app.test_client()
         self.compte(autre, "bob")
-        self.client.post("/classique", data={"csrf": self.csrf(self.client), "chapitre": "Analyse",
-                                            "exercice_id": "a", "reponse": "2"})
-        self.assertEqual(len(Profil.charger(self.root / "profils/alice.json").historique), 1)
-        self.assertEqual(Profil.charger(self.root / "profils/bob.json").historique, [])
-        self.assertIn(b"Exercice a", autre.get("/classique").data)
+        chemin = self.root / "profils/alice.json"
+        profil = Profil.charger(chemin)
+        profil.colles = [{"chapitre": "Analyse", "debut": 1, "bilan": "Bilan privé Alice"}]
+        profil.sauvegarder(chemin)
+        self.assertEqual(autre.get("/api/etat").get_json()["anciennes"], [])
+        self.assertEqual(self.client.get("/api/etat").get_json()["anciennes"][0]["bilan"], "Bilan privé Alice")
         self.quitter(self.client)
         self.compte(self.client, route="/connexion")
-        self.assertNotIn(b"Exercice a", self.client.get("/classique").data)
+        self.assertEqual(self.client.get("/api/etat").get_json()["anciennes"][0]["bilan"], "Bilan privé Alice")
 
 
 if __name__ == "__main__":

@@ -12,29 +12,11 @@ from app.colle import Colle, charger_banque
 from app.chapitres import COLLES, nom_chapitre
 from app.config import RACINE, charger_env, duree_colle_minutes
 from app.enonces import CACHE, CacheEnonces
-from app.evaluation import evaluer_reponse, valider
 from app.examinateur import Examinateur, prechauffer
-from app.profil import Profil, charger_exercices, choisir_exercice
+from app.profil import Profil, charger_exercices
 from app.services import services as services_partages
 from app.web.auth import auth
 from app.texte_eleve import texte_eleve, message_eleve
-
-VERDICTS = {
-    "correcte": "Réponse correcte",
-    "incorrecte": "Réponse incorrecte",
-    "incomplete": "Réponse incomplète",
-    "indeterminable": "Évaluation indéterminable",
-}
-
-
-async def corriger(enonce, reponse, corrige):
-    """Correction de l'interface classique, par l'API Pipelex."""
-    from pipelex_sdk.runs import WaitForResultOptions
-    client = await services_partages().pipelex()
-    resultat = await evaluer_reponse(client, enonce, reponse, corrige,
-                                     WaitForResultOptions(interval_seconds=0.5, timeout_seconds=120))
-    return valider(resultat.main_stuff)
-
 
 def create_app(config=None):
     charger_env()
@@ -61,8 +43,15 @@ def create_app(config=None):
     verrou = Lock()               # protège les dictionnaires ci-dessous, jamais un appel réseau
     examinateurs = {}             # identifiant élève -> Examinateur de la colle en cours
     occupes = set()               # élèves dont un tour est en cours de traitement
-    verrous_classique = {}
     banques = {}
+
+    @app.get("/reussir-sa-kholle")
+    def guide_kholle():
+        return render_template("guide_kholle.html")
+
+    @app.get("/guide-concours")
+    def guide_concours():
+        return render_template("guide_concours.html")
 
     def utilisateur():
         return session["utilisateur"]
@@ -234,48 +223,5 @@ def create_app(config=None):
         finally:
             liberer()
         return jsonify(etat_public(None))
-
-    @app.route("/classique", methods=["GET", "POST"])
-    def index():
-        exercices = charger_exercices(app.config["EXERCICES_PATH"])
-        liste = list(dict.fromkeys(ex["chapitre"] for ex in exercices))
-        chapitre = request.values.get("chapitre", liste[0] if liste else "")
-        session.setdefault("csrf", secrets.token_urlsafe(32))
-        erreur, evaluation, reponse, statut = None, None, "", 200
-        # Sérialise les corrections et la sauvegarde du profil de cet élève seulement.
-        with verrou:
-            verrou_eleve = verrous_classique.setdefault(utilisateur(), Lock())
-        with verrou_eleve:
-            profil = Profil.charger(g.profil_path)
-            exercice = choisir_exercice(profil, chapitre, exercices)
-            if chapitre not in liste and liste:
-                erreur, statut = "Chapitre inconnu. Choisissez un chapitre de la liste.", 400
-            elif request.method == "POST":
-                reponse = request.form.get("reponse", "")
-                if not secrets.compare_digest(request.form.get("csrf", "").encode(), session["csrf"].encode()):
-                    erreur, statut = "La session a expiré. Rechargez la page.", 400
-                elif exercice is None or request.form.get("exercice_id") != exercice["id"]:
-                    erreur, statut = "Cet exercice a déjà été traité ou a changé. Rechargez la page.", 409
-                elif len(reponse) > 12000:
-                    erreur, statut = "Votre réponse doit contenir au maximum 12 000 caractères.", 400
-                elif not os.environ.get("PIPELEX_API_KEY", "").strip():
-                    erreur, statut = "La correction est indisponible : configurez PIPELEX_API_KEY sur le serveur.", 503
-                else:
-                    try:
-                        evaluation = services.executer(
-                            corriger(exercice["enonce"], reponse, exercice.get("corrige", "")), timeout=180)
-                        profil.enregistrer(exercice["id"], chapitre,
-                                           evaluation["verdict"], evaluation["type_erreur"])
-                        profil.sauvegarder(g.profil_path)
-                    except Exception:
-                        app.logger.exception("Échec de la correction ou de sa sauvegarde")
-                        profil = Profil.charger(g.profil_path)
-                        evaluation = None
-                        erreur, statut = "La correction n’a pas pu être enregistrée. Votre réponse est conservée ; réessayez.", 502
-            return render_template(
-                "index.html", chapitres=liste, chapitre=chapitre,
-                profil=profil, exercice=exercice, reponse=reponse,
-                evaluation=evaluation, erreur=erreur, verdicts=VERDICTS,
-            ), statut
 
     return app

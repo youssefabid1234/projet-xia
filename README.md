@@ -159,8 +159,8 @@ consignes de correction. Elle s’exécute de deux façons (`app/evaluation.py`)
   n’est lancée qu’après l’analyse du message, pour ne pas payer une évaluation
   Pipelex sur une demande d’indice.
 
-L’interface classique (`/classique`) et le tuteur en terminal utilisent toujours
-l’API Pipelex. Le client Pipelex est désormais partagé entre les requêtes et
+Le tuteur en terminal utilise toujours l’API Pipelex.
+Le client Pipelex est désormais partagé entre les requêtes et
 interrogé toutes les 0,5 s au lieu de 2 s.
 
 La méthode `methods/progression_colle` n’est plus appelée pendant la colle : sa
@@ -180,14 +180,14 @@ y compris en aperçu pendant la saisie. Thèmes clair et sombre, affichage mobil
 
 Les comptes sont dans `data/utilisateurs.json` (mots de passe hachés par
 Werkzeug), les profils dans `data/profils/<identifiant>.json` ; ces données sont
-ignorées par Git. L’ancienne interface d’exercices reste sur `/classique`.
+ignorées par Git.
 
 ## Tests
 
 Tests hors ligne (services simulés par `app/faux.py`, aucun crédit consommé) :
 
 ```powershell
-.venv/Scripts/python.exe -m unittest app.test_colle app.test_examinateur app.test_enonces app.test_evaluation app.test_cours app.test_chapitres app.web.test_web app.web.test_chat app.web.test_auth scripts.test_lister_formules_coupees
+.venv/Scripts/python.exe -m unittest app.test_colle app.test_examinateur app.test_enonces app.test_evaluation app.test_cours app.test_chapitres app.web.test_chat app.web.test_auth scripts.test_lister_formules_coupees
 ```
 
 ## Repérer les formules coupées dans les énoncés

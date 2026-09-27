@@ -8,6 +8,7 @@
 </head>
 <body>
 <main>
+  <p><a href="{{ url_for('guide_kholle') }}">Conseils de khôlle</a> · <a href="{{ url_for('guide_concours') }}">Guide des concours</a></p>
   <header><h1>{{ 'Créer un compte' if inscription else 'Se connecter' }}</h1>
     <p>Retrouvez votre progression et votre tuteur.</p></header>
   {% if erreur %}<p class="error" role="alert">{{ erreur }}</p>{% endif %}
