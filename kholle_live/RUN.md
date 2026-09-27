@@ -54,3 +54,45 @@ passer par un proxy LLM qui retient les phrases inachevées.
 
 `static/index.html` corrige l'affichage des répliques de l'étudiant (« elle haine » → ln,
 « petit taux » → petit o, « ix cube » → x cube…). Le LLM reçoit le texte brut.
+
+## Proxy de patience
+
+`kholle/llm_proxy.py` se place entre gradbot et OpenAI et retient la réponse du khôlleur quand
+l'étudiant s'arrête au milieu d'une phrase (« Donc je développe… »). Tout le reste passe tel quel.
+
+```
+cd kholle_live
+uv run uvicorn kholle.llm_proxy:app --port 8001
+```
+
+Puis, dans `kholle_live/.env` : `LLM_BASE_URL=http://127.0.0.1:8001/v1`, et relancer le serveur (8000).
+Le proxy doit tourner avant la khôlle : `LLM_BASE_URL` réglée sans proxy = khôlleur muet.
+
+**Interrupteur** : remettre l'ancienne valeur (`# LLM_BASE_URL=`, commentée : gradbot parle directement
+à OpenAI) et relancer le serveur. Sans relancer le serveur : relancer le proxy avec `PROXY_HOLD=0` (simple relais).
+
+Ce que fait gradbot (mesuré) : uniquement `POST /v1/chat/completions`, toujours en `stream: true`.
+Relance après `SILENCE_TIMEOUT_S` : un message utilisateur `...`, collé au précédent s'il est de l'étudiant.
+
+Règle (sans appel LLM), sur le dernier message s'il vient de l'étudiant :
+- retenu s'il finit par `…`, `...` ou `,`, ou si son dernier mot est un mot de liaison (donc, et, de, égal,
+  plus, moins, euh…), une élision (j', l'…) ou un verbe qui attend son complément (développe, pose, obtiens…) ;
+- jamais retenu s'il contient « voilà », « j'ai fini », « c'est tout », « je réfléchis », ou finit par `?` ;
+- toujours transmis : relance après silence, appels et résultats d'outils.
+
+Retenir = répondre une complétion vide (un morceau SSE vide, `finish_reason: stop`, `[DONE]`). gradbot
+se tait, se remet à écouter, et colle la suite au même message : le LLM reçoit
+« Donc, je développe, à l'ordre 3, en posant u égale sinus de x. » en une fois.
+
+| Élève synthétique (port 8011), 2 passages | Résultat |
+|---|---|
+| (a) « Donc je développe » + 4 s + « à l'ordre trois… » | aucun audio pendant la pause ; réponse à la phrase entière, 1er audio 1,54 / 1,46 s |
+| (b) « Voilà. » | 1er audio 1,61 / 1,58 s (1,56 s sans proxy) |
+| (c) ligne 3 fausse + « Voilà. » | « Sur votre troisième ligne… terme en x au cube » (2/2) |
+| (e) fragment retenu puis silence | relance à 9,0 / 9,4 s (« Je vous écoute… ») |
+| (f) « Je ne vois pas » | `donner_indice` appelé (2/2) |
+| Surcoût du proxy | 0,3 à 1 ms d'analyse ; +7 ms médian (p95 20 ms) sur un amont local |
+
+Réglages (variables d'environnement du proxy) : `PROXY_UPSTREAM_URL` (défaut `https://api.openai.com/v1`),
+`PROXY_HOLD=0` (ne rien retenir), `PROXY_HOLD_TEXT` (texte d'une réponse retenue, vide par défaut),
+`PROXY_LOG=chemin.jsonl` (journal des requêtes : derniers messages, décision, raison).
