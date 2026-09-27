@@ -50,19 +50,24 @@ def test_consignes_tableau():
         ligne(3, "f(x) = x - x^2/2 - x^3/6", "faux", detail="coefficient de x^3"),
         ligne(4, "f(x) = x", "faux", barre=True),
     ]
-    texte = prompts.build_instructions(s)
-    assert "L1 ✓ u = sin x\n" in texte
-    assert "L2 ? ln(1+u) = u - u^2/2\n" in texte
-    assert "NOUVELLE ERREUR L3 ✗ f(x) = x - x^2/2 - x^3/6 — coefficient de x^3\n" in texte
-    assert "L4 (barrée)\n→ À traiter maintenant : L3 (nouvelle erreur)." in texte
+    # On teste le tableau seul : le texte du persona peut citer ces marqueurs.
+    tableau = prompts.rendre_tableau(s.board_lines)
+    assert tableau.splitlines() == [
+        "L1 ✓ u = sin x",
+        "L2 ? ln(1+u) = u - u^2/2",
+        "NOUVELLE ERREUR L3 ✗ f(x) = x - x^2/2 - x^3/6 — coefficient de x^3",
+        "L4 (barrée)",
+        "→ À traiter maintenant : L3 (nouvelle erreur). "
+        "Désigne cette ligne et pose une question qui oriente vers l'erreur.",
+    ]
+    assert tableau in prompts.build_instructions(s)
 
     deja = prompts.erreurs(s.board_lines)
     assert deja == {"f(x) = x - x^2/2 - x^3/6"}
     # La même erreur, renumérotée, n'est plus nouvelle.
     s.board_lines = [ligne(4, "f(x)  =  x - x^2/2 - x^3/6", "faux")]
-    texte = prompts.build_instructions(s, deja)
-    assert "L4 ✗ f(x)  =  x - x^2/2 - x^3/6" in texte and "NOUVELLE ERREUR L" not in texte
-    assert "→ À traiter maintenant : L" not in texte
+    assert prompts.rendre_tableau(s.board_lines, deja) == "L4 ✗ f(x)  =  x - x^2/2 - x^3/6"
+    assert prompts.rendre_tableau(s.board_lines, deja) in prompts.build_instructions(s, deja)
 
 
 # ── Outils ──────────────────────────────────────────────────

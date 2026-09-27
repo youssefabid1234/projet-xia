@@ -34,7 +34,7 @@ def build_instructions(session: Session, deja_faux: Collection[str] = ()) -> str
     """
     modele = (PROMPTS / "kholleur_system.md").read_text(encoding="utf-8")
     return modele.replace("{exercice}", _exercice(session)).replace(
-        "{tableau}", _tableau(session.board_lines, deja_faux)
+        "{tableau}", rendre_tableau(session.board_lines, deja_faux)
     )
 
 
@@ -58,7 +58,8 @@ def _exercice(session: Session) -> str:
     return "\n".join(parties)
 
 
-def _tableau(lignes: list[BoardLine], deja_faux: Collection[str]) -> str:
+def rendre_tableau(lignes: list[BoardLine], deja_faux: Collection[str] = ()) -> str:
+    """Le champ {tableau} : une ligne par ligne du tableau, puis la priorité éventuelle."""
     if not lignes:
         return "(tableau vide)"
     nouvelles = [l.n for l in lignes if not l.barre and l.verdict == "faux" and cle_ligne(l) not in deja_faux]
