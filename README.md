@@ -1,6 +1,6 @@
-# Colle de maths : simulateur de khôlle pour la prépa scientifique
+# X-hôlleur : simulateur de khôlle pour la prépa scientifique
 
-Application web qui fait passer une colle orale de mathématiques : le colleur
+Application web qui fait passer une colle orale de mathématiques : le X-hôlleur
 interroge l’élève sur le cours, lui fait démontrer un résultat, puis lui donne
 des exercices adaptés à son niveau. Il fait chercher, donne des indices gradués,
 corrige si besoin et termine par une note indicative sur 20 et un bilan.
@@ -12,7 +12,7 @@ atteintes rapportent zéro sans être présentées comme des échecs.
 L'évaluation cumule les réponses et précisions de l'élève sur la tâche.
 Chaque indice multiplie le score par 0,9, sans pénalité supplémentaire de reprise.
 
-- `app/` : moteur de colle, colleur (LLM), évaluation, profils, interface web, tuteur en terminal.
+- `app/` : moteur de colle, X-hôlleur (LLM), évaluation, profils, interface web, X-hôlleur en terminal.
 - `methods/` : méthodes Pipelex (évaluation d’une réponse, ancienne décision de progression).
 - `data/` : cours indexé, banque de questions de cours, catalogue d’exercices et leur vérification.
 - `scripts/` : extraction et indexation du cours, préparation des données, simulation en terminal.
@@ -39,8 +39,8 @@ mettre de vraie clé dans `.env.example`, qui est versionné.
 
 | Variable | Rôle |
 |---|---|
-| `OPENAI_API_KEY` | Colleur, analyse des messages, évaluation locale, recherche dans le cours. |
-| `PIPELEX_API_KEY` | Interface classique, tuteur en terminal, mode `COLLE_EVALUATEUR=pipelex`. |
+| `OPENAI_API_KEY` | X-hôlleur, analyse des messages, évaluation locale, recherche dans le cours. |
+| `PIPELEX_API_KEY` | Interface classique, X-hôlleur en terminal, mode `COLLE_EVALUATEUR=pipelex`. |
 | `OPENAI_MODEL` | Modèle utilisé (défaut `gpt-4.1-mini`). |
 | `FLASK_SECRET_KEY` | Valeur secrète stable pour garder les sessions après un redémarrage. |
 | `COLLE_EVALUATEUR` | `local` (défaut) ou `pipelex` : voir « Évaluation » ci-dessous. |
@@ -62,7 +62,7 @@ Autres points d’entrée :
 ```powershell
 # Colle en terminal, avec mesure de la latence de chaque tour (profil temporaire).
 .\.venv\Scripts\python.exe -m scripts.simuler_colle
-# Tuteur minimal en terminal, par l'API Pipelex.
+# X-hôlleur minimal en terminal, par l'API Pipelex.
 .\.venv\Scripts\python.exe -m app.tuteur
 ```
 
@@ -80,12 +80,12 @@ Règles, appliquées par le serveur (`app/colle.py`) et non par le modèle :
 
 - une réponse juste clôt la question ; la suivante s’affiche aussitôt ;
 - une erreur est signalée sans donner la réponse et l’élève doit corriger ;
-- les indices sont gradués ; le colleur donne la correction sur demande, ou
+- les indices sont gradués ; le X-hôlleur donne la correction sur demande, ou
   après 3 indices, ou après 3 réponses fausses ou incomplètes (en exercice :
   4 indices ou 4 erreurs, une réponse partielle sans erreur n’étant qu’une étape) ;
 - une question corrigée est remplacée par une autre de même nature : on ne passe
   pas à l’étape suivante sans acquisition ; après 3 questions corrigées sur une
-  étape, le colleur avance et le bilan le signale ;
+  étape, le X-hôlleur avance et le bilan le signale ;
 - une demande de saut d’étape est refusée ; en exercice, elle vaut demande de correction ;
 - les questions réussies (profil) ne sont jamais reposées, même dans une colle ultérieure ;
 - aux exercices, une réussite autonome vise une difficulté supérieure, une
@@ -104,12 +104,12 @@ Pour chaque message de l’élève (`app/examinateur.py`) :
    et l’évaluateur compare la réponse à la référence ; l’évaluation est abandonnée
    si le message n’est pas une réponse ;
 2. le serveur décide de l’action (valider, signaler l’erreur, indice, correction…) ;
-3. le colleur formule sa réaction, **diffusée mot à mot** (flux NDJSON) ; si la
+3. le X-hôlleur formule sa réaction, **diffusée mot à mot** (flux NDJSON) ; si la
    question est close, le serveur affiche lui-même la question suivante.
 
-La référence (réponse attendue ou corrigé) est donnée au colleur en consigne
+La référence (réponse attendue ou corrigé) est donnée au X-hôlleur en consigne
 privée et ne doit être dévoilée qu’au moment de la correction. Pour une question
-de cours posée par l’élève, le colleur interroge l’index du cours (embeddings +
+de cours posée par l’élève, le X-hôlleur interroge l’index du cours (embeddings +
 BM25, `app/cours.py`) et cite la source (« Théorème 16.2.4, page PDF 143 ») ;
 tout complément absent des extraits est précédé de « Hors du cours extrait : ».
 
@@ -159,7 +159,7 @@ consignes de correction. Elle s’exécute de deux façons (`app/evaluation.py`)
   n’est lancée qu’après l’analyse du message, pour ne pas payer une évaluation
   Pipelex sur une demande d’indice.
 
-Le tuteur en terminal utilise toujours l’API Pipelex.
+Le X-hôlleur en terminal utilise toujours l’API Pipelex.
 Le client Pipelex est désormais partagé entre les requêtes et
 interrogé toutes les 0,5 s au lieu de 2 s.
 

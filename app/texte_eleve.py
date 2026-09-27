@@ -4,6 +4,7 @@ from app.moteur_colle import postes_bilan
 
 
 def texte_eleve(texte):
+    texte = re.sub(r"\b(?:tuteur|colleur|kh[oô]lleur)\b", "X-hôlleur", texte, flags=re.I)
     texte = re.sub(r"\b(Définition|Definition|Théorème|Theoreme|Proposition|Lemme|Corollaire|Remarque)\s+\d+(?:\.\d+)+\b", r"\1", texte, flags=re.I)
     texte = re.sub(r"[,;]?\s*\(?pages?\s+PDF\s+\d+(?:\s*[,–-]\s*\d+)*\)?", "", texte, flags=re.I)
     return texte

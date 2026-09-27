@@ -157,7 +157,7 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
         with patch("app.examinateur.chercher_dans_cours", new=AsyncMock(return_value={"passages": [passage]})) as recherche:
             evts = await evenements(self.examinateur.tour("C'est quoi une somme partielle ?"))
         recherche.assert_awaited_once()
-        self.assertIn("Le colleur cherche dans le cours…", [e.get("texte") for e in evts])
+        self.assertIn("X-hôlleur cherche dans le cours…", [e.get("texte") for e in evts])
         consigne = self.client.appels_flux()[0]["input"][-1]["content"]
         self.assertIn("Définition 16.1.5 (Convergence d'une série) (page PDF 140)", consigne)
         self.assertIn("Hors du cours extrait :", consigne)
@@ -170,7 +170,7 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
         self.client.intentions = ["reponse"]
         self.client.evaluations = [CORRECT]
         evts = await evenements(self.examinateur.tour("Ma solution"))
-        self.assertIn("Le colleur choisit un exercice…", [e.get("texte") for e in evts])
+        self.assertIn("X-hôlleur choisit un exercice…", [e.get("texte") for e in evts])
         question = next(e for e in evts if e["type"] == "question")["question"]
         self.assertEqual(question["texte"], "Énoncé 1 propre")
         self.assertEqual(question["libelle"], "Exercices · difficulté 1/5")
@@ -280,7 +280,7 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
             evts = await evenements(self.examinateur.tour("Ma définition"))
         evaluer.assert_awaited_once()
         self.assertIsNotNone(evaluer.await_args.kwargs["pipelex"])
-        self.assertIn("Le colleur compare avec le corrigé…", [e.get("texte") for e in evts])
+        self.assertIn("X-hôlleur compare avec le corrigé…", [e.get("texte") for e in evts])
 
 
 if __name__ == "__main__":

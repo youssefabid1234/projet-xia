@@ -1,5 +1,6 @@
 """Contrats HTTP des conversions : aucun tour, score ni profil implicite."""
 
+import asyncio
 import io
 import os
 import unittest
@@ -99,7 +100,7 @@ class ModalitesTests(unittest.TestCase):
         for data in (b"", b"not WAV", wav(121), wav(1, 48000), wav()[:-4]):
             self.assertEqual(self.media("dictee", data, "audio/wav").status_code, 400)
 
-    def test_lecture_liste_blanche_sans_corrige_ni_bilan(self):
+    def test_lecture_textes_affiches_et_bilan_sans_secret(self):
         question = self.etat()["etat"]["tache"]["question_active"]
         fichiers = self.fichiers()
         for corps in ({"question": "corrigé secret"}, {"question": "étape future"},
@@ -111,7 +112,47 @@ class ModalitesTests(unittest.TestCase):
         self.conversions.lecture.assert_awaited_once_with(question)
         self.assertEqual(self.fichiers(), fichiers)
         self.flux(self.api("/api/bilan"))
-        self.assertEqual(self.api("/api/modalites/lecture", {"question": question}).status_code, 400)
+        self.assertEqual(self.api("/api/modalites/lecture", {"question": question}).status_code, 200)
+        bilan = self.etat()["messages"][-1]["texte"]
+        self.assertEqual(self.api("/api/modalites/lecture", {"question": bilan}).status_code, 200)
+        self.conversions.lecture.assert_awaited_with(bilan)
+        self.assertEqual(self.api("/api/modalites/lecture", {"question": "secret non affiche"}).status_code, 400)
+
+    def test_lecture_correction_revelee_et_fragment(self):
+        self.openai.intentions = ["reponse"]
+        self.openai.evaluations = [test_chat.CORRECT]
+        self.openai.textes = ["Explication publique. Suite affichee."]
+        self.flux(self.api("/api/message", {"message": "ma reponse"}))
+        for texte in ("Explication publique.", "Suite affichee."):
+            self.assertEqual(self.api("/api/modalites/lecture", {"question": texte}).status_code, 200)
+            self.conversions.lecture.assert_awaited_with(texte)
+
+    def test_lecture_pendant_flux_sans_attendre_la_fin_du_tour(self):
+        import threading
+        from app.examinateur import Examinateur
+        continuer = threading.Event()
+        async def flux_public(examinateur, message):
+            yield {"type": "texte", "texte": "Indice affiche."}
+            await asyncio.to_thread(continuer.wait, 5)
+            yield {"type": "texte", "texte": " Suite affichee."}
+        autre = self.app.test_client()
+        jeton = self.csrf()
+        with autre.session_transaction() as session:
+            session.update(utilisateur="test", csrf=jeton)
+        with patch.object(Examinateur, "tour", flux_public):
+            reponse = self.client.post("/api/message", json={"message": "indice"},
+                                       headers={"X-CSRF-Token": jeton}, buffered=False)
+            try:
+                r = autre.post("/api/modalites/lecture", json={"question": "Indice affiche."},
+                               headers={"X-CSRF-Token": jeton})
+                self.assertEqual(r.status_code, 200)
+                r = autre.post("/api/modalites/lecture", json={"question": "Suite affichee."},
+                               headers={"X-CSRF-Token": jeton})
+                self.assertEqual(r.status_code, 400)
+            finally:
+                continuer.set()
+                list(reponse.response)
+                reponse.close()
 
     def test_indisponibilite_erreur_et_resultats_invalides(self):
         with patch.object(self.conversions, "disponibilites", return_value={"manuscrit": False}):
@@ -208,6 +249,10 @@ class AdaptateursTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(stt.await_args.args[1]["input_format"], "pcm")
             self.assertEqual(tts.await_args.args[1]["voice_id"], "voix-test")
             self.assertEqual(tts.await_args.args[2], "x au carré égale 3")
+
+    def test_nom_public_y_compris_anciens_messages(self):
+        from app.texte_eleve import texte_eleve
+        self.assertEqual(texte_eleve("Votre tuteur et le colleur."), "Votre X-h\u00f4lleur et le X-h\u00f4lleur.")
 
     def test_formules_non_modifiees(self):
         source = r"$\frac{x}{2}+\sqrt{y}=z^3$"

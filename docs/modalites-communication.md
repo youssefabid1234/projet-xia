@@ -10,11 +10,14 @@ de `origin/kholle-live` (`0ff5f59`), sans fusion de son moteur.
   tableau » ajoute la transcription au brouillon. Relire puis cliquer sur « Envoyer ».
 - **Dicter** ouvre le microphone sur demande. « Arrêter et transcrire » ferme le
   micro et ajoute le texte au brouillon. Relire puis cliquer sur « Envoyer ».
-- **Activer la lecture audio** lit la consigne publique actuelle, puis les nouvelles
-  consignes révélées. « Relire la consigne » et « Arrêter la lecture » sont disponibles.
-  L'audio est désactivé au chargement de la page. Le démarrage du micro arrête la lecture.
+- **Activer la lecture audio** lit le dernier message affiché, puis les nouveaux
+  textes du dialogue : questions, relances, indices, explications, corrections
+  révélées et bilan. La lecture suit la diffusion progressive, par phrases.
+  « Relire le dernier message », « Relire ce message » et « Arrêter la lecture »
+  restent disponibles après le bilan. L'audio est désactivé au chargement.
+  Le démarrage du micro arrête la lecture.
 
-Les boutons de conversion ne soumettent rien au colleur. Le brouillon reste modifiable.
+Les boutons de conversion ne soumettent rien au X-hôlleur. Le brouillon reste modifiable.
 Les transcriptions sont ajoutées au texte déjà tapé ; elles ne le remplacent pas.
 Un changement de brouillon, une annulation, un changement de question ou la fin de la
 colle invalide les résultats en attente. Aucun POST pédagogique n'est rejoué automatiquement.
@@ -36,7 +39,7 @@ Les clés restent côté serveur. Aucune clé Gradium n'est nécessaire pour le 
 ou le manuscrit. Le microphone exige HTTPS ou localhost et l'autorisation du navigateur.
 Les médias sont envoyés au fournisseur seulement après une demande explicite de
 transcription ; ils ne sont pas enregistrés par l'application dans les profils ou sur disque.
-La synthèse envoie seulement la consigne autorisée à Gradium.
+La synthèse envoie seulement les textes affichés autorisés à Gradium.
 
 ## Frontières techniques
 
@@ -49,19 +52,22 @@ peuvent évaluer, faire avancer la colle ou sauvegarder un profil.
 | `GET /api/modalites` | Session authentifiée | Disponibilité des trois conversions |
 | `POST /api/modalites/manuscrit` | PNG, 2 Mio et 4 millions de pixels maximum | `{"texte":"…"}` |
 | `POST /api/modalites/dictee` | WAV mono 24 kHz / 16 bits, 0,1–120 s, 6 Mio maximum | `{"texte":"…"}` |
-| `POST /api/modalites/lecture` | `{"question":"consigne publique active exacte"}` | WAV |
+| `POST /api/modalites/lecture` | `{"question":"fragment exact de texte affiché"}` | WAV |
 
 Toutes les nouvelles routes utilisent l'authentification existante. Les POST
 exigent `X-CSRF-Token`. Leurs réponses portent `Cache-Control: no-store` et
 `X-Content-Type-Options: nosniff`. Les limites média sont locales à leurs routes :
 les autres requêtes restent limitées à 64 Kio et les messages à 6 000 caractères.
 Les requêtes simultanées d'une même conversion et d'un même élève sont refusées.
-La disponibilité de la colle est revérifiée après chaque conversion.
+Pour le manuscrit et la dictée, la disponibilité de la colle est revérifiée après chaque conversion. La lecture reste disponible après la fin de la colle.
 
-La lecture utilise une liste blanche **côté serveur** : `etat.tache.question_active`
-de la colle authentifiée. Les textes génériques du dialogue, les corrigés, les étapes
-futures et les bilans n'alimentent jamais la synthèse. La normalisation des formules
-est déterministe et n'affecte pas le texte source, le DOM ou KaTeX.
+La lecture utilise une liste blanche **côté serveur** : les messages publics
+et les fragments déjà diffusés de la colle authentifiée. Un corrigé non
+révélé ou une étape future ne sont jamais autorisés. La lecture fonctionne
+pendant le flux et après la fin du chronomètre, sans modifier la progression.
+La normalisation des formules est déterministe et n'affecte pas le texte source,
+le DOM ou KaTeX. L'arrêt annule la requête et la file, et suspend la lecture du
+flux courant jusqu'à une relecture ou au prochain tour.
 
 Réutilisation de `kholle-live` : dessin, priorité au stylet et export recadré du
 tableau ; principe d'appel vision et transcription fidèle ; appel TTS Gradium direct.

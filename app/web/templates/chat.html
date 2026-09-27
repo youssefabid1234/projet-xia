@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf" content="{{ session.csrf }}">
-  <title>Colle de maths</title>
+  <title>X-hôlleur</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='colle.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.css" crossorigin="anonymous">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -15,7 +15,7 @@
 </head>
 <body>
 <header class="barre">
-  <a class="marque" href="{{ url_for('chat') }}">Colle <span>de maths</span></a>
+  <a class="marque" href="{{ url_for('chat') }}">X-hôlleur</a>
   <div id="minuteur" class="minuteur" hidden aria-live="off"><span id="minuteur-temps">--:--</span></div>
   <form method="post" action="{{ url_for('auth.deconnexion') }}" class="compte">
     <span class="doux">{{ session.utilisateur }}</span>
@@ -30,7 +30,7 @@
   <section id="accueil" class="accueil" hidden>
     <p class="surtitre">Mathématiques · Prépa scientifique</p>
     <h1>Passez une colle, comme au tableau.</h1>
-    <p class="doux">Le colleur vous interroge, vous fait chercher, donne des indices quand vous bloquez
+    <p class="doux">Le X-hôlleur vous interroge, vous fait chercher, donne des indices quand vous bloquez
       et corrige si besoin. À la fin, vous recevez une note indicative et un bilan.</p>
     <ol class="deroule">
       <li><strong>Cours</strong> des définitions et des théorèmes, en revenant sur vos difficultés</li>
@@ -48,13 +48,13 @@
 
   <section id="colle" class="colle" hidden>
     <ol id="etapes" class="etapes" aria-label="Étapes de la colle"></ol>
-    <div class="modalites-audio" aria-label="Lecture du colleur">
+    <div class="modalites-audio" aria-label="Lecture du X-hôlleur">
       <button type="button" id="lecture-audio" class="bouton-secondaire" aria-pressed="false" disabled>Activer la lecture audio</button>
-      <button type="button" id="audio-relire" class="bouton-secondaire" hidden>Relire la consigne</button>
+      <button type="button" id="audio-relire" class="bouton-secondaire" hidden>Relire le dernier message</button>
       <button type="button" id="audio-arreter" class="bouton-secondaire" hidden>Arrêter la lecture</button>
       <span id="audio-statut" role="status" class="doux petit"></span>
     </div>
-    <div id="fil" class="fil" role="log" aria-live="polite" aria-label="Dialogue avec le colleur"></div>
+    <div id="fil" class="fil" role="log" aria-live="polite" aria-label="Dialogue avec le X-hôlleur"></div>
     <p id="alerte" class="alerte" role="alert" hidden></p>
     <form id="saisie" class="saisie" autocomplete="off">
       <div class="choix-modalites" role="group" aria-label="Mode de saisie pour cette réponse">

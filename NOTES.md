@@ -1,6 +1,6 @@
 # Comprendre le projet
 
-Le projet est une première base de tuteur de maths pour les élèves de prépa scientifique. Il contient déjà une méthode pour évaluer une réponse d’élève et un programme pour l’essayer. L’application destinée aux élèves reste à construire.
+Le projet est une première base de X-hôlleur de maths pour les élèves de prépa scientifique. Il contient déjà une méthode pour évaluer une réponse d’élève et un programme pour l’essayer. L’application destinée aux élèves reste à construire.
 
 ## Le rôle de chaque fichier
 

@@ -44,6 +44,7 @@ def create_app(config=None):
     examinateurs = {}             # identifiant élève -> Examinateur de la colle en cours
     occupes = set()               # élèves dont un tour est en cours de traitement
     banques = {}
+    lectures_publiques = {}  # textes du flux déjà émis, par élève
 
     @app.get("/reussir-sa-kholle")
     def guide_kholle():
@@ -92,7 +93,7 @@ def create_app(config=None):
         if not secrets.compare_digest(jeton.encode(), session.get("csrf", "").encode()):
             return jsonify(erreur="La session a expiré. Rechargez la page."), 400
         if not os.environ.get("OPENAI_API_KEY", "").strip():
-            return jsonify(erreur="Le colleur est indisponible : configurez OPENAI_API_KEY (fichier .env)."), 503
+            return jsonify(erreur="X-hôlleur est indisponible : configurez OPENAI_API_KEY (fichier .env)."), 503
         return None
 
     def etat_public(examinateur):
@@ -124,12 +125,27 @@ def create_app(config=None):
         evenements = services.iterer(tour())  # démarre le tour sans attendre le navigateur
 
         def lignes():
+            texte_diffuse = ""
+            with verrou:
+                lectures_publiques[eleve] = []
             try:
                 for evenement in evenements:
+                    with verrou:
+                        publics = lectures_publiques.setdefault(eleve, [])
+                        if evenement["type"] == "texte":
+                            texte_diffuse += evenement["texte"]
+                            precedent = texte_diffuse[:-len(evenement["texte"])] if evenement["texte"] else texte_diffuse
+                            if precedent in publics:
+                                publics.remove(precedent)
+                            publics.append(texte_diffuse)
+                        elif evenement["type"] == "question":
+                            publics.extend([evenement["question"]["texte"], evenement["question"]["libelle"]])
+                        elif evenement["type"] in ("statut", "erreur"):
+                            publics.append(evenement["texte"])
                     yield json.dumps(evenement, ensure_ascii=False) + "\n"
             except Exception:
                 app.logger.exception("Échec du tour de colle")
-                yield json.dumps({"type": "erreur", "texte": "Le colleur est indisponible. Réessayez."},
+                yield json.dumps({"type": "erreur", "texte": "X-hôlleur est indisponible. Réessayez."},
                                  ensure_ascii=False) + "\n"
 
         return Response(stream_with_context(lignes()), mimetype="application/x-ndjson",
@@ -177,9 +193,10 @@ def create_app(config=None):
             colle.sauvegarder(chemin_colle())
             with verrou:
                 examinateurs[utilisateur()] = examinateur
+                lectures_publiques.pop(utilisateur(), None)
         except Exception:
             app.logger.exception("Impossible de démarrer la colle")
-            return jsonify(erreur="Le colleur est indisponible. Réessayez."), 502
+            return jsonify(erreur="X-hôlleur est indisponible. Réessayez."), 502
         finally:
             liberer()
         return jsonify(etat_public(examinateur))
@@ -195,7 +212,7 @@ def create_app(config=None):
         if not isinstance(message, str) or not message.strip() or len(message) > 6000:
             return jsonify(erreur="Écrivez un message de 1 à 6 000 caractères."), 400
         if not reserver():
-            return jsonify(erreur="Le colleur vous répond déjà : attendez la fin de sa réponse."), 409
+            return jsonify(erreur="X-hôlleur vous répond déjà : attendez la fin de sa réponse."), 409
         return diffuser(examinateur, examinateur.tour(message))
 
     @app.post("/api/bilan")
@@ -219,6 +236,7 @@ def create_app(config=None):
         try:
             with verrou:
                 examinateurs.pop(utilisateur(), None)
+                lectures_publiques.pop(utilisateur(), None)
             chemin_colle().unlink(missing_ok=True)
         finally:
             liberer()
@@ -233,5 +251,18 @@ def create_app(config=None):
         actif = examinateur_actif()
         return actif.colle.etat() if actif else None
 
-    app.register_blueprint(creer_modalites(etat_pour_modalite))
+    def textes_pour_lecture():
+        actif = examinateur_actif()
+        textes = []
+        if actif:
+            for message in actif.colle.messages:
+                public = message_eleve(message)
+                textes.append(public["texte"])
+                if public.get("question"):
+                    textes.extend([public["question"]["texte"], public["question"]["libelle"]])
+        with verrou:
+            textes.extend(lectures_publiques.get(utilisateur(), []))
+        return textes
+
+    app.register_blueprint(creer_modalites(etat_pour_modalite, textes_pour_lecture))
     return app

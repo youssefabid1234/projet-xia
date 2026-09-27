@@ -316,7 +316,7 @@ class Examinateur:
         tache = colle.tache
 
         # Une classification de dialogue, puis un seul jugement si c'est une réponse.
-        yield {"type": "statut", "texte": "Le colleur lit votre réponse…"}
+        yield {"type": "statut", "texte": "X-hôlleur lit votre réponse…"}
         try:
             if tache["nature"] == "exercice" and not tache["etapes_resolution"]:
                 exercice = next((ex for ex in colle.exercices if ex["id"] == tache["source"]), {"id": tache["source"]})
@@ -344,11 +344,11 @@ class Examinateur:
             evaluation = None
             if intention == "reponse":
                 if evaluateur() == "pipelex":
-                    yield {"type": "statut", "texte": "Le colleur compare avec le corrigé…"}
+                    yield {"type": "statut", "texte": "X-hôlleur compare avec le corrigé…"}
                 evaluation = await self.evaluer(client, message)
         except Exception:
             journal.exception("Analyse ou évaluation impossible")
-            yield {"type": "erreur", "texte": "Le colleur n'a pas pu lire votre réponse (service indisponible) ; réessayez."}
+            yield {"type": "erreur", "texte": "X-hôlleur n'a pas pu lire votre réponse (service indisponible) ; réessayez."}
             return
         journal.info("Tour : intention=%s verdict=%s", intention, evaluation and evaluation["verdict"])
 
@@ -360,7 +360,7 @@ class Examinateur:
             index = notions_cours()
             extraits = [index[n] for n in tache["contexte_action"]["notions"] if n in index]
         if action == REPONDRE_QUESTION:
-            yield {"type": "statut", "texte": "Le colleur cherche dans le cours…"}
+            yield {"type": "statut", "texte": "X-hôlleur cherche dans le cours…"}
             try:
                 from app.chapitres import COLLES
                 config = COLLES.get(colle.chapitre)
@@ -398,7 +398,7 @@ class Examinateur:
         # 4. Question suivante, affichée par le serveur.
         if colle.tache is None:
             if colle.temps_restant() > 0 and (colle.etape == "exercices" or colle.etape == "applications"):
-                yield {"type": "statut", "texte": "Le colleur choisit un exercice…"}
+                yield {"type": "statut", "texte": "X-hôlleur choisit un exercice…"}
             try:
                 suivante = await self.ouvrir_suivante()
             except ValueError as exc:

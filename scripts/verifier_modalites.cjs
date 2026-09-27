@@ -12,6 +12,7 @@ const rendu = spawnSync(python, ["-m", "scripts.fixture_modalites"], {cwd: root,
 assert.equal(rendu.status, 0, rendu.stderr);
 const fixture = JSON.parse(rendu.stdout);
 const journal = [], erreurs = [], resultats = [];
+console.log("Fixture chargee, lancement Chrome.");
 let delai = 0, disponible = true, prochainTexte = "Texte transcrit.", donnees;
 const wav = Buffer.alloc(4844);
 wav.write("RIFF"); wav.writeUInt32LE(wav.length - 8, 4); wav.write("WAVEfmt ", 8);
@@ -45,13 +46,13 @@ const server = http.createServer(async (req, res) => {
     donnees.etat.tache.question_active = question;
     donnees.etat.tache.etape_resolution = 1;
     res.setHeader("Content-Type", "application/x-ndjson");
-    res.write(JSON.stringify({type: "texte", texte: "Correction affichée, jamais lue."}) + "\n");
+    res.write(JSON.stringify({type: "texte", texte: "Correction affichée, toujours lisible."}) + "\n");
     return setTimeout(() => res.end(JSON.stringify({type: "etat", etat: donnees.etat}) + "\n"), 250);
   }
   if (req.url === "/api/bilan") {
     donnees.etat.terminee = true;
     res.setHeader("Content-Type", "application/x-ndjson");
-    return res.end(JSON.stringify({type: "texte", texte: "Bilan privé de lecture."}) + "\n" +
+    return res.end(JSON.stringify({type: "texte", texte: "Bilan affiché et lisible."}) + "\n" +
       JSON.stringify({type: "etat", etat: donnees.etat}) + "\n");
   }
   res.statusCode = 404; res.end("{}");
@@ -66,6 +67,7 @@ const lectures = () => journal.filter(r => r.url === "/api/modalites/lecture");
     args: ["--use-fake-device-for-media-stream", "--use-fake-ui-for-media-stream", "--autoplay-policy=no-user-gesture-required"]});
   try {
     async function pageNeuve(width = 1280) {
+      console.log(`Scenario ${resultats.length + 1}`);
       journal.length = 0; delai = 0; disponible = true; prochainTexte = "Texte transcrit.";
       donnees = structuredClone(fixture.donnees);
       const page = await browser.newPage({viewport: {width, height: 1000}});
@@ -179,25 +181,59 @@ const lectures = () => journal.filter(r => r.url === "/api/modalites/lecture");
     page = await pageNeuve();
     await page.click("#lecture-audio");
     await page.waitForTimeout(300);
-    assert.equal(lectures().length, 1);
-    assert.equal(JSON.parse(lectures()[0].body).question, fixture.donnees.etat.tache.question_active);
-    await page.fill("#message", "Ma réponse"); await page.click("#envoyer");
-    await page.waitForFunction(() => document.querySelector("#fil").textContent.includes("Correction affichée"));
-    assert.equal(await page.evaluate(() => occupe), true); // rendu pendant le flux
+    await page.waitForTimeout(500);
+    assert.deepEqual(lectures().map(r => JSON.parse(r.body).question),
+      ["Bienvenue.", "Cours", fixture.donnees.etat.tache.question_active]);
+    await page.fill("#message", "Ma r\u00e9ponse"); await page.click("#envoyer");
+    await page.waitForFunction(() => document.querySelector("#fil").textContent.includes("Correction affich\u00e9e"));
+    assert.equal(await page.evaluate(() => occupe), true);
     await page.waitForFunction(() => !occupe);
     await page.waitForTimeout(300);
-    assert.deepEqual(lectures().map(r => JSON.parse(r.body).question),
-      [fixture.donnees.etat.tache.question_active, "Consigne suivante déjà révélée."]);
+    assert.equal(JSON.parse(lectures().at(-1).body).question, "Correction affich\u00e9e, toujours lisible.");
+    // question_active has changed but was never rendered: it must never be read.
+    assert.ok(!lectures().some(r => JSON.parse(r.body).question === "Consigne suivante d\u00e9j\u00e0 r\u00e9v\u00e9l\u00e9e."));
+    const avant = lectures().length;
     await page.evaluate(() => majEtat(donnees.etat)); await page.waitForTimeout(100);
-    assert.equal(lectures().length, 2);
+    assert.equal(lectures().length, avant);
     await page.evaluate(() => terminer(true));
-    assert.equal(lectures().length, 2);
-    resultats.push("Audio : consignes publiques seules, étape révélée sans doublon, correction et bilan exclus, diffusion progressive intacte");
+    await page.waitForTimeout(300);
+    assert.equal(JSON.parse(lectures().at(-1).body).question, "Bilan affich\u00e9 et lisible.");
+    assert.equal(await page.isEnabled("#audio-relire"), true);
+    await page.click("#audio-relire"); await page.waitForTimeout(300);
+    assert.equal(lectures().length, avant + 2);
+    assert.equal(JSON.parse(lectures().at(-1).body).question, "Bilan affich\u00e9 et lisible.");
+    resultats.push("Audio : tout le dialogue affiche, bilan et relecture inclus ; aucune consigne invisible ni doublon");
     await page.reload();
     await page.waitForTimeout(150);
-    assert.equal(lectures().length, 2);
+    assert.equal(lectures().length, avant + 2);
     assert.equal(await page.getAttribute("#lecture-audio", "aria-pressed"), "false");
-    resultats.push("Rechargement : audio désactivé, aucune relecture de l’historique");
+    resultats.push("Rechargement : audio desactive, aucune relecture de l'historique");
+    await page.close();
+
+    page = await pageNeuve();
+    await page.click("#lecture-audio"); await page.waitForTimeout(800);
+    await page.route("**/api/modalites/lecture", async route => {
+      await new Promise(resolve => setTimeout(resolve, 400));
+      await route.continue().catch(() => {});
+    });
+    await page.evaluate(() => {
+      window.messageTest = bulle("colleur", "");
+      rendre(messageTest.contenu, "Indice visible. Suite encore incomplete");
+      modalites.affiche(messageTest.contenu, "Indice visible. Suite encore incomplete", false);
+    });
+    await page.waitForFunction(() => !document.querySelector("#audio-arreter").hidden);
+    await page.click("#audio-arreter");
+    const arretees = lectures().length;
+    await page.evaluate(() => {
+      rendre(messageTest.contenu, "Indice visible. Suite encore incomplete puis terminee.");
+      modalites.affiche(messageTest.contenu, "Indice visible. Suite encore incomplete puis terminee.", true);
+    });
+    await page.waitForTimeout(600);
+    assert.equal(lectures().length, arretees);
+    await page.unroute("**/api/modalites/lecture");
+    await page.click("#audio-relire"); await page.waitForTimeout(300);
+    assert.equal(JSON.parse(lectures().at(-1).body).question, "Indice visible. Suite encore incomplete puis terminee.");
+    resultats.push("Arret pendant synthese : requete annulee, suite du flux silencieuse, relecture complete disponible");
     await page.close();
 
     page = await pageNeuve();

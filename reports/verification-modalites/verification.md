@@ -3,6 +3,19 @@
 Branche : `modalites-integrees`, base `5aa5fd7`. Référence extraite :
 `origin/kholle-live` au commit `0ff5f59`.
 
+## Mise à jour : lecture complète et X-hôlleur
+
+- 44 tests Python ciblés réussis : `app.web.test_modalites`, `app.web.test_chat`, `app.test_examinateur`.
+- 12 scénarios Chrome réussis, sans erreur JavaScript : dialogue affiché,
+  bilan et relecture, consigne interne invisible exclue, arrêt pendant synthèse,
+  conservation des modalités de saisie.
+- Lecture autorisée pendant le flux ; la suite encore non diffusée est refusée.
+- Nom harmonisé dans les textes publics, les anciens messages au rendu,
+  les guides HTML/LaTeX/PDF et la documentation. Guides PDF inspectés visuellement.
+- Fournisseurs audio simulés : aucun appel vocal réel pendant cette vérification.
+
+Les résultats ci-dessous documentent la vérification initiale des autres modalités.
+
 ## Résultats
 
 | Vérification | Résultat |
@@ -32,8 +45,8 @@ volontairement dans cette suite, rendu KaTeX contrôlé séparément).
 - Aucun changement des profils ou de la colle lors des conversions seules.
 - Authentification, CSRF, isolation des élèves, formats/dimensions/durée et
   limites HTTP ; maintien de la limite globale de 64 Kio.
-- Lecture limitée à la consigne publique active, y compris côté serveur ; aucune
-  lecture du corrigé, du bilan ou des étapes futures.
+- Lecture limitée aux textes publics affichés, y compris côté serveur ;
+  corrections révélées et bilan inclus, corrigés privés et étapes futures exclus.
 - Annulation, résultat tardif, changement de brouillon/question, refus du micro,
   erreur réseau, expiration et rechargement sans relecture automatique.
 - Fonctionnement au clavier sans disponibilité des services de modalités.

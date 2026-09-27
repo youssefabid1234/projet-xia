@@ -7,8 +7,9 @@
     "Micro refusé : aucune soumission audio, clavier immédiatement utilisable",
     "Erreur réseau de conversion : brouillon conservé et clavier utilisable",
     "Micro Chrome + AudioWorklet : WAV mono 24 kHz final, aucun fragment réseau ni envoi implicite",
-    "Audio : consignes publiques seules, étape révélée sans doublon, correction et bilan exclus, diffusion progressive intacte",
-    "Rechargement : audio désactivé, aucune relecture de l’historique",
+    "Audio : tout le dialogue affiche, bilan et relecture inclus ; aucune consigne invisible ni doublon",
+    "Rechargement : audio desactive, aucune relecture de l'historique",
+    "Arret pendant synthese : requete annulee, suite du flux silencieuse, relecture complete disponible",
     "Expiration pendant conversion : bilan normal, résultat ignoré, aucun délai ajouté au chronomètre",
     "Mobile sans débordement ; services optionnels absents : clavier fonctionnel"
   ],

@@ -10,7 +10,7 @@ from werkzeug.exceptions import HTTPException, RequestEntityTooLarge
 from app.modalites import Convertisseur, MAX_AUDIO, MAX_IMAGE, audio_valide, image_validee
 
 
-def creer_modalites(etat_actif):
+def creer_modalites(etat_actif, textes_publics=lambda: []):
     routes = Blueprint("modalites", __name__, url_prefix="/api/modalites")
     verrou, occupes = Lock(), set()
 
@@ -52,7 +52,7 @@ def creer_modalites(etat_actif):
                 return jsonify(erreur="Une conversion est déjà en cours."), 409
             occupes.add(cle)
         try:
-            avant = contexte()
+            avant = None if mode == "lecture" else contexte()
             if not convertisseur().disponibilites()[mode]:
                 return jsonify(erreur="Cette modalité est indisponible. Vous pouvez écrire au clavier."), 503
             entree = preparer(avant)
@@ -62,7 +62,7 @@ def creer_modalites(etat_actif):
                 # Les erreurs du fournisseur (y compris ValueError) restent privées.
                 current_app.logger.warning("Conversion %s indisponible", mode)
                 return jsonify(erreur="Conversion indisponible. Votre brouillon est conservé ; vous pouvez écrire au clavier."), 502
-            if contexte() != avant:
+            if mode != "lecture" and contexte() != avant:
                 return jsonify(erreur="La question a changé. Reprenez votre saisie."), 409
             if mode == "lecture":
                 return Response(resultat, mimetype="audio/wav")
@@ -108,9 +108,10 @@ def creer_modalites(etat_actif):
             if not isinstance(corps, dict) or set(corps) != {"question"}:
                 raise ValueError("Une question publique est attendue.")
             question = corps["question"]
-            # Liste blanche serveur. Même un client modifié ne peut faire lire un corrigé.
-            if not isinstance(question, str) or not question or len(question) > 12000 or question != avant[3]["question_active"]:
-                raise ValueError("Seule la consigne actuellement révélée peut être lue.")
+            # Uniquement des fragments de textes déjà diffusés à cet élève.
+            if (not isinstance(question, str) or not question.strip() or len(question) > 12000
+                    or not any(question in texte for texte in textes_publics())):
+                raise ValueError("Seul un texte affiché peut être lu.")
             return question
         return convertir("lecture", preparer)
 

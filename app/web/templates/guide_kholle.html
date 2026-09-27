@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Comment réussir sa khôlle · Tuteur</title>
+  <title>Comment réussir sa khôlle · X-hôlleur</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='guides.css') }}">
 </head>
@@ -25,7 +25,7 @@
     <p class="muted">Dix repères pour progresser en khôlle et aux oraux de concours. La précision scientifique reste essentielle.</p>
     <div class="guide-actions">
       <a class="button" href="{{ url_for('static', filename='guides/10-reflexes-oral-kholle.pdf') }}" download="10-reflexes-oral-kholle.pdf">Télécharger la fiche PDF</a>
-      <a href="{{ url_for('chat') }}">{{ 'Reprendre ma khôlle' if session.get('utilisateur') else 'M’entraîner avec le tuteur' }}</a>
+      <a href="{{ url_for('chat') }}">{{ 'Reprendre ma khôlle' if session.get('utilisateur') else 'M’entraîner avec le X-hôlleur' }}</a>
     </div>
     <p class="guide-path">Objectif <span aria-hidden="true">→</span> Idée <span aria-hidden="true">→</span> Cours <span aria-hidden="true">→</span> Hypothèses <span aria-hidden="true">→</span> Preuve</p>
   </header>
@@ -88,7 +88,7 @@
     <h2 id="dialogue-title">Rebondir après une objection</h2>
     <p><strong>Sujet.</strong> Étudier la série de terme général u<sub>n</sub> = 1 / [n(n + 1)], pour n ≥ 1.</p>
     <p><strong>Élève.</strong> « u<sub>n</sub> tend vers 0, donc la série converge. »</p>
-    <p><strong>Colleur.</strong> « Que dit cette règle pour u<sub>n</sub> = 1/n ? »</p>
+    <p><strong>X-hôlleur.</strong> « Que dit cette règle pour u<sub>n</sub> = 1/n ? »</p>
     <p><strong>Élève.</strong> « La série harmonique diverge : mon critère était insuffisant. Je reprends : u<sub>n</sub> = 1/n − 1/(n + 1). La somme partielle vaut donc S<sub>N</sub> = 1 − 1/(N + 1), qui tend vers 1. Par la définition de la convergence d’une série, la série converge et sa somme vaut 1. »</p>
     <p class="guide-takeaway"><strong>Ce qui fait progresser l’échange :</strong> utiliser le contre-exemple, corriger l’idée, mobiliser le cours et terminer la preuve.</p>
   </section>

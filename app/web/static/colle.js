@@ -53,12 +53,12 @@ function rendre(element, texte) {
 
 /* ---------- Fil de discussion ---------- */
 
-function bulle(role, texte, extra = {}) {
+function bulle(role, texte, extra = {}, automatique = true) {
   const article = document.createElement("article");
   article.className = `msg ${role}` + (extra.bilan ? " bilan" : "");
   const auteur = document.createElement("div");
   auteur.className = "auteur";
-  auteur.textContent = role === "eleve" ? "Vous" : (extra.bilan ? "Bilan du colleur" : "Colleur");
+  auteur.textContent = role === "eleve" ? "Vous" : (extra.bilan ? "Bilan de X-hôlleur" : "X-hôlleur");
   const corps = document.createElement("div");
   corps.className = "corps";
   const contenu = document.createElement("div");
@@ -66,12 +66,20 @@ function bulle(role, texte, extra = {}) {
   corps.append(contenu);
   article.append(auteur, corps);
   rendre(contenu, texte);
-  if (extra.question) ajouterQuestion(article, extra.question);
+  if (role === "colleur") {
+    window.modalites?.affiche(contenu, texte, true, automatique);
+    const relire = document.createElement("button");
+    relire.type = "button"; relire.className = "bouton-secondaire";
+    relire.textContent = "Relire ce message";
+    relire.addEventListener("click", () => window.modalites?.relire(article));
+    corps.append(relire);
+  }
+  if (extra.question) ajouterQuestion(article, extra.question, automatique);
   $("fil").append(article);
   return {article, contenu};
 }
 
-function ajouterQuestion(article, question) {
+function ajouterQuestion(article, question, automatique = true) {
   const bloc = document.createElement("div");
   bloc.className = "question";
   const etiquette = document.createElement("div");
@@ -82,6 +90,8 @@ function ajouterQuestion(article, question) {
   bloc.append(etiquette, texte);
   article.querySelector(".corps").append(bloc);
   rendre(texte, question.texte);
+  window.modalites?.affiche(etiquette, question.libelle, true, automatique);
+  window.modalites?.affiche(texte, question.texte, true, automatique);
 }
 
 function statut(texte) {
@@ -114,8 +124,9 @@ function afficher() {
   $("accueil").hidden = enCours;
   $("colle").hidden = !enCours;
   if (!enCours) { window.modalites?.reinitialiser(); return afficherAccueil(); }
+  window.modalites?.vider();
   $("fil").replaceChildren();
-  for (const m of donnees.messages) bulle(m.role, m.texte, m);
+  for (const m of donnees.messages) bulle(m.role, m.texte, m, m === donnees.messages.at(-1));
   majEtat(donnees.etat);
   defiler();
 }
@@ -236,9 +247,12 @@ async function suivreColleur(url, corps, {apresErreur} = {}) {
   let courant = null;
   let enAttente = false;
   let erreur = null;
-  const dessiner = () => {
+  const dessiner = (fin = false) => {
     enAttente = false;
-    if (courant) rendre(courant.contenu, texte);
+    if (courant) {
+      rendre(courant.contenu, texte);
+      window.modalites?.affiche(courant.contenu, texte, fin);
+    }
   };
   try {
     await flux(url, corps, (e) => {
@@ -250,7 +264,7 @@ async function suivreColleur(url, corps, {apresErreur} = {}) {
       } else if (e.type === "question") {
         statut(null);
         if (!courant) courant = bulle("colleur", "");
-        dessiner();
+        dessiner(true);
         ajouterQuestion(courant.article, e.question);
         defiler();
       } else if (e.type === "etat") majEtat(e.etat);
@@ -260,7 +274,7 @@ async function suivreColleur(url, corps, {apresErreur} = {}) {
     erreur = exc.message;
   }
   statut(null);
-  dessiner();
+  dessiner(true);
   if (erreur) {
     alerte(erreur);
     await resynchroniser();
@@ -294,7 +308,7 @@ async function demarrer(index, bouton) {
   if (occupe) return;
   occuper(true);
   bouton.disabled = true;
-  bouton.textContent = "Le colleur prépare la colle…";
+  bouton.textContent = "X-hôlleur prépare la colle…";
   try {
     const reponse = await requete("/api/colle", {chapitre: index});
     donnees = await reponse.json();

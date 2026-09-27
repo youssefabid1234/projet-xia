@@ -8,7 +8,7 @@
   let mode = "clavier", bloque = false, termine = true, cle = "", question = "";
   let revision = 0, generation = 0, conversion = null, capture = null;
   let audioActif = false, generationAudio = 0, audioRequete = null, lecteur = null, urlAudio = null;
-  let derniereLecture = "";
+  let fileAudio = [], sourcesAudio = new Map(), suspendu = false;
   const tableau = new window.TableauSaisie(el("tableau"), () => { revision++; });
   const note = texte => { el("modalites-statut").textContent = texte; };
   const noteAudio = texte => { el("audio-statut").textContent = texte; };
@@ -31,11 +31,11 @@
     el("dictee-fin").hidden = !capture?.pret;
     el("modalite-annuler").hidden = !conversion && !capture;
     el("envoyer").disabled = indisponible || Boolean(conversion) || Boolean(capture);
-    el("lecture-audio").disabled = !disponible.lecture || termine;
+    el("lecture-audio").disabled = !disponible.lecture;
     el("lecture-audio").setAttribute("aria-pressed", String(audioActif));
     el("lecture-audio").textContent = audioActif ? "Lecture audio : activée" : "Activer la lecture audio";
     el("audio-relire").hidden = !audioActif;
-    el("audio-relire").disabled = indisponible || Boolean(capture) || !question;
+    el("audio-relire").disabled = Boolean(capture) || !sourcesAudio.size;
     el("audio-arreter").hidden = !audioRequete && !lecteur;
   }
 
@@ -164,6 +164,7 @@
   }
 
   function arreterAudio() {
+    fileAudio = [];
     generationAudio++;
     audioRequete?.abort(); audioRequete = null;
     if (lecteur) { lecteur.pause(); lecteur.removeAttribute("src"); lecteur.load(); lecteur = null; }
@@ -171,27 +172,40 @@
     urlAudio = null; noteAudio(""); actualiser();
   }
 
-  async function lire(force = false) {
-    if (!audioActif || !question || !encoreActive() || capture || (!force && derniereLecture === cle)) return;
-    arreterAudio();
-    derniereLecture = cle;
-    const tour = generationAudio, contexte = cle, controle = new AbortController();
+  function ajouterLecture(texte) {
+    if (!audioActif || capture || suspendu || !texte.trim()) return;
+    // Requêtes bornées, sans jamais inclure la suite non affichée.
+    const morceaux = texte.match(/[\s\S]{1,1000}(?:\s|$)|[\s\S]{1,1000}/g) || [];
+    fileAudio.push(...morceaux);
+    lire();
+  }
+
+  async function lire() {
+    if (!audioActif || capture || suspendu || audioRequete || lecteur || !fileAudio.length) return;
+    const question = fileAudio.shift();
+    const tour = generationAudio, controle = new AbortController();
     audioRequete = controle;
     noteAudio("Préparation de la lecture…"); actualiser();
+    const suivant = () => {
+      if (tour !== generationAudio) return;
+      if (urlAudio) URL.revokeObjectURL(urlAudio);
+      lecteur = null; urlAudio = null; audioRequete = null;
+      noteAudio(""); actualiser(); lire();
+    };
     try {
       const reponse = await requeteMedia("lecture", JSON.stringify({question}), "application/json", controle.signal);
       const blob = await reponse.blob();
-      if (tour !== generationAudio || cle !== contexte || !encoreActive() || !audioActif) return;
+      if (tour !== generationAudio || !audioActif) return;
       urlAudio = URL.createObjectURL(blob); lecteur = new Audio(urlAudio);
-      lecteur.onended = () => { if (tour === generationAudio) arreterAudio(); };
+      lecteur.onended = suivant;
       lecteur.onerror = () => {
-        if (tour === generationAudio) { arreterAudio(); noteAudio("Lecture impossible. L’énoncé reste disponible à l’écrit."); }
+        if (tour === generationAudio) { suspendu = true; arreterAudio(); noteAudio("Lecture impossible. Le texte reste disponible."); }
       };
       await lecteur.play();
-      if (tour === generationAudio) noteAudio("Lecture de la consigne en cours.");
+      if (tour === generationAudio) noteAudio("Lecture en cours.");
     } catch (e) {
       if (tour === generationAudio && e.name !== "AbortError") {
-        arreterAudio();
+        suspendu = true; arreterAudio();
         noteAudio(e.name === "NotAllowedError" ? "Lecture bloquée par le navigateur. Cliquez sur Relire." : e.message);
       }
     } finally {
@@ -199,26 +213,53 @@
     }
   }
 
+  function relire(element) {
+    if (capture || !disponible.lecture) return;
+    arreterAudio(); suspendu = false; audioActif = true;
+    const article = element || [...sourcesAudio.keys()].at(-1)?.closest("article");
+    for (const [source, suivi] of sourcesAudio) {
+      if (!article || article.contains(source)) ajouterLecture(suivi.texte);
+    }
+    actualiser();
+  }
+
+  function affiche(element, texte, fin = true, automatique = true) {
+    let suivi = sourcesAudio.get(element);
+    if (!suivi) { suivi = {texte: "", lu: 0}; sourcesAudio.set(element, suivi); }
+    suivi.texte = texte;
+    // Pendant le flux, attendre une phrase ou une ligne complète.
+    const reste = texte.slice(suivi.lu);
+    const limites = [...reste.matchAll(/[.!?](?:\s|$)|\n/g)];
+    const taille = fin ? reste.length : (limites.length ? limites.at(-1).index + limites.at(-1)[0].length : 0);
+    if (taille) {
+      if (automatique) ajouterLecture(reste.slice(0, taille));
+      suivi.lu += taille;
+    }
+    actualiser();
+  }
+
   window.modalites = {
+    affiche, relire,
+    vider() { arreterAudio(); sourcesAudio.clear(); suspendu = false; },
     etat(etat) {
       const nouvelleCle = JSON.stringify([etat?.debut, etat?.etape, etat?.resultats?.length,
         etat?.tache?.question, etat?.tache?.etape_resolution, etat?.tache?.question_active]);
       termine = !etat || Boolean(etat.terminee) || etat.temps_restant <= 0;
       question = termine ? "" : (etat.tache?.question_active || "");
       if (nouvelleCle !== cle || termine) {
-        cle = nouvelleCle; annulerSaisie(); arreterAudio(); tableau.effacer();
+        cle = nouvelleCle; annulerSaisie(); tableau.effacer();
       }
       actualiser();
     },
     occuper(oui) {
       bloque = oui;
-      if (oui) { annulerSaisie(); arreterAudio(); }
+      if (oui) { annulerSaisie(); arreterAudio(); suspendu = false; }
       actualiser();
       if (!oui) lire();
     },
     peutEnvoyer() { return !capture && !conversion; },
-    expiration() { annulerSaisie(); arreterAudio(); },
-    reinitialiser() { this.etat(null); },
+    expiration() { annulerSaisie(); },
+    reinitialiser() { this.vider(); this.etat(null); },
   };
   zone.addEventListener("input", () => { revision++; });
   for (const bouton of document.querySelectorAll("[data-modalite]")) bouton.addEventListener("click", () => {
@@ -234,11 +275,11 @@
   el("modalite-annuler").addEventListener("click", () => annulerSaisie("Saisie annulée. Votre brouillon est conservé."));
   el("lecture-audio").addEventListener("click", () => {
     audioActif = !audioActif;
-    if (audioActif) lire(true); else arreterAudio();
+    if (audioActif) relire(); else arreterAudio();
     actualiser();
   });
-  el("audio-arreter").addEventListener("click", arreterAudio);
-  el("audio-relire").addEventListener("click", () => lire(true));
+  el("audio-arreter").addEventListener("click", () => { suspendu = true; arreterAudio(); });
+  el("audio-relire").addEventListener("click", () => relire());
   window.addEventListener("pagehide", () => { annulerSaisie(); arreterAudio(); });
   fetch("/api/modalites").then(r => {
     if (!r.ok) throw new Error();

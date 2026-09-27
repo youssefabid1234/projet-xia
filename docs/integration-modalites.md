@@ -1,7 +1,7 @@
-# Raccorder les modalités au colleur
+# Raccorder les modalités au X-hôlleur
 
 Référence : branche `fond-pedagogique`, code au commit `cf9efc6` (27 septembre 2026).
-Périmètre : raccorder une synthèse vocale, une saisie manuscrite et une réponse orale **déjà réalisées**. Le contrat du colleur reste textuel ; aucun endpoint audio/image ni bus de modalités n'existe actuellement.
+Périmètre : raccorder une synthèse vocale, une saisie manuscrite et une réponse orale **déjà réalisées**. Le contrat du X-hôlleur reste textuel ; aucun endpoint audio/image ni bus de modalités n'existe actuellement.
 
 ## 1. Déroulé et décisions
 
@@ -25,7 +25,7 @@ Les étapes guidées sont révélées une par une, chacune avec ses compteurs. V
 
 Source unique des consignes : [méthode d'évaluation](../methods/evaluation_maths_prepa/). Entrée via `Examinateur.evaluer(self, client, message)` puis `app.evaluation.evaluer(enonce, reponse, corrige, *, openai=None, pipelex=None, moteur=None, contexte=None)` (coroutines).
 
-L'évaluateur reçoit la question de l'élément actif, le corrigé vérifié correspondant, les interventions textuelles cumulées de la tâche (nouveau message compris), et un contexte : réponses/aides de l'élément, compteurs, interventions rattachées aux éléments, résultats antérieurs avec indication des réponses données par l'agent, notions autorisées. Dans la méthode, les quatre entrées sont `enonce`, `reponse_eleve`, `corrige`, `contexte` (ce dernier est une chaîne JSON). Il juge la compréhension, accepte le langage oral et les rectifications ; il n'attribue pas les réponses du colleur à l'élève. Le moteur local par défaut et Pipelex utilisent la même méthode.
+L'évaluateur reçoit la question de l'élément actif, le corrigé vérifié correspondant, les interventions textuelles cumulées de la tâche (nouveau message compris), et un contexte : réponses/aides de l'élément, compteurs, interventions rattachées aux éléments, résultats antérieurs avec indication des réponses données par l'agent, notions autorisées. Dans la méthode, les quatre entrées sont `enonce`, `reponse_eleve`, `corrige`, `contexte` (ce dernier est une chaîne JSON). Il juge la compréhension, accepte le langage oral et les rectifications ; il n'attribue pas les réponses du X-hôlleur à l'élève. Le moteur local par défaut et Pipelex utilisent la même méthode.
 
 Sortie validée, exactement six champs, sans note ni action :
 
@@ -65,7 +65,7 @@ Session authentifiée et en-tête `X-CSRF-Token` de la meta `csrf` pour les POST
 
 **Manuscrit et oral → texte.** À la sortie de vos composants existants, placer la transcription finale dans `#message`, appeler `majApercu()`, puis soumettre via `envoyer(evenement)` (événement facultatif). C'est le chemin commun : bulle élève, `occupe`, POST, récupération du brouillon après erreur. Une saisie = une intervention finale ; ne pas envoyer chaque hypothèse de reconnaissance, ni enrichir/corriger mathématiquement la réponse. Conserver le texte et le LaTeX (`$…$`) ; `JSON.stringify` assure l'échappement. Adapter les contrôles de modalité à `occuper(etat)` et à `etat.terminee`. Aucun accès direct à l'évaluateur : il perdrait la classification, l'historique et les compteurs.
 
-**Texte public → synthèse vocale.** Brancher la lecture de l'énoncé sur `question.texte` : après `demarrer(index, bouton)` pour la première question, puis dans le traitement de l'événement `question` de `suivreColleur`. `ajouterQuestion(article, question)` est le point de rendu commun, mais il est aussi appelé au rechargement : ne pas y lancer automatiquement toutes les lectures. Pour lire la consigne guidée actuelle, utiliser `etat.tache.question_active` reçu par `majEtat(etat)` ; `etape_resolution` vaut null en autonomie puis 1, 2… Les transitions guidées arrivent en `texte` puis `etat`, pas nécessairement en `question`. Ne pas lire deux fois la même consigne. La sortie audio reste locale à la modalité ; elle ne renvoie aucun message élève et ne modifie pas le chronomètre.
+**Texte public → synthèse vocale.** La lecture est raccordée au rendu du dialogue via `modalites.affiche` : texte progressif, questions et bilan. Elle ne part jamais de `etat.tache.question_active`, qui peut contenir une consigne absente de l'écran. La file lit les phrases déjà affichées dans l'ordre ; la fin du flux libère le fragment restant. Les contrôles permettent l'arrêt et la relecture, y compris après le bilan. Le serveur vérifie chaque fragment contre les textes publics de l'élève. Aucun message élève, score ou chronomètre n'est modifié.
 
 **À préserver.** `rendre(element, texte)` échappe le HTML, préserve les formules puis appelle KaTeX (`trust:false`, `throwOnError:false` ; `$…$`, `$$…$$`, `\(…\)`, `\[…\]`). Fournir le texte source à la synthèse, pas le DOM KaTeX. Ne pas modifier ce rendu ni les filtres publics pour une adaptation vocale. Ne jamais exposer `reference`, le plan complet, les prompts ou les fichiers de séance. Ne pas modifier méthode d'évaluation, règles/scoring, profils, sélection, persistance ou verrous : ils garantissent équité et continuité. Après une coupure, resynchroniser via `/api/etat` ; ne pas rejouer automatiquement un POST, car le serveur peut avoir terminé le tour.
 
