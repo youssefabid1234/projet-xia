@@ -35,10 +35,12 @@ class Colle:
         self.nouvelle_tache_autorisee = True
         self.session_colle = uuid4().hex
         self.debut_colle = maintenant()
+        self.revision = None
 
     def etat_colle(self):
+        tache = {k: v for k, v in self.tache.items() if k != "reprise_de"} if self.tache else None
         return donnees_publiques({"chapitre": self.chapitre, "etape": self.etape,
-                "tache": self.tache, "nouvelle_tache_autorisee": self.nouvelle_tache_autorisee,
+                "tache": tache, "nouvelle_tache_autorisee": self.nouvelle_tache_autorisee,
                 "taches_validees": self.taches_validees(),
                 "bilan_precedent": dernier_bilan(Profil.charger(self.chemin_profil),
                                                 self.chapitre, self.session_colle)})
@@ -78,6 +80,8 @@ class Colle:
                       "type_erreur": "non_determinable", "notions": [],
                       "erreur_a_reformuler": False, "erreur_reformulee": False,
                       "blocages": 0, "echanges": [], "evaluations": []}
+        if self.revision:
+            self.tache["reprise_de"] = dict(self.revision)
         self.nouvelle_tache_autorisee = False
         # Le message qui choisit le chapitre ou clôt la tâche précédente n'est
         # pas une tentative sur la question que nous venons de poser.
@@ -181,6 +185,18 @@ class Colle:
                 t["erreur_a_reformuler"] = True
                 t["erreur_reformulee"] = False
             self.sauver_tache()
+        if self.revision:
+            valide = evaluation["verdict"] == "correcte"
+            t.update(acquise=valide, cloturee=valide)
+            if valide:
+                t["erreur_a_reformuler"] = False
+            t["decision"] = {"action": "approfondir", "acquise": valide,
+                             "raison": "Reprise ciblée : seule cette question est évaluée."}
+            # Le tuteur ne peut pas remplacer une question en cours ou continuer
+            # une khôlle normale à la place de l'entraînement demandé.
+            self.nouvelle_tache_autorisee = False
+            self.sauver_tache()
+            return {"evaluation": evaluation, "decision": t["decision"], "etat": self.etat_colle()}
         if t["etape"] != "exercices" and evaluation["verdict"] == "correcte":
             # Une réponse correcte est un acquis, sans décision supplémentaire
             # du tuteur ou du modèle de progression, même si ce dernier tombe.
