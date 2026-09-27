@@ -1,0 +1,129 @@
+import json
+import time
+from types import SimpleNamespace
+
+import pytest
+from fastapi.testclient import TestClient
+
+import main
+from kholle import board, board_reader, exercises, state
+from kholle.state import BoardLine
+
+PNG_A = b"\x89PNG\r\n\x1a\n" + b"A" * 32
+PNG_B = b"\x89PNG\r\n\x1a\n" + b"B" * 32
+
+
+def ligne_brute(n, lhs, rhs, ordre=3, var="x"):
+    return {
+        "n": n, "texte": f"{lhs} = {rhs} + o({var}^{ordre})", "barre": False, "lisible": True,
+        "verifiable": True, "lhs": lhs, "rhs": rhs, "var": var, "point": "0", "ordre": ordre,
+    }
+
+
+class FauxOpenAI:
+    def __init__(self, lignes):
+        self.lignes = lignes
+        self.appels = []
+        self.responses = SimpleNamespace(create=self._create)
+
+    def _create(self, **kwargs):
+        self.appels.append(kwargs)
+        return SimpleNamespace(output_text=json.dumps({"lines": self.lignes}))
+
+
+def test_read_board_verifie_chaque_ligne(monkeypatch):
+    faux = FauxOpenAI([
+        ligne_brute(1, "f(x)", "x - x**2/2 + x**3/6"),
+        ligne_brute(2, "f(x)", "x - x**2/2 - x**3/6"),
+        {"n": 3, "texte": "on pose u = sin x", "barre": False, "lisible": True, "verifiable": False,
+         "lhs": None, "rhs": None, "var": None, "point": None, "ordre": None},
+    ])
+    monkeypatch.setattr(board_reader, "_client", lambda: faux)
+    monkeypatch.setenv("VISION_MODEL", "modele-test")
+
+    lignes = board_reader.read_board(PNG_A, exercises.get("dl_ln_sin"))
+
+    assert [l.verdict for l in lignes] == ["ok", "faux", "?"]
+    assert lignes[1].detail == "erreur sur le terme en x^3"
+    appel = faux.appels[0]
+    assert appel["model"] == "modele-test"
+    assert "f(x) = log(1+sin(x))" in appel["instructions"]
+    assert "{definitions}" not in appel["instructions"]
+    assert appel["text"]["format"]["type"] == "json_schema"
+    image = appel["input"][0]["content"][0]
+    assert image["image_url"].startswith("data:image/png;base64,")
+
+
+@pytest.fixture
+def client(monkeypatch, tmp_path):
+    lectures = []
+
+    def faux_read_board(png, exercise):
+        lectures.append(png)
+        time.sleep(0.2)
+        fausse = png == PNG_B
+        rhs = "x - x**2/2 - x**3/6" if fausse else "x - x**2/2 + x**3/6"
+        return [board_reader.check_line(BoardLine(**ligne_brute(1, "f(x)", rhs)), exercise["definitions_sympy"])]
+
+    monkeypatch.setattr(board, "read_board", faux_read_board)
+    monkeypatch.setattr(board, "DOSSIER_ECHANTILLONS", tmp_path)
+    board.reinitialiser()
+    with TestClient(main.app) as c:
+        c.post("/api/session/new", json={})
+        c.lectures = lectures
+        c.dossier = tmp_path
+        yield c
+
+
+def attendre_lignes(client, verdict, delai=5.0):
+    fin = time.time() + delai
+    while time.time() < fin:
+        etat = client.get("/api/board/state").json()
+        if etat["lines"] and etat["lines"][0]["verdict"] == verdict and not etat["lecture_en_cours"]:
+            return etat
+        time.sleep(0.05)
+    raise AssertionError(f"pas de ligne {verdict} : {etat}")
+
+
+def test_post_board_puis_etat(client):
+    assert client.get("/api/board/state").json()["lines"] == []
+    assert client.get("/api/board/latest.png").status_code == 404
+
+    r = client.post("/api/board", content=PNG_B, headers={"content-type": "image/png"})
+    assert r.status_code == 202
+
+    etat = attendre_lignes(client, "faux")
+    assert etat["lines"][0]["detail"] == "erreur sur le terme en x^3"
+    assert etat["image_url"].startswith("/api/board/latest.png")
+    assert etat["updated_at"] > 0
+    assert client.get("/api/board/latest.png").content == PNG_B
+    assert state.get_session().board_lines[0].verdict == "faux"
+
+
+def test_image_identique_ignoree(client):
+    client.post("/api/board", content=PNG_A)
+    attendre_lignes(client, "ok")
+    r = client.post("/api/board", content=PNG_A)
+    assert r.json()["status"] == "identique"
+    assert client.lectures == [PNG_A]
+
+
+def test_une_lecture_a_la_fois_et_seule_la_derniere_image(client):
+    autre = b"\x89PNG\r\n\x1a\n" + b"C" * 32
+    client.post("/api/board", content=PNG_A)
+    client.post("/api/board", content=autre)
+    client.post("/api/board", content=PNG_B)
+    attendre_lignes(client, "faux")
+    assert client.lectures == [PNG_A, PNG_B]
+
+
+def test_image_vide_refusee(client):
+    assert client.post("/api/board", content=b"").status_code == 400
+
+
+def test_echantillon_eval(client):
+    r = client.post("/api/eval/sample?label=E3", content=PNG_A)
+    assert r.status_code == 200
+    fichiers = list(client.dossier.glob("E3_*.png"))
+    assert len(fichiers) == 1 and fichiers[0].read_bytes() == PNG_A
+    assert client.post("/api/eval/sample?label=../x", content=PNG_A).status_code == 422
