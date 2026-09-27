@@ -1,10 +1,17 @@
-"""Lecture du tableau manuscrit par un modèle de vision (prompts/board_reader.md). [lane B]"""
+"""Lecture du tableau manuscrit par un modèle de vision (prompts/board_reader.md). [lane B]
+
+Contre les fausses alertes : dès qu'une ligne sort "faux", l'image est relue
+une seconde fois. La ligne ne reste "faux" que si la seconde lecture la
+trouve fausse aussi ; sinon elle passe à "?".
+"""
 
 from __future__ import annotations
 
 import base64
+import dataclasses
 import functools
 import json
+import logging
 import os
 from pathlib import Path
 
@@ -12,6 +19,11 @@ from openai import OpenAI
 
 from .state import BoardLine
 from .verifier import check_line
+
+logger = logging.getLogger(__name__)
+
+# Lignes "faux" relues, et relectures qui ne l'ont pas confirmé (depuis le démarrage).
+_stats = {"relectures": 0, "desaccords": 0}
 
 PROMPT = Path(__file__).resolve().parent.parent / "prompts" / "board_reader.md"
 
@@ -68,8 +80,40 @@ def _type_mime(image: bytes) -> str:
     return "image/png"
 
 
+def stats() -> dict[str, int]:
+    return dict(_stats)
+
+
 def read_board(png: bytes, exercise: dict) -> list[BoardLine]:
-    """Transcrit le tableau (PNG, ou photo JPEG) puis vérifie chaque ligne avec SymPy."""
+    """Transcrit le tableau (PNG, ou photo JPEG), vérifie chaque ligne avec SymPy
+    et fait confirmer chaque ligne "faux" par une seconde lecture."""
+    lignes = _lire(png, exercise)
+    if any(l.verdict == "faux" for l in lignes):
+        lignes = _confirmer(lignes, png, exercise)
+    return lignes
+
+
+def _confirmer(lignes: list[BoardLine], png: bytes, exercise: dict) -> list[BoardLine]:
+    try:
+        seconde = {l.n: l for l in _lire(png, exercise)}
+    except Exception:
+        logger.exception("Seconde lecture du tableau en échec")
+        seconde = {}
+    resultat = []
+    for l in lignes:
+        if l.verdict == "faux":
+            _stats["relectures"] += 1
+            autre = seconde.get(l.n)
+            if autre is None or autre.verdict != "faux":
+                _stats["desaccords"] += 1
+                logger.info("L%d non confirmée : 1re lecture %r, 2e %r", l.n, l.texte, autre and autre.texte)
+                l = dataclasses.replace(l, verdict="?", detail="non confirmée par une seconde lecture")
+        resultat.append(l)
+    logger.info("Relectures : %(desaccords)d désaccord(s) sur %(relectures)d ligne(s) fausse(s)", _stats)
+    return resultat
+
+
+def _lire(png: bytes, exercise: dict) -> list[BoardLine]:
     url = f"data:{_type_mime(png)};base64,{base64.b64encode(png).decode('ascii')}"
     reponse = _client().responses.create(
         model=os.environ.get("VISION_MODEL") or "gpt-4.1-mini",

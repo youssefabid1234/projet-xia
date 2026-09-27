@@ -22,7 +22,7 @@ from dotenv import load_dotenv  # noqa: E402
 load_dotenv(ICI.parent / ".env")
 
 from kholle import exercises  # noqa: E402
-from kholle.board_reader import read_board  # noqa: E402
+from kholle.board_reader import read_board, stats  # noqa: E402
 
 SYMBOLES = {"ok": "✓", "faux": "✗", "?": "?"}
 
@@ -70,7 +70,8 @@ def resume(resultats: list[dict], exercise_id: str) -> str:
         f"- Erreurs détectées : **{sum(r['detecte'] for r in erreurs)}/{len(erreurs)}** (échantillons E*)",
         f"- Fausses alertes : **{sum(r['detecte'] for r in justes)}/{len(justes)}** (échantillons C*)",
         f"- Illisibles : **{sum(r['illisible'] for r in resultats)}** (lecture en échec ou aucune ligne vérifiable)",
-        f"- Latence moyenne de lecture : **{moyenne}**",
+        f"- Latence moyenne de lecture : **{moyenne}** (seconde lecture comprise)",
+        f"- Relectures des lignes fausses : **{stats()['desaccords']} désaccord(s) sur {stats()['relectures']}**",
         "",
         "| Échantillon | Attendu | Résultat | Lignes | Latence |",
         "|---|---|---|---|---|",
@@ -104,7 +105,7 @@ def main() -> None:
     texte = resume(resultats, args.exercise)
     (ICI / "results.md").write_text(texte, encoding="utf-8")
     print()
-    print("\n".join(texte.splitlines()[4:8]))
+    print("\n".join(texte.splitlines()[4:9]))
     print(f"\n-> {ICI / 'results.md'}")
 
 

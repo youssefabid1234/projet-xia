@@ -21,14 +21,69 @@ def ligne_brute(n, lhs, rhs, ordre=3, var="x"):
 
 
 class FauxOpenAI:
-    def __init__(self, lignes):
-        self.lignes = lignes
+    """Renvoie les lectures dans l'ordre (la dernière ensuite) ; une exception est levée."""
+
+    def __init__(self, *lectures):
+        self.lectures = lectures
         self.appels = []
         self.responses = SimpleNamespace(create=self._create)
 
     def _create(self, **kwargs):
         self.appels.append(kwargs)
-        return SimpleNamespace(output_text=json.dumps({"lines": self.lignes}))
+        lecture = self.lectures[min(len(self.appels), len(self.lectures)) - 1]
+        if isinstance(lecture, Exception):
+            raise lecture
+        return SimpleNamespace(output_text=json.dumps({"lines": lecture}))
+
+
+JUSTE = ligne_brute(1, "f(x)", "x - x**2/2 + x**3/6")
+FAUSSE = ligne_brute(2, "f(x)", "x - x**2/2 - x**3/6")
+FAUSSE_RELUE_JUSTE = ligne_brute(2, "f(x)", "x - x**2/2 + x**3/6")
+
+
+def lire(monkeypatch, *lectures):
+    faux = FauxOpenAI(*lectures)
+    monkeypatch.setattr(board_reader, "_client", lambda: faux)
+    avant = board_reader.stats()
+    lignes = board_reader.read_board(PNG_A, exercises.get("dl_ln_sin"))
+    apres = board_reader.stats()
+    ecart = {k: apres[k] - avant[k] for k in apres}
+    return lignes, len(faux.appels), ecart
+
+
+def test_pas_de_relecture_sans_ligne_fausse(monkeypatch):
+    lignes, appels, ecart = lire(monkeypatch, [JUSTE])
+    assert [l.verdict for l in lignes] == ["ok"]
+    assert appels == 1
+    assert ecart == {"relectures": 0, "desaccords": 0}
+
+
+def test_faux_confirme_par_une_seconde_lecture(monkeypatch):
+    lignes, appels, ecart = lire(monkeypatch, [JUSTE, FAUSSE], [JUSTE, FAUSSE])
+    assert [l.verdict for l in lignes] == ["ok", "faux"]
+    assert lignes[1].detail == "erreur sur le terme en x^3"
+    assert appels == 2
+    assert ecart == {"relectures": 1, "desaccords": 0}
+
+
+def test_faux_non_confirme_devient_inconnu(monkeypatch):
+    lignes, appels, ecart = lire(monkeypatch, [JUSTE, FAUSSE], [JUSTE, FAUSSE_RELUE_JUSTE])
+    assert [l.verdict for l in lignes] == ["ok", "?"]
+    assert lignes[1].texte == FAUSSE["texte"]
+    assert appels == 2
+    assert ecart == {"relectures": 1, "desaccords": 1}
+
+
+def test_faux_absent_de_la_seconde_lecture_devient_inconnu(monkeypatch):
+    lignes, _, ecart = lire(monkeypatch, [JUSTE, FAUSSE], [JUSTE])
+    assert [l.verdict for l in lignes] == ["ok", "?"]
+    assert ecart == {"relectures": 1, "desaccords": 1}
+
+
+def test_seconde_lecture_en_echec_jamais_faux(monkeypatch):
+    lignes, appels, _ = lire(monkeypatch, [JUSTE, FAUSSE], TimeoutError("réseau"))
+    assert [l.verdict for l in lignes] == ["ok", "?"]
+    assert appels == 2
 
 
 def test_read_board_verifie_chaque_ligne(monkeypatch):
