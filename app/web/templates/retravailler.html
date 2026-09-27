@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Retravailler mes erreurs · Tuteur</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body><main>
+  {% include "compte.html" %}
+  <p class="eyebrow">ENTRAÎNEMENT CIBLÉ · {{ bilan.chapitre|nom_chapitre }}</p>
+  <h1>Retravailler mes erreurs</h1>
+  <p>Repartez de votre raisonnement, puis testez votre nouvelle démarche sur une question.</p>
+  <section class="card math">
+    <h2>La question de votre bilan</h2>
+    <p class="prose">{{ point.question }}</p>
+    {% if point.justification %}<p class="prose">{{ point.justification }}</p>{% endif %}
+    <details><summary>Relire ma réponse</summary>
+      {% for reponse in point.reponses %}<p class="prose">{{ reponse }}</p>{% endfor %}
+    </details>
+  </section>
+  <p id="math-warning" class="muted" hidden>Le rendu des formules est indisponible. Le texte reste lisible.</p>
+  {% if erreur %}<p class="error" role="alert">{{ erreur }}</p>{% endif %}
+  <section class="card">
+    <form method="post" id="chat-form">
+      <input type="hidden" name="csrf" value="{{ session.csrf }}">
+      <input type="hidden" name="jeton" value="{{ session.jeton_reprise }}">
+      <input type="hidden" name="tache_id" value="{{ point.tache_id }}">
+      <label for="reflexion">Qu’allez-vous changer dans votre raisonnement ?</label>
+      <p id="reflexion-aide" class="muted">Nommez l’hypothèse oubliée, le résultat du cours à utiliser ou l’étape qui vous a bloqué. Vous pouvez aussi expliquer ce que vous ne comprenez pas encore.</p>
+      <textarea id="reflexion" name="reflexion" rows="5" maxlength="2000" required aria-describedby="reflexion-aide">{{ reflexion }}</textarea>
+      <p class="muted">Vous recevrez un exercice du même chapitre sélectionné à partir de votre bilan. À défaut d’exercice proche exploitable, vous reprendrez la question d’origine.</p>
+      <button type="submit" id="send-message">Lancer ma reprise</button>
+      <span id="chat-pending" role="status" hidden>Préparation de votre question…</span>
+    </form>
+  </section>
+  <p><a href="{{ url_for('voir_bilan', session_id=bilan.session_id) }}">Retour au bilan</a> · <a href="{{ url_for('chat') }}">Retour à la séance en cours</a></p>
+</main></body>
+</html>
