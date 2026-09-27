@@ -193,3 +193,7 @@ def _nom_terme(v: sympy.Symbol, p: sympy.Expr, exposant: sympy.Expr) -> str:
         return f"terme en {base}"
     puissance = str(exposant) if exposant.is_Integer else f"({exposant})"
     return f"terme en {base}^{puissance}"
+
+
+# Le premier series() coûte ~0,5 s (caches SymPy) : on le paie au démarrage, en arrière-plan.
+_executeur.submit(_verifier, "log(1+sin(x))", "x - x**2/2 + x**3/6", "x", "0", 3, {})
