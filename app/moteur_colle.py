@@ -7,6 +7,9 @@ NATURES_PAR_PHASE = {"cours": ("definition", "theoreme"), "demonstration": ("dem
 OBJECTIFS_PHASE = {"cours": (1, 1), "demonstration": (1, 1), "applications": (1, 1), "exercices": (3, 3)}
 LIMITE_TENTATIVES = 2
 SEUIL_NOTION_FRAGILE = 2
+BAREME = (("cours", "Question de cours", 3), ("demonstration", "Démonstration", 4),
+          ("applications", "Application du cours", 5), ("exercices", "Exercice 1", 3),
+          ("exercices", "Exercice 2", 3), ("exercices", "Exercice 3", 2))
 ERREURS = {"calcul", "raisonnement", "concept", "hypothese_ou_domaine", "notation",
            "justification_insuffisante", "reponse_incomplete", "hors_sujet", "aucune", "non_determinable"}
 
@@ -30,17 +33,16 @@ def valider_evaluation(ev, notions=None):
     return deepcopy(ev)
 
 
+def postes_bilan(taches):
+    """Les six postes fixes ; un score absent ne décale pas les exercices suivants."""
+    par_phase = {p: iter([t for t in taches if t["etape"] == p]) for p in PHASES}
+    return [(libelle, points, next(par_phase[phase], None)) for phase, libelle, points in BAREME]
+
+
 def note_bilan(taches):
-    """Barème 6/4/5/5, renormalisé sur les seules phases avec des tâches notées."""
-    poids = {"cours": 6, "demonstration": 4, "applications": 5, "exercices": 5}
-    notes = {}
-    for phase in PHASES:
-        scores = [t["score"] for t in taches if t["etape"] == phase and t.get("score") is not None]
-        if scores:
-            notes[phase] = sum(scores) / len(scores)
-    if not notes:
-        return None
-    return round(20 * sum(poids[p] * n for p, n in notes.items()) / sum(poids[p] for p in notes), 1)
+    """Somme sur 20, sans redistribution des points des tâches non traitées."""
+    return round(sum(points * (t.get("score") or 0) for _, points, t in postes_bilan(taches)
+                     if t is not None), 1)
 
 
 def calculer_score(ev, indices=0, tentatives=1, reponse_donnee=False):
@@ -50,7 +52,7 @@ def calculer_score(ev, indices=0, tentatives=1, reponse_donnee=False):
         return None
     base = .7 * {"correcte": 1, "incomplete": .6, "incorrecte": .2}[ev["verdict"]]
     base += .3 * {"solide": 1, "partielle": .5, "absente": 0}[ev["intuition"]]
-    score = max(0, base - .15 * indices - .05 * max(0, tentatives - 1))
+    score = base * .9 ** indices
     return round(min(.25 if reponse_donnee else 1, score), 4)
 
 
@@ -176,7 +178,7 @@ def appliquer_tour(tache, message, intention, ev=None):
             scores = [s["score"] for s in elements if s["score"] is not None]
             score = sum(scores) / len(scores) if scores else None
             if score is not None and tache["etape_active"] >= 0:
-                score = max(0, score - .15 * tache["autonome"]["indices"])
+                score *= .9 ** tache["autonome"]["indices"]
             if score is not None and tache["reponse_donnee_par_agent"]:
                 score = min(.25, score)
             tache.update(score=round(score, 4) if score is not None else None,

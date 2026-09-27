@@ -56,6 +56,15 @@ prompt = """
 
 Le contexte distingue les anciennes réponses de l'élève, le nouveau message et
 les aides du colleur. Évalue l'ensemble du travail de l'élève sur l'élément actif,
+en tenant compte de toutes ses interventions sur la tâche : première réponse,
+reprises après indice et précisions successives. Le dernier message complète les
+précédents ; il ne les remplace pas. Une idée juste donnée au premier message
+reste acquise si l'élève précise seulement un point lors d'une relance : ne lui
+demande pas de répéter les éléments déjà établis. Utilise aussi les contributions
+pertinentes de sa tentative autonome quand l'exercice est ensuite décomposé.
+N'attribue pas à l'élève les réponses fournies par le colleur. Recevoir un indice
+n'est pas un échec : juge la compréhension cumulée, sans pénalité d'aide dans le
+verdict ou l'intuition (cette pénalité est appliquée uniquement par le code),
 en intégrant ses rectifications. Les résultats des étapes précédentes servent
 de données : leur répétition n'est pas une réussite de l'élément actif.
 Juge uniquement l'élément demandé, pas les étapes futures d'un exercice.

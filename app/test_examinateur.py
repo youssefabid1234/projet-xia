@@ -58,6 +58,39 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.ouverture["question"]["texte"], self.colle.tache["question"])
         self.assertEqual(self.client.appels, [])
 
+    async def test_evaluation_cumulee_apres_relance_et_reconnexion(self):
+        self.colle.appliquer("Les sommes partielles convergent", "reponse", evaluation("incomplete"))
+        reprise = Colle.from_dict(self.colle.to_dict(), self.chemin, EXERCICES, BANQUE)
+        exam = Examinateur(reprise, ServicesSimples(self.client), self.cache)
+        self.client.evaluations = [CORRECT]
+        await exam.evaluer(self.client, "Vers une limite finie")
+        prompt = self.client.appels[-1]["input"][0]["content"]
+        reponse = prompt.split('<reponse_eleve', 1)[1].split('</reponse_eleve>', 1)[0]
+        self.assertIn("Les sommes partielles convergent", reponse)
+        self.assertIn("Vers une limite finie", reponse)
+        self.assertLess(reponse.index("sommes partielles"), reponse.index("limite finie"))
+        reprise.appliquer("Vers une limite finie", "reponse", CORRECT)
+        self.assertEqual(reprise.taches[0]["score"], 1)
+
+    async def test_tentative_autonome_conservee_dans_evaluation_etape(self):
+        self.colle.ouvrir_exercice(EXERCICES[0], {"enonce": "Q", "corrige": "R"}, PLAN)
+        self.colle.appliquer("Mon idée initiale", "reponse", evaluation("incomplete"))
+        self.colle.appliquer("Un indice", "demande_indice", None)
+        self.client.evaluations = [CORRECT]
+        await self.examinateur.evaluer(self.client, "Ma précision")
+        prompt = self.client.appels[-1]["input"][0]["content"]
+        self.assertIn("Mon idée initiale", prompt)
+        self.assertIn("Ma précision", prompt)
+
+    async def test_temps_ecoule_distingue_non_atteintes_et_echecs(self):
+        self.colle.debut = 0
+        evts = await evenements(self.examinateur.bilan())
+        texte = self.texte(evts)
+        self.assertIn("**Note : 0/20**", texte)
+        self.assertIn("interrompue, pas un échec", texte)
+        self.assertIn("Exercice 3 : **0/2 point(s)** — non atteinte faute de temps, pas un échec", texte)
+        self.assertIn("aucune tâche notée sous ce seuil", texte)
+
     async def test_reponse_juste_valide_et_affiche_la_question_suivante(self):
         self.client.intentions = ["reponse"]
         self.client.evaluations = [CORRECT]
@@ -174,7 +207,7 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
         await evenements(self.examinateur.tour("Ma définition"))
         self.client.textes = ["**Points forts** Le cours."]
         evts = await evenements(self.examinateur.bilan())
-        self.assertIn("**Note : 20/20**", self.texte(evts))
+        self.assertIn("**Note : 3/20**", self.texte(evts))
         self.assertTrue(evts[-1]["etat"]["terminee"])
         self.assertIn("100 %", self.texte(evts))
         self.assertIn("interrompue", self.texte(evts))
@@ -213,7 +246,7 @@ class ExaminateurTests(unittest.IsolatedAsyncioTestCase):
         appels = [a for a in self.client.appels if a.get("text", {}).get("format", {}).get("name") == "evaluation"]
         self.assertEqual(len(appels), 3)
         self.assertNotIn("CORRIGE_ENTIER_PRIVE", appels[0]["input"][0]["content"])
-        self.assertNotIn("encore faux", appels[-1]["input"][0]["content"])
+        self.assertIn("encore faux", appels[-1]["input"][0]["content"])
 
     async def test_indetermination_sans_essai_et_reussite_etape(self):
         self.colle.ouvrir_exercice(EXERCICES[0], {"enonce": "ENTIER", "corrige": "C"}, PLAN)

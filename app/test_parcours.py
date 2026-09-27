@@ -58,11 +58,18 @@ class ParcoursTests(unittest.TestCase):
         self.assertEqual(profil.to_dict(), avant)
         self.assertFalse(archive["acquise"])
 
-    def test_note_determinee_et_taches_non_notees_ignorees(self):
-        self.assertIsNone(note_bilan([]))
-        self.assertEqual(note_bilan([dict(etape="cours", score=.5)]), 10)
-        self.assertEqual(note_bilan([dict(etape="cours", score=1), dict(etape="demonstration", score=0)]), 12)
-        self.assertEqual(note_bilan([dict(etape="cours", score=1), dict(etape="exercices", score=None)]), 20)
+    def test_note_fixe_sans_renormalisation(self):
+        self.assertEqual(note_bilan([]), 0)
+        self.assertEqual(note_bilan([dict(etape="cours", score=.5)]), 1.5)
+        self.assertEqual(note_bilan([dict(etape="cours", score=1), dict(etape="demonstration", score=0)]), 3)
+        self.assertEqual(note_bilan([dict(etape="cours", score=1), dict(etape="exercices", score=None)]), 3)
+        phases = ["cours", "demonstration", "applications"] + ["exercices"] * 3
+        taches = [dict(etape=p, score=1) for p in phases]
+        self.assertEqual(note_bilan(taches), 20)
+        for i, points in enumerate([3, 4, 5, 3, 3, 2]):
+            avec_absence = [dict(t) for t in taches]
+            avec_absence[i]["score"] = None
+            self.assertEqual(note_bilan(avec_absence), 20 - points)
 
     def test_toutes_les_questions_reelles_ont_des_notions_canoniques(self):
         config = COLLES[CHAPITRE_SERIES]

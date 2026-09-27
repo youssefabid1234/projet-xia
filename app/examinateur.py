@@ -224,7 +224,7 @@ class Examinateur:
     async def evaluer(self, client, message):
         tache = self.colle.tache
         actif = element_actif(tache)
-        return await evaluer(actif.get("question", tache["question"]), message,
+        return await evaluer(actif.get("question", tache["question"]), self.colle.reponse_cumulee(message),
             actif.get("reponse", tache["reference"]), contexte=self.colle.contexte_evaluation(),
             openai=client, pipelex=await self.services.pipelex() if evaluateur() == "pipelex" else None)
 
@@ -422,9 +422,9 @@ class Examinateur:
             yield {"type": "etat", "etat": colle.etat()}
             return
         note = note_bilan(colle.taches)
-        texte = (f"**Note : {note:g}/20**\n\n" if note is not None else
-                 "Aucune tâche notée n'a été terminée : pas de note pour cette colle.\n\n")
-        texte += compte_rendu(colle.taches, LIBELLES, interrompue=colle.tache is not None)
+        texte = f"**Note : {note:g}/20**\n\n"
+        texte += compte_rendu(colle.taches, LIBELLES, interrompue=colle.tache,
+                              temps_ecoule=colle.temps_restant() == 0)
         texte += "\n\n" + (self.message_fin() if colle.temps_restant() == 0 or colle.tache is None
                             else "La colle est terminée. Merci pour votre travail, au revoir.")
         yield {"type": "texte", "texte": "\n\n" + texte}

@@ -215,7 +215,7 @@ class Colle:
             "blocages": 0, "statut": "active", "notions": [], **extra}, plan)
 
     def reponse_cumulee(self, message=None):
-        reponses = element_actif(self.tache)["reponses"] + ([message] if message else [])
+        reponses = self.tache["reponses"] + ([message] if message else [])
         if len(reponses) == 1:
             return reponses[0]
         return "\n\n".join(f"Intervention {i} : {texte}" for i, texte in enumerate(reponses, 1))
@@ -226,6 +226,8 @@ class Colle:
         precedentes = t["etapes_resolution"][:max(0, t["etape_active"])]
         return {"retour_attendu": "Dans explication, adressez-vous à l'élève : identifiez précisément ce qui manque ou est faux dans sa réponse et expliquez pourquoi, avant toute piste de correction. Ne donnez pas la réponse attendue ni de référence documentaire.",
                 "reponses_precedentes": actif["reponses"], "aides": actif["aides"],
+                "interventions_tache": [{"element": e["element"], "reponse": e["message"]}
+                                        for e in t["evaluations"] if "element" in e and "message" in e],
                 "tentatives": actif["tentatives"], "indices": actif["indices"],
                 "etape_active": t["etape_active"],
                 "resultats_precedents": [{"resultat": s["reponse"], "donne_par_agent": s["reponse_donnee"]}

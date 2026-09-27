@@ -5,6 +5,13 @@ interroge l’élève sur le cours, lui fait démontrer un résultat, puis lui d
 des exercices adaptés à son niveau. Il fait chercher, donne des indices gradués,
 corrige si besoin et termine par une note indicative sur 20 et un bilan.
 
+Le barème reste fixe : question de cours sur 3, démonstration sur 4,
+application du cours sur 5, puis exercices sur 3, 3 et 2 points.
+Chaque tâche rapporte son barème multiplié par son score ; les tâches non
+atteintes rapportent zéro sans être présentées comme des échecs.
+L'évaluation cumule les réponses et précisions de l'élève sur la tâche.
+Chaque indice multiplie le score par 0,9, sans pénalité supplémentaire de reprise.
+
 - `app/` : moteur de colle, colleur (LLM), évaluation, profils, interface web, tuteur en terminal.
 - `methods/` : méthodes Pipelex (évaluation d’une réponse, ancienne décision de progression).
 - `data/` : cours indexé, banque de questions de cours, catalogue d’exercices et leur vérification.

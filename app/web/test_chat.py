@@ -155,11 +155,11 @@ class ChatTests(unittest.TestCase):
         evenements = self.flux(self.api("/api/bilan"))
         self.assertTrue(evenements[-1]["etat"]["terminee"])
         profil = Profil.charger(self.root / "profils" / "test.json")
-        self.assertIn("**Note : 20/20**", profil.colles[0]["bilan"])
+        self.assertIn("**Note : 3/20**", profil.colles[0]["bilan"])
         self.assertIn("100 %", profil.colles[0]["bilan"])
         accueil = self.api("/api/nouvelle").get_json()
         self.assertIsNone(accueil["etat"])
-        self.assertIn("20/20", accueil["anciennes"][0]["bilan"])
+        self.assertIn("3/20", accueil["anciennes"][0]["bilan"])
         self.assertFalse((self.root / "profils" / "test.colle.json").exists())
         self.assertEqual(self.api("/api/colle", {"chapitre": 0}).status_code, 200)
 
@@ -198,11 +198,12 @@ class ChatTests(unittest.TestCase):
         self.assertFalse(archive["acquise"])
         self.assertLessEqual(archive["score"], .25)
 
-    def test_bilan_sans_travail_ne_fabrique_pas_de_note(self):
+    def test_bilan_sans_travail_zero_sans_echec(self):
         self.demarrer()
         evts = self.flux(self.api("/api/bilan"))
         texte = "".join(e["texte"] for e in evts if e["type"] == "texte")
-        self.assertIn("pas de note", texte)
+        self.assertIn("**Note : 0/20**", texte)
+        self.assertIn("pas un échec", texte)
         self.assertFalse(self.openai.appels)
 
 

@@ -81,7 +81,7 @@ class CorrectionsTests(unittest.IsolatedAsyncioTestCase):
         evts = await evenements(exam.tour("suite"))
         self.assertTrue(c.terminee)
         self.assertIn("au revoir", c.bilan)
-        self.assertIn("20/20", c.bilan)
+        self.assertIn("8/20", c.bilan)
         self.assertFalse(client.appels)
         self.assertNotIn("question", [e["type"] for e in evts])
 
@@ -135,3 +135,4 @@ class CorrectionsTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual([t["etape"] for t in c.taches],
                          ["cours", "demonstration", "applications", "exercices", "exercices", "exercices"])
         self.assertEqual(len(Profil.charger(self.path).colles), 1)
+        self.assertIn("20/20", c.bilan)

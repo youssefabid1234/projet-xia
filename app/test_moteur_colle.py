@@ -23,7 +23,11 @@ class MoteurTests(unittest.TestCase):
     def test_score_comprehension_aide_et_indetermination(self):
         e = evaluation()
         self.assertEqual(calculer_score(e), 1)
-        self.assertLess(calculer_score(e, indices=1), 1)
+        self.assertEqual(calculer_score(e, indices=1, tentatives=2), .9)
+        self.assertEqual(calculer_score(e, indices=2), .81)
+        self.assertEqual(calculer_score(e, tentatives=3), 1)
+        self.assertAlmostEqual(calculer_score(evaluation("incomplete"), indices=1),
+                               calculer_score(evaluation("incomplete")) * .9)
         self.assertGreater(calculer_score(evaluation("incomplete")), .5)
         self.assertLessEqual(calculer_score(e, reponse_donnee=True), .25)
         self.assertIsNone(calculer_score(evaluation("indeterminable")))
@@ -44,7 +48,7 @@ class MoteurTests(unittest.TestCase):
         self.assertEqual(element_actif(t)["tentatives"], 0)
         appliquer_tour(t, "4", "reponse", evaluation())
         self.assertTrue(t["acquise"])
-        self.assertLess(t["score"], 1)
+        self.assertEqual(t["score"], .9)
 
     def test_deux_essais_par_element_et_correction_non_acquise(self):
         t = tache(PLAN)
