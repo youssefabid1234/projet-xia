@@ -9,6 +9,21 @@ Ouvrir http://localhost:8000/, cliquer « Démo ». Clés dans `kholle_live/.env
 La clé Gradium n'accepte que 2 sessions à la fois, et une khôlle les prend toutes les deux (transcription + voix) :
 une seule khôlle ouverte à la fois.
 
+## Avant la démo
+
+Depuis `kholle_live`, serveur arrêté :
+
+1. Remettre le profil à zéro : `data/profile.json` doit contenir exactement
+   `{"eleve": null, "faiblesses": {}, "historique": []}` (c'est la version du dépôt) :
+   ```
+   git checkout -- data/profile.json
+   ```
+2. Vider `data/reports/` en gardant son `.gitignore` (PowerShell) :
+   ```
+   Get-ChildItem data\reports\* -Exclude .gitignore -Force | Remove-Item
+   ```
+3. Aucune autre khôlle ouverte (onglet, test) : la clé Gradium n'accepte que 2 sessions.
+
 ## Réglages de la voix
 
 | Réglage | Valeur | Où | Effet |
