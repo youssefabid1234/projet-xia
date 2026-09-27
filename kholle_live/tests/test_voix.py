@@ -206,6 +206,9 @@ def test_kholle_vocale(fausse):
         assert cfg.silence_timeout_s == 12.0
         assert json.loads(cfg.llm_extra_config)["parallel_tool_calls"] is False
         assert [t.name for t in cfg.tools] == list(outils.EXECUTER)
+        stt = json.loads(cfg.stt_extra_config)
+        assert {"ln", "logarithme", "Logarithme", "cube"} <= set(stt["keywords"]["words"])
+        assert "language" not in stt  # gradbot la met à « fr » ; ne pas l'écraser
         assert "Donnez-moi le développement limité" in cfg.instructions
 
         # Transcription : répliques regroupées, relayées au navigateur.

@@ -154,6 +154,18 @@
       return bulle;
     }
 
+    // Projecteur seulement : ce que la transcription entend de travers. Le LLM reçoit le texte brut.
+    const mot = (s) => new RegExp(`(?<![\\p{L}])${s}(?![\\p{L}])`, "gu");
+    const CORRECTIONS = [
+      [mot("[Ee]lle haine"), "ln"],
+      [mot("[Ii]x (carré|cube)"), "x $1"],
+      [mot("[Ss]ix x"), "sin x"],
+      [mot("petit (taux|eau|au)"), "petit o"],
+      [mot("([Ll])'l(ogarithme)"), "$1$2"],
+      [mot("X"), "x"],
+    ];
+    const corriger = (t) => CORRECTIONS.reduce((t, [motif, par]) => t.replace(motif, par), t);
+
     // Même regroupement que fantasy_shop : une bulle par tour du khôlleur,
     // une bulle élève tant que le khôlleur n'a pas repris la parole.
     function surTexte({ text, turnIdx, isUser }) {
@@ -161,11 +173,14 @@
       if (isUser) {
         if (!bulleEleve || kholleurDepuis) { bulleEleve = nouvelleBulle("eleve"); kholleurDepuis = false; }
         bulle = bulleEleve;
+        // Sur toute la réplique : « elle » et « haine » arrivent en deux morceaux.
+        bulle.brut = (bulle.brut || "") + text + " ";
+        bulle.lastChild.textContent = corriger(bulle.brut);
       } else {
         bulle = bulles[turnIdx] ||= nouvelleBulle("kholleur");
         kholleurDepuis = true;
+        bulle.lastChild.textContent += text + " ";
       }
-      bulle.lastChild.textContent += text + " ";
       defiler();
     }
 

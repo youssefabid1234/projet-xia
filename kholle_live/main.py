@@ -90,6 +90,23 @@ def transcription(replique: Replique):
 # au démarrage et {"type": "outil", "nom", "resultat"} après chaque outil.
 
 
+# Vocabulaire favorisé par la transcription Gradium : mots isolés, casse et accents comptent.
+# Pas de « o » seul : il prendrait la place de « au » (« x au cube »).
+VOCABULAIRE = (
+    "logarithme népérien ln sinus cosinus tangente exponentielle carré cube puissance petit grand "
+    "développement limité DL équivalent dérivée voisinage ordre coefficient reste x Taylor Young"
+).split()
+
+
+def stt_config() -> str:
+    """json_config de la transcription (la langue, « fr », est ajoutée par gradbot)."""
+    mots = VOCABULAIRE + [m.capitalize() for m in VOCABULAIRE if m.islower() and len(m) > 2]
+    extra = {"keywords": {"words": mots, "boost": float(os.environ.get("STT_KEYWORDS_BOOST", 3))}}
+    if delai := os.environ.get("STT_DELAY_FRAMES"):
+        extra["delay_in_frames"] = int(delai)
+    return json.dumps(extra | (CONFIG.stt.extra_config or {}))
+
+
 def session_config(instructions: str, *, premiere: bool) -> gradbot.SessionConfig:
     langue = gradbot.LANGUAGES["fr"]
     voix = os.environ.get("KHOLLEUR_VOICE_ID") or gradbot.flagship_voice("Gaspard").voice_id
@@ -100,6 +117,7 @@ def session_config(instructions: str, *, premiere: bool) -> gradbot.SessionConfi
         **CONFIG.session_kwargs
         | {
             "llm_extra_config": json.dumps(llm_extra),
+            "stt_extra_config": stt_config(),
             "voice_id": voix,
             "instructions": instructions,
             "language": langue,
