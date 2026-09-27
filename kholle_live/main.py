@@ -85,7 +85,8 @@ def transcription(replique: Replique):
 # gradbot.run() (et non handle_session) : il faut garder la poignée d'entrée
 # pour pousser une nouvelle config quand le tableau change.
 # Protocole client : {"type": "start"}, trames audio Opus, {"type": "stop"}.
-# En plus des messages gradbot, le serveur envoie {"type": "outil", "nom", "resultat"}.
+# En plus des messages gradbot, le serveur envoie {"type": "session", "id", "exercise_id"}
+# au démarrage et {"type": "outil", "nom", "resultat"} après chaque outil.
 
 
 def session_config(instructions: str, *, premiere: bool) -> gradbot.SessionConfig:
@@ -293,8 +294,10 @@ async def ws_chat(websocket: fastapi.WebSocket):
         return
 
     _en_cours = k
-    logger.info("Khôlle vocale démarrée (session %s)", state.get_session().id)
+    s = state.get_session()
+    logger.info("Khôlle vocale démarrée (session %s)", s.id)
     try:
+        await websocket.send_json({"type": "session", "id": s.id, "exercise_id": s.exercise_id})
         await asyncio.gather(k.boucle_sortie(sortie), k.boucle_entree())
     finally:
         if _en_cours is k:

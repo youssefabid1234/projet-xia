@@ -176,9 +176,10 @@ def test_kholle_vocale(fausse):
     ancienne = state.get_session().id
     with client.websocket_connect("/ws/chat") as ws:
         ws.send_json({"type": "start"})
-        attendre(lambda: fausse.config_initiale is not None)
+        debut = ws.receive_json()
         s = state.get_session()
-        assert s.id != ancienne and s.exercise_id == "dl_ln_sin"
+        assert debut == {"type": "session", "id": s.id, "exercise_id": "dl_ln_sin"}
+        assert s.id != ancienne
 
         cfg = fausse.config_initiale
         assert cfg.voice_id == gradbot.flagship_voice("Gaspard").voice_id

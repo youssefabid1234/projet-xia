@@ -8,28 +8,299 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/katex.min.js" crossorigin="anonymous"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.18.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
   <style>
-    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
-    header { grid-column: 1 / -1; }
-    section { border: 1px solid #ccc; border-radius: 8px; padding: 1rem; min-height: 40vh; }
+    /* Palette de la v1 (app/web/static/colle.css). Lisible au vidéoprojecteur : grands corps, fort contraste. */
+    :root {
+      --fond: #f5f4ef; --surface: #ffffff; --encre: #1d2a30; --doux: #5b6870; --trait: #dde2dc;
+      --accent: #245c4f; --accent-fonce: #194b40; --accent-pale: #e7f0eb; --ambre: #b7791f;
+      --erreur: #9b3a2c; --erreur-pale: #fbece7;
+      color-scheme: light;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-size: clamp(17px, 1.25vw, 24px);
+      line-height: 1.5; color: var(--encre); background: var(--fond);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fond: #101614; --surface: #171f1c; --encre: #e4ebe7; --doux: #9aa8a2; --trait: #29342f;
+        --accent: #5fae94; --accent-fonce: #7cc3aa; --accent-pale: #1c2a25; --ambre: #d9a44b;
+        --erreur: #f0a595; --erreur-pale: #2c1a16;
+        color-scheme: dark;
+      }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--fond); }
+    [hidden] { display: none !important; }
+    :focus-visible { outline: 3px solid var(--ambre); outline-offset: 3px; }
+
+    header { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.2rem;
+      padding: .8rem 1.5rem; border-bottom: 1px solid var(--trait); background: var(--surface); }
+    .marque { font-weight: 800; letter-spacing: -.02em; font-size: 1.2rem; margin: 0; }
+    .marque span { color: var(--accent); }
+    .etat { display: flex; align-items: center; gap: .6rem; margin-left: auto; font-weight: 600; }
+    .pastille { width: .8rem; height: .8rem; border-radius: 50%; background: var(--trait); flex: none; }
+    .etat.actif .pastille { background: var(--accent); animation: pouls 1.4s ease-in-out infinite; }
+    .etat.erreur { color: var(--erreur); }
+    .etat.erreur .pastille { background: var(--erreur); }
+    @keyframes pouls { 50% { opacity: .35; } }
+    .niveau { width: 5rem; height: .45rem; border-radius: 99px; background: var(--trait); overflow: hidden; }
+    .niveau i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 80ms linear; }
+    .minuteur { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent);
+      background: var(--accent-pale); padding: .1rem .7rem; border-radius: 99px; }
+    .boutons { display: flex; gap: .6rem; }
+    button { font: inherit; font-weight: 700; border-radius: 10px; padding: .55rem 1.2rem; cursor: pointer;
+      background: var(--accent); color: #fff; border: 2px solid var(--accent); }
+    @media (prefers-color-scheme: dark) { button { color: #0d1512; } }
+    button:hover { background: var(--accent-fonce); border-color: var(--accent-fonce); }
+    button.secondaire { background: transparent; color: var(--accent); }
+    button.secondaire:hover { background: var(--accent-pale); }
+    button.arret { background: var(--erreur); border-color: var(--erreur); }
+
+    .sujet { padding: 1rem 1.5rem 0; }
+    .sujet h1 { margin: 0 0 .3rem; font-size: 1rem; color: var(--doux); font-weight: 600;
+      text-transform: uppercase; letter-spacing: .08em; }
+    #enonce { margin: 0; font-size: 1.45rem; font-weight: 500; }
+    #question { margin: .6rem 0 0; font-size: 1.2rem; padding-left: .8rem; border-left: 4px solid var(--ambre); }
+
+    main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.2rem; padding: 1.2rem 1.5rem 1.5rem; }
+    main > section { background: var(--surface); border: 1px solid var(--trait); border-radius: 14px;
+      padding: 1rem 1.2rem; min-height: 40vh; min-width: 0; }
+    #report-panel { grid-column: 1 / -1; min-height: 0; }
+    #report-panel:empty { display: none; }
+    @media (max-width: 800px) { main { grid-template-columns: 1fr; } }
+
+    #transcription { display: flex; flex-direction: column; gap: .7rem; max-height: 62vh; overflow-y: auto; }
+    .vide { color: var(--doux); margin: auto; text-align: center; }
+    .replique { max-width: 88%; padding: .6rem .9rem; border-radius: 14px; }
+    .replique b { display: block; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+    .replique.kholleur { background: var(--accent-pale); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .replique.kholleur b { color: var(--accent); }
+    .replique.eleve { background: var(--fond); border: 1px solid var(--trait); align-self: flex-end;
+      border-bottom-right-radius: 4px; }
+    .replique.eleve b { color: var(--doux); }
+    .note { align-self: center; font-size: .85rem; font-weight: 600; color: var(--ambre); }
   </style>
 </head>
 <body>
   <header>
+    <p class="marque">Khôlle <span>live</span></p>
+    <div class="etat" id="etat" role="status"><span class="pastille"></span><span id="statut">Prêt</span></div>
+    <div class="niveau" id="niveau" title="Niveau du micro" hidden><i></i></div>
+    <span class="minuteur" id="minuteur" hidden>00:00</span>
+    <div class="boutons">
+      <button id="demarrer">Démarrer la khôlle</button>
+      <button id="demo" class="secondaire">Démo</button>
+      <button id="arreter" class="arret" hidden>Arrêter</button>
+    </div>
+  </header>
+
+  <div class="sujet">
     <h1 id="titre">Khôlle</h1>
     <p id="enonce"></p>
-    <!-- TODO(A) : micro + transcription sur /ws/kholle (worklets audio sous /static/js/). -->
-  </header>
-  <section id="board-panel"></section>
-  <section id="report-panel"></section>
+    <p id="question" hidden></p>
+  </div>
 
+  <main>
+    <section aria-label="Transcription">
+      <div id="transcription"><p class="vide">Cliquez sur « Démarrer la khôlle » : le khôlleur prend la parole.</p></div>
+    </section>
+    <section id="board-panel"></section>
+    <section id="report-panel"></section>
+  </main>
+
+  <!-- Audio gradbot : servi sous /static/js/ par gradbot.routes.setup. -->
+  <script src="/static/js/opus-encoder.js"></script>
+  <script src="/static/js/audio-processor.js"></script>
+  <script src="/static/js/synced-audio-player.js"></script>
   <script>
-    fetch("/api/exercise").then(r => r.json()).then(ex => {
-      document.getElementById("titre").textContent = ex.titre;
-      const enonce = document.getElementById("enonce");
-      enonce.textContent = ex.enonce_latex;
-      const rendre = () => renderMathInElement(enonce, { delimiters: [{ left: "$", right: "$", display: false }] });
+    // Événements pour les autres panneaux : kholle:debut {id, exercise_id}, kholle:outil {nom, resultat}, kholle:fin.
+    const $ = (id) => document.getElementById(id);
+    const signaler = (nom, detail) => window.dispatchEvent(new CustomEvent(nom, { detail }));
+    let pcm = false;
+    fetch("/api/audio-config").then((r) => r.json()).then((c) => { pcm = c.pcm; });
+    AudioProcessor.preloadDecoder("/static/js");
+
+    let ws = null, player = null, enregistre = false, debut = 0, horloge = null;
+    let finDemandee = false, secours = null;
+
+    // ── Sujet ────────────────────────────────────────────
+    async function chargerExercice() {
+      const ex = await (await fetch("/api/exercise")).json();
+      $("titre").textContent = ex.titre;
+      $("enonce").textContent = ex.enonce_latex;
+      afficherQuestion(ex.question);
+      const rendre = () => renderMathInElement($("enonce"), { delimiters: [{ left: "$", right: "$", display: false }] });
       window.renderMathInElement ? rendre() : window.addEventListener("load", rendre);
-    });
+    }
+
+    function afficherQuestion(q) {
+      $("question").hidden = !q;
+      $("question").textContent = q ? "Question suivante : " + q : "";
+    }
+
+    // ── Transcription ────────────────────────────────────
+    let bulles = {}, bulleEleve = null, kholleurDepuis = false;
+
+    function viderTranscription() {
+      $("transcription").replaceChildren();
+      bulles = {}; bulleEleve = null; kholleurDepuis = false;
+    }
+
+    function nouvelleBulle(qui) {
+      const bulle = document.createElement("div");
+      bulle.className = "replique " + qui;
+      const nom = document.createElement("b");
+      nom.textContent = qui === "eleve" ? "Élève" : "Khôlleur";
+      bulle.append(nom, document.createElement("span"));
+      $("transcription").append(bulle);
+      return bulle;
+    }
+
+    // Même regroupement que fantasy_shop : une bulle par tour du khôlleur,
+    // une bulle élève tant que le khôlleur n'a pas repris la parole.
+    function surTexte({ text, turnIdx, isUser }) {
+      let bulle;
+      if (isUser) {
+        if (!bulleEleve || kholleurDepuis) { bulleEleve = nouvelleBulle("eleve"); kholleurDepuis = false; }
+        bulle = bulleEleve;
+      } else {
+        bulle = bulles[turnIdx] ||= nouvelleBulle("kholleur");
+        kholleurDepuis = true;
+      }
+      bulle.lastChild.textContent += text + " ";
+      defiler();
+    }
+
+    function note(texte) {
+      const p = document.createElement("p");
+      p.className = "note";
+      p.textContent = texte;
+      $("transcription").append(p);
+      bulleEleve = null;
+      defiler();
+    }
+
+    const defiler = () => { $("transcription").scrollTop = $("transcription").scrollHeight; };
+
+    // ── Messages du serveur (hors audio et texte) ────────
+    function surEvenement(type, msg) {
+      if (type === "outil") return surOutil(msg.nom, msg.resultat);
+      if (type === "session") {
+        // Session neuve côté serveur : les panneaux se remettent à zéro.
+        chargerExercice();
+        return signaler("kholle:debut", { id: msg.id, exercise_id: msg.exercise_id });
+      }
+      // Fin demandée : on coupe quand l'audio du khôlleur a fini de jouer.
+      if (type === "end_tts_audio" && finDemandee && player) player.scheduleEndOfTurn();
+    }
+
+    function surOutil(nom, resultat) {
+      signaler("kholle:outil", { nom, resultat });
+      if (nom === "donner_indice") {
+        note(resultat.niveau ? `Indice n° ${resultat.niveau}` : "Plus d'indice disponible");
+      } else if (nom === "question_suivante" && resultat.question) {
+        note("Question suivante");
+        afficherQuestion(resultat.question);
+      } else if (nom === "terminer_colle") {
+        note("Fin de la khôlle");
+        finDemandee = true;
+        enregistre = false;
+        statut("Khôlle terminée, compte-rendu en préparation…");
+        secours = setTimeout(() => arreter("Khôlle terminée"), 12000);
+        signaler("kholle:fin", {});
+      }
+    }
+
+    // ── Session ──────────────────────────────────────────
+    function statut(texte, classe = "") {
+      $("statut").textContent = texte;
+      $("etat").className = "etat " + classe;
+    }
+
+    function enCours(oui) {
+      $("demarrer").hidden = $("demo").hidden = oui;
+      $("arreter").hidden = $("niveau").hidden = $("minuteur").hidden = !oui;
+    }
+
+    async function demarrer() {
+      viderTranscription();
+      finDemandee = false;
+      player = new SyncedAudioPlayer({
+        basePath: "/static/js",
+        sampleRate: 24000,
+        pcmOutput: pcm,
+        echoCancellation: true,
+        onEncodedAudio: (opus) => { if (enregistre && ws?.readyState === WebSocket.OPEN) ws.send(opus); },
+        onText: surTexte,
+        onEvent: surEvenement,
+        onError: (e) => arreter("Erreur : " + e.message, "erreur"),
+        onEndOfTurn: () => { if (finDemandee) arreter("Khôlle terminée"); },
+      });
+      try {
+        statut("Ouverture du micro…");
+        await player.start();
+      } catch (e) {
+        player = null;
+        return statut("Micro refusé ou indisponible", "erreur");
+      }
+
+      const proto = location.protocol === "https:" ? "wss:" : "ws:";
+      ws = new WebSocket(`${proto}//${location.host}/ws/chat`);
+      ws.onopen = () => {
+        ws.send(JSON.stringify({ type: "start" }));
+        enregistre = true;
+        enCours(true);
+        statut("En cours : parlez au khôlleur", "actif");
+        debut = Date.now();
+        horloge = setInterval(tic, 250);
+        requestAnimationFrame(mesurer);
+      };
+      ws.onmessage = (e) => player?.handleMessage(e.data);
+      ws.onerror = () => statut("Connexion perdue", "erreur");
+      ws.onclose = async () => {
+        if (player) await player.drain();
+        ws = null;
+        // Après terminer_colle, on laisse l'audio finir (onEndOfTurn ou minuterie de secours).
+        if (!finDemandee && player) arreter("Connexion terminée");
+      };
+    }
+
+    function arreter(message = "Arrêté", classe = "") {
+      enregistre = false;
+      clearTimeout(secours);
+      clearInterval(horloge);
+      if (ws?.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: "stop" }));
+        ws.close();
+      }
+      ws = null;
+      player?.stop();
+      player = null;
+      enCours(false);
+      statut(message, classe);
+    }
+
+    async function demo() {
+      await fetch("/api/session/new", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+      await chargerExercice();
+      demarrer();
+    }
+
+    function tic() {
+      const s = Math.floor((Date.now() - debut) / 1000);
+      $("minuteur").textContent = `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+    }
+
+    function mesurer() {
+      const niveaux = player?.audioProcessor?.getInputLevels();
+      if (!niveaux) return;
+      const moyenne = niveaux.reduce((a, b) => a + b, 0) / (niveaux.length || 1);
+      $("niveau").firstChild.style.width = Math.min(100, moyenne * 1.5) + "%";
+      requestAnimationFrame(mesurer);
+    }
+
+    $("demarrer").addEventListener("click", demarrer);
+    $("demo").addEventListener("click", demo);
+    $("arreter").addEventListener("click", () => arreter());
+    chargerExercice();
   </script>
   <script src="/static/board_panel.js"></script>
   <script src="/static/report_panel.js"></script>
